@@ -6,9 +6,9 @@
   tags: ['sonic-visualiser']
 
 - name: install visualiser deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.visualiser | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.sonicvisualiser | join(' ') }}"
   when: item not in installed_packages
-  with_items: "{{ deps.visualiser }}"
+  with_items: "{{ deps.sonicvisualiser }}"
 
 - block:
     - name: clone sonic-visualiser

@@ -1,1 +1,2 @@
-lapbot.syncopatedstudios.net ansible_user=b08x ansible_become=true ansible_connection=local
+soundbot01 ansible_user=b08x ansible_become=true ansible_connection=local
+piratebot ansible_user=b08x ansible_become=true

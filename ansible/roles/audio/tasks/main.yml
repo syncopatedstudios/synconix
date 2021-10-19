@@ -61,9 +61,9 @@
   tags: ['TouchOSC']
   when: TouchOSC.install|bool
 
-# - include: raysession.yml
-#   tags: ['raysession']
-#   when: raysession|bool
+- include: raysession.yml
+  tags: ['raysession']
+  when: raysession|bool
 
 # - include: jalvselect.yml
 #   tags: ['jalvselect']

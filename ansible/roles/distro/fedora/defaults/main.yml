@@ -31,7 +31,6 @@ common:
   - atool
   - bat
   - exa
-  - googler
   - highlight
   - http-parser
   - lnav
@@ -58,7 +57,7 @@ ruby:
   - g++
   - git
   - libgit2-devel
-  - libsqlite3x-devel.x86_64
+  - libsqlite3x-devel
   - libxml2-devel
   - make
   - openssl-devel
@@ -177,6 +176,7 @@ x11:
   - xrdb
 i3:
   - arandr
+  - barrier
   - guake
   - i3
   - lightdm
@@ -284,3 +284,34 @@ deps:
     - wavpack
     - xzgv
     - youtube-dl
+  sonicvisualiser:
+    - bzip2-devel
+    - capnproto
+    - capnproto-devel
+    - fftw-devel
+    - libfishsound-devel
+    - libid3tag-devel
+    - liblo-devel
+    - liblrdf-devel
+    - libmad-devel
+    - liboggz-devel
+    - libsamplerate-devel
+    - libsndfile-devel
+    - libtool
+    - libxml2-devel
+    - mercurial
+    - meson
+    - ninja-build
+    - opusfile-devel
+    - polyml
+    - portaudio-devel
+    - qt5-qtsvg-devel
+    - raptor2-devel
+    - rubberband-devel
+    - sord-devel
+  swami:
+    - astyle
+    - astyle-devel
+    - fluidsynth-devel
+    - libgnomecanvas-devel
+    - libinstpatch-devel
