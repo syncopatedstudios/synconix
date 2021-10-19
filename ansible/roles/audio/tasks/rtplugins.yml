@@ -7,7 +7,7 @@
         dest: "{{ local_src }}"
         validate_certs: no
 
-    - name: extract baudline
+    - name: make install rtplugins
       shell: |
         tar -xvf {{ rtplugins.file }}
 
