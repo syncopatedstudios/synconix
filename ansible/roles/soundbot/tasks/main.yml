@@ -37,31 +37,14 @@
   become: True
   become_user: "{{ user.name }}"
 
-# - name: run bundle installer
-#   bundler:
-#     state: present
-#     chdir: /opt/soundbot
-#     user_install: no
-#   async: 1000
-#   poll: 1
-#   register: bundle_progress
-#   ignore_errors: True
-#   become: true
-#   become_user: "{{ user.name }}"
-
-# - debug:
-#     msg: "{{ bundle_progress }}"
-#
-# - name: Check on an async task
-#   async_status:
-#     jid: "{{ bundle_progress.ansible_job_id }}"
-#   register: job_result
-#   until: job_result.finished
-#   retries: 100
-#   delay: 2
-#   ignore_errors: True
-#   become: true
-#   become_user: "{{ user.name }}"
+- name: run bundle installer
+  bundler:
+    state: present
+    chdir: /opt/soundbot
+    user_install: no
+  ignore_errors: True
+  become: true
+  become_user: "{{ user.name }}"
 
 - include: annotator.yml
 

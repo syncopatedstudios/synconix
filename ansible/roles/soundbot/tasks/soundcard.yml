@@ -10,6 +10,12 @@
     backup: yes
     directory_mode: no
 
+- name: ensure pulseaudio config directory exists
+  shell: |
+    mkdir -pv {{ user.home }}/.config/pulse
+  become: True
+  become_user: "{{ user.name }}"
+
 - name: ensure pulseaudio configs are placed in ~/.config/pulse
   copy:
     src: "config/pulse/{{ item }}"
