@@ -28,6 +28,16 @@
     chdir: "{{ local_src }}/swallow"
   when: not haziswallow.stat.exists
 
+- name: Ensure i3 config directory exists
+  file:
+    path: "{{ user.home }}/.config/i3"
+    state: directory
+    mode: '0755'
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+  become: True
+  become_user: "{{ user.home }}"
+
 - name: push i3 config
   template:
     src: config/i3/config.j2
@@ -38,4 +48,3 @@
     backup: no
   become: True
   become_user: "{{ user.name }}"
-  
