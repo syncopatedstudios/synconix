@@ -1,0 +1,28 @@
+---
+
+- name: Ensure group "autologin" exists
+  group:
+    name: autologin
+    state: present
+    system: yes
+
+- name: add user to autologin group
+  user: name={{ user.name }} groups=autologin append=yes
+
+- name: put this file where it needs to be
+  copy:
+    src: etc/lightdm/Xsession
+    dest: /etc/lightdm/Xsession
+    directory_mode: yes
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: push lightdm conf
+  template:
+    src: etc/lightdm/lightdm.conf.j2
+    dest: /etc/lightdm/lightdm.conf
+    mode: '644'
+    owner: root
+    group: root
+    backup: yes

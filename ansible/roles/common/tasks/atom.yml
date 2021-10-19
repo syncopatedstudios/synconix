@@ -1,0 +1,30 @@
+---
+
+- name: check if atom is already installed
+  stat: path="/usr/bin/atom"
+  register: haziatom
+  check_mode: no
+
+- name: install atom package
+  action: >
+    {{ ansible_pkg_mgr }} name=atom state=latest update_cache=yes
+  when: not haziatom.stat.exists
+
+- block:
+    - name: gather list of installed apm packages
+      shell: |
+        apm list --installed --bare 2>&1 | xargs -0 | awk '{ print $1}'
+      register: apmlist
+      check_mode: no
+      ignore_errors: yes
+
+    - name: install atom plugins
+      shell: |
+        apm install {{ apm | join(' ') }}
+      args:
+        warn: no
+      when: item not in apmlist.stdout
+      with_items: "{{ apm }}"
+
+  become: True
+  become_user: "{{ user.name }}"

@@ -1,0 +1,40 @@
+---
+
+- name: check if jalv.select is already installed
+  stat: path="/usr/bin/jalv.select"
+  register: hazijalvselect
+  tags: ['jalvselect']
+
+- name: install jalvselect deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.jalvselect | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.jalvselect }}"
+
+- block:
+  - name: clone jalv-select
+    git:
+      repo: "https://github.com/brummer10/jalv_select.git"
+      dest: "{{ local_src }}/jalv_select"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: make and install jalv_select
+    shell: |
+      make
+      sleep 0.5
+      sudo make install
+    args:
+      chdir: "{{ local_src }}/jalv_select"
+    register: jalv_build
+
+  - name: touch installed
+    shell: |
+      touch .installed
+    args:
+      chdir: "{{ local_src }}/jalv_select"
+    when: "{{ jalv_build.rc }} == 0"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazijalvselect.stat.exists

@@ -1,0 +1,74 @@
+---
+
+- name: check if TouchOSC is already installed
+  stat: path="/usr/local/bin/TouchOSC"
+  register: haziTouchOSC
+  tags: ['TouchOSC']
+
+- block:
+    - name: fetch TouchOSC
+      get_url:
+        url: "{{ TouchOSC.url }}/{{ TouchOSC.file }}"
+        dest: "{{ local_src }}"
+      tags: ['TouchOSC']
+
+    - name: extract and install TouchOSC
+      shell: |
+        unzip {{ TouchOSC.file }}
+        mv TouchOSC /usr/local/bin/TouchOSC
+      args:
+        chdir: "{{ local_src }}"
+
+    - name: install TouchOSC and Protokol desktop entries
+      copy:
+        src: usr/local/share/applications/TouchOSC.desktop
+        dest: /usr/local/share/applications/TouchOSC.desktop
+        directory_mode: no
+        mode: '644'
+      tags: ['TouchOSC']
+      notify: "update desktop database"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: TouchOSC|bool and not haziTouchOSC.stat.exists
+
+- name: check if Protokol is already installed
+  stat: path="/usr/local/bin/Protokol"
+  register: haziProtokol
+  tags: ['TouchOSC']
+
+- block:
+    - name: fetch Protokol
+      get_url:
+        url: "{{ Protokol.url }}/{{ Protokol.file }}"
+        dest: "{{ local_src }}"
+      tags: ['Protokol']
+
+    - name: extract and install TouchOSC
+      shell: |
+        unzip {{ Protokol.file }}
+        mv Protokol /usr/local/bin/Protokol
+      args:
+        chdir: "{{ local_src }}"
+
+    - name: install Protokol and Protokol desktop entries
+      copy:
+        src: usr/local/share/applications/Protokol.desktop
+        dest: /usr/local/share/applications/Protokol.desktop
+        directory_mode: no
+        owner: root
+        group: root
+        mode: '644'
+      tags: ['Protokol']
+      notify: "update desktop database"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: Protokol|bool amd mot haziProtokol.stat.exists
+
+- name: enable avahi service
+  systemd:
+    name: avahi-daemon
+    enabled: yes
+  tags: ['TouchOSC', 'Protokol', 'systemd']
+  when: TouchOSC|bool or Protokol|bool

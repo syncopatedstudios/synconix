@@ -1,0 +1,40 @@
+---
+
+soundbot: "/opt/soundbot"
+ansible_home: "/opt/ansible"
+
+local_src: "/usr/local/src"
+local_bin: "/usr/local/bin"
+
+# user_groups:
+#   - name: home
+#     gid: 1041
+
+user:
+  name: b08x
+  home: /home/b08x
+  gnupg: /home/b08x/.gnupg
+  uid: 1000
+  gid: 1000
+  group: b08x
+  secondary_groups: "input,video,audio"
+  shell: zsh
+  zsh: /usr/share/oh-my-zsh
+  email: rwpannick@gmail.com
+  password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.
+
+path:
+  - "{{ user.home }}/.local/bin"
+  - "{{ user.home }}/.cargo/bin"
+  - "{{ user.home }}/.gem/ruby/3.0.0/bin"
+  - "/var/lib/gems/2.7.0/bin"
+  - "/usr/lib/jvm/default/bin"
+  - "/opt/sonic-pi/bin"
+
+terminal: xterm
+
+dots:
+  remote: git@github.com:b08x/dots
+  home: "{{ user.home }}/.dots"
+  backup: "{{ user.home }}/.dotsbackup"
+  untracked: False

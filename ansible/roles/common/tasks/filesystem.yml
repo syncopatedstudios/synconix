@@ -1,0 +1,50 @@
+---
+
+- name: Check if btrfs is being used
+  shell: blkid | grep btrfs
+  register: btrfs_exists
+  check_mode: no
+  ignore_errors: True
+
+- block:
+    - name: Install btrfsmaintenance
+      action: "{{ ansible_pkg_mgr }} name=btrfsmaintenance state=present"
+      when: "'btrfsmaintenance' not in installed_packages"
+
+    - name: Enable and/or start btrfs-scrub@-.timer
+      systemd: enabled=yes state=started daemon_reload=yes name=btrfs-scrub.timer
+
+  when: btrfs_exists.rc == 0
+
+- name: Check if fstrim will be necessary
+  shell: cat /sys/block/sda/queue/discard_max_bytes
+  register: fstrim_supported
+  tags: ['filesystem']
+  check_mode: no
+  ignore_errors: True
+
+- name: Ensure fstrim.timer is enabled
+  systemd:
+    name: fstrim.timer
+    enabled: yes
+  tags: ['filesystem']
+  when: fstrim_supported.stdout != 0
+
+- name: Increase inotify.max_user_watches
+  lineinfile:
+    path: /etc/sysctl.conf
+    line: 'fs.inotify.max_user_watches=524288'
+    create: no
+  tags: ['sysctl']
+
+- name: Install updatedb conf from template
+  template:
+    src: etc/updatedb.conf.j2
+    dest: /etc/updatedb.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: updatedb
+  command: "updatedb"

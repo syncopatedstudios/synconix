@@ -1,0 +1,15 @@
+---
+
+atom: True
+docker: True
+nvim: True
+timeshift: True
+rga: True
+chrome: True
+solargraph: True
+
+autofs_client: False
+autofs_configs: /etc
+backup: False
+
+admin_user: root

@@ -1,0 +1,94 @@
+---
+
+- name: Install icons
+  copy:
+    src: usr/share/pixmaps/
+    dest: /usr/share/pixmaps/
+    directory_mode: yes
+    owner: root
+    group: root
+    mode: '644'
+
+- name: Update the icon cache
+  command: bash -lc "gtk-update-icon-cache"
+
+- block:
+    - name: Ensure theme config dirs exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+      with_items:
+        - "{{ user.home }}/.config/gtk-2.0"
+        - "{{ user.home }}/.config/gtk-3.0"
+        - "{{ user.home }}/.config/gtk-4.0"
+        - "{{ user.home }}/.config/qt5ct"
+        - "{{ user.home }}/.config/Kvantum"
+        - "{{ user.home }}/.config/fontconfig"
+        - "{{ user.home }}/.themes"
+        - "{{ user.home }}/.icons"
+
+    - name: Extract soundbot theme into /home/user/.themes
+      unarchive:
+        src: oomox-soundbotv2.tar.gz
+        dest: "{{ user.home }}/.themes"
+
+    - name: Extract soundbot theme icons into /home/user/.icons
+      unarchive:
+        src: oomox-soundbotv2_icons.tar.gz
+        dest: "{{ user.home }}/.icons"
+
+    - name: Update gtk2
+      template:
+        src: config/gtk-2.0/gtkrc-2.0.j2
+        dest: "{{ user.home }}/.gtkrc-2.0"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: no
+
+    - name: Update gtk3
+      template:
+        src: "config/gtk-3.0/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/gtk-3.0/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: no
+      with_items:
+        - settings.ini
+        - gtk.css
+
+    - name: Update gtk4
+      template:
+        src: config/gtk-4.0/settings.ini.j2
+        dest: "{{ user.home }}/.config/gtk-3.0/settings.ini"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
+
+    - name: Update qt5
+      template:
+        src: config/qt5ct/qt5ct.conf.j2
+        dest: "{{ user.home }}/.config/qt5ct/qt5ct.conf"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
+
+    - name: Update kvantum
+      template:
+        src: config/Kvantum/kvantum.kvconfig.j2
+        dest: "{{ user.home }}/.config/Kvantum/kvantum.kvconfig"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
+
+  become: True
+  become_user: "{{ user.name }}"
+
+- include: fonts.yml

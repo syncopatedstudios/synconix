@@ -1,0 +1,61 @@
+---
+
+- name: check if sonic-pi is already installed
+  stat: path="/opt/sonic-pi/app/build/gui/qt/sonic-pi"
+  register: hazisonicpi
+  tags: ['sonic-pi']
+
+- name: install dependencies for SonicPi
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.sonicpi | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.sonicpi }}"
+
+- block:
+  - name: clone sonicpi
+    git: >
+      repo="{{ SonicPi['git'] }}"
+      dest="{{ SonicPi['path'] }}"
+      accept_hostkey=yes
+      update=no
+      force=no
+
+  - name: checkout releasev3.3 branch
+    shell: "git checkout {{ SonicPi['branch'] }}"
+    args:
+      chdir: "{{ SonicPi['path'] }}"
+
+  - name: run pre-build
+    shell: |
+      echo -e "\n change into the app directory"
+      cd app/
+
+      echo -e "\n running linux-prebuild"
+
+      if {{ SonicPi['prebuild'] }} ; then
+        echo -e "\n prebuild success! now running linux-config"
+        {{ SonicPi['compile'] }}
+      else
+        echo -e "\n build failed"
+      fi
+    args:
+      chdir: "{{ SonicPi['path'] }}"
+    register: sonicpi_prebuild
+    tags: ['sonicpi_prebuild']
+
+  - name: build sonicpi
+    shell: |
+      echo -e "\n change into the build directory"
+
+      cd app/build/
+
+      make
+    args:
+      chdir: "{{ SonicPi['path'] }}"
+    register: sonicpi_build
+
+  # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
+  # - debug: msg="{{ sonicpi_build.stdout_lines }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazisonicpi.stat.exists

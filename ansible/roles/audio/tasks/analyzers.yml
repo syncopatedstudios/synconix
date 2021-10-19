@@ -1,0 +1,71 @@
+---
+
+- block:
+    - name: check if tony is already installed
+      stat: path="/usr/local/bin/tony"
+      register: hazitony
+      tags: ['Tony']
+
+    - name: fetch tony
+      get_url:
+        url: "{{ Tony.url }}{{ Tony.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+      tags: ['Tony']
+      when: not hazitony.stat.exists
+
+    - name: link tony to bin
+      shell: |
+        chmod +x {{ Tony.file }}
+        ln -s {{ local_src }}/{{ Tony.file }} /usr/local/bin/tony
+      args:
+        chdir: "{{ local_src }}"
+      tags: ['Tony']
+      when: not hazitony.stat.exists
+
+    - name: install desktop entry for tony
+      copy:
+        src: usr/local/share/applications/tony.desktop
+        dest: /usr/local/share/applications/tony.desktop
+        directory_mode: no
+        mode: '644'
+      tags: ['Tony']
+      notify: "update desktop database"
+  become: True
+  become_user: "{{ user.name }}"
+  when: Tony|bool
+
+- block:
+    - name: check if SonicLineup is already installed
+      stat: path="/usr/local/bin/sonic-lineup"
+      register: hazisoniclineup
+      tags: ['SonicLineup']
+
+    - name: fetch SonicLineup
+      get_url:
+        url: "{{ SonicLineup.url }}{{ SonicLineup.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+      tags: ['SonicLineup']
+      when: not hazisoniclineup.stat.exists
+
+    - name: link SonicLineup to bin
+      shell: |
+        chmod +x {{ SonicLineup.file }}
+        ln -s {{ local_src }}/{{ SonicLineup.file }} /usr/local/bin/sonic-lineup
+      args:
+        chdir: "{{ local_src }}"
+      tags: ['SonicLineup']
+      when: not hazisoniclineup.stat.exists
+
+    - name: install sonic utils desktop entries
+      copy:
+        src: usr/local/share/applications/sonic-lineup.desktop
+        dest: /usr/local/share/applications/sonic-lineup.desktop
+        directory_mode: no
+        mode: '644'
+      tags: ['SonicLineup']
+      notify: "update desktop database"
+  become: True
+  become_user: "{{ user.name }}"
+  when: SonicLineup|bool

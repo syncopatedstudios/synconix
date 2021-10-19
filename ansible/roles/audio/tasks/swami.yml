@@ -1,0 +1,47 @@
+---
+
+- name: check if swami is already installed
+  stat: path="/usr/local/bin/swami"
+  register: haziswami
+  tags: ['swami']
+
+- name: install swami deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.swami | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.swami }}"
+
+- block:
+    - name: clone swami
+      git:
+        repo: "{{ swami['git'] }}"
+        dest: "{{ local_src }}/swami"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: build and install swami
+      shell: |
+
+        mkdir -pv build && build/
+
+        cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
+
+        make && sudo make install
+      args:
+        chdir: "{{ local_src }}/swami"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziswami.stat.exists
+
+- name: add library path to ld.so.conf
+  lineinfile:
+    path: /etc/ld.so.conf
+    line: '/usr/local/lib/swami'
+    backup: yes
+    insertbefore: BOF
+    create: no
+  tags: ['ldconfig']
+
+- name: run ldconfig
+  shell: ldconfig

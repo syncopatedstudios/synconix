@@ -1,0 +1,14 @@
+---
+
+- name: install docker
+  shell: "{{ ansible_pkg_mgr }} -y install {{ docker | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ docker }}"
+
+- name: add user to dockergroup
+  command: bash -lc "usermod -a -G docker {{ user.name }}"
+
+- name: enable docker service
+  systemd:
+    name: docker
+    enabled: no

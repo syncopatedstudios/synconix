@@ -1,0 +1,21 @@
+---
+
+- name: modprobe configs to ensure consistent card index
+  copy:
+    src: etc/modprobe.d/snd.conf
+    dest: /etc/modprobe.d/snd.conf
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '644'
+  tags: ['alsa']
+
+- name: modules to load on startup
+  copy:
+    src: etc/modules-load.d/snd.conf
+    dest: /etc/modules-load.d/snd.conf
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '644'
+  tags: ['alsa']

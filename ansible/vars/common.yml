@@ -1,0 +1,75 @@
+---
+
+fonts:
+  - ttf-bitstream-vera
+  - fonts-dejavu
+  - fonts-liberation
+  - xfonts-100dpi
+  - xfonts-75dpi
+  - xfonts-utils
+apm:
+  - ansible-snippets
+  - atom-beautify
+  - blocky
+  - color-picker
+  - file-icons
+  - file-types
+  - fix-indent-on-paste
+  - highlight-colors
+  - language-ansible
+  - language-docker
+  - language-dotfiles
+  - language-markdown
+  - language-sfz
+  - language-squirrel
+  - markdown-preview-plus
+  - markdown-toolbar
+  - markdown-writer
+  - now-syntax
+  - open-terminal-here
+  - permanent-delete
+  - ruby-solargraph
+  - sb-atom-sonic-pi
+  - selection-highlight
+  - tool-bar
+  - xml-formatter
+gems:
+  - activesupport
+  - awesome_print
+  - childprocess
+  - coltrane
+  - concurrent-ruby
+  - diff-lcs
+  - drydock
+  - eventmachine
+  - ffi
+  - filelist
+  - highline
+  - i18n
+  - i3ipc
+  - kramdown
+  - kramdown-parser-gfm
+  - mini_portile2
+  - minitest
+  - mocha
+  - multi_json
+  - net-ssh
+  - nokogumbo
+  - osc-ruby
+  - parallel
+  - pry
+  - pry-doc
+  - rdoc
+  - rouge
+  - rugged
+  - sys-proctable
+  - thor
+  - tty-command
+  - tty-option
+  - tty-prompt
+  - tty-box
+python:
+  - matplotlib
+  - numpy
+  - sounddevice
+  - scipy

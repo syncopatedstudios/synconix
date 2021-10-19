@@ -1,0 +1,39 @@
+---
+
+- block:
+
+    - name: get installed items list
+      shell: |
+        dnf list --installed | awk '{ print $1}'
+      register: packagelist
+      ignore_errors: yes
+      tags: ['packages']
+
+    - set_fact:
+        installed_packages: "{{ packagelist.stdout }}"
+
+    - name: Setup Fedora repos
+      import_tasks: dnf.yml
+
+    - name: install rt-kernel
+      dnf:
+        name: "{{ kernel }}"
+        state: present
+      when: item not in installed_packages
+      with_items: "{{ kernel }}"
+      register: rtkernel
+      tags: ['kernel']
+
+    - name: Set the install rt-kernel to be default
+      shell: |
+        grub2-set-default 1
+        grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+      args:
+        warn: no
+      when: rtkernel.changed
+
+    - name: Reboot if a different kernel was installed
+      command: shutdown -r now
+      when: rtkernel.changed
+
+  tags: ['common', 'soundbot', 'ui', 'audio']

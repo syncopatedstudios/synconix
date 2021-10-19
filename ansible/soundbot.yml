@@ -1,0 +1,29 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  vars:
+    env_vars:
+      ZSH: "{{ user.zsh }}"
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+  vars_files:
+    - "vars/common.yml"
+
+  pre_tasks:
+    - name: Load Fedora
+      include_role:
+        name: distro/fedora
+      when: "ansible_facts['os_family'] == 'RedHat'"
+      tags: ['facts', 'common', 'soundbot', 'ui', 'audio']
+
+    - name: Load Debian
+      include_role:
+        name: distro/debian
+      when: "ansible_facts['os_family'] == 'Debian'"
+      tags: ['facts', 'common', 'soundbot', 'ui', 'audio']
+
+  roles:
+     - { role: common, tags: ['common'] }
+     - { role: ui, tags: ['ui'] }     
+     - { role: soundbot, tags: ['soundbot'] }
+     - { role: audio, tags: ['audio'] }

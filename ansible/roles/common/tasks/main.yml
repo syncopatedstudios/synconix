@@ -1,0 +1,59 @@
+---
+
+- name: Load common install vars
+  include_vars: common.yml
+
+- name: Load common install vars
+  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
+
+- name: Install common packages
+  shell: |
+    {{ ansible_pkg_mgr }} -y install {{ packages | join(' ') }}
+    {{ ansible_pkg_mgr }} -y install {{ common | join(' ') }}
+  when: item not in installed_packages
+  with_items:
+    - "{{ packages }}"
+    - "{{ common }}"
+  tags: ['packages']
+
+- include: sudoers.yml
+  tags: ['sudoers']
+
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: filesystem.yml
+  tags: ['filesystem']
+
+- include: perms.yml
+  tags: ['perms']
+
+- include: autofs.yml
+  tags: ['autofs']
+  when: autofs_client|bool
+
+- include: grub.yml
+  tags: ['grub']
+
+- include: docker.yml
+  tags: ['docker']
+  when: docker|bool
+
+- include: nvim.yml
+  tags: ['nvim']
+  when: nvim|bool
+
+- include: atom.yml
+  tags: ['atom']
+
+- include: timeshift.yml
+  tags: ['timeshift']
+  when: timeshift|bool
+
+- include: ripgrep.yml
+  tags: ['ripgrep']
+  when: rga|bool
+
+- include: chrome.yml
+  tags: ['chrome']
+  when: chrome|bool

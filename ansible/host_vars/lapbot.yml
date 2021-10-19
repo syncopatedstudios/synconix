@@ -1,0 +1,26 @@
+---
+
+role: "lapbot"
+
+screen_layout: "{{ user.home }}/.screenlayout/lapbot.sh"
+
+autofs_client: True
+autofs:
+  host: bender
+  shares:
+    - storage01
+    - storage02
+
+x11: True
+i3: True
+atom: True
+nvim: True
+rga: True
+chrome: True
+solargraph: True
+timeshift: True
+plugins: True
+utilities: True
+njconnect: True
+raysession: True
+jalvselect: True

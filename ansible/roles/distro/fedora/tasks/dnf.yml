@@ -1,0 +1,72 @@
+---
+
+- name: Get dnf repolist
+  shell: |
+    dnf repolist | awk '{ print $1}'
+  register: repolist
+  ignore_errors: yes
+  tags: ['sysinfo']
+
+- name: Install fedora workstation repos
+  dnf:
+    name: "fedora-workstation-repositories"
+    state: present
+  tags: ['repos']
+  when: "'google-chrome' not in repolist.stdout"
+
+- block:
+    - name: Fetch rpmfusion and ccrma rpms
+      get_url:
+        url: "{{ item }}"
+        dest: "{{ local_src }}"
+        validate_certs: yes
+      with_items:
+        - "{{ rpmfusion_nonfree['url'] }}{{ rpmfusion_nonfree['file'] }}"
+        - "{{ rpmfusion_free['url'] }}{{ rpmfusion_free['file'] }}"
+        - "{{ ccrma_repo['url'] }}{{ ccrma_repo['file'] }}"
+
+    - name: Install rpmfusion and ccrma repos
+      shell: |
+        dnf -y install {{ rpmfusion_nonfree['file'] }}
+        dnf -y install {{ rpmfusion_free['file'] }}
+        dnf -y install {{ ccrma_repo['file'] }}
+      args:
+        chdir: "{{ local_src }}"
+      ignore_errors: True
+  when: "'rpmfusion-free' not in repolist.stdout or 'planetccrma' not in repolist.stdout"
+
+- name: Enable some copr repos
+  command: 'dnf -y copr enable {{ item }}'
+  with_items:
+    - "ycollet/linuxmao"
+  tags: ['repos', 'copr']
+  when: "'linuxmao' not in repolist.stdout"
+
+- name: Enable additional yum repositories for atom and monogodb
+  copy:
+    src: "etc/yum.repos.d/{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - atom.repo
+    - monogodb.repo
+
+- name: Install dnf.conf with fastestmirror enabled
+  copy:
+    src: etc/dnf/dnf.conf
+    dest: /etc/dnf/dnf.conf
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
+    backup: yes
+
+# add --refresh to expire current cache
+- name: Update dnf
+  shell: |
+    dnf clean all && dnf update --assumeno
+  args:
+    executable: /bin/bash
+  when: dnf_update|bool

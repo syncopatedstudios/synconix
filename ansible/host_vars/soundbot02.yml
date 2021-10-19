@@ -1,0 +1,22 @@
+---
+
+screen_layout: "{{ user.home }}/.screenlayout/{{ ansible_facts['hostname']}}.sh"
+
+autofs_client: True
+autofs:
+  host: bender
+  shares:
+    - storage01
+    - storage02
+
+install_docker: True
+install_chrome: False
+
+install_synths: True
+install_plugins: True
+install_network_audio: True
+install_midi: True
+install_audio_utils: True
+install_raysession: True
+install_jalv: True
+install_obs: True

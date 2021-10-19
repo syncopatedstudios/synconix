@@ -1,0 +1,42 @@
+---
+
+- name: install font packages
+  shell: "{{ ansible_pkg_mgr }} -y install {{ fonts | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ fonts }}"
+
+- name: Extract fonts
+  unarchive:
+    src: usr/local/share/fonts.tar.gz
+    dest: "/usr/local/share/"
+
+- block:
+    - name: ensure fontconfig dir exists
+      file:
+        path: "{{ user.home}}/.config/fontconfig"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        state: directory
+        mode: '755'
+
+    - name: update fontconfig
+      template:
+        src: fontconfig/fonts.conf.j2
+        dest: "{{ user.home }}/.config/fontconfig/fonts.conf"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
+
+  become: True
+  become_user: "{{ user.name }}"
+
+#TODO: xset:  unable to open display
+#- name: add x11 fonts to font paths
+#  shell: |
+#    xset +fp /usr/share/fonts/75dpi
+#    xset +fp /usr/share/fonts/100dpi
+#  tags: ['fonts']
+
+- name: update font-cache
+  command: fc-cache -r

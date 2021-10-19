@@ -1,0 +1,29 @@
+---
+
+screen_layout: "{{ user.home }}/.screenlayout/ninjabot.sh"
+
+autofs_client: True
+
+autofs:
+  host: bender
+  shares:
+    - storage01
+    - storage02
+
+ambisonics: False
+analysers: False
+atom: True
+deadbeef: False
+docker: True
+jalvselect: False
+linuxsampler: False
+mixers: False
+obs: False
+plugins: True
+polyphone: False
+raysession: False
+sequencers: False
+synths: False
+utilities: True
+install_x11: True
+install_i3: True

@@ -1,0 +1,31 @@
+---
+
+- name: install ecasound deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.ecasound | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.ecasound }}"
+
+- name: fetch ecasound
+  get_url:
+    url: "{{ ecasound.url }}{{ ecasound.file }}"
+    dest: "{{ local_src }}"
+    validate_certs: no
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['ecasound']
+
+- name: extract ecasound
+  shell: |
+    tar -xvf {{ ecasound.file }}
+
+    cd ecasound-2.9.3/
+
+    LIBLILV_CFLAGS=`pkg-config --cflags lilv-0` LIBLILV_LIBS=`pkg-config\n--libs lilv-0` ./configure
+
+    gmake
+
+  args:
+    chdir: "{{ local_src }}"
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['ecasound']

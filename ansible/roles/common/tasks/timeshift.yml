@@ -1,0 +1,21 @@
+---
+
+- name: Install timeshift
+  action: "{{ ansible_pkg_mgr }} name=timeshift state=present"
+  when: "'timeshift' not in installed_packages"
+
+#TODO: vars for template
+# - name: install timeshift config from template
+#   template:
+#     src: etc/timeshift/timeshift.j2
+#     dest: /etc/timeshift/timeshift.json
+#     owner: root
+#     group: root
+#     mode: '0644'
+#     backup: yes
+
+- name: create snapshot
+  shell: |
+    timeshift --create --comment 'system snapshot'
+  tags: ['backup']
+  when: backup|bool

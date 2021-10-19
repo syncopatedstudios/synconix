@@ -1,0 +1,65 @@
+---
+
+- name: push pacman conf
+  template:
+    src: etc/pacman.conf.j2
+    dest: /etc/pacman.conf
+    mode: '644'
+    owner: root
+    group: root
+    backup: yes
+  tags: ['pacmanconf']
+
+- name: copy pacman mirrors config
+  copy:
+    src: etc/pacman.d/mirrorlist
+    dest: /etc/pacman.d/mirrorlist
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
+    backup: yes
+  tags: ['pacmanconf']
+
+- name: install other mirror update thing
+  pacman:
+    name: pacman-mirrors
+    state: present
+  tags: ['mirrors']
+
+- name: update manjaro mirrors
+  shell: pacman-mirrors -f 5
+  tags: ['mirrors']
+
+- name: Update system package cache
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  register: update_result
+  tags: ['update']
+
+- name: install pamac
+  shell: |
+    yay -S --noconfirm --needed --cleanafter pamac
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['pamac']
+
+- name: clone aur module
+  git:
+    repo: "https://github.com/syncopatedstudios/ansible-aur.git"
+    dest: "{{ user.home }}/.ansible/plugins/modules/aur"
+    accept_hostkey: yes
+    update: no
+    force: no
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['aur']
+
+- name: remove packages
+  pacman:
+    name: "{{ packages['remove'] }}"
+    state: absent
+    force: yes
+    extra_args: --noconfirm
+  tags: ['remove']

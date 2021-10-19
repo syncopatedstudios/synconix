@@ -1,0 +1,107 @@
+---
+
+remove_pipewire: True
+
+ambisonics: True
+analysers: True
+deadbeef: True
+jalvselect: True
+linuxsampler: True
+mixers: True
+njconnect: True
+obs: True
+plugins: True
+polyphone: True
+raysession: True
+sequencers: True
+synths: True
+utilities: True
+
+Baudline:
+  url: "https://www.baudline.com/"
+  file: "baudline_1.08_linux_x86_64.tar.gz"
+  install: True
+
+Protokol:
+  url: "https://hexler.net/pub/protokol/"
+  file: "protokol-0.4.1.83-linux-x86_64.zip"
+  install: True
+
+SonicAnnotator:
+  url: "https://code.soundsoftware.ac.uk/attachments/download/2708/"
+  file: "sonic-annotator-1.6-linux64-static.tar.gz"
+  install: True
+
+SonicLineup:
+  url: "https://code.soundsoftware.ac.uk/attachments/download/2766/"
+  file: "SonicLineup-1.1-x86_64.AppImage"
+  install: True
+
+SonicPi:
+  git: "git@github.com:syncopatedstudios/sonic-pi.git"
+  branch: "v3.3-release"
+  path: /opt/sonic-pi
+  prebuild: "./linux-prebuild.sh --build-aubio"
+  compile: "./linux-config.sh --config Release"
+  install: True
+
+SonicPiTool:
+  pip:
+    - click
+    - oscpy
+    - psutil
+
+SonicVisualiser:
+  git: "https://github.com/sonic-visualiser/sonic-visualiser"
+  install: True
+
+Tony:
+  url: "https://code.soundsoftware.ac.uk/attachments/download/2617/"
+  file: "Tony-2.1.1-x86_64.AppImage"
+  install: True
+
+TouchOSC:
+  url: "https://hexler.net/pub/touchosc/"
+  file: "touchosc-1.0.3.101-linux-x86_64.zip"
+  install: True
+
+VampPlugins:
+  url: "https://code.soundsoftware.ac.uk/attachments/download/2696/"
+  file: "vamp-plugin-pack-installer-1.0"
+  install: True
+
+audiowaveform:
+  git: "https://github.com/bbc/audiowaveform.git"
+  install: True
+
+ardour:
+  url: "git://git.ardour.org/ardour/ardour.git"
+  install: True
+
+ecasound:
+  url: "http://nosignal.fi/download/"
+  file: "ecasound-2.9.3.tar.gz"
+  install: True
+
+googletest:
+  url: "https://github.com/google/googletest/archive/"
+  install: True
+  file: "release-1.11.0.tar.gz"
+
+ocenaudio:
+  url: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
+  install: True
+
+reaper:
+  url: "http://reaper.fm/files/6.x/"
+  file: reaper636_linux_x86_64.tar.xz
+  install: True
+
+rtplugins:
+  url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
+  file: "rt-plugins-0.0.6.tar.gz"
+  install: True
+
+swami:
+  git: "https://github.com/swami/swami.git"
+  install: True

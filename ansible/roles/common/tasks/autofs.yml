@@ -1,0 +1,32 @@
+---
+
+- name: Load common install vars
+  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
+
+- name: Install autofs
+  action: "{{ ansible_pkg_mgr }} name=autofs state=present"
+  # when: "'autofs' not in installed_packages"
+
+- name: Create mount directory folder if it doesn't already exist
+  file:
+    path: /mnt/{{ autofs.host }}
+    state: directory
+    mode: 0755
+
+- name: Push autofs configs
+  template:
+    src: etc/autofs/{{ item }}.j2
+    dest: "{{ autofs_configs }}/{{ item }}"
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  register: autofsconfig
+  with_items:
+    - autofs.conf
+    - auto.master
+    - auto.mnt
+
+- name: Enable and/or start autofs
+  systemd: enabled=yes state=restarted daemon_reload=yes name=autofs
+  when: autofsconfig.changed

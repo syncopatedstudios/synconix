@@ -1,0 +1,52 @@
+---
+
+- name: check if audiowaveform is already installed
+  stat: path="/usr/local/bin/audiowaveform"
+  register: haziaudiowaveform
+  tags: ['audiowaveform']
+
+- name: install audiowaveform deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.audiowaveform | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.audiowaveform }}"
+
+- block:
+    - name: clone audiowaveform
+      git:
+        repo: "{{ audiowaveform.git }}"
+        dest: "{{ local_src }}/audiowaveform"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: fetch googletest
+      get_url:
+        url: "{{ googletest.url }}{{ googletest.file }}"
+        dest: "{{ local_src }}/audiowaveform"
+        validate_certs: no
+
+    - name: build and install audiowaveform
+      shell: |
+        tar -xvf googletest-release-1.11.0.tar.gz
+
+        ln -s googletest-release-1.11.0 googletest
+
+        mkdir -pv build && cd build/
+
+        cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
+
+        make && sudo make install
+      args:
+        chdir: "{{ local_src }}/audiowaveform"
+      register: audiowaveform_build
+
+    - name: touch installed
+      shell: |
+        touch .installed
+      args:
+        chdir: "{{ local_src }}/audiowaveform"
+      when: "audiowaveform_build.rc == 0"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziaudiowaveform.stat.exists

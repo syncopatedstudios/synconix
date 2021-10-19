@@ -1,0 +1,22 @@
+---
+
+- name: install dependencies for ardour
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.ardour | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.ardour }}"
+
+- name: build ardour
+  shell: |
+    git clone {{ ardour.url }}
+
+    cd ardour/
+
+    ./waf configure --denormal-exception --no-phone-home --canvasui \
+    --freedesktop --optimize --thread-sanitizer --docs
+
+    ./waf
+
+    ./waf install && ./waf clean
+
+  args:
+    chdir: "{{ local_src }}"

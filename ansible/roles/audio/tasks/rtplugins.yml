@@ -1,0 +1,23 @@
+---
+
+- block:
+    - name: fetch rtplugins
+      get_url:
+        url: "{{ rtplugins.url }}{{ rtplugins.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+
+    - name: extract baudline
+      shell: |
+        tar -xvf {{ rtplugins.file }}
+
+        cd rt-plugins-0.0.6/build/
+
+        cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+
+        make && sudo make install
+      args:
+        chdir: "{{ local_src }}"
+
+  become: True
+  become_user: "{{ user.name }}"

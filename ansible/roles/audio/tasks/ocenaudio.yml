@@ -1,0 +1,18 @@
+---
+
+- name: check if ocenaudio is already installed
+  stat: path="/usr/bin/ocenaudio"
+  register: haziocenaudio
+
+- name: fetch ocenaudio
+  get_url:
+    url: "{{ ocenaudio.url }}"
+    dest: "{{ local_src }}"
+  when: not haziocenaudio.stat.exists
+
+- name: install ocenaudio
+  shell: |
+    apt -y install ./ocenaudio_debian9_64.deb
+  args:
+    chdir: "{{ local_src }}"
+  when: not haziocenaudio.stat.exists

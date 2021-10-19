@@ -1,0 +1,17 @@
+---
+
+- name: push default grub file
+  template:
+    src: etc/default/grub.j2
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: '644'
+    backup: yes
+  tags: ['grub']
+  register: result
+
+- name: reload grub
+  shell: |
+    grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+  when: "ansible_facts['os_family'] == 'RedHat'"

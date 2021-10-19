@@ -1,0 +1,5 @@
+---
+
+- name: install mixxx
+  shell: "{{ ansible_pkg_mgr }} -y install mixxx"
+  when: "'mixxx' not in installed_packages"

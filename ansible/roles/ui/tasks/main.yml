@@ -1,0 +1,19 @@
+---
+
+- name: Load common install vars
+  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
+
+- include: x11.yml
+  tags: ["x11"]
+  when: install_x11|bool
+
+- include: i3.yml
+  tags: ["i3"]
+  when: install_i3|bool
+
+- include: autologin.yml
+  tags: ['autologin']
+  when: autologin|bool
+
+- include: theme.yml
+  tags: ['theme']

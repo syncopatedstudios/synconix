@@ -1,0 +1,36 @@
+---
+
+- name: check if sonic-visualiser is already installed
+  stat: path="/usr/local/bin/sonic-visualiser"
+  register: hazivisualiser
+  tags: ['sonic-visualiser']
+
+- name: install visualiser deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.visualiser | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.visualiser }}"
+
+- block:
+    - name: clone sonic-visualiser
+      git:
+        repo: "{{ SonicVisualiser.git }}"
+        dest: "{{ local_src }}/sonic-visualiser"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: build sonic-visualiser
+      shell: |
+        ./repoint install
+
+        meson build
+
+        ninja -C build
+
+        sudo meson install
+      args:
+        chdir: "{{ local_src }}/sonic-visualiser"
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazivisualiser.stat.exists
+  tags: ['sonic-visualiser']

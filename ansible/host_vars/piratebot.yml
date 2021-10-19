@@ -1,0 +1,10 @@
+---
+
+role: "pi"
+
+autofs_client: True
+autofs:
+  host: bender
+  shares:
+    - storage01
+    - storage02

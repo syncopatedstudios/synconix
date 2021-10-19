@@ -1,0 +1,7 @@
+---
+
+- include: analyzers.yml
+  when: Tony.install|bool or SonicLineup.install|bool
+
+- include: visualiser.yml
+  when: SonicVisualiser.install|bool

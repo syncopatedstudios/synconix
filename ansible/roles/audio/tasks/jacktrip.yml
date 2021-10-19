@@ -1,0 +1,22 @@
+---
+
+- block:
+  - name: clone jacktrip
+    git:
+      repo: "https://github.com/jacktrip/jacktrip.git"
+      dest: "{{ local_src }}/jacktrip"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: build jacktrip
+    shell: |
+      cd src
+      ./build
+      cd ../builddir
+      mv jacktrip /usr/local/bin/jacktrip
+    args:
+      chdir: "{{ local_src }}/jacktrip"
+
+  become: True
+  become_user: "{{ user.name }}"

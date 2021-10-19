@@ -1,0 +1,31 @@
+---
+
+- name: check if sonic-pi is already installed
+  stat: path="/usr/bin/njconnect"
+  register: hazinjconnect
+
+- name: install njconnect deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.njconnect | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ deps.njconnect }}"
+
+- block:
+  - name: clone njconnect
+    git:
+      repo: "https://github.com/radiganm/njconnect.git"
+      dest: "{{ local_src }}/njconnect"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: make and install njconnect
+    shell: |
+      make
+      sleep 0.5
+      sudo make install
+    args:
+      chdir: "{{ local_src }}/njconnect"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazinjconnect.stat.exists

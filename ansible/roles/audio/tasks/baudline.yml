@@ -1,0 +1,39 @@
+---
+
+- name: check if baudline is already installed
+  stat: path="/usr/local/bin/baudline_jack"
+  register: hazibaudline
+  tags: ['baudline']
+
+- block:
+    - name: fetch baudline
+      get_url:
+        url: "{{ baudline.url }}{{ baudline.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+
+    - name: extract baudline
+      shell: |
+        tar -xvf {{ baudline.file }}
+
+        cd baudline_1.08_linux_x86_64/
+
+        sudo mv -v baudline_jack /usr/local/bin/baudline_jack
+        sudo mv -v baudline /usr/local/bin/baudline
+
+        chmod +x /usr/local/bin/baudline_jack
+        chmod +x /usr/local/bin/baudline
+
+        mkdir -pv {{ user.home }}/.baudline/
+        rsync -avP palettes {{ user.home }}/.baudline/
+
+        sudo mkdir -pv /usr/share/pixmaps/baudline
+        sudo rsync -avP icons/ /usr/share/pixmaps/baudline/
+
+        sudo gtk-update-icon-cache
+      args:
+        chdir: "{{ local_src }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazibaudline.stat.exists

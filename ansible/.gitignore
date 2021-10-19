@@ -1,0 +1,6 @@
+.installed
+dev.yml
+roles/ambisonics
+/vars/Archlinux
+/vars/Debian
+/vars/RedHat
