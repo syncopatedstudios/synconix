@@ -50,11 +50,10 @@
 
 - include: reaper.yml
   tags: ['reaper']
-  when: reaper.install|bool
 
-- include: ardour.yml
-  tags: ['ardour', 'daw']
-  when: ardour.install|bool
+# - include: ardour.yml
+#   tags: ['ardour', 'daw']
+#   when: ardour.install|bool
 
 - include: isophonics.yml
 
@@ -62,13 +61,13 @@
   tags: ['TouchOSC']
   when: TouchOSC.install|bool
 
-- include: raysession.yml
-  tags: ['raysession']
-  when: raysession|bool
+# - include: raysession.yml
+#   tags: ['raysession']
+#   when: raysession|bool
 
-- include: jalvselect.yml
-  tags: ['jalvselect']
-  when: jalvselect|bool
+# - include: jalvselect.yml
+#   tags: ['jalvselect']
+#   when: jalvselect|bool
 
 - include: obs-studio.yml
   tags: ['obs']
@@ -78,6 +77,6 @@
   tags: ['baudline']
   when: Baudline.install|bool
 
-- include: deadbeef.yml
-  tags: ['deadbeef']
-  when: deadbeef|bool
+# - include: deadbeef.yml
+#   tags: ['deadbeef']
+#   when: deadbeef|bool
