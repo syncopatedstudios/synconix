@@ -36,9 +36,9 @@
   tags: ['njconnect']
   when: njconnect|bool
 
-- include: ocenaudio.yml
-  tags: ['ocenaudio']
-  when: ocenaudio.install|bool
+# - include: ocenaudio.yml
+#   tags: ['ocenaudio']
+#   when: ocenaudio.install|bool
 
 - include: sonic-pi.yml
   tags: ['sonicpi']
