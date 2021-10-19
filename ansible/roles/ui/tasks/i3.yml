@@ -29,14 +29,10 @@
   when: not haziswallow.stat.exists
 
 - name: Ensure i3 config directory exists
-  file:
-    path: "{{ user.home }}/.config/i3"
-    state: directory
-    mode: '0755'
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
+  shell: |
+    mkdir -pv {{ user.home }}/.config/i3
   become: True
-  become_user: "{{ user.home }}"
+  become_user: "{{ user.name }}"
 
 - name: push i3 config
   template:
