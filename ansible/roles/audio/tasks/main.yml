@@ -15,8 +15,8 @@
 - include: pipewire.yml
   when: remove_pipewire|bool
 
-- include: rtplugins.yml
-  when: rtplugins.install|bool
+# - include: rtplugins.yml
+#   when: rtplugins.install|bool
 
 - name: install audio utilities
   shell: "{{ ansible_pkg_mgr }} -y install {{ audio.utilities | join(' ') }}"
