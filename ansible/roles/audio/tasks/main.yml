@@ -15,9 +15,6 @@
 - include: pipewire.yml
   when: remove_pipewire|bool
 
-# - include: rtplugins.yml
-#   when: rtplugins.install|bool
-
 - name: install audio utilities
   shell: "{{ ansible_pkg_mgr }} -y install {{ audio.utilities | join(' ') }}"
   when: item not in installed_packages and utilities|bool
@@ -36,10 +33,6 @@
   tags: ['njconnect']
   when: njconnect|bool
 
-# - include: ocenaudio.yml
-#   tags: ['ocenaudio']
-#   when: ocenaudio.install|bool
-
 - include: sonic-pi.yml
   tags: ['sonicpi']
   when: SonicPi.install|bool
@@ -51,31 +44,33 @@
 - include: reaper.yml
   tags: ['reaper']
 
-# - include: ardour.yml
-#   tags: ['ardour', 'daw']
-#   when: ardour.install|bool
-
 - include: isophonics.yml
 
 - include: touchosc.yml
   tags: ['TouchOSC']
-  when: TouchOSC.install|bool
 
 - include: raysession.yml
   tags: ['raysession']
-  when: raysession|bool
 
-# - include: jalvselect.yml
-#   tags: ['jalvselect']
-#   when: jalvselect|bool
+- include: jalvselect.yml
+  tags: ['jalvselect']
 
 - include: obs-studio.yml
   tags: ['obs']
-  when: obs|bool
 
 - include: baudline.yml
   tags: ['baudline']
-  when: Baudline.install|bool
+
+# - include: rtplugins.yml
+#   when: rtplugins.install|bool
+
+# - include: ardour.yml
+#   tags: ['ardour', 'daw']
+#   when: ardour.install|bool
+
+# - include: ocenaudio.yml
+#   tags: ['ocenaudio']
+#   when: ocenaudio.install|bool
 
 # - include: deadbeef.yml
 #   tags: ['deadbeef']

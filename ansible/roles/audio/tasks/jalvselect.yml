@@ -28,13 +28,6 @@
       chdir: "{{ local_src }}/jalv_select"
     register: jalv_build
 
-  - name: touch installed
-    shell: |
-      touch .installed
-    args:
-      chdir: "{{ local_src }}/jalv_select"
-    when: "{{ jalv_build.rc }} == 0"
-
   become: True
   become_user: "{{ user.name }}"
   when: not hazijalvselect.stat.exists

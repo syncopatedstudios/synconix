@@ -8,13 +8,13 @@
 - block:
     - name: fetch baudline
       get_url:
-        url: "{{ baudline.url }}{{ baudline.file }}"
+        url: "{{ Baudline.url }}{{ Baudline.file }}"
         dest: "{{ local_src }}"
         validate_certs: no
 
     - name: extract baudline
       shell: |
-        tar -xvf {{ baudline.file }}
+        tar -xvf {{ Baudline.file }}
 
         cd baudline_1.08_linux_x86_64/
 

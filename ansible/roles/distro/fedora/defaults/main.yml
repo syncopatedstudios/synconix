@@ -129,7 +129,6 @@ audio:
   utilities:
     - Carla
     - jaaa
-    - jalv_select
     - japa
     - jconvolver
     - jmeters
@@ -234,8 +233,11 @@ deps:
     - python3-qt5-devel
     - qt5-linguist
   jalvselect:
+    - gtkmm24-devel
     - lilv-devel
     - gawk-devel
+    - jalv-qt
+    - jalv-gtkmm
     - jalv-gtk
     - jalv
   sonicpi:

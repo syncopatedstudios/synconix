@@ -1,5 +1,5 @@
 ---
 
-- name: install dependencies for SonicPi
+- name: install obs-studio
   shell: "{{ ansible_pkg_mgr }} -y install obs-studio"
   when: "'obs-studio' not in installed_packages"
