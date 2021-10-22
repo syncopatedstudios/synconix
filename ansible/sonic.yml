@@ -55,7 +55,7 @@
 
             meson build
 
-            ninja -C build
+            cd build/ && ninja
 
             sudo meson install
           args:
