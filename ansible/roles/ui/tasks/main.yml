@@ -17,3 +17,8 @@
 
 - include: theme.yml
   tags: ['theme']
+
+- name: Install GUI utils
+  shell: "{{ ansible_pkg_mgr }} -y install {{ utils | join(' ') }}"
+  when: item not in installed_packages
+  with_items: "{{ utils }}"
