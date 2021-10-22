@@ -39,24 +39,13 @@ set $picom_start "pkill picom; sleep 1; picom -b"
 ######################################
 # ---{ autostart }---
 ######################################
-{% if ansible_facts['hostname'] == 'lapbot' %}
-$exec "$HOME/.xprofile"
-{% else %}
-{% endif %}
-
-$exec_always $HOME/.config/i3/scripts/screenlayout.rb
-
 $exec_always nitrogen --restore
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
 $exec_always $picom_start
 
-{% if ansible_facts['hostname'] == 'lapbot' %}
 $exec /usr/libexec/notification-daemon &
-{% else %}
-$exec /usr/lib/notification-daemon/notification-daemon &
-{% endif %}
 
 $exec "/opt/soundbot/bin/soundservices.sh -s -u -d"
 
