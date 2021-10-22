@@ -1,0 +1,44 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  vars:
+    grub_cfg: "/boot/efi/EFI/fedora/grub.cfg"
+    env_vars:
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+
+  pre_tasks:
+    - name: Load Fedora
+      include_role:
+        name: distro/fedora
+      when: "ansible_facts['os_family'] == 'RedHat'"
+      tags: ['facts', 'common', 'soundbot', 'ui', 'audio']
+
+    - name: Load Debian
+      include_role:
+        name: distro/debian
+      when: "ansible_facts['os_family'] == 'Debian'"
+      tags: ['facts', 'common', 'soundbot', 'ui', 'audio']
+
+  tasks:
+    - name: Load common install vars
+      include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
+
+    - name: install rt-kernel
+      shell: "{{ ansible_pkg_mgr }} -y install {{ kernel | join(' ') }}"
+      register: rtkernel
+      tags: ['kernel']
+
+    - name: Set the install rt-kernel to be default
+      shell: |
+        grub2-set-default 1
+        grub2-mkconfig -o {{ grub_cfg }}
+      args:
+        warn: no
+      when: rtkernel.changed
+
+    - name: Reboot if a different kernel was installed
+      command: shutdown -r now
+      when: rtkernel.changed
+      async: 90
+      poll: 5
