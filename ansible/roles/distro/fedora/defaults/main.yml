@@ -206,25 +206,24 @@ themes:
   - materia-gtk-theme
   - materia-kde-kvantum
 utils:
+  - darktable
   - feh
   - gnuplot
+  - gpick
   - grsync
   - guake
+  - mpv
+  - nitrogen
+  - nomacs-plugins
   - qpdfview-qt5
   - qt5ct
   - qutebrowser
   - redshift
+  - vlc
   - wmctrl
   - xarchiver
   - yasm
   - zenity
-media:
-  - darktable
-  - gpick
-  - mpv
-  - nitrogen
-  - nomacs-plugins
-  - vlc
 deps:
   njconnect:
     - ncurses-devel
@@ -244,6 +243,7 @@ deps:
     - aubio
     - aubio-devel
     - boost-devel
+    - elixir
     - erlang
     - gcc
     - gcc-c++
