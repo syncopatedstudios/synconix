@@ -89,7 +89,9 @@ googletest:
   file: "release-1.11.0.tar.gz"
 
 ocenaudio:
-  url: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
+  url:
+    debian: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
+    fedora: "https://www.ocenaudio.com/start_download/ocenaudio_centos8.rpm"
   install: True
 
 reaper:

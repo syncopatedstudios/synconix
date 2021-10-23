@@ -68,9 +68,13 @@
 #   tags: ['ardour', 'daw']
 #   when: ardour.install|bool
 
-# - include: ocenaudio.yml
-#   tags: ['ocenaudio']
-#   when: ocenaudio.install|bool
+- name: check if ocenaudio is already installed
+  stat: path="/usr/bin/ocenaudio"
+  register: haziocenaudio
+
+- include: ocenaudio.yml
+  tags: ['ocenaudio']
+  when: not haziocenaudio.stat exists
 
 # - include: deadbeef.yml
 #   tags: ['deadbeef']

@@ -1,18 +1,29 @@
 ---
 
-- name: check if ocenaudio is already installed
-  stat: path="/usr/bin/ocenaudio"
-  register: haziocenaudio
+- block:
+    - name: fetch ocenaudio for debian
+      get_url:
+        url: "{{ ocenaudio.url.debian }}"
+        dest: "{{ local_src }}"
 
-- name: fetch ocenaudio
-  get_url:
-    url: "{{ ocenaudio.url }}"
-    dest: "{{ local_src }}"
-  when: not haziocenaudio.stat.exists
+    - name: install ocenaudio
+      shell: |
+        apt -y install ./ocenaudio_debian9_64.deb
+      args:
+        chdir: "{{ local_src }}"
 
-- name: install ocenaudio
-  shell: |
-    apt -y install ./ocenaudio_debian9_64.deb
-  args:
-    chdir: "{{ local_src }}"
-  when: not haziocenaudio.stat.exists and ansible_facts['os_family'] == 'Debian'
+  when: "ansible_facts['os_family'] == 'Debian'"
+
+- block:
+    - name: fetch ocenaudio for fedora
+      get_url:
+        url: "{{ ocenaudio.url.fedora }}"
+        dest: "{{ local_src }}"
+
+    - name: install ocenaudio
+      shell: |
+        dnf -y install ./ocenaudio_debian9_64.deb
+      args:
+        chdir: "{{ local_src }}"
+
+  when: "ansible_facts['os_family'] == 'Fedora'"
