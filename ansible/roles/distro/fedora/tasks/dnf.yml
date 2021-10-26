@@ -55,9 +55,7 @@
 
 - name: Enable nodejs 14 module
   shell: |
-      dnf -y remove nodejs
       dnf -y module enable nodejs:14
-      dnf -y install nodejs
   tags: ['nodejs']
 
 - name: Install dnf.conf with fastestmirror enabled

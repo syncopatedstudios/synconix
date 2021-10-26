@@ -1,0 +1,26 @@
+---
+
+- name: check if qmidinet is already installed
+  stat: path="/usr/bin/qmidinet"
+  register: haziqmidinet
+
+- block:
+  - name: clone qmidinet
+    git:
+      repo: "{{ qmidinet.git }}"
+      dest: "{{ local_src }}/qmidinet"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: build and install qmidinet
+    shell: |
+      cmake -DCMAKE_INSTALL_PREFIX=/usr -B build -S .
+      make -C build
+      sudo make -C build install
+    args:
+      chdir: /usr/local/src/qmidinet
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziqmidinet.stat.exists

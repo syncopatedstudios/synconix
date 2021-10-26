@@ -1,0 +1,70 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  vars:
+    env_vars:
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+
+  pre_tasks:
+    - name: Load Fedora
+      include_role:
+        name: distro/fedora
+      when: "ansible_facts['os_family'] == 'RedHat'"
+      tags: ['fedora', 'common', 'soundbot', 'ui', 'audio']
+
+    - name: Load Debian
+      include_role:
+        name: distro/debian
+      when: "ansible_facts['os_family'] == 'Debian'"
+      tags: ['debian', 'common', 'soundbot', 'ui', 'audio']
+
+  tasks:
+
+    - name: Load common install vars
+      include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
+
+    - name: install libcamera dependecies
+      shell: "{{ ansible_pkg_mgr }} -y install {{ deps['libcamera'] | join(' ') }}"
+
+    - name: install pipewire deps
+      shell: "{{ ansible_pkg_mgr }} -y install {{ deps['pipewire'] | join(' ') }}"
+
+
+    - block:
+        - name: clone libcamera
+          git:
+            repo: "https://git.libcamera.org/libcamera/libcamera.git"
+            dest: "/usr/local/src/libcamera"
+            accept_hostkey: yes
+            update: no
+            force: no
+
+        - name: build libcamera
+          shell: |
+            meson build -Dprefix=/usr
+
+            sudo ninja -C build install
+          args:
+            chdir: "/usr/local/src/libcamera"
+
+        - name: clone pipewire
+          git:
+            repo: "https://gitlab.freedesktop.org/pipewire/pipewire.git"
+            dest: "/usr/local/src/pipewire"
+            accept_hostkey: yes
+            update: no
+            force: no
+
+        - name: build pipewire
+          shell: |
+            meson setup builddir
+
+            meson configure builddir -Dprefix=/usr
+
+            ninja -C builddir
+          args:
+            chdir: "/usr/local/src/pipewire"
+      become: True
+      become_user: "{{ user.name }}"
+      tags: ['pipewire']

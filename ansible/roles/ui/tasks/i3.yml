@@ -7,7 +7,8 @@
   shell: |
     {{ ansible_pkg_mgr }} -y install {{ i3 | join(' ') }}
   when: item not in installed_packages
-  with_items: "{{ i3 }}"
+  with_items:
+    - "{{ i3 }}"
 
 - name: check if swallow is already installed
   stat: path="/usr/local/bin/swallow"

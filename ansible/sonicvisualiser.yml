@@ -3,33 +3,21 @@
 - hosts: all
   gather_facts: yes
   vars:
-    dependecies:
-      - bzip2-devel
-      - capnproto
-      - capnproto-devel
-      - fftw-devel
-      - libfishsound-devel
-      - libid3tag-devel
-      - liblo-devel
-      - liblrdf-devel
-      - libmad-devel
-      - liboggz-devel
-      - libsamplerate-devel
-      - libsndfile-devel
-      - libtool
-      - libxml2-devel
-      - mercurial
-      - meson
-      - ninja-build
-      - opusfile-devel
-      - polyml
-      - portaudio-devel
-      - qt5-qtsvg-devel
-      - raptor2-devel
-      - rubberband-devel
-      - sord-devel
     env_vars:
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+
+  pre_tasks:
+    - name: Load Fedora
+      include_role:
+        name: distro/fedora
+      when: "ansible_facts['os_family'] == 'RedHat'"
+      tags: ['facts', 'common', 'soundbot', 'ui', 'audio']
+
+    - name: Load Debian
+      include_role:
+        name: distro/debian
+      when: "ansible_facts['os_family'] == 'Debian'"
+      tags: ['facts', 'common', 'soundbot', 'ui', 'audio']
 
   tasks:
     - name: check if sonic-visualiser is already installed
@@ -38,7 +26,7 @@
       tags: ['sonic-visualiser']
 
     - name: install visualiser deps
-      shell: "{{ ansible_pkg_mgr }} -y install {{ dependecies | join(' ') }}"
+      shell: "{{ ansible_pkg_mgr }} -y install {{ deps['sonicvisualiser'] | join(' ') }}"
 
     - block:
         - name: clone sonic-visualiser

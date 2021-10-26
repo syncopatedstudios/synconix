@@ -22,8 +22,8 @@
 
     - name: install ocenaudio
       shell: |
-        dnf -y install ./ocenaudio_debian9_64.deb
+        dnf -y install ./ocenaudio_centos8_64_3.10.13.rpm
       args:
         chdir: "{{ local_src }}"
 
-  when: "ansible_facts['os_family'] == 'Fedora'"
+  when: "ansible_facts['os_family'] == 'RedHat'"

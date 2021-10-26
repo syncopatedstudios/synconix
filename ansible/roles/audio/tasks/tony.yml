@@ -1,0 +1,31 @@
+---
+
+- name: check if tony is already installed
+  stat: path="/usr/local/bin/tony"
+  register: hazitony
+
+- block:
+    - name: fetch tony
+      get_url:
+        url: "{{ Tony.url }}{{ Tony.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+
+    - name: link tony to bin
+      shell: |
+        chmod +x {{ Tony.file }}
+        ln -s {{ local_src }}/{{ Tony.file }} /usr/local/bin/tony
+      args:
+        chdir: "{{ local_src }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazitony.stat.exists
+
+- name: install desktop entry for tony
+  copy:
+    src: usr/local/share/applications/tony.desktop
+    dest: /usr/local/share/applications/tony.desktop
+    directory_mode: no
+    mode: '644'
+  notify: "update desktop database"
