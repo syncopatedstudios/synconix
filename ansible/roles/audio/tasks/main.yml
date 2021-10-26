@@ -27,7 +27,13 @@
 
 - name: install polyphone
   shell: "{{ ansible_pkg_mgr }} -y install polyphone"
+  tags: ['polyphone']
   when: polyphone|bool
+
+- name: install mixxx
+  shell: "{{ ansible_pkg_mgr }} -y install mixxx"
+  tags: ['mixxx']
+  when: mixxx|bool
 
 - include: njconnect.yml
   tags: ['njconnect']
@@ -61,20 +67,21 @@
 - include: baudline.yml
   tags: ['baudline']
 
+- name: check if ocenaudio is already installed
+  stat: path="/usr/bin/ocenaudio"
+  register: haziocenaudio
+  tags: ['ocenaudio']
+
+- include: ocenaudio.yml
+  tags: ['ocenaudio']
+  when: not haziocenaudio.stat.exists
+
 # - include: rtplugins.yml
 #   when: rtplugins.install|bool
 
 # - include: ardour.yml
 #   tags: ['ardour', 'daw']
 #   when: ardour.install|bool
-
-- name: check if ocenaudio is already installed
-  stat: path="/usr/bin/ocenaudio"
-  register: haziocenaudio
-
-- include: ocenaudio.yml
-  tags: ['ocenaudio']
-  when: not haziocenaudio.stat exists
 
 # - include: deadbeef.yml
 #   tags: ['deadbeef']
