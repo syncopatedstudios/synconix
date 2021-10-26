@@ -6,9 +6,9 @@
   tags: ['deadbeef']
 
 - name: install deadbeef deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.deadbeef | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ development['deadbeef'] | join(' ') }}"
   when: item not in installed_packages
-  with_items: "{{ deps.deadbeef }}"
+  with_items: "{{ development['deadbeef'] }}"
 
 - block:
   - name: create deadbeef plugin dir

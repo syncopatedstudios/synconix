@@ -1,5 +1,10 @@
 ---
 
+- name: check if googler is already installed
+  stat: path="/usr/local/bin/googler"
+  register: hazigoogler
+  tags: ['googler']
+
 - name: fetch googler
   get_url:
     url: "https://raw.githubusercontent.com/jarun/googler/v4.3.2/googler"

@@ -1,9 +1,9 @@
 ---
 
 - name: install ecasound deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.ecasound | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ development['ecasound'] | join(' ') }}"
   when: item not in installed_packages
-  with_items: "{{ deps.ecasound }}"
+  with_items: "{{ development['ecasound'] }}"
 
 - name: fetch ecasound
   get_url:

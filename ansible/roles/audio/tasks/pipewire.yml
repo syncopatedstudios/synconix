@@ -3,32 +3,32 @@
 - block:
     - name: Remove pipewire
       dnf:
-        name: "{{ pipewire }}"
+        name: "{{ audio['pipewire'] }}"
         state: absent
       tags: ['pipewire']
 
     - name: Install alsa
       dnf:
-        name: "{{ alsa }}"
+        name: "{{ audio['alsa'] }}"
         state: present
       when: item not in installed_packages
-      with_items: "{{ alsa }}"
+      with_items: "{{ audio['alsa'] }}"
       tags: ['alsa']
 
     - name: Install jack
       dnf:
-        name: "{{ jack }}"
+        name: "{{ audio['jack'] }}"
         state: present
       when: item not in installed_packages
-      with_items: "{{ jack }}"
+      with_items: "{{ audio['jack'] }}"
       tags: ['jack']
 
     - name: Install pulseaudio
       dnf:
-        name: "{{ pulseaudio }}"
+        name: "{{ audio['pulseaudio'] }}"
         state: present
       when: item not in installed_packages
-      with_items: "{{ pulseaudio }}"
+      with_items: "{{ audio['pulseaudio'] }}"
       tags: ['pulseaudio']
 
     - name: Ensure pulseaudio-alsa is not installed

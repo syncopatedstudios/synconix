@@ -1,7 +1,6 @@
 ---
 
-autofs_client: True
-
+autofs_client: False
 autofs:
   host: bender
   shares:

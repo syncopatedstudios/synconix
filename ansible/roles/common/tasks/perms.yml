@@ -1,6 +1,6 @@
 ---
 
-- name: Ensure /usr/local directories are writeable
+- name: Ensure /usr/local and /opt directories are writeable
   file:
     path: "{{ item }}"
     state: directory
@@ -14,11 +14,4 @@
     - "/usr/local/share"
     - "/usr/local/applications"
     - "{{ local_src }}"
-
-- name: Ensure /opt is group read/writeable
-  file:
-    path: /opt
-    state: directory
-    owner: root
-    group: "{{ user.group }}"
-    mode: '2775'
+    - "/opt"

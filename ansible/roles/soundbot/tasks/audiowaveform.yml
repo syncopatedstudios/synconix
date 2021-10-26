@@ -6,9 +6,9 @@
   tags: ['audiowaveform']
 
 - name: install audiowaveform deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ deps.audiowaveform | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ development['audiowaveform'] | join(' ') }}"
   when: item not in installed_packages
-  with_items: "{{ deps.audiowaveform }}"
+  with_items: "{{ development['audiowaveform'] }}"
 
 - block:
     - name: clone audiowaveform

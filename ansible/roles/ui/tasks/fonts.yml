@@ -1,9 +1,9 @@
 ---
 
 - name: install font packages
-  shell: "{{ ansible_pkg_mgr }} -y install {{ fonts | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ ui['fonts'] | join(' ') }}"
   when: item not in installed_packages
-  with_items: "{{ fonts }}"
+  with_items: "{{ ui['fonts'] }}"
 
 - name: Extract fonts
   unarchive:

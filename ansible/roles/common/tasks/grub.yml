@@ -13,5 +13,5 @@
 
 - name: reload grub
   shell: |
-    grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-  when: "ansible_facts['os_family'] == 'RedHat'"
+    grub2-mkconfig -o {{ grub_cfg }}
+  when: "ansible_facts['os_family'] == 'RedHat' and result.changed"

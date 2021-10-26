@@ -1,8 +1,5 @@
 ---
 
-- name: Load common install vars
-  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
-
 - name: Install autofs
   action: "{{ ansible_pkg_mgr }} name=autofs state=present"
   # when: "'autofs' not in installed_packages"

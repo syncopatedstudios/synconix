@@ -1,8 +1,5 @@
 ---
 
-- name: Load common install vars
-  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
-
 - name: push jack limits file
   copy:
     src: etc/security/limits.conf
@@ -27,21 +24,20 @@
     - makesfz
   tags: ['soundfonts']
 
-- name: install audio utilities
+- name: install cli audio utilities
   shell: "{{ ansible_pkg_mgr }} -y install {{ audio['utilities'] | join(' ') }}"
   when: item not in installed_packages and utilities|bool
-  with_items:
-    - "{{ audio.utilities }}"
+  with_items: "{{ audio.utilities }}"
+
+- name: install graphical audio utilities
+  shell: "{{ ansible_pkg_mgr }} -y install {{ audio['gutilities'] | join(' ') }}"
+  when: item not in installed_packages and gutilities|bool
+  with_items: "{{ audio['gutilities'] }}"
 
 - name: install plugins
-  shell: "{{ ansible_pkg_mgr }} -y install {{ audio.plugins | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ audio['plugins'] | join(' ') }}"
   when: item not in installed_packages and plugins|bool
-  with_items: "{{ audio.plugins }}"
-
-- name: install polyphone
-  shell: "{{ ansible_pkg_mgr }} -y install polyphone"
-  tags: ['polyphone']
-  when: polyphone|bool
+  with_items: "{{ audio['plugins'] }}"
 
 - include: njconnect.yml
   tags: ['njconnect']
@@ -63,15 +59,6 @@
   tags: ['reaper']
   when: reaper.install|bool
 
-- include: tony.yml
-  when: Tony.install|bool
-
-- include: sonic-lineup.yml
-  when: SonicLineup.install|bool
-
-- include: touchosc.yml
-  tags: ['TouchOSC']
-
 - include: raysession.yml
   tags: ['raysession']
 
@@ -84,6 +71,15 @@
 - include: baudline.yml
   tags: ['baudline']
   when: Baudline.install|bool
+
+- include: tony.yml
+  when: Tony.install|bool
+
+- include: sonic-lineup.yml
+  when: SonicLineup.install|bool
+
+- include: touchosc.yml
+  tags: ['TouchOSC']
 
 - name: check if ocenaudio is already installed
   stat: path="/usr/bin/ocenaudio"

@@ -1,0 +1,23 @@
+---
+
+- name: ensure pulseaudio config directory exists
+  shell: |
+    mkdir -pv {{ user.home }}/.config/pulse
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: ensure pulseaudio configs are placed in ~/.config/pulse
+  copy:
+    src: "config/pulse/{{ item }}"
+    dest: "{{ user.home }}/.config/pulse/{{ item }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+  with_items:
+    - client.conf
+    - daemon.conf
+    - default.pa
+  become: True
+  become_user: "{{ user.name }}"
