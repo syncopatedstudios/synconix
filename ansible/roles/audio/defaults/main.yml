@@ -100,7 +100,7 @@ qmidinet:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper636_linux_x86_64.tar.xz
+  file: reaper638_linux_x86_64.tar.xz
   install: True
 
 rtplugins:

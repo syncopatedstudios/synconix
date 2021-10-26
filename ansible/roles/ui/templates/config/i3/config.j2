@@ -51,9 +51,14 @@ $exec "/opt/soundbot/bin/soundservices.sh -s -u -d"
 
 {% if ansible_facts['hostname'] == 'lapbot' %}
 $exec "sleep 0.5; nm-applet &"
+$exec barrierc soundbot01 &
 {% else %}
 {% endif %}
 
+{% if ansible_facts['hostname'] == 'soundbot01' %}
+$exec barriers --daemon -c .config/Debauchee/barriers.sgc &
+{% else %}
+{% endif %}
 ######################################
 # ---{ window settings }---
 ######################################
