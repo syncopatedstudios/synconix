@@ -1,5 +1,10 @@
 ---
 
+- name: check if the grub.cfg is in /boot/grub2
+  stat: path="/boot/grub2/grub.cfg"
+  register: hazigrub
+  check_mode: no
+
 - name: push default grub file
   template:
     src: etc/default/grub.j2
@@ -11,6 +16,7 @@
   tags: ['grub']
   register: result
 
+#TODO: dynamically set grub cfg location
 - name: reload grub
   shell: |
     grub2-mkconfig -o {{ grub_cfg }}

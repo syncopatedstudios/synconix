@@ -5,7 +5,6 @@
     - name: enable google-chrome repo
       shell: |
         dnf config-manager --set-enabled google-chrome
-        dnf -y update
 
     - name: install google chrome
       dnf:
