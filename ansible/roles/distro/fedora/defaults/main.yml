@@ -317,3 +317,60 @@ deps:
     - fluidsynth-devel
     - libgnomecanvas-devel
     - libinstpatch-devel
+  libcamera:
+    - alsa-lib-devel
+    - bluez-libs-devel
+    - clang
+    - dbus-devel
+    - doxygen
+    - elfutils-devel
+    - findutils
+    - gcc
+    - gcc-c++
+    - git
+    - glib-devel
+    - gnutls-devel
+    - graphviz
+    - gstreamer1-devel
+    - gstreamer1-plugins-base-devel
+    - jack-audio-connection-kit-devel
+    - libatomic
+    - libedit-devel
+    - gtest-devel
+    - libevent-devel
+    - python3-sphinx
+    - texlive-dvips
+    - systemtap-sdt-devel
+    - texlive-latex
+    - libsndfile-devel
+    - libunwind-devel
+    - libv4l-devel
+    - libva-devel
+    - libX11-devel
+    - lttng-ust-devel
+    - ninja-build
+    - pkgconf
+    - pulseaudio-libs-devel
+    - python3-docutils
+    - python3-pip
+    - sbc-devel
+    - SDL2-devel
+    - ShellCheck
+    - systemtap-sdt-devel
+    - systemd-devel
+    - valgrind
+    - vulkan-loader-devel
+    - webrtc-audio-processing-devel
+    - which
+  pipewire:
+    - bluez-libs-devel
+    - dbus-devel
+    - intltool
+    - fdk-aac-devel
+    - libcap-devel
+    - libusb-devel
+    - readline-devel
+    - systemd-devel
+    - libldac-devel
+    - pulseaudio-module-bluetooth-freeworld
+    - gobject-introspection-devel
