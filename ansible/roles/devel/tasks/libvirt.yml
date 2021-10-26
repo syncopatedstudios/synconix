@@ -1,0 +1,30 @@
+---
+
+- name: install libvirt
+  shell: |
+    {{ ansible_pkg_mgr }} -y install {{ libvirt | join(' ') }}
+  when: item not in installed_packages
+  with_items: "{{ libvirt }}"
+  tags: ['packages', 'libvirt']
+
+- name: install libvirtd.conf
+  copy:
+    src: etc/libvirt/libvirtd.conf
+    dest: /etc/libvirt/libvirtd.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: disable lvmetad
+  lineinfile:
+    dest: /etc/lvm/lvm.conf
+    regexp: "^    use_lvmetad = 1"
+    line: "    use_lvmetad = 0"
+    backrefs: yes
+    backup: yes
+
+- name: add user to libvirt group
+  user: name={{ user.name }} groups=libvirt append=yes
+
+- name: enable libvirtd service
+  service: name=libvirtd enabled=yes state=started

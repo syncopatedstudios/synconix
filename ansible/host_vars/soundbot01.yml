@@ -1,8 +1,11 @@
 ---
 
-autofs_client: True
+autofs_client: False
 autofs:
   host: bender
   shares:
     - storage01
     - storage02
+
+kvmhost: True
+solargraph: True

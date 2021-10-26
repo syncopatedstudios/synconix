@@ -20,11 +20,12 @@
 
     - name: install atom plugins
       shell: |
-        apm install {{ apm | join(' ') }}
+        apm install {{ item }}
       args:
         warn: no
       when: item not in apmlist.stdout
-      with_items: "{{ apm }}"
+      with_items:
+        - "{{ apm }}"
 
   become: True
   become_user: "{{ user.name }}"

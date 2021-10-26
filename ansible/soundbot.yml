@@ -7,6 +7,7 @@
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
   vars_files:
+    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
     - "vars/common.yml"
 
   pre_tasks:
@@ -14,16 +15,17 @@
       include_role:
         name: distro/fedora
       when: "ansible_facts['os_family'] == 'RedHat'"
-      tags: ['fedora', 'common', 'soundbot', 'ui', 'audio']
+      tags: ['fedora', 'packagelist']
 
     - name: Load Debian
       include_role:
         name: distro/debian
       when: "ansible_facts['os_family'] == 'Debian'"
-      tags: ['debian', 'common', 'soundbot', 'ui', 'audio']
+      tags: ['debian', 'packagelist']
 
   roles:
      - { role: common, tags: ['common'] }
      - { role: ui, tags: ['ui'] }
+     - { role: devel, tags: ['devel'] }
      - { role: soundbot, tags: ['soundbot'] }
      - { role: audio, tags: ['audio'] }

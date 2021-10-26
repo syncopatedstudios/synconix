@@ -1,14 +1,10 @@
 ---
 
-- name: Load common install vars
-  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
-
 - name: Install i3 Window Manager
   shell: |
-    {{ ansible_pkg_mgr }} -y install {{ i3 | join(' ') }}
+    {{ ansible_pkg_mgr }} -y install {{ ui['i3'] | join(' ') }}
   when: item not in installed_packages
-  with_items:
-    - "{{ i3 }}"
+  with_items: "{{ ui['i3'] }}"
 
 - name: check if swallow is already installed
   stat: path="/usr/local/bin/swallow"

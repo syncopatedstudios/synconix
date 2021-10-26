@@ -2,7 +2,7 @@
 
 - name: Install x11 Stuff
   shell: |
-    {{ ansible_pkg_mgr }} -y install {{ x11 | join(' ') }}
+    {{ ansible_pkg_mgr }} -y install {{ ui['x11'] | join(' ') }}
   when: item not in installed_packages
   with_items:
-    - "{{ x11 }}"
+    - "{{ ui['x11'] }}"

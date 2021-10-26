@@ -8,32 +8,11 @@
       register: packagelist
       check_mode: no
       ignore_errors: yes
-      tags: ['facts']
 
     - set_fact:
         installed_packages: "{{ packagelist.stdout }}"
-      tags: ['facts']
 
-    - name: Setup some apt repositories
-      import_tasks: apt.yml
+  tags: ['common', 'devel', 'soundbot', 'ui', 'audio', 'packages']
 
-    - name: Install rt-kernel
-      apt:
-        name: "{{ kernel }}"
-        state: present
-      register: rtkernel
-      tags: ['kernel']
-
-    - name: Set the install rt-kernel to be default
-      shell: |
-        grub2-set-default 1
-        grub2-mkconfig -o /boot/grub/grub.cfg
-      args:
-        warn: no
-      when: rtkernel.changed
-
-    - name: Reboot if a different kernel was installed
-      command: shutdown -r now
-      when: rtkernel.changed
-
-  tags: ['distro', 'common', 'soundbot', 'ui', 'audio']
+- name: Setup some apt repositories
+  import_tasks: apt.yml

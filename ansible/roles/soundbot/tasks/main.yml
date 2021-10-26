@@ -1,51 +1,36 @@
 ---
 
-- name: Load common install vars
-  include_vars: "/opt/soundbot/ansible/roles/distro/{{ ansible_distribution|lower }}/defaults/main.yml"
-
-- include: ruby.yml
-  tags: ['ruby']
-
 - include: soundcard.yml
   tags: ['soundcard']
 
-- name: install required dependencies
-  shell: |
-    {{ ansible_pkg_mgr }} -y install {{ deps.soundbot | join(' ') }}
-    {{ ansible_pkg_mgr }} -y install {{ zim | join(' ') }}
-  when: item not in installed_packages
-  with_items:
-     - "{{ deps.soundbot }}"
-     - "{{ zim }}"
+- include: annotator.yml
+  tags: ['sonic-annotator']
+
+- include: audiowaveform.yml
+  tags: ['audiowaveform']
+
+- name: ensure opt perms
+  file:
+    path: "/opt"
+    state: directory
+    mode: '2775'
+    group: "{{ user.group }}"
 
 - block:
     - name: clone soundbot
       git:
-        repo: "https://gitlab.com/holonym/soundbot.git"
+        repo: "https://gitlab.com/syncopatedstudios/soundbot.git"
         dest: "/opt/soundbot"
         accept_hostkey: yes
         update: no
         force: no
 
-    - name: ensure soundbot opt perms
-      file:
-        path: "/opt/soundbot"
-        state: directory
-        mode: '2775'
-        group: "{{ user.group }}"
+    - name: run bundle installer
+      bundler:
+        state: present
+        chdir: /opt/soundbot
+        user_install: no
+      ignore_errors: True
 
-  become: True
-  become_user: "{{ user.name }}"
-
-- name: run bundle installer
-  bundler:
-    state: present
-    chdir: /opt/soundbot
-    user_install: no
-  ignore_errors: True
   become: true
   become_user: "{{ user.name }}"
-
-- include: annotator.yml
-
-- include: audiowaveform.yml

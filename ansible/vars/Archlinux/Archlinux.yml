@@ -1,0 +1,199 @@
+---
+
+autofs_configs: /etc/autofs
+
+remove:
+  - vi
+common:
+  - bash-language-server
+  - bat
+  - bind
+  - boost
+  - brightnessctl
+  - faad2
+  - gcc-libs
+  - gendesk
+  - git-filter-repo
+  - glibc
+  - jansson
+  - lnav
+  - lua
+  - mlocate
+  - ncurses
+  - nfs-utils
+  - numlockx
+  - opus
+  - opusfile
+  - python-pip
+  - qscintilla-qt5
+  - qt5-base
+  - qt5-tools
+  - r
+  - sndio
+  - wol
+kernel:
+ripgrep:
+  - fzf
+  - fd
+zim:
+  - zim
+ui:
+  x11:
+    - xorg-xmodmap
+    - xorg-xrdb
+  i3:
+    - autorandr
+    - notification-daemon
+    - picom
+    - python-i3ipc
+    - quickswitch-i3
+    - xbindkeys_config-gtk2
+    - xkill-shortcut
+    - xorg-xrandr
+  themes:
+    - gtk-engine-murrine
+    - kvantum-qt5
+    - kvantum-theme-materia
+    - numix-circle-icon-theme-git
+  fonts:
+    - adobe-source-han-sans-cn-fonts
+    - adobe-source-han-sans-jp-fonts
+    - adobe-source-han-sans-kr-fonts
+    - gnu-free-fonts
+    - nerd-fonts-hack
+    - nerd-fonts-iosevka
+    - noto-fonts
+    - opendesktop-fonts
+    - otf-font-awesome
+    - terminus-font
+    - ttf-bitstream-vera
+    - ttf-caladea
+    - ttf-carlito
+    - ttf-croscore
+    - ttf-dejavu
+    - ttf-devicons
+    - ttf-font-awesome-4
+    - ttf-input
+    - ttf-jetbrains-mono
+    - ttf-liberation
+    - ttf-nerd-fonts-symbols
+    - ttf-opensans
+    - ttf-ubuntu-font-family
+    - xorg-fonts-alias-75dpi
+    - xorg-fonts-alias-100dpi
+    - xorg-fonts-alias-cyrillic
+    - xorg-fonts-alias-misc
+    - xorg-mkfontscale
+    - xorg-xlsfonts
+  utilities:
+    - actdiag
+    - blockdiag
+    - epson-inkjet-printer-escpr2
+    - gtksourceview3
+    - nwdiag
+    - seqdiag
+    - wordnet-cli
+  gutilities:
+    - atom
+    - celluloid
+    - darktable
+    - google-chrome
+    - mpv
+    - mpv-plugin-excerpt-git
+    - nomacs
+    - radiotray-ng
+development:
+  common:
+    - base-devel
+    - cmake
+    - git
+    - libblocksruntime
+    - libbluray
+    - libgme
+    - libmad
+    - libopusenc
+    - libsamplerate
+    - libvdpau-va-gl
+    - libzip
+  audiowaveform:
+    - boost
+    - boost-libs
+    - gd
+    - libid3tag
+    - libmad
+    - libsndfile
+  sonicpi:
+    - aubio
+    - erlang
+    - osmid
+    - rtaudio
+    - rtmidi
+audio:
+  alsa:
+  ambisonics:
+    - iempluginsuite
+  analyze:
+    - baudline-bin
+  composition:
+    - scala-music
+    - scala-music-scales
+    - stochas
+    - tonespace
+  editors:
+    - ocenaudio-bin
+    - polyphone
+  gutilities:
+    - carla
+    - jalv-select
+    - guitarix
+  jack:
+    - jack2
+    - jack2-dbus
+  midi:
+    - jack-keyboard
+    - mamba
+    - midifilter.lv2-git
+  mixers:
+    - non-mixer-lv2-git
+  network:
+    - qmidinet
+    - jacktrip
+  pipewire:
+  plugins:
+    - calf
+    - caps-lv2-git
+    - distrho-ports
+    - dragonfly-reverb
+    - ir-lv2-git
+    - ladspa
+    - lsp-plugins
+    - lv2
+    - noise-repellent-git
+    - swh-lv2-git
+  pulseaudio:
+    - pulseaudio-jack
+  samplers:
+    - sitala-bin
+    - mixxx
+  sequencers:
+    - hydrogen
+    - non-sequencer
+    - qmidiarp
+    - seq66-git
+  supercollider:
+    - sc3-plugins
+    - supercollider
+  synthsizers:
+    - ams-lv2
+    - helm-synth
+    - sfizz
+    - vital-synth
+  tuner:
+    - fmit
+  utilities:
+    - a2jmidid
+    - jack_capture
+    - njconnect
+    - sox
+    - xzgv
+    - zita-alsa-pcmi

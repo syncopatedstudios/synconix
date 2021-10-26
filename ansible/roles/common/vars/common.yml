@@ -1,24 +1,3 @@
 ---
 
 # don't put vars here unless they are different from the ones in the os vars
-packages:
-  - git
-  - git-lfs
-  - htop
-  - iftop
-  - iotop
-  - mlocate
-  - net-tools
-  - nodejs
-  - numlockx
-  - python3-pip
-  - ranger
-  - rsync
-  - screen
-  - sudo
-  - terminator
-  - xterm
-  - zsh
-docker:
-  - docker-ce
-  - docker-compose

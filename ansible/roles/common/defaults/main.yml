@@ -5,11 +5,13 @@ docker: True
 nvim: True
 timeshift: True
 rga: True
+googler: True
 chrome: True
-solargraph: True
 
 autofs_client: False
 autofs_configs: /etc
 backup: False
 
 admin_user: root
+
+nfshost: False

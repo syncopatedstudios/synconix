@@ -1,6 +1,6 @@
 ---
 
-- name: check if nvmi already exists
+- name: check if nvim already exists
   stat: path="/usr/local/bin/nvim"
   register: hazinvim
 
@@ -55,7 +55,6 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: not hazinvim.stat.exists
 
 - name: check if bash-language-server is already installed
   stat: path="/usr/local/bin/bash-language-server"

@@ -1,0 +1,360 @@
+---
+
+autofs_configs: /etc
+admin_user: wheel
+
+grub_cfg: /boot/efi/EFI/fedora/grub.cfg
+
+common:
+  - atool
+  - bat
+  - exa
+  - highlight
+  - http-parser
+  - lnav
+  - most
+  - nfs-utils
+  - openssh-server
+  - screen
+  - tmux
+  - tree
+  - w3m
+  - w3m-img
+  - wkhtmltopdf
+  - wordnet
+  - xarchiver
+kernel:
+  - kernel-rt
+  - kernel-rt-core
+  - kernel-rt-modules
+  - kernel-rt-modules-extra
+  - kernel-rt-modules-internal
+libvirt:
+  - libguestfs-tools
+  - libvirt-daemon-config-network
+  - libvirt-daemon-kvm
+  - python-libguestfs
+  - qemu-kvm
+  - virt-install
+  - virt-manager
+  - virt-top
+  - virt-viewer
+ripgrep:
+  - fd-find
+  - ffmpeg
+  - fzf
+  - pandoc
+  - pdf-tools
+  - poppler-utils
+  - ripgrep
+audio:
+  alsa:
+    - alsa-firmware
+    - alsa-lib
+    - alsa-lib-devel
+    - alsa-plugins-jack
+    - alsa-tools
+    - alsa-tools-firmware
+    - alsa-utils
+  gutilities:
+    - Carla
+    - freqtweak
+    - guitarix
+    - helm
+    - hydrogen
+    - jaaa
+    - jack-keyboard
+    - japa
+    - jkmeter
+    - jmeters
+    - jnoisemeter
+    - mixxx
+    - non-mixer
+    - polyphone
+    - qmidiarp
+    - qsampler
+    - sooperlooper
+    - vmpk
+    - vst3-stochas
+    - zita-mu1
+    - zita-rev1
+  jack:
+    - jack-audio-connection-kit
+    - jack-audio-connection-kit-dbus
+    - jack-audio-connection-kit-devel
+    - jack-audio-connection-kit-example-clients
+  pipewire:
+    - pipewire
+    - pipewire-alsa
+    - pipewire-gstreamer
+    - pipewire-jack-audio-connection-kit
+    - pipewire-jack-audio-connection-kit-devel
+    - pipewire-libs
+    - pipewire-pulseaudio
+    - pipewire-utils
+  plugins:
+    - DISTRHO-Ports.x86_64
+    - caps-lv2
+    - dragonfly-reverb
+    - ladspa
+    - ladspa-amb1-plugins
+    - ladspa-amb-plugins
+    - ladspa-hoa3-plugins
+    - ladspa-swh-plugins
+    - lv2-swh-plugins
+    - lv2-x42-plugins
+    - noise-repellent-lv2
+  pulseaudio:
+    - pavucontrol
+    - pulseaudio
+    - pulseaudio-libs
+    - pulseaudio-libs-devel
+    - pulseaudio-libs-glib2
+    - pulseaudio-module-jack
+    - pulseaudio-module-x11
+    - pulseaudio-utils
+  utilities:
+    - a2jmidid
+    - aj-snapshot
+    - graphviz
+    - jack_capture
+    - jack_utils
+    - jacktrip
+    - jconvolver
+    - linuxsampler
+    - opus-tools
+    - osc2midi
+    - sox
+    - timemachine
+    - vamp-plugin-sdk
+    - wavpack
+    - xzgv
+    - youtube-dl
+    - zita-ajbridge
+    - zita-lrx
+ui:
+  fonts:
+    - aajohan-comfortaa-fonts
+    - allgeyer-fonts-common
+    - allgeyer-musiqwik-fonts
+    - allgeyer-musisync-fonts
+    - deepin-icon-theme
+    - fontawesome-fonts
+    - fontawesome-fonts-web
+    - fontforge
+    - fontforge-devel
+    - fonts-tweak-tool
+    - greybird-dark-theme
+  gnome:
+    - gnome-tweaks
+  gutilities:
+    - Zim
+    - darktable
+    - feh
+    - gnuplot
+    - gpick
+    - grsync
+    - gtksourceview3
+    - guake
+    - mpv
+    - nitrogen
+    - nomacs-plugins
+    - qpdfview-qt5
+    - qt5ct
+    - qutebrowser
+    - redshift
+    - vlc
+    - wmctrl
+    - xarchiver
+    - yasm
+    - zenity
+  i3:
+    - arandr
+    - barrier
+    - guake
+    - i3
+    - lightdm
+    - network-manager-applet
+    - notification-daemon
+    - picom
+    - polybar
+    - python3-i3ipc
+    - rofi
+    - thunar
+    - xss-lock
+  themes:
+    - numix-icon-theme
+    - materia-gtk-theme
+    - materia-kde-kvantum
+  x11:
+    - nitrogen
+    - x11vnc
+    - xbindkeys
+    - xmodmap
+    - xorg-x11-drv-intel
+    - xorg-x11-drv-vesa
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-server-Xorg
+    - xorg-x11-server-devel
+    - xorg-x11-server-utils
+    - xorg-x11-utils
+    - xorg-x11-xinit
+    - xorg-x11-xinit-session
+    - xrdb
+development:
+  common:
+    - "'@C Development Tools and Libraries'"
+    - "'@Development Tools'"
+    - cmake
+    - fakeroot
+    - g++
+    - git
+    - intltool
+    - make
+    - openssl-devel
+    - pandoc
+    - python3-pip
+    - python3-pyliblo
+    - qt5-qtsvg-devel
+    - rpm-build
+  audiowaveform:
+    - boost-devel
+    - gcc-c++
+    - gd-devel
+    - libid3tag-devel
+    - libmad-devel
+    - libsndfile-devel
+    - make
+  jalvselect:
+    - gawk-devel
+    - gtkmm24-devel
+    - jalv
+    - jalv-gtk
+    - jalv-gtkmm
+    - jalv-qt
+    - lilv-devel
+  libcamera:
+    - SDL2-devel
+    - ShellCheck
+    - alsa-lib-devel
+    - bluez-libs-devel
+    - clang
+    - dbus-devel
+    - doxygen
+    - elfutils-devel
+    - findutils
+    - gcc
+    - gcc-c++
+    - git
+    - glib-devel
+    - gnutls-devel
+    - graphviz
+    - gstreamer1-devel
+    - gstreamer1-plugins-base-devel
+    - gtest-devel
+    - jack-audio-connection-kit-devel
+    - libX11-devel
+    - libatomic
+    - libedit-devel
+    - libevent-devel
+    - libsndfile-devel
+    - libunwind-devel
+    - libv4l-devel
+    - libva-devel
+    - lttng-ust-devel
+    - ninja-build
+    - pkgconf
+    - pulseaudio-libs-devel
+    - python3-docutils
+    - python3-pip
+    - python3-sphinx
+    - sbc-devel
+    - systemd-devel
+    - systemtap-sdt-devel
+    - systemtap-sdt-devel
+    - texlive-dvips
+    - texlive-latex
+    - valgrind
+    - vulkan-loader-devel
+    - webrtc-audio-processing-devel
+    - which
+  njconnect:
+    - jack-audio-connection-kit-devel
+    - ncurses-devel
+  pipewire:
+    - bluez-libs-devel
+    - dbus-devel
+    - fdk-aac-devel
+    - gobject-introspection-devel
+    - intltool
+    - libcap-devel
+    - libldac-devel
+    - libusb-devel
+    - pulseaudio-module-bluetooth-freeworld
+    - readline-devel
+    - systemd-devel
+  raysession:
+    - python3-qt5-devel
+    - qt5-linguist
+  ruby:
+    - libgit2-devel
+    - libsqlite3x-devel
+    - libxml2-devel
+    - openssl-devel
+    - ruby-devel
+    - rubygem-bundler
+    - taglib-devel
+    - zlib-devel
+  sonicpi:
+    - aubio
+    - aubio-devel
+    - boost-devel
+    - elixir
+    - erlang
+    - gcc
+    - gcc-c++
+    - libcurl-devel
+    - libffi-devel
+    - make
+    - openssl-devel
+    - osmid
+    - qt5-linguist
+    - qt5-qtbase-devel
+    - qwt-qt5-devel
+    - rtmidi-devel
+    - supercollider
+    - supercollider-devel
+    - supercollider-sc3-plugins
+    - zlib-devel
+  sonicvisualiser:
+    - bzip2-devel
+    - capnproto
+    - capnproto-devel
+    - fftw-devel
+    - libfishsound-devel
+    - libid3tag-devel
+    - liblo-devel
+    - liblrdf-devel
+    - libmad-devel
+    - liboggz-devel
+    - libsamplerate-devel
+    - libsndfile-devel
+    - libtool
+    - libxml2-devel
+    - mercurial
+    - meson
+    - ninja-build
+    - opusfile-devel
+    - polyml
+    - portaudio-devel
+    - qt5-qtsvg-devel
+    - raptor2-devel
+    - rubberband-devel
+    - sord-devel
+  swami:
+    - astyle
+    - astyle-devel
+    - fluidsynth-devel
+    - libgnomecanvas-devel
+    - libinstpatch-devel
