@@ -1,7 +1,7 @@
 ---
 
 soundbot: "/opt/soundbot"
-ansible_home: "/opt/ansible"
+ansible_home: "/opt/soundbot/ansible"
 
 local_src: "/usr/local/src"
 local_bin: "/usr/local/bin"
@@ -29,12 +29,14 @@ path:
   - "{{ user.home }}/.gem/ruby/3.0.0/bin"
   - "/var/lib/gems/2.7.0/bin"
   - "/usr/lib/jvm/default/bin"
+  - "/opt/soundbot/bin"
   - "/opt/sonic-pi/bin"
 
 terminal: xterm
 
 dots:
   remote: git@github.com:b08x/dots
+  installer: https://gitlab.com/b08x/dots/-/snippets/2191393/raw/main/initialize_dots.rb
   home: "{{ user.home }}/.dots"
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False

@@ -23,6 +23,29 @@
       when: "ansible_facts['os_family'] == 'Debian'"
       tags: ['debian', 'packagelist']
 
+  tasks:
+    - name: check if .dots already exists
+      stat: path="{{ user.home }}/.dots"
+      register: hazidots
+      tags: ['dots']
+
+    - block:
+        - name: fetch dots installer
+          get_url:
+            url: "{{ dots['installer'] }}"
+            dest: "{{ user.home }}"
+            validate_certs: no
+
+        - name: run dots installer
+          shell: |
+            ruby initialize_dots.rb
+          args:
+            chdir: "{{ user.home }}"
+
+      when: not hazidots.stat.exists and dots['remote'] is defined
+      tags: ['dots']
+
+
   roles:
      - { role: common, tags: ['common'] }
      - { role: ui, tags: ['ui'] }
