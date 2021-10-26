@@ -29,11 +29,11 @@ declare -a sampleFilePaths
 declare -a fileSearchPaths
 declare -a dirSearchPaths
 
-declare isKeySet=False
-declare isSingleFile=False
-declare isReverseSortOn=False
-declare isInteractiveModeOn=False
-declare isServiceMenuModeOn=False
+declare isKeySet=false
+declare isSingleFile=false
+declare isReverseSortOn=false
+declare isInteractiveModeOn=false
+declare isServiceMenuModeOn=false
 
 declare loopMode="no_loop"
 declare fileType="wav"
@@ -60,22 +60,22 @@ function moveCursorUpOneLine() { tput cuu1; }
 function resetText() { echo -en "\e[0m"; }
 
 
-function exitWithError() 
+function exitWithError()
 {
     declare errorMessage="$1"
-    
+
     setTextColour $RED
-    
+
     # 1>&2 means redirect text headed for stdout to stderr
     echo -e "\n$errorMessage\n" 1>&2
-    
+
     resetText
-    
+
     exit 1
 }
 
 
-function showHelp() 
+function showHelp()
 {
     cat << EOF
 
@@ -87,20 +87,20 @@ sfz files for every wav file found in the current directory.
 Samples are mapped across the entire keyboard with pitch_keycenter
 set to MIDI key C4 (middle C).
 
-Audio files can be treated as indiviual instruments or as instrument 
-layers grouped either by sub-directory or by file name with numeric 
+Audio files can be treated as indiviual instruments or as instrument
+layers grouped either by sub-directory or by file name with numeric
 prefixes/suffixes indicating the layers.
 
 To scan for files inside a directory, pass the dir name to makesfz
-like so: makesfz --files 'dir_name'. To scan for files grouped by 
+like so: makesfz --files 'dir_name'. To scan for files grouped by
 sub-dir inside a directory use: makesfz -L dirs --files 'dir_name'.
-    
+
 Options:
   -s, --single          Creates a single sfz file named after the
                         current directory. Each wav file found is
                         mapped to its own MIDI key (starting at C4
                         by default)
-  -n, --name 'NAME'     Output file name. Ignored unless used with 
+  -n, --name 'NAME'     Output file name. Ignored unless used with
                         -s option
       --lk KEY,         Set lokey. KEY must be 0 - 127 or C-1 - G9
       --lokey KEY       (# or b allowed). Ignored when used with
@@ -133,10 +133,10 @@ EOF
 }
 
 
-function checkKeyIsValid() 
+function checkKeyIsValid()
 {
     declare input=$1
-    
+
     declare -i key=0
     declare -i numChars=0
     declare -i i=0
@@ -187,7 +187,7 @@ function checkKeyIsValid()
 }
 
 
-function setLoKey() 
+function setLoKey()
 {
     lokey=$( checkKeyIsValid "$1" )
     if (( lokey == ERROR )); then
@@ -196,7 +196,7 @@ function setLoKey()
 }
 
 
-function setHiKey() 
+function setHiKey()
 {
     hikey=$( checkKeyIsValid "$1" )
     if (( hikey == ERROR )); then
@@ -205,7 +205,7 @@ function setHiKey()
 }
 
 
-function setKeyCenter() 
+function setKeyCenter()
 {
     keycenter=$( checkKeyIsValid "$1" )
     if (( keycenter == ERROR )); then
@@ -214,17 +214,17 @@ function setKeyCenter()
 }
 
 
-function setKey() 
+function setKey()
 {
     key=$( checkKeyIsValid "$1" )
     if (( key == ERROR )); then
         exitWithError "Key must be in the range C-1 to G9"
     fi
-    isKeySet=True
+    isKeySet=true
 }
 
 
-function setMidiChan() 
+function setMidiChan()
 {
     declare input=$1
 
@@ -241,7 +241,7 @@ function setMidiChan()
 }
 
 
-function setFileType() 
+function setFileType()
 {
     declare input=$1
 
@@ -296,8 +296,8 @@ function processArgs()
     if (( NUM_ARGS > 0 )); then
         while (( i < NUM_ARGS )); do
             case ${ARGS[$i]} in
-                -s )                isSingleFile=True; isKeySet=True;;
-                --single )          isSingleFile=True; isKeySet=True;;
+                -s )                isSingleFile=true; isKeySet=true;;
+                --single )          isSingleFile=true; isKeySet=true;;
                 -n )                (( i++ )); sfzFileName=${ARGS[$i]};;
                 --name )            (( i++ )); sfzFileName=${ARGS[$i]};;
                 --lk )              (( i++ )); setLoKey ${ARGS[$i]};;
@@ -314,13 +314,13 @@ function processArgs()
                 --midi )            (( i++ )); setMidiChan ${ARGS[$i]};;
                 -f )                (( i++ )); setFileType ${ARGS[$i]};;
                 --format )          (( i++ )); setFileType ${ARGS[$i]};;
-                -r )                isReverseSortOn=True;;
-                --reverse )         isReverseSortOn=True;;
+                -r )                isReverseSortOn=true;;
+                --reverse )         isReverseSortOn=true;;
                 -L )                (( i++ )); setLayerMarker ${ARGS[$i]};;
                 --layers )          (( i++ )); setLayerMarker ${ARGS[$i]};;
-                -I )                isInteractiveModeOn=True;;
-                --interactive )     isInteractiveModeOn=True;;
-                --service-menu )    isServiceMenuModeOn=True;;
+                -I )                isInteractiveModeOn=true;;
+                --interactive )     isInteractiveModeOn=true;;
+                --service-menu )    isServiceMenuModeOn=true;;
                 -h )                showHelp; exit 0;;
                 --help )            showHelp; exit 0;;
                 --files )           (( i++ )); setSearchPaths $i; break;;
@@ -336,9 +336,9 @@ function guessFileTypeFromFileList()
 {
     declare filePath=""
     declare prevFileType=""
-    
+
     fileType=""
-    
+
     for filePath in "${fileSearchPaths[@]}"; do
         fileType="${filePath##*.}"
 
@@ -358,19 +358,19 @@ function guessFileTypeFromFileList()
 function showWelcomeMessage()
 {
     setTextColour $YELLOW; startUnderline; echo -e "\nMake SFZ"; stopUnderline
-    
+
     setTextColour $WHITE; cat << EOF
 
-This script will auto-generate one or more SFZ files from the selected 
-file(s) and/or dir(s). If no files are selected it will scan the current 
+This script will auto-generate one or more SFZ files from the selected
+file(s) and/or dir(s). If no files are selected it will scan the current
 directory for compatible audio files (wav, flac, or ogg).
 
-Make SFZ can create individual SFZ files for each audio file or, 
-alternatively, it can create a single SFZ file in which every audio 
+Make SFZ can create individual SFZ files for each audio file or,
+alternatively, it can create a single SFZ file in which every audio
 file is mapped to its own key.
 
-Audio files can be treated as indiviual instruments or as instrument 
-layers grouped either by sub-directory or by file name with numeric 
+Audio files can be treated as indiviual instruments or as instrument
+layers grouped either by sub-directory or by file name with numeric
 prefixes/suffixes indicating the layers.
 
 EOF
@@ -391,8 +391,8 @@ function setWorkingDir()
         setTextColour $WHITE; echo "Should makeh2kit set this as the current directory?"
         echo -e "yes - create files in ${dirSearchPaths[0]} (default)\nno  - create files in ${dirSearchPaths[0]%/*}"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="yes"; moveCursorUpOneLine; echo "$input"
         fi
 
@@ -415,78 +415,78 @@ function getValuesFromUser()
     declare input=""
 
     guessFileTypeFromFileList
-    
+
     showWelcomeMessage
-    
+
     setTextColour $YELLOW; echo -e "Please enter the following details or simply press enter to accept the\ndefault values...\n"
 
     if $isServiceMenuModeOn; then
         setWorkingDir
     fi
-    
+
     # Create a single SFZ file?
     setTextColour $WHITE; echo "Do you want to create a single SFZ file? (default is no):"
     setTextColour $CYAN; read -e input
-    
-    if [[ $input == "" ]]; then 
+
+    if [[ $input == "" ]]; then
         input="no"; moveCursorUpOneLine; echo "$input"
     fi
 
     if [[ $input == [yY] ]] || [[ $input == [yY][eE][sS] ]]; then
 
-        isSingleFile=True
-        
+        isSingleFile=true
+
         # Set SFZ file name
         setTextColour $WHITE; echo "Name of SFZ file (default is name of current directory, \"${PWD##*/}\"):"
         setTextColour $CYAN; read -e sfzFileName
-        
-        if [[ $sfzFileName == "" ]]; then 
+
+        if [[ $sfzFileName == "" ]]; then
             sfzFileName="${PWD##*/}"; moveCursorUpOneLine; echo "$sfzFileName"
         fi
 
         # Set key
         setTextColour $WHITE; echo "Start key (0 to 127, or C-1 to G9, # or b allowed) (default is C4):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="C4"; moveCursorUpOneLine; echo "$input"
         fi
-        
+
         setKey "$input"
-        
+
     elif [[ $input == [nN] ]] || [[ $input == [nN][oO] ]]; then
 
         # Set lokey
         setTextColour $WHITE; echo "Lowest key (0 to 127, or C-1 to G9, # or b allowed) (default is C-1):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="C-1"; moveCursorUpOneLine; echo "$input"
         fi
-        
+
         setLoKey "$input"
 
         # Set hikey
         setTextColour $WHITE; echo "Highest key (0 to 127, or C-1 to G9, # or b allowed) (default is G9):"
         setTextColour $CYAN; read -e input
-        
+
         if [[ $input == "" ]]; then
             input="G9"; moveCursorUpOneLine; echo "$input"
         fi
-        
+
         setHiKey "$input"
 
         # Set pitch key center
         setTextColour $WHITE; echo "Pitch key center (0 to 127, or C-1 to G9, # or b allowed) (default is C4):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="C4"; moveCursorUpOneLine; echo "$input"
         fi
-        
+
         setKeyCenter "$input"
 
-    else 
+    else
         exitWithError "Invalid value: \"$input\""
     fi
 
@@ -494,68 +494,68 @@ function getValuesFromUser()
     if [[ $fileType == "" ]]; then
         setTextColour $WHITE; echo "Audio file format (wav (default), flac, or ogg):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="wav"; moveCursorUpOneLine; echo "$input"
         fi
-        
+
         setFileType "$input"
     fi
 
     # Enable one-shot?
     setTextColour $WHITE; echo "Enable one-shot? (default is no):"
     setTextColour $CYAN; read -e input
-    
-    if [[ $input == "" ]]; then 
+
+    if [[ $input == "" ]]; then
         input="no"; moveCursorUpOneLine; echo "$input"
     fi
-    
+
     if [[ $input == [yY] ]] || [[ $input == [yY][eE][sS] ]]; then
         loopMode="one_shot"
     elif [[ $input == [nN] ]] || [[ $input == [nN][oO] ]]; then
         loopMode="no_loop"
-    else 
+    else
         exitWithError "Invalid value: \"$input\""
     fi
 
     # Set MIDI channel
     setTextColour $WHITE; echo "Set MIDI channel (1 - 16, or all) (default is \"all\"):"
     setTextColour $CYAN; read -e input
-    
-    if [[ $input == "" ]]; then 
+
+    if [[ $input == "" ]]; then
         input="all"; moveCursorUpOneLine; echo "$input"
     fi
-    
+
     setMidiChan "$input"
 
     # Set "layer marker"
     setTextColour $WHITE; echo "Set \"layer marker\" (none (default), dirs, prefix, or suffix (or d, p, s)):"
     setTextColour $CYAN; read -e input
-    
-    if [[ $input == "" ]]; then 
+
+    if [[ $input == "" ]]; then
         input="none"; moveCursorUpOneLine; echo "$input"
     fi
-    
-    if [[ $input != "none" ]]; then 
+
+    if [[ $input != "none" ]]; then
         setLayerMarker "$input"
     fi
 
     # Reverse sort order?
     setTextColour $WHITE; echo "Reverse sort order? (default is no):"
     setTextColour $CYAN; read -e input
-    
-    if [[ $input == "" ]]; then 
+
+    if [[ $input == "" ]]; then
         input="no"; moveCursorUpOneLine; echo "$input"
     fi
 
     if [[ $input == [yY] ]] || [[ $input == [yY][eE][sS] ]]; then
-        isReverseSortOn=True
+        isReverseSortOn=true
     elif [[ $input == [nN] ]] || [[ $input == [nN][oO] ]]; then
-        isReverseSortOn=False
+        isReverseSortOn=false
     else
         exitWithError "Invalid value: \"$isReverseSortOn\""
     fi
-    
+
     setTextColour $WHITE
 }
 
@@ -563,12 +563,12 @@ function getValuesFromUser()
 function makePathsRelative()
 {
     declare -i i=0
-    
+
     # Remove PWD from start of files and dirs so paths are relative rather than absolute
     for (( i = 0; i < ${#fileSearchPaths[@]}; i++ )); do
         fileSearchPaths[i]="${fileSearchPaths[i]#$PWD/}"
     done
-    
+
     for (( i = 0; i < ${#dirSearchPaths[@]}; i++ )); do
         if [[ ${dirSearchPaths[i]} == "$PWD" ]] || [[ ${dirSearchPaths[i]} == "$PWD/" ]]; then
             dirSearchPaths[i]="."
@@ -645,7 +645,7 @@ function findFilesInSubDirs()
     # IFS (Internal Field Separator) is set to null for duration of read operation to prevent
     # file names containing spaces or new lines from being split
 
-    # Find sub-directories containing audio files 
+    # Find sub-directories containing audio files
     while IFS= read -r -d '' subDir; do
         numFiles=$( getNumMatchingFiles "$subDir" )
 
@@ -811,7 +811,7 @@ function findFiles()
 }
 
 
-function addGroup() 
+function addGroup()
 {
     (( velIncrement = VEL_MAX / numLayers + 1 ))
     (( numBigIncrements = VEL_MAX % numLayers ))
@@ -888,7 +888,7 @@ function createSingleSfzFile()
     if [ -f "$sfzFileName".sfz ]; then
         setTextColour $WHITE; echo -e "Warning: A file with the name $sfzFileName.sfz already exists \nDo you want to overwrite it?"
         setTextColour $CYAN; read -e input
-        
+
         if [[ $input == [yY] ]] || [[ $input == [yY][eE][sS] ]]; then
             rm -f "$sfzFileName".sfz
             echo
@@ -935,7 +935,7 @@ function createMultiSfzFiles()
         if [ -f "$instrName".sfz ]; then
             setTextColour $WHITE; echo -e "Warning: A file with the name $instrName.sfz already exists \nDo you want to overwrite it?"
             setTextColour $CYAN; read -e input
-            
+
             if [[ $input == [yY] ]] || [[ $input == [yY][eE][sS] ]]; then
                 rm -f "$instrName".sfz
                 echo
