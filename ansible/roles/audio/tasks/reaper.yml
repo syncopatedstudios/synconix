@@ -5,16 +5,16 @@
   register: hazireaper
   tags: ['reaper']
 
-- block:
-    - name: ensure desktop-directories directory exists
-      file:
-        path: "/usr/share/desktop-directories"
-        state: directory
-        owner: root
-        group: root
-        mode: '0775'
-      tags: ['reaper']
+- name: ensure desktop-directories directory exists
+  file:
+    path: "/usr/share/desktop-directories"
+    state: directory
+    owner: root
+    group: root
+    mode: '0775'
+  tags: ['reaper']
 
+- block:
     - name: fetch reaper
       get_url:
         url: "{{ reaper.url }}{{ reaper.file }}"
@@ -32,4 +32,4 @@
         chdir: "{{ local_src }}"
   become: True
   become_user: "{{ user.name }}"
-  when: hazireaper.stat.exists
+  when: not hazireaper.stat.exists

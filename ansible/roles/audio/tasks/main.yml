@@ -16,9 +16,10 @@
   when: remove_pipewire|bool
 
 - name: install audio utilities
-  shell: "{{ ansible_pkg_mgr }} -y install {{ audio.utilities | join(' ') }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ audio['utilities'] | join(' ') }}"
   when: item not in installed_packages and utilities|bool
-  with_items: "{{ audio.utilities }}"
+  with_items:
+    - "{{ audio.utilities }}"
 
 - name: install plugins
   shell: "{{ ansible_pkg_mgr }} -y install {{ audio.plugins | join(' ') }}"
@@ -27,11 +28,16 @@
 
 - name: install polyphone
   shell: "{{ ansible_pkg_mgr }} -y install polyphone"
+  tags: ['polyphone']
   when: polyphone|bool
 
 - include: njconnect.yml
   tags: ['njconnect']
   when: njconnect|bool
+
+- include: qmidinet.yml
+  tags: ['qmidinet']
+  when: qmidinet.install|bool
 
 - include: sonic-pi.yml
   tags: ['sonicpi']
@@ -43,8 +49,13 @@
 
 - include: reaper.yml
   tags: ['reaper']
+  when: reaper.install|bool
 
-- include: isophonics.yml
+- include: tony.yml
+  when: Tony.install|bool
+
+- include: sonic-lineup.yml
+  when: SonicLineup.install|bool
 
 - include: touchosc.yml
   tags: ['TouchOSC']
@@ -60,6 +71,16 @@
 
 - include: baudline.yml
   tags: ['baudline']
+  when: Baudline.install|bool
+
+- name: check if ocenaudio is already installed
+  stat: path="/usr/bin/ocenaudio"
+  register: haziocenaudio
+  tags: ['ocenaudio']
+
+- include: ocenaudio.yml
+  tags: ['ocenaudio']
+  when: not haziocenaudio.stat.exists and ocenaudio.install|bool
 
 # - include: rtplugins.yml
 #   when: rtplugins.install|bool
@@ -67,14 +88,6 @@
 # - include: ardour.yml
 #   tags: ['ardour', 'daw']
 #   when: ardour.install|bool
-
-- name: check if ocenaudio is already installed
-  stat: path="/usr/bin/ocenaudio"
-  register: haziocenaudio
-
-- include: ocenaudio.yml
-  tags: ['ocenaudio']
-  when: not haziocenaudio.stat exists
 
 # - include: deadbeef.yml
 #   tags: ['deadbeef']

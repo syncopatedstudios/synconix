@@ -12,6 +12,7 @@
     - "/usr/local/lib"
     - "/usr/local/lib/soundbot"
     - "/usr/local/share"
+    - "/usr/local/applications"
     - "{{ local_src }}"
 
 - name: Ensure /opt is group read/writeable
