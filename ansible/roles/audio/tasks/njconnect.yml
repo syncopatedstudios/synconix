@@ -1,6 +1,6 @@
 ---
 
-- name: check if sonic-pi is already installed
+- name: check if njconnect is already installed
   stat: path="/usr/bin/njconnect"
   register: hazinjconnect
 
