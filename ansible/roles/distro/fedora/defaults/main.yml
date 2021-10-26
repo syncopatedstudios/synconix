@@ -118,6 +118,9 @@ pulseaudio:
   - pulseaudio-utils
 audio:
   plugins:
+    - caps-lv2
+    - DISTRHO-Ports.x86_64
+    - dragonfly-reverb
     - ladspa
     - ladspa-amb1-plugins
     - ladspa-amb-plugins
@@ -128,35 +131,28 @@ audio:
     - noise-repellent-lv2
   utilities:
     - Carla
+    - freqtweak
+    - guitarix
+    - helm
+    - hydrogen
     - jaaa
+    - jacktrip
     - japa
     - jconvolver
     - jmeters
     - jnoisemeter
-    - osc2midi
-  synths:
-    - freqtweak
-    - guitarix
-    - helm
-  samplers:
     - linuxsampler
     - mixxx
-    - sooperlooper
-  sequencers:
-    - hydrogen
-    - qmidiarp
-    - vst3-stochas
-  network:
-    - jacktrip
-    - qmidinet
-  mixers:
     - non-mixer
-  zita:
+    - osc2midi
+    - qmidiarp
+    - sooperlooper
+    - vst3-stochas
+    - zita-ajbridge
     - zita-lrx
     - zita-mu1
-    - zita-njbridge
-    - zita-rev1
     - zita-mu1
+    - zita-rev1
 x11:
   - nitrogen
   - xbindkeys

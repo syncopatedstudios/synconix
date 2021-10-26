@@ -94,6 +94,10 @@ ocenaudio:
     fedora: "https://www.ocenaudio.com/downloads/index.php/ocenaudio_centos8.rpm?"
   install: True
 
+qmidinet:
+  git: "https://github.com/rncbc/qmidinet.git"
+  install: True
+
 reaper:
   url: "http://reaper.fm/files/6.x/"
   file: reaper636_linux_x86_64.tar.xz
