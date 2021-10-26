@@ -146,6 +146,7 @@ audio:
     - non-mixer
     - osc2midi
     - qmidiarp
+    - qsampler
     - sooperlooper
     - vst3-stochas
     - zita-ajbridge
