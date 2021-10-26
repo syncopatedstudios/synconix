@@ -1,0 +1,48 @@
+---
+
+- name: install libvirt stuff
+  dnf: name={{ item }} state=present
+  with_items:
+    - virt-install
+    - libvirt-daemon-config-network
+    - libvirt-daemon-kvm
+    - qemu-kvm
+    - virt-manager
+    - virt-viewer
+    - guestfs-browser
+    - libguestfs-tools
+    - python-libguestfs
+    - virt-top
+
+# install libvirtd.conf
+#
+# This provides us with the ability to use virt-manager from non root accounts.
+#
+- name: install libvirtd.conf
+  copy: src=libvirtd.conf dest=/etc/libvirt/libvirtd.conf
+  notify:
+  - restart libvirtd
+  tags:
+  - config
+
+- name: enable libvirtd
+  systemd: name=libvirtd state=started enabled=yes
+
+#
+# Disable lvmetad as it causes lots of problems with iscsi shared lvm and caching.
+#
+- name: disable lvmetad
+  lineinfile: dest=/etc/lvm/lvm.conf regexp="^    use_lvmetad = 1" line="    use_lvmetad = 0" backrefs=yes
+
+#
+# Some virthosts we want to use nested virt (a tech preview in rhel 7.2)
+# We need this module option set and then need to tweak the libvirt xml to enable it
+#
+- name: setup nested virt on virthosts with nested=true variable
+  copy: src=kvm_intel.conf dest=/etc/modprobe.d/kvm_intel.conf
+
+- name: add user to libvirt group
+  user: name={{ user.name }} groups=libvirt append=yes
+
+- name: enable libvirtd service
+  service: name=libvirtd enabled=yes state=started

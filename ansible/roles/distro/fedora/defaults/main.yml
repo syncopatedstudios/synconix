@@ -51,6 +51,17 @@ kernel:
   - kernel-rt-modules
   - kernel-rt-modules-extra
   - kernel-rt-modules-internal
+libvirt:
+  - virt-install
+  - libvirt-daemon-config-network
+  - libvirt-daemon-kvm
+  - qemu-kvm
+  - virt-manager
+  - virt-viewer
+  - guestfs-browser
+  - libguestfs-tools
+  - python-libguestfs
+  - virt-top
 ruby:
   - "'@C Development Tools and Libraries'"
   - cmake
