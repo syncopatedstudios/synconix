@@ -8,6 +8,7 @@ deadbeef: True
 jalvselect: True
 linuxsampler: True
 mixers: True
+mixxx: True
 njconnect: True
 obs: True
 plugins: True
@@ -85,13 +86,12 @@ ecasound:
 
 googletest:
   url: "https://github.com/google/googletest/archive/"
-  install: True
   file: "release-1.11.0.tar.gz"
 
 ocenaudio:
   url:
     debian: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
-    fedora: "https://www.ocenaudio.com/start_download/ocenaudio_centos8.rpm"
+    fedora: "https://www.ocenaudio.com/downloads/index.php/ocenaudio_centos8.rpm?"
   install: True
 
 reaper:
