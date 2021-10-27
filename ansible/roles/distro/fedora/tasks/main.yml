@@ -9,14 +9,21 @@
 - name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
   mount:
     path: "{{ item.mount }}"
-    src: "{{ item.uuid }}"
+    src: "UUID={{ item.uuid }}"
     fstype: "{{ item.fstype }}"
     opts: "{{ item.options }},compress=zstd:1,autodefrag,noatime"
     state: present
     backup: yes
   with_items:
     - "{{ ansible_mounts }}"
-  when: "item.fstype == 'btrfs' and item.options.find('compress=zstd:1') >= 0"
+  when: "item.fstype == 'btrfs' and item.options.find('compress=zstd:1') == 0"
+  register: fstab
+
+- name: Reboot if a different kernel was installed
+  command: shutdown -r now
+  when: selinuxstatus.changed or fstab.changed
+  async: 90
+  poll: 5
 
 - block:
 
