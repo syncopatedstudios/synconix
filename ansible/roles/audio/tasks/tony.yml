@@ -11,16 +11,16 @@
         dest: "{{ local_src }}"
         validate_certs: no
 
-    - name: link tony to bin
-      shell: |
-        chmod +x {{ Tony.file }}
-        ln -s {{ local_src }}/{{ Tony.file }} /usr/local/bin/tony
-      args:
-        chdir: "{{ local_src }}"
-
   become: True
   become_user: "{{ user.name }}"
   when: not hazitony.stat.exists
+
+- name: link tony to bin
+  shell: |
+    chmod +x {{ Tony.file }}
+    ln -s {{ local_src }}/{{ Tony.file }} /usr/local/bin/tony
+  args:
+    chdir: "{{ local_src }}"
 
 - name: install desktop entry for tony
   copy:

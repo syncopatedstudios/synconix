@@ -46,9 +46,9 @@ After you're finished with that, you might want to add some environment variable
 
 ### More than one Linux!
 Choose what packages you want to install in one or all of these places:
-- [Fedora](roles/distro/fedora/defaults/main.yml)
-- [Debian](roles/distro/debian/defaults/main.yml)
-- [Arch](roles/distro/arch/defaults/main.yml)
+- [Fedora](vars/RedHat/Fedora.yml)
+- [Debian](vars/Debian/Debian.yml)
+- [Arch](vars/Archlinux/Archlinux.yml)
 - [Ruby, Python and Atom packages](vars/common.yml)
 
 
@@ -57,8 +57,6 @@ Software that needs compilin' can be found in
 
 [audio](roles/audio/defaults/main.yml)
 
-# UXUI
-This was project was partially motivated by a desire for workflow expierence that could be replicated. This would be the foundation for that. A stable environment to use the computer as an instrument of sound in both a studio and live setting. Concepts from large scale server manage
 
 ## window manager
 
@@ -67,15 +65,13 @@ set which window manager and subsequent packages to install
 ```yaml
 install_x11: True
 install_i3: True
-install_xfce: False
-install_gnome: False
 ```
 set i3 as the window manager by adding a boolean variable
 you can set this per host in host_vars, in the distro defaults and in a few
 other places if the need calls for it. You can find the default settings in
 [ui defaults](roles/ui/defaults/main.yml)
 
-Right now there are package lists for x11 and i3 only. If you'd like to add packages for any other desktop enviornment, simply add packages you want in distro defaults, create a task for it, then add a boolean to this list.
+Right now there are package lists for x11 and i3 only. If you'd like to add packages for any other desktop enviornment, add the packages you want in distro defaults, create a task for it, then add a boolean to this list.
 
 
 ## theme
@@ -122,10 +118,9 @@ There is where base system configuration tasks are stored. Generally speaking, y
 
 ## tasks
 
-prefix 'facts' before any tags to ensure dynamic varaibles are set
 
 ```bash
-ansible-playbook -v -i hosts soundbot.yml --limit ninjabot --tags facts,theme
+ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 ```
 
 ### ansible variable precdence

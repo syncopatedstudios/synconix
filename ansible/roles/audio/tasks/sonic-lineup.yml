@@ -11,16 +11,16 @@
         dest: "{{ local_src }}"
         validate_certs: no
 
-    - name: link SonicLineup to bin
-      shell: |
-        chmod +x {{ SonicLineup.file }}
-        ln -s {{ local_src }}/{{ SonicLineup.file }} /usr/local/bin/sonic-lineup
-      args:
-        chdir: "{{ local_src }}"
-
   become: True
   become_user: "{{ user.name }}"
   when: not hazisoniclineup.stat.exists
+
+- name: link SonicLineup to bin
+  shell: |
+    chmod +x {{ SonicLineup.file }}
+    ln -s {{ local_src }}/{{ SonicLineup.file }} /usr/local/bin/sonic-lineup
+  args:
+    chdir: "{{ local_src }}"
 
 - name: install sonic lineup desktop entry
   copy:
