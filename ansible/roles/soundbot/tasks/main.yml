@@ -30,7 +30,7 @@
       register: hazilock
 
     - name: run bundle install
-      command: bash -lc 'bundle install && sudo gem pristine --all'
+      shell: "bundle install && sudo gem pristine --all"
       args:
         chdir: /opt/soundbot
       when: not hazilock.stat.exists

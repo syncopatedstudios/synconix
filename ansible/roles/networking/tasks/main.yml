@@ -37,7 +37,7 @@
 
 - name: remove NetworkManager packages
   shell: "{{ ansible_pkg_mgr }} -y remove {{ item }}"
-  when: item not in installed_packages
+  when: item in installed_packages
   with_items: "{{ networkmanager }}"
 
 # vim: set ts=2 sw=2:
