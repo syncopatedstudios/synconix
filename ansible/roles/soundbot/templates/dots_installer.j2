@@ -8,13 +8,13 @@ require 'tty-command'
 
 $logger = Logger.new(STDOUT)
 
-$dots = File.join({{ dots['home'] }})
+$dots = File.join("{{ dots['home'] }}")
 
-$backup = File.join({{ dots['backup'] }})
+$backup = File.join("{{ dots['backup'] }}")
 
 $gitrepo = "{{ dots['repo'] }}"
 
-$git = "/usr/bin/git --git-dir='#{$dots}' --work-tree={{ user.home }}"
+$git = "/usr/bin/git --git-dir='#{$dots}' --work-tree="{{ user.home }"}"
 
 $modified_or_new = "egrep '.modified|.new' | awk -F ':' {'print $2'} | xargs -0"
 $from_remote = "egrep '\t+\.' | awk {'print $1'}"

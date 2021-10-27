@@ -17,7 +17,7 @@
       tags: ['dots']
 
     - name: run dots installer
-      shell: "ruby initialize_dots.rb"
+      shell: "ruby dots_installer.rb"
       args:
         chdir: "{{ user.home }}"
 

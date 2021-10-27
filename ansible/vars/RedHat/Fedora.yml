@@ -304,6 +304,7 @@ development:
     - python3-qt5-devel
     - qt5-linguist
   ruby:
+    - libev-devel
     - libgit2-devel
     - libsqlite3x-devel
     - libxml2-devel

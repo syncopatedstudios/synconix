@@ -36,7 +36,6 @@
         installed_packages: "{{ packagelist.stdout.split('\n') }}"
       tags: ['test']
 
-
     - name: print vars
       debug:
         msg: "{{ (packages + common)|difference(installed_packages) }}"
