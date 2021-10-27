@@ -24,6 +24,7 @@ common:
 kernel:
   - kernel-rt
   - kernel-rt-core
+  - kernel-rt-devel
   - kernel-rt-modules
   - kernel-rt-modules-extra
   - kernel-rt-modules-internal

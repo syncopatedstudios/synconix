@@ -11,19 +11,17 @@
     path: "{{ item.mount }}"
     src: "UUID={{ item.uuid }}"
     fstype: "{{ item.fstype }}"
-    opts: "{{ item.options }},compress=zstd:1,autodefrag,noatime"
+    opts: "{{ item.options }},compress=lzo,autodefrag,noatime"
     state: present
     backup: yes
   with_items:
     - "{{ ansible_mounts }}"
-  when: "item.fstype == 'btrfs' and item.options.find('compress=zstd:1') == 0"
+  when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') == 0"
   register: fstab
 
 - name: Reboot if selinux or fstab was changed
-  command: shutdown -r now
+  shell: "shutdown -r now"
   when: selinuxstatus.changed or fstab.changed
-  async: 90
-  poll: 5
 
 - block:
 
@@ -40,3 +38,4 @@
 
 - name: Setup Fedora repos
   import_tasks: dnf.yml
+  
