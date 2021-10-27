@@ -1,10 +1,11 @@
 ---
 
 - name: stop NetworkManager service
-  service:
+  systemd:
     name: NetworkManager
     enabled: no
     state: stopped
+  when: "'NetworkManager' in installed_packages"
 
 - import_tasks: cleanup.yml
   when: systemd_networkd_cleanup | bool
