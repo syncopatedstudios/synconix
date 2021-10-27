@@ -24,6 +24,9 @@ Baudline:
   file: "baudline_1.08_linux_x86_64.tar.gz"
   install: True
 
+DeadBeef:
+  git: "https://github.com/DeaDBeeF-Player/deadbeef.git"
+
 Protokol:
   url: "https://hexler.net/pub/protokol/"
   file: "protokol-0.4.1.83-linux-x86_64.zip"
@@ -40,7 +43,7 @@ SonicLineup:
   install: True
 
 SonicPi:
-  git: "git@github.com:syncopatedstudios/sonic-pi.git"
+  git: "https://github.com/syncopatedstudios/sonic-pi.git"
   branch: "v3.3-release"
   path: /opt/sonic-pi
   prebuild: "./linux-prebuild.sh --build-aubio"
@@ -89,6 +92,15 @@ googletest:
   url: "https://github.com/google/googletest/archive/"
   file: "release-1.11.0.tar.gz"
 
+jacktrip:
+  git: "https://github.com/jacktrip/jacktrip.git"
+
+jalvselect:
+  git: "https://github.com/brummer10/jalv_select.git"
+
+njconnect:
+  git: "https://github.com/radiganm/njconnect.git"
+
 ocenaudio:
   url:
     debian: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
@@ -98,6 +110,9 @@ ocenaudio:
 qmidinet:
   git: "https://github.com/rncbc/qmidinet.git"
   install: True
+
+raysession:
+  git: "https://github.com/Houston4444/RaySession.git"
 
 reaper:
   url: "http://reaper.fm/files/6.x/"

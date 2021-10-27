@@ -18,7 +18,7 @@
 - block:
     - name: clone sonic-visualiser
       git:
-        repo: "https://github.com/sonic-visualiser/sonic-visualiser"
+        repo: "{{ SonicVisualiser['git'] }}"
         dest: "/usr/local/src/sonic-visualiser"
         accept_hostkey: yes
         update: no

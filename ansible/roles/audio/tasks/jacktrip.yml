@@ -3,7 +3,7 @@
 - block:
   - name: clone jacktrip
     git:
-      repo: "https://github.com/jacktrip/jacktrip.git"
+      repo: "{{ jacktrip['git'] }}"
       dest: "{{ local_src }}/jacktrip"
       accept_hostkey: yes
       update: no

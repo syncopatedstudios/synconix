@@ -17,12 +17,12 @@
 
 - block:
   - name: clone sonicpi
-    git: >
-      repo="{{ SonicPi['git'] }}"
-      dest="{{ SonicPi['path'] }}"
-      accept_hostkey=yes
-      update=no
-      force=no
+    git:
+      repo: "{{ SonicPi['git'] }}"
+      dest: "{{ SonicPi['path'] }}"
+      accept_hostkey: yes
+      update: no
+      force: no
 
   - name: checkout releasev3.3 branch
     shell: "git checkout {{ SonicPi['branch'] }}"

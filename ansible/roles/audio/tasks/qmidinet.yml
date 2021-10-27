@@ -7,7 +7,7 @@
 - block:
   - name: clone qmidinet
     git:
-      repo: "{{ qmidinet.git }}"
+      repo: "{{ qmidinet['git'] }}"
       dest: "{{ local_src }}/qmidinet"
       accept_hostkey: yes
       update: no

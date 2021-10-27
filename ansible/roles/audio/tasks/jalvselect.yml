@@ -18,7 +18,7 @@
 - block:
   - name: clone jalv-select
     git:
-      repo: "https://github.com/brummer10/jalv_select.git"
+      repo: "{{ jalvselect['git'] }}"
       dest: "{{ local_src }}/jalv_select"
       accept_hostkey: yes
       update: no

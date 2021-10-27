@@ -17,7 +17,7 @@
 - block:
   - name: clone njconnect
     git:
-      repo: "https://github.com/radiganm/njconnect.git"
+      repo: "{{ njconnect['git'] }}"
       dest: "{{ local_src }}/njconnect"
       accept_hostkey: yes
       update: no
