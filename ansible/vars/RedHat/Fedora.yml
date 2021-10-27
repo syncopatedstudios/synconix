@@ -116,7 +116,6 @@ audio:
   utilities:
     - a2jmidid
     - aj-snapshot
-    - graphviz
     - jack_capture
     - jack_utils
     - jacktrip
@@ -210,6 +209,7 @@ development:
     - fakeroot
     - g++
     - git
+    - graphviz
     - intltool
     - make
     - openssl-devel
@@ -249,7 +249,6 @@ development:
     - git
     - glib-devel
     - gnutls-devel
-    - graphviz
     - gstreamer1-devel
     - gstreamer1-plugins-base-devel
     - gtest-devel

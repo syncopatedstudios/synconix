@@ -25,12 +25,13 @@
         update: no
         force: no
 
-    - name: run bundle installer
-      bundler:
-        state: present
+    - name: run bundle install
+      command: bundle install && sudo gem pristine --all
+      args:
         chdir: /opt/soundbot
-        user_install: no
-      ignore_errors: True
+      become: True
+      become_user: "{{ user.name }}"
+
 
   become: true
   become_user: "{{ user.name }}"
