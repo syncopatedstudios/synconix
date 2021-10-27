@@ -2,8 +2,6 @@
 autofs_configs: /etc
 admin_user: sudo
 
-grub_cfg: /boot/grub2/grub.cfg
-
 common:
   - bash-completion
   - cargo

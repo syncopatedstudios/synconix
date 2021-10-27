@@ -26,7 +26,7 @@
         force: no
 
     - name: run bundle install
-      command: bundle install && sudo gem pristine --all
+      command: bash -lc 'bundle install && sudo gem pristine --all'
       args:
         chdir: /opt/soundbot
       become: True

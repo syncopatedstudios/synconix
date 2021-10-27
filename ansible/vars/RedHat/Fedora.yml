@@ -3,8 +3,6 @@
 autofs_configs: /etc
 admin_user: wheel
 
-grub_cfg: /boot/efi/EFI/fedora/grub.cfg
-
 common:
   - atool
   - bat

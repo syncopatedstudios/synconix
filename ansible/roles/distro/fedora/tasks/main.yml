@@ -19,7 +19,7 @@
   when: "item.fstype == 'btrfs' and item.options.find('compress=zstd:1') == 0"
   register: fstab
 
-- name: Reboot if a different kernel was installed
+- name: Reboot if selinux or fstab was changed
   command: shutdown -r now
   when: selinuxstatus.changed or fstab.changed
   async: 90
