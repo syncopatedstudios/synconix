@@ -19,7 +19,7 @@ systemd_networkd_network:
       - DNS: 192.168.122.1
       - Domains: "syncopatedstudios.dev"
 
-      - Address: "192.168.122.15/24"
+      - Address: "192.168.122.14/24"
       - Gateway: "192.168.122.1"
   eth0:
     - Match:
@@ -30,5 +30,5 @@ systemd_networkd_network:
       - DNS: 192.168.122.1
       - Domains: "syncopatedstudios.dev"
 
-      - Address: "192.168.122.15/24"
+      - Address: "192.168.122.14/24"
       - Gateway: "192.168.122.1"

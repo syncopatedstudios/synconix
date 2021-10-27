@@ -19,19 +19,18 @@
   when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') == 0"
   register: fstab
 
-- name: Reboot if selinux or fstab was changed
-  shell: "shutdown -r now"
-  async: 1
-  poll: 0
+- block:
+    - name: Reboot if selinux or fstab was changed
+      shell: "shutdown -r now"
+
+    - name: Wait for reboot complete before moving on
+      wait_for_connection:
+        connect_timeout: 5
+        sleep: 5
+        delay: 5
+        timeout: 300
   when: "selinuxstatus is changed or fstab is changed"
 
-- name: Wait for reboot complete before moving on
-  wait_for_connection:
-    connect_timeout: 20
-    sleep: 5
-    delay: 5
-    timeout: 300
-  when: "selinuxstatus is changed or fstab is changed"
 
 - block:
 

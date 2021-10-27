@@ -1,8 +1,7 @@
 ---
 
 - name: Get dnf repolist
-  shell: |
-    dnf repolist | awk '{ print $1}'
+  shell: "dnf repolist | awk '{ print $1}'"
   register: repolist
   ignore_errors: yes
   tags: ['sysinfo']
@@ -66,27 +65,23 @@
     - monogodb.repo
 
 - name: Enable nodejs 14 module
-  shell: |
-      dnf -y module enable nodejs:14
+  shell: "dnf -y module enable nodejs:14"
   tags: ['nodejs']
 
-- name: clean and update dnf
-  shell: |
-    dnf clean all && dnf -y update
-  args:
-    executable: /bin/bash
-  when: dnf_conf is changed
+- block:
+    - name: clean and update dnf
+      shell: "dnf clean all && dnf -y update"
+      args:
+        executable: /bin/bash
 
-- name: Reboot after system update
-  shell: "shutdown -r now"
-  async: 1
-  poll: 0
-  when: dnf_conf is changed
+    - name: Reboot after system update
+      shell: "shutdown -r now"
 
-- name: wait for reboot complete before moving on
-  wait_for_connection:
-    connect_timeout: 20
-    sleep: 5
-    delay: 5
-    timeout: 300
+    - name: wait for reboot complete before moving on
+      wait_for_connection:
+        connect_timeout: 5
+        delay: 5
+        sleep: 5
+        timeout: 300
+
   when: dnf_conf is changed

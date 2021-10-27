@@ -10,6 +10,16 @@
   register: rtkernel
   tags: ['rtkernel']
 
-- name: Reboot if a different kernel was installed
-  shell: shutdown -r now
-  when: rtkernel.changed
+- block:
+    - name: Reboot if a different kernel was installed
+      shell: "shutdown -r now"
+
+    - name: wait for reboot complete before moving on
+      wait_for_connection:
+        connect_timeout: 5
+        delay: 5
+        sleep: 5
+        timeout: 300
+
+  when: rtkernel is changed
+  tags: ['rtkernel']

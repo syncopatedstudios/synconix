@@ -25,3 +25,12 @@
   become_user: "{{ user.name }}"
   when: not hazidots.stat.exists
   tags: ['dots']
+
+- name: Update user shell defined in group_vars/all
+  user:
+    name: "{{ item }}"
+    shell: /bin/zsh
+  with_items:
+    - root
+    - "{{ user.name }}"
+  tags: ['zsh']

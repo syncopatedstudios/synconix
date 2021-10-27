@@ -30,7 +30,7 @@
       register: hazilock
 
     - name: run bundle install
-      shell: "bundle install"
+      shell: bash -lc "bundle install"
       args:
         chdir: /opt/soundbot
       when: not hazilock.stat.exists

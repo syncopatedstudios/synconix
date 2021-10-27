@@ -23,54 +23,9 @@
       when: "ansible_facts['os_family'] == 'Debian'"
       tags: ['debian', 'packagelist']
 
-  tasks:
-
-    - name: get installed items list
-      shell: |
-        dnf list --installed | awk -F '.' '{ print $1}'
-      register: packagelist
-      ignore_errors: yes
-      tags: ['test']
-
-    - set_fact:
-        installed_packages: "{{ packagelist.stdout.split('\n') }}"
-      tags: ['test']
-
-    - name: print vars
-      debug:
-        msg: "{{ (packages + common)|difference(installed_packages) }}"
-      tags: ['test']
-
-    - name: set packages var
-      set_fact:
-        _packages: "{{ packages | default(packages) }}"
-      tags: ['test']
-
-    - name: print fedora package array
-      debug:
-        var: "{{ _packages }}"
-      tags: ['test']
-
-    - name: print selinux status
-      debug:
-        msg: "{{ ansible_selinux['status'] }}"
-      tags: ['test']
-
-    - name: System details
-      debug: msg="{{ item }}"
-      with_items:
-        - "{{ ansible_os_family }}"
-        - "{{ ansible_distribution }}"
-        - "{{ ansible_distribution_version }}"
-        - "{{ ansible_distribution_major_version }}"
-        - "{{ ansible_kernel }}"
-        - "{{ ansible_mounts }}"
-        - "{{ ansible_facts['hostname'] }}"
-      tags: ['test']
-
   roles:
-     - { role: networking, tags: ['networking'] }
      - { role: common, tags: ['common'] }
+     - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }
      - { role: soundbot, tags: ['soundbot'] }

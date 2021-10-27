@@ -7,7 +7,6 @@ common:
   - atool
   - bat
   - exa
-  - highlight
   - http-parser
   - lnav
   - most
@@ -36,6 +35,7 @@ networkmanager:
   - NetworkManager-openvpn-gnome
   - NetworkManager-team
   - nm-connection-editor
+  - network-manager-applet
 libvirt:
   - libguestfs-tools
   - libvirt-daemon-config-network
@@ -175,19 +175,17 @@ ui:
     - yasm
     - zenity
   i3:
+    - Thunar
     - arandr
     - barrier
     - guake
     - i3
     - lightdm
-    - network-manager-applet
     - notification-daemon
     - picom
     - polybar
     - python3-i3ipc
     - rofi
-    - thunar
-    - xss-lock
   themes:
     - numix-icon-theme
     - materia-gtk-theme
@@ -196,7 +194,6 @@ ui:
     - nitrogen
     - x11vnc
     - xbindkeys
-    - xmodmap
     - xorg-x11-drv-intel
     - xorg-x11-drv-vesa
     - xorg-x11-fonts-75dpi
@@ -207,24 +204,41 @@ ui:
     - xorg-x11-utils
     - xorg-x11-xinit
     - xorg-x11-xinit-session
-    - xrdb
 development:
   common:
-    - "'@C Development Tools and Libraries'"
-    - "'@Development Tools'"
+    - autoconf
+    - automake
+    - binutils
+    - bison
     - cmake
+    - diffstat
+    - doxygen
     - fakeroot
-    - g++
+    - flex
+    - gcc
+    - gcc-c++
+    - gdb
+    - gettext
     - git
+    - glibc-devel
     - graphviz
+    - highlight
     - intltool
+    - libtool
     - make
     - openssl-devel
     - pandoc
+    - patch
+    - patchutils
+    - pkgconf
     - python3-pip
     - python3-pyliblo
     - qt5-qtsvg-devel
     - rpm-build
+    - strace
+    - subversion
+    - systemtap
+    - yasm
   audiowaveform:
     - boost-devel
     - gcc-c++
