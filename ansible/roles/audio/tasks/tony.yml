@@ -21,6 +21,7 @@
     ln -s {{ local_src }}/{{ Tony.file }} /usr/local/bin/tony
   args:
     chdir: "{{ local_src }}"
+  when: not hazitony.stat.exists
 
 - name: install desktop entry for tony
   copy:
