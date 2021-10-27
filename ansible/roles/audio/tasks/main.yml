@@ -38,6 +38,13 @@
     mode: '0644'
   tags: ['tuning']
 
+- name: Add user to audio group
+  user:
+    name: "{{ user.name }}"
+    groups: audio
+    append: yes
+  tags: ['tuning']
+
 - name: install makesfz and makeh2drumkit
   copy:
     src: "usr/local/bin/{{ item }}"
