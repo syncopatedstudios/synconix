@@ -14,7 +14,8 @@
     opts: "{{ item.options }},compress=zstd:1,autodefrag,noatime"
     state: present
     backup: yes
-  with_items: ansible_mounts
+  with_items:
+    - "{{ ansible_mounts }}"
   when: "item.fstype == 'btrfs' and item.options.find('compress=zstd:1') >= 0"
 
 - block:
