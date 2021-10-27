@@ -24,9 +24,22 @@
       tags: ['debian', 'packagelist']
 
   tasks:
+
+    - name: get installed items list
+      shell: |
+        dnf list --installed | awk -F '.' '{ print $1}'
+      register: packagelist
+      ignore_errors: yes
+      tags: ['test']
+
+    - set_fact:
+        installed_packages: "{{ packagelist.stdout.split('\n') }}"
+      tags: ['test']
+
+
     - name: print vars
       debug:
-        msg: "{{ hostvars[inventory_hostname]|difference(ansible_facts) }}"
+        msg: "{{ (packages + common)|difference(installed_packages) }}"
       tags: ['test']
 
     - name: set packages var

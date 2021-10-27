@@ -2,14 +2,16 @@
 
 - include: rtkernel.yml
 
+- name: set packages to install
+  set_fact:
+    _packages: "{{ (packages + common)|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: Install common packages
   shell: |
-    {{ ansible_pkg_mgr }} -y install {{ packages | join(' ') }}
-    {{ ansible_pkg_mgr }} -y install {{ common | join(' ') }}
-  when: item not in installed_packages
+    {{ ansible_pkg_mgr }} -y install {{ item }}
   with_items:
-    - "{{ packages }}"
-    - "{{ common }}"
+    - "{{ _packages }}"
   tags: ['packages']
 
 - include: sudoers.yml

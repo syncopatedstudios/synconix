@@ -29,7 +29,7 @@
 
     - name: get installed items list
       shell: |
-        dnf list --installed | awk '{ print $1}'
+        dnf list --installed | awk -F '.' '{ print $1}'
       register: packagelist
       ignore_errors: yes
 

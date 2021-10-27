@@ -1,10 +1,14 @@
 ---
 
+- name: set packages to install
+  set_fact:
+    development_packages: "{{ development['common']|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: install common devel packages
   shell: |
-    {{ ansible_pkg_mgr }} -y install {{ development['common'] | join(' ') }}
-  when: item not in installed_packages
-  with_items: "{{ development['common'] }}"
+    {{ ansible_pkg_mgr }} -y install {{ item }}
+  with_items: "{{ development_packages }}"
   tags: ['packages', 'development']
 
 - include: ruby.yml
