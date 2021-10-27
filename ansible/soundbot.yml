@@ -25,23 +25,17 @@
 
     - name: install rt-kernel
       shell: "{{ ansible_pkg_mgr }} -y install {{ kernel | join(' ') }}"
+      when: item not in installed_packages
+      with_items:
+        - "{{ kernel }}"
       register: rtkernel
       tags: ['kernel']
-
-    - name: Set the install rt-kernel to be default
-      shell: |
-        grub2-set-default 1
-        grub2-mkconfig -o {{ grub_cfg }}
-      args:
-        warn: no
-      when: rtkernel.changed
 
     - name: Reboot if a different kernel was installed
       command: shutdown -r now
       when: rtkernel.changed
       async: 90
       poll: 5
-
 
 - hosts: all
   gather_facts: yes
