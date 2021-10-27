@@ -68,9 +68,9 @@
     directory_mode: no
     backup: yes
 
-# add --refresh to expire current cache
-- name: Update dnf
+- name: clean and update dnf
   shell: |
-    dnf clean all && dnf -y update --assumeno
+    dnf clean all && dnf update --assumeno
   args:
     executable: /bin/bash
+  when: clean_dnf|bool
