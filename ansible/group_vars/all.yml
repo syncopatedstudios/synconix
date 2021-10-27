@@ -35,7 +35,7 @@ path:
 terminal: xterm
 
 dots:
-  remote: https://gitlab.com/b08x/dots.git
+  repo: https://gitlab.com/b08x/dots.git
   home: "{{ user.home }}/.dots"
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False
