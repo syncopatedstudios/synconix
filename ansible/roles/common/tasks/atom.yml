@@ -1,5 +1,7 @@
 ---
 
+# https://github.com/atom/atom/releases
+
 - name: check if atom is already installed
   stat: path="/usr/bin/atom"
   register: haziatom
