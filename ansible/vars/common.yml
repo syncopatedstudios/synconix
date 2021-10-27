@@ -54,38 +54,48 @@ apm:
 gems:
   - activesupport
   - awesome_print
+  - bcrypt_pbkdf
   - childprocess
   - coltrane
-  - concurrent-ruby
-  - diff-lcs
   - drydock
+  - ed25519
   - eventmachine
   - ffi
-  - filelist
+  - fractional
+  - geo_coord
   - highline
   - i18n
   - i3ipc
+  - jongleur
   - kramdown
-  - kramdown-parser-gfm
-  - mini_portile2
+  - logging
   - minitest
   - mocha
   - multi_json
   - net-ssh
-  - nokogumbo
+  - nokogiri
   - osc-ruby
   - parallel
-  - pry
-  - pry-doc
-  - rdoc
+  - pycall
   - rouge
   - rugged
+  - rwordnet
+  - sequel
+  - solargraph
+  - sqlite3
+  - sync
   - sys-proctable
-  - thor
-  - tty-command
-  - tty-option
-  - tty-prompt
+  - taglib-ruby
   - tty-box
+  - tty-command
+  - tty-cursor
+  - tty-progressbar
+  - tty-prompt
+  - tty-screen
+  - wavefile
+  - wordnet
+  - wordnet-defaultdb
+  - verbal_expressions
 python:
   - matplotlib
   - numpy

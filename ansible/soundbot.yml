@@ -28,5 +28,5 @@
      - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }
-     - { role: soundbot, tags: ['soundbot'] }
      - { role: audio, tags: ['audio'] }
+     - { role: soundbot, tags: ['soundbot'] }

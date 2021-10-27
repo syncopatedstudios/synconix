@@ -1,11 +1,22 @@
 ---
 
-- name: install nokogiri and solargraph
+- name: Get list of installed items gems
+  shell: |
+    gem list | awk '{ print $1 }'
+  register: gemlist
+  ignore_errors: yes
+
+- set_fact:
+    installed_packages: "{{ gemlist.stdout }}"
+
+- name: set packages to install
+  set_fact:
+    _gems: "{{ gems|difference(gemlist) }}"
+
+- name: install ruby gems
   shell: |
     sudo gem install {{ item }} --no-user-install
   with_items:
-    - nokogiri
-    - solargraph
+    - "{{ _gems }}"
   become: True
   become_user: "{{ user.name }}"
-  when: solargraph|bool

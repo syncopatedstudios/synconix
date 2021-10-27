@@ -11,6 +11,7 @@
   tags: ['packages', 'development']
 
 - include: ruby.yml
+  tags: ['ruby']
 
 - include: libvirt.yml
   when: kvmhost|bool

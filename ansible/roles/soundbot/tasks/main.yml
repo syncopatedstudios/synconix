@@ -25,15 +25,15 @@
         update: no
         force: no
 
-    - name: check for Gemfile.lock
-      stat: path="/opt/soundbot/Gemfile.lock"
-      register: hazilock
+    # - name: check for Gemfile.lock
+    #   stat: path="/opt/soundbot/Gemfile.lock"
+    #   register: hazilock
 
     - name: run bundle install
-      shell: bash -lc "bundle install"
+      shell: "bundle install"
       args:
         chdir: /opt/soundbot
-      when: not hazilock.stat.exists
+      # when: not hazilock.stat.exists
 
     # - name: run gem pristine if there is an issue with extensions
     #   shell: "sudo gem pristine --all"

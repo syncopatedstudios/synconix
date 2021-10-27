@@ -1,5 +1,14 @@
 ---
 
+- name: Update user shell defined in group_vars/all
+  user:
+    name: "{{ item }}"
+    shell: /bin/zsh
+  with_items:
+    - root
+    - "{{ user.name }}"
+  tags: ['zsh']
+
 - name: Check if oh-my-zsh is already installed
   stat: path="/usr/share/oh-my-zsh"
   register: haziohymyzsh
