@@ -60,5 +60,5 @@
      - { role: common, tags: ['common'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }
-     - { role: audio, tags: ['audio'] }
      - { role: soundbot, tags: ['soundbot'] }
+     - { role: audio, tags: ['audio'] }
