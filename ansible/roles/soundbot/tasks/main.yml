@@ -25,13 +25,15 @@
         update: no
         force: no
 
+    - name: check for Gemfile.lock
+      stat: path="/opt/soundbot/Gemfile.lock"
+      register: hazilock
+
     - name: run bundle install
       command: bash -lc 'bundle install && sudo gem pristine --all'
       args:
         chdir: /opt/soundbot
-      become: True
-      become_user: "{{ user.name }}"
+      when: not hazilock.stat.exists
 
-
-  become: true
+  become: True
   become_user: "{{ user.name }}"
