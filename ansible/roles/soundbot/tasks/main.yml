@@ -44,4 +44,4 @@
   become_user: "{{ user.name }}"
 
 - include: dots.yml
-  when: dots['remote'] is defined
+  when: dots['repo'] is defined
