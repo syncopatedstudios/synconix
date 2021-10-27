@@ -24,29 +24,6 @@
       tags: ['debian', 'packagelist']
 
   tasks:
-    - name: check if .dots already exists
-      stat: path="{{ user.home }}/.dots"
-      register: hazidots
-      tags: ['dots']
-
-    - block:
-        - name: fetch dots installer
-          get_url:
-            url: "{{ dots['installer'] }}"
-            dest: "{{ user.home }}"
-            validate_certs: no
-
-        - name: run dots installer
-          shell: |
-            ruby initialize_dots.rb
-          args:
-            chdir: "{{ user.home }}"
-
-      become: True
-      become_user: "{{ user.name }}"
-      when: not hazidots.stat.exists and dots['remote'] is defined
-      tags: ['dots']
-
     - name: print vars
       debug:
         msg: "{{ hostvars[inventory_hostname]|difference(ansible_facts) }}"
@@ -83,5 +60,5 @@
      - { role: common, tags: ['common'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }
-     - { role: soundbot, tags: ['soundbot'] }
      - { role: audio, tags: ['audio'] }
+     - { role: soundbot, tags: ['soundbot'] }

@@ -37,3 +37,6 @@
 
   become: True
   become_user: "{{ user.name }}"
+
+- include: dots.yml
+  when: dots['remote'] is defined

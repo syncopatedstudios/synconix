@@ -35,8 +35,7 @@ path:
 terminal: xterm
 
 dots:
-  remote: git@github.com:b08x/dots
-  installer: https://gitlab.com/b08x/dots/-/snippets/2191393/raw/main/initialize_dots.rb
+  remote: https://gitlab.com/b08x/dots.git
   home: "{{ user.home }}/.dots"
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False
