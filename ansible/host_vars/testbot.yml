@@ -16,3 +16,14 @@ systemd_networkd_network:
     - Network:
       - DHCP: "yes"
       - IPv6AcceptRouterAdvertisements: "no"
+  eth0:
+    - Match:
+      - Name: "eth0"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: 192.168.122.1
+      - Domains: "syncopatedstudios.dev"
+
+      - Address: "192.168.122.15/24"
+      - Gateway: "192.168.122.1"

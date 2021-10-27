@@ -12,6 +12,7 @@ common:
   - lnav
   - most
   - nfs-utils
+  - npm
   - openssh-server
   - screen
   - tmux
