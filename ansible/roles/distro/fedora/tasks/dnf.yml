@@ -16,6 +16,7 @@
     mode: '0644'
     directory_mode: no
     backup: yes
+  register: dnf_conf
 
 - name: Install fedora workstation repos
   dnf:
@@ -71,7 +72,11 @@
 
 - name: clean and update dnf
   shell: |
-    dnf clean all && dnf update --assumeno
+    dnf clean all && dnf -y update
   args:
     executable: /bin/bash
-  when: clean_dnf|bool
+  when: dnf_conf is changed
+
+- name: Reboot after system update
+  command: shutdown -r now
+  when: dnf_conf is changed
