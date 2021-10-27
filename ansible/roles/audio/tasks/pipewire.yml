@@ -1,48 +1,7 @@
 ---
 
-- block:
-    - name: Remove pipewire
-      dnf:
-        name: "{{ audio['pipewire'] }}"
-        state: absent
-      tags: ['pipewire']
-
-    - name: Install alsa
-      dnf:
-        name: "{{ audio['alsa'] }}"
-        state: present
-      when: item not in installed_packages
-      with_items: "{{ audio['alsa'] }}"
-      tags: ['alsa']
-
-    - name: Install jack
-      dnf:
-        name: "{{ audio['jack'] }}"
-        state: present
-      when: item not in installed_packages
-      with_items: "{{ audio['jack'] }}"
-      tags: ['jack']
-
-    - name: Install pulseaudio
-      dnf:
-        name: "{{ audio['pulseaudio'] }}"
-        state: present
-      when: item not in installed_packages
-      with_items: "{{ audio['pulseaudio'] }}"
-      tags: ['pulseaudio']
-
-    - name: Ensure pulseaudio-alsa is not installed
-      dnf:
-        name: alsa-plugins-pulseaudio
-        state: absent
-      tags: ['pulseaudio']
-
-    - name: Remove pulseaudio systemd configs
-      file:
-        path: "{{ item }}"
-        state: absent
-      with_items:
-        - /usr/lib/systemd/user/pulseaudio.service
-        - /usr/lib/systemd/user/pulseaudio.socket
-
-  when: ansible_os_family == 'RedHat'
+- name: remove pipewire packages
+  shell: "{{ ansible_pkg_mgr }} -y remove {{ item }}"
+  with_items: "{{ audio['pipewire'] }}"
+  when: remove_pipewire|bool and item in installed_packages
+  tags: ['packages']

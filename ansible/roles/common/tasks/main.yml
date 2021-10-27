@@ -8,10 +8,7 @@
   tags: ['packages']
 
 - name: Install common packages
-  shell: |
-    {{ ansible_pkg_mgr }} -y install {{ item }}
-  with_items:
-    - "{{ _packages }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _packages| join(' ') }}"
   tags: ['packages']
 
 - include: sudoers.yml

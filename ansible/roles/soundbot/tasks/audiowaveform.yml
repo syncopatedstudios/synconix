@@ -5,10 +5,14 @@
   register: haziaudiowaveform
   tags: ['audiowaveform']
 
+- name: set packages to install
+  set_fact:
+    _dev_audiowaveform: "{{ development['audiowaveform']|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: install audiowaveform deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ development['audiowaveform'] | join(' ') }}"
-  when: item not in installed_packages
-  with_items: "{{ development['audiowaveform'] }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_audiowaveform | join(' ') }}"
+  tags: ['packages']
 
 - block:
     - name: clone audiowaveform

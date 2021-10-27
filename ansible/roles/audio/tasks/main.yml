@@ -1,5 +1,33 @@
 ---
 
+- name: set sound service packages to install
+  set_fact:
+    _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | difference(installed_packages) }}"
+  tags: ['packages']
+
+- name: set audio utility packages to install
+  set_fact:
+    _audio_utils: "{{ audio['utilities']|difference(installed_packages) }}"
+  tags: ['packages']
+
+- name: set graphical audio utility packages to install
+  set_fact:
+    _audio_gutils: "{{ audio['gutilities']|difference(installed_packages) }}"
+  tags: ['packages']
+
+- name: set audio plugin packages to install
+  set_fact:
+    _audio_plugins: "{{ audio['plugins']|difference(installed_packages) }}"
+  tags: ['packages']
+
+- include: pipewire.yml
+
+- name: install sound services (alsa,jack,pulse)
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _sound_services | join(' ') }}"
+  tags: ['packages']
+
+- include: pulseaudio.yml
+
 - name: push jack limits file
   copy:
     src: etc/security/limits.conf
@@ -8,9 +36,6 @@
     group: root
     mode: '0644'
   tags: ['tuning']
-
-- include: pipewire.yml
-  when: remove_pipewire|bool
 
 - name: install makesfz and makeh2drumkit
   copy:
@@ -25,19 +50,16 @@
   tags: ['soundfonts']
 
 - name: install cli audio utilities
-  shell: "{{ ansible_pkg_mgr }} -y install {{ audio['utilities'] | join(' ') }}"
-  when: item not in installed_packages and utilities|bool
-  with_items: "{{ audio.utilities }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{_audio_utils| join(' ') }}"
+  when: audio_utilities|bool
 
 - name: install graphical audio utilities
-  shell: "{{ ansible_pkg_mgr }} -y install {{ audio['gutilities'] | join(' ') }}"
-  when: item not in installed_packages and gutilities|bool
-  with_items: "{{ audio['gutilities'] }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_gutils| join(' ') }}"
+  when: audio_gutilities|bool
 
 - name: install plugins
-  shell: "{{ ansible_pkg_mgr }} -y install {{ audio['plugins'] | join(' ') }}"
-  when: item not in installed_packages and plugins|bool
-  with_items: "{{ audio['plugins'] }}"
+  shell: "{{ ansible_pkg_mgr }} -y install _audio_plugins| join(' ') }}"
+  when: audio_plugins|bool
 
 - include: njconnect.yml
   tags: ['njconnect']

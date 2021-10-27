@@ -8,7 +8,7 @@
 
 - block:
     - name: Install btrfsmaintenance
-      action: "{{ ansible_pkg_mgr }} name=btrfsmaintenance state=present"
+      shell: "{{ ansible_pkg_mgr }} -y install btrfsmaintenance"
       when: "'btrfsmaintenance' not in installed_packages"
 
     - name: Enable and/or start btrfs-scrub@-.timer

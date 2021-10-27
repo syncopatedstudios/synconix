@@ -1,14 +1,18 @@
 ---
 
-- name: install raysession deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ development['raysession'] | join(' ') }}"
-  when: item not in installed_packages
-  with_items: "{{ development['raysession'] }}"
-
 - name: check if raysession is already installed
   stat: path="/usr/local/bin/raysession"
   register: haziraysession
   tags: ['raysession']
+
+- name: set packages to install
+  set_fact:
+    _dev_raysession: "{{ development['raysession']|difference(installed_packages) }}"
+  tags: ['packages']
+
+- name: install raysession deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_raysession | join(' ') }}"
+  tags: ['packages']
 
 - block:
   - name: clone raysession

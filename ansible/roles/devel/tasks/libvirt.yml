@@ -1,10 +1,12 @@
 ---
 
+- name: set packages to install
+  set_fact:
+    _libvirt: "{{ libvirt|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: install libvirt
-  shell: |
-    {{ ansible_pkg_mgr }} -y install {{ libvirt | join(' ') }}
-  when: item not in installed_packages
-  with_items: "{{ libvirt }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _libvirt | join(' ') }}"
   tags: ['packages', 'libvirt']
 
 - name: install libvirtd.conf

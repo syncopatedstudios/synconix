@@ -48,7 +48,7 @@
   when: "'rpmfusion-free' not in repolist.stdout or 'planetccrma' not in repolist.stdout"
 
 - name: Enable some copr repos
-  command: 'dnf -y copr enable {{ item }}'
+  shell: "dnf -y copr enable {{ item }}"
   with_items:
     - "ycollet/linuxmao"
   tags: ['repos', 'copr']
@@ -78,5 +78,15 @@
   when: dnf_conf is changed
 
 - name: Reboot after system update
-  command: shutdown -r now
+  shell: "shutdown -r now"
+  async: 1
+  poll: 0
+  when: dnf_conf is changed
+
+- name: wait for reboot complete before moving on
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
   when: dnf_conf is changed

@@ -4,10 +4,13 @@
   stat: path="/usr/local/bin/rga"
   register: hazirga
 
+- name: set packages to install
+  set_fact:
+    _ripgrep: "{{ ripgrep|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: install ripgrep deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ ripgrep | join(' ') }}"
-  when: item not in installed_packages
-  with_items: "{{ ripgrep }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _ripgrep | join(' ') }}"
   tags: ['packages']
 
 - block:

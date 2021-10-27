@@ -25,8 +25,14 @@
       register: hazivisualiser
       tags: ['sonic-visualiser']
 
-    - name: install visualiser deps
-      shell: "{{ ansible_pkg_mgr }} -y install {{ deps['sonicvisualiser'] | join(' ') }}"
+    - name: set packages to install
+      set_fact:
+        _dev_sonicvisualiser: "{{ development['sonicvisualiser']|difference(installed_packages) }}"
+      tags: ['packages']
+
+    - name: install sonicvisualiser deps
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_sonicvisualiser | join(' ') }}"
+      tags: ['packages']
 
     - block:
         - name: clone sonic-visualiser

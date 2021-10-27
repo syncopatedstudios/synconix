@@ -1,11 +1,5 @@
 ---
 
-- name: install ruby gem dependencies
-  shell: |
-    {{ ansible_pkg_mgr }} -y install {{ item }}
-  with_items: "{{ development['ruby'] }}"
-  tags: ['packages', 'development', 'ruby']
-
 - name: install nokogiri and solargraph
   shell: |
     sudo gem install {{ item }} --no-user-install

@@ -1,8 +1,8 @@
 ---
 
 - name: Install autofs
-  action: "{{ ansible_pkg_mgr }} name=autofs state=present"
-  # when: "'autofs' not in installed_packages"
+  shell: "{{ ansible_pkg_mgr }} -y install autofs"
+  when: "'autofs' not in installed_packages"
 
 - name: Create mount directory folder if it doesn't already exist
   file:

@@ -1,8 +1,10 @@
 ---
 
+- name: set packages to install
+  set_fact:
+    _ui_x11: "{{ ui['x11']|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: Install x11 Stuff
-  shell: |
-    {{ ansible_pkg_mgr }} -y install {{ ui['x11'] | join(' ') }}
-  when: item not in installed_packages
-  with_items:
-    - "{{ ui['x11'] }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _ui_x11 | join(' ') }}"
+  tags: ['packages']

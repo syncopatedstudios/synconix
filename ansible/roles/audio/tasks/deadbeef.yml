@@ -5,10 +5,14 @@
   register: hazideadbeef
   tags: ['deadbeef']
 
+- name: set packages to install
+  set_fact:
+    _dev_deadbeef: "{{ development['deadbeef']|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: install deadbeef deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ development['deadbeef'] | join(' ') }}"
-  when: item not in installed_packages
-  with_items: "{{ development['deadbeef'] }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_deadbeef | join(' ') }}"
+  tags: ['packages']
 
 - block:
   - name: create deadbeef plugin dir

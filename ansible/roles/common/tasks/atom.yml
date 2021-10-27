@@ -6,8 +6,7 @@
   check_mode: no
 
 - name: install atom package
-  action: >
-    {{ ansible_pkg_mgr }} name=atom state=latest update_cache=yes
+  shell: "{{ ansible_pkg_mgr }} -y install atom"
   when: not haziatom.stat.exists
 
 - block:

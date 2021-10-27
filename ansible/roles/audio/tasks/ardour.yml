@@ -1,9 +1,13 @@
 ---
 
-- name: install dependencies for ardour
-  shell: "{{ ansible_pkg_mgr }} -y install {{ development['ardour'] | join(' ') }}"
-  when: item not in installed_packages
-  with_items: "{{ development['ardour'] }}"
+- name: set packages to install
+  set_fact:
+    _dev_ardour: "{{ development['ardour']|difference(installed_packages) }}"
+  tags: ['packages']
+
+- name: install ardour deps
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_ardour | join(' ') }}"
+  tags: ['packages']
 
 - name: build ardour
   shell: |

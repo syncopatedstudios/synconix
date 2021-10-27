@@ -5,10 +5,14 @@
   register: hazisonicpi
   tags: ['sonic-pi']
 
+- name: set packages to install
+  set_fact:
+    _dev_sonicpi: "{{ development['sonicpi']|difference(installed_packages) }}"
+  tags: ['packages']
+
 - name: install dependencies for SonicPi
-  shell: "{{ ansible_pkg_mgr }} -y install {{ development['sonicpi'] | join(' ') }}"
-  when: item not in installed_packages
-  with_items: "{{ development['sonicpi'] }}"
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_sonicpi | join(' ') }}"
+  tags: ['packages']
 
 - block:
   - name: clone sonicpi

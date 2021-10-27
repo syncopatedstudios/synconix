@@ -21,11 +21,21 @@
 
 - name: Reboot if selinux or fstab was changed
   shell: "shutdown -r now"
-  when: selinuxstatus.changed or fstab.changed
+  async: 1
+  poll: 0
+  when: "selinuxstatus is changed or fstab is changed"
+
+- name: Wait for reboot complete before moving on
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 300
+  when: "selinuxstatus is changed or fstab is changed"
 
 - block:
 
-    - name: get installed items list
+    - name: Get installed items list
       shell: |
         dnf list --installed | awk -F '.' '{ print $1}'
       register: packagelist
@@ -38,4 +48,3 @@
 
 - name: Setup Fedora repos
   import_tasks: dnf.yml
-  

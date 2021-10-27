@@ -11,13 +11,13 @@ mixers: True
 mixxx: True
 njconnect: True
 obs: True
-plugins: True
 polyphone: True
 raysession: True
 sequencers: True
 synths: True
-utilities: True
-gutilities: True
+audio_utilities: True
+audio_gutilities: True
+audio_plugins: True
 
 Baudline:
   url: "https://www.baudline.com/"
