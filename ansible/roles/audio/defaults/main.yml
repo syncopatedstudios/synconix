@@ -17,6 +17,7 @@ raysession: True
 sequencers: True
 synths: True
 utilities: True
+gutilities: True
 
 Baudline:
   url: "https://www.baudline.com/"

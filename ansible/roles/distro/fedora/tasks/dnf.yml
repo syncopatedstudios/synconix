@@ -71,7 +71,6 @@
 # add --refresh to expire current cache
 - name: Update dnf
   shell: |
-    dnf clean all && dnf update --assumeno
+    dnf clean all && dnf -y update --assumeno
   args:
     executable: /bin/bash
-  when: dnf_update|bool

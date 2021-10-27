@@ -1,4 +1,47 @@
 ---
+- hosts: all
+  gather_facts: yes
+  vars:
+    env_vars:
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+  vars_files:
+    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
+    - "vars/common.yml"
+
+  pre_tasks:
+    - name: Load Fedora
+      include_role:
+        name: distro/fedora
+      when: "ansible_facts['os_family'] == 'RedHat'"
+      tags: ['fedora']
+
+    - name: Load Debian
+      include_role:
+        name: distro/debian
+      when: "ansible_facts['os_family'] == 'Debian'"
+      tags: ['debian']
+
+  tasks:
+
+    - name: install rt-kernel
+      shell: "{{ ansible_pkg_mgr }} -y install {{ kernel | join(' ') }}"
+      register: rtkernel
+      tags: ['kernel']
+
+    - name: Set the install rt-kernel to be default
+      shell: |
+        grub2-set-default 1
+        grub2-mkconfig -o {{ grub_cfg }}
+      args:
+        warn: no
+      when: rtkernel.changed
+
+    - name: Reboot if a different kernel was installed
+      command: shutdown -r now
+      when: rtkernel.changed
+      async: 90
+      poll: 5
+
 
 - hosts: all
   gather_facts: yes
@@ -45,6 +88,37 @@
       when: not hazidots.stat.exists and dots['remote'] is defined
       tags: ['dots']
 
+    - name: print vars
+      debug:
+        msg: "{{ hostvars[inventory_hostname]|difference(ansible_facts) }}"
+      tags: ['test']
+
+    - name: set packages var
+      set_fact:
+        _packages: "{{ packages | default(packages) }}"
+      tags: ['test']
+
+    - name: print fedora package array
+      debug:
+        var: "{{ _packages }}"
+      tags: ['test']
+
+    - name: print selinux status
+      debug:
+        msg: "{{ ansible_selinux['status'] }}"
+      tags: ['test']
+
+    - name: System details
+      debug: msg="{{ item }}"
+      with_items:
+        - "{{ ansible_os_family }}"
+        - "{{ ansible_distribution }}"
+        - "{{ ansible_distribution_version }}"
+        - "{{ ansible_distribution_major_version }}"
+        - "{{ ansible_kernel }}"
+        - "{{ ansible_mounts }}"
+        - "{{ ansible_facts['hostname'] }}"
+      tags: ['test']
 
   roles:
      - { role: common, tags: ['common'] }

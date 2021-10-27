@@ -1,5 +1,22 @@
 ---
 
+- name: Disable SELinux
+  selinux:
+    state: disabled
+  when: ansible_selinux['status'] == 'enabled'
+  register: selinuxstatus
+
+- name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
+  mount:
+    path: "{{ item.mount }}"
+    src: "{{ item.uuid }}"
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.options }},compress=zstd:1,autodefrag,noatime"
+    state: present
+    backup: yes
+  with_items: ansible_mounts
+  when: item.fstype == 'btrfs' and item.options.find("compress=zstd:1,autodefrag,noatime") >= 0
+
 - block:
 
     - name: get installed items list
