@@ -308,6 +308,7 @@ development:
     - libsqlite3x-devel
     - libxml2-devel
     - openssl-devel
+    - redhat-rpm-config
     - ruby-devel
     - rubygem-bundler
     - taglib-devel
