@@ -2,22 +2,11 @@
 
 remove_pipewire: True
 
-ambisonics: True
-analysers: True
-deadbeef: True
-jalvselect: True
-linuxsampler: True
-mixers: True
-mixxx: True
-njconnect: True
-obs: True
-polyphone: True
-raysession: True
-sequencers: True
-synths: True
 audio_utilities: True
 audio_gutilities: True
 audio_plugins: True
+
+obs: True
 
 Baudline:
   url: "https://www.baudline.com/"
@@ -26,6 +15,7 @@ Baudline:
 
 DeadBeef:
   git: "https://github.com/DeaDBeeF-Player/deadbeef.git"
+  install: True
 
 Protokol:
   url: "https://hexler.net/pub/protokol/"
@@ -58,7 +48,7 @@ SonicPiTool:
 
 SonicVisualiser:
   git: "https://github.com/sonic-visualiser/sonic-visualiser"
-  install: True
+  install: False
 
 Tony:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2617/"
@@ -73,7 +63,7 @@ TouchOSC:
 VampPlugins:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2696/"
   file: "vamp-plugin-pack-installer-1.0"
-  install: True
+  install: False
 
 audiowaveform:
   git: "https://github.com/bbc/audiowaveform.git"
@@ -81,12 +71,12 @@ audiowaveform:
 
 ardour:
   url: "git://git.ardour.org/ardour/ardour.git"
-  install: True
+  install: False
 
 ecasound:
   url: "http://nosignal.fi/download/"
   file: "ecasound-2.9.3.tar.gz"
-  install: True
+  install: False
 
 googletest:
   url: "https://github.com/google/googletest/archive/"
@@ -94,12 +84,15 @@ googletest:
 
 jacktrip:
   git: "https://github.com/jacktrip/jacktrip.git"
+  install: False
 
 jalvselect:
   git: "https://github.com/brummer10/jalv_select.git"
+  install: False
 
 njconnect:
   git: "https://github.com/radiganm/njconnect.git"
+  install: True
 
 ocenaudio:
   url:
@@ -113,6 +106,7 @@ qmidinet:
 
 raysession:
   git: "https://github.com/Houston4444/RaySession.git"
+  install: True
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
@@ -122,8 +116,8 @@ reaper:
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
   file: "rt-plugins-0.0.6.tar.gz"
-  install: True
+  install: False
 
 swami:
   git: "https://github.com/swami/swami.git"
-  install: True
+  install: False

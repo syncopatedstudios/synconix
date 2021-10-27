@@ -8,4 +8,3 @@ autofs:
     - storage02
 
 kvmhost: True
-solargraph: True

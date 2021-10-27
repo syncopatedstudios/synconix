@@ -72,59 +72,82 @@
   when: "audio_plugins|bool and _audio_plugins | length > 0"
   tags: ['packages']
 
-- include: njconnect.yml
-  when: njconnect|bool
-  tags: ['njconnect']
-
-- include: qmidinet.yml
-  when: qmidinet.install|bool
-  tags: ['qmidinet']
-
-- include: sonic-pi.yml
-  when: SonicPi.install|bool
-  tags: ['sonicpi']
-
-- include: sonic-pi-tool.yml
-  when: SonicPi.install|bool
-  tags: ['sonicpitool']
-
-- include: reaper.yml
-  when: reaper.install|bool
-  tags: ['reaper']
-
-- include: raysession.yml
-  tags: ['raysession']
-
-- include: jalvselect.yml
-  tags: ['jalvselect']
-
-- include: obs-studio.yml
-  tags: ['obs']
+- include: ardour.yml
+  tags: ['ardour']
+  when: ardour.install|bool
 
 - include: baudline.yml
   when: Baudline.install|bool
   tags: ['baudline']
 
-- include: tony.yml
-  when: Tony.install|bool
+- include: deadbeef.yml
+  when: DeadBeef.install|bool
+  tags: ['deadbeef']
 
-- include: sonic-lineup.yml
-  when: SonicLineup.install|bool
+- include: ecasound.yml
+  when: ecasound.install|bool
+  tags: ['ecasound']
+
+- include: jacktrip.yml
+  when: jacktrip.install|bool
+  tags: ['jacktrip']
+
+- include: jalvselect.yml
+  when: raysession.install|bool
+  tags: ['jalvselect']
+
+- include: njconnect.yml
+  when: njconnect.install|bool
+  tags: ['njconnect']
+
+- include: obs-studio.yml
+  when: obs|bool
+  tags: ['obs']
 
 - include: ocenaudio.yml
   when: "ocenaudio.install|bool and 'ocenaudio' not in installed_packages"
   tags: ['ocenaudio']
 
+- include: qmidinet.yml
+  when: qmidinet.install|bool
+  tags: ['qmidinet']
+
+- include: raysession.yml
+  when: raysession.install|bool
+  tags: ['raysession']
+
+- include: reaper.yml
+  when: reaper.install|bool
+  tags: ['reaper']
+
+- include: rtplugins.yml
+  when: rtplugins.install|bool
+  tags: ['rtplugins']
+
+- include: sonic-lineup.yml
+  when: SonicLineup.install|bool
+  tags: ['sonic-lineup']
+
+- include: sonic-pi.yml
+  when: SonicPi.install|bool
+  tags: ['sonic-pi']
+
+- include: sonic-pi-tool.yml
+  when: SonicPi.install|bool
+  tags: ['sonic-pi-tool']
+
+- include: sonic-visualiser.yml
+  when: SonicVisualiser.install|bool
+  tags: ['sonic-visualiser']
+
+- include: swami.yml
+  when: swami.install|bool
+  tags: ['swami']
+
+- include: tony.yml
+  when: Tony.install|bool
+  tags: ['tony']
+
 - include: touchosc.yml
+  when: TouchOSC.install|bool
   tags: ['TouchOSC']
-
-# - include: rtplugins.yml
-#   when: rtplugins.install|bool
-
-# - include: ardour.yml
-#   tags: ['ardour', 'daw']
-#   when: ardour.install|bool
-
-# - include: deadbeef.yml
-#   tags: ['deadbeef']
-#   when: deadbeef|bool

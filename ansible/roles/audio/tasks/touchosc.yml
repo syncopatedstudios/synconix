@@ -30,7 +30,7 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: TouchOSC|bool and not haziTouchOSC.stat.exists
+  when: not haziTouchOSC.stat.exists
 
 - name: check if Protokol is already installed
   stat: path="/usr/local/bin/Protokol"
@@ -64,11 +64,10 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: Protokol|bool and not haziProtokol.stat.exists
+  when: not haziProtokol.stat.exists
 
 - name: enable avahi service
   systemd:
     name: avahi-daemon
     enabled: yes
-  tags: ['TouchOSC', 'Protokol', 'systemd']
-  when: TouchOSC|bool or Protokol|bool
+  tags: ['TouchOSC', 'Protokol']
