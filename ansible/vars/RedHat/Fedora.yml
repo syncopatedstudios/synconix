@@ -54,6 +54,69 @@ ripgrep:
   - pdf-tools
   - poppler-utils
   - ripgrep
+ui:
+  fonts:
+    - aajohan-comfortaa-fonts
+    - allgeyer-fonts-common
+    - allgeyer-musiqwik-fonts
+    - allgeyer-musisync-fonts
+    - fontawesome-fonts
+    - fontawesome-fonts-web
+    - fontforge
+    - fontforge-devel
+    - fonts-tweak-tool
+    - greybird-dark-theme
+  gnome:
+    - gnome-tweaks
+  gutilities:
+    - Zim
+    - darktable
+    - feh
+    - gnuplot
+    - gpick
+    - grsync
+    - gtksourceview3
+    - guake
+    - mpv
+    - nitrogen
+    - nomacs-plugins
+    - qpdfview-qt5
+    - qt5ct
+    - qutebrowser
+    - redshift
+    - vlc
+    - wmctrl
+    - xarchiver
+    - yasm
+    - zenity
+  i3:
+    - Thunar
+    - arandr
+    - barrier
+    - i3
+    - lightdm
+    - notification-daemon
+    - picom
+    - polybar
+    - python3-i3ipc
+    - rofi
+  themes:
+    - numix-icon-theme
+    - materia-gtk-theme
+    - materia-kde-kvantum
+  x11:
+    - x11vnc
+    - xbindkeys
+    - xorg-x11-drv-intel
+    - xorg-x11-drv-vesa
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-server-Xorg
+    - xorg-x11-server-devel
+    - xorg-x11-server-utils
+    - xorg-x11-utils
+    - xorg-x11-xinit
+    - xorg-x11-xinit-session
 audio:
   alsa:
     - alsa-firmware
@@ -132,78 +195,13 @@ audio:
     - osc2midi
     - sox
     - timemachine
+    - timidity++
     - vamp-plugin-sdk
     - wavpack
     - xzgv
     - youtube-dl
     - zita-ajbridge
     - zita-lrx
-ui:
-  fonts:
-    - aajohan-comfortaa-fonts
-    - allgeyer-fonts-common
-    - allgeyer-musiqwik-fonts
-    - allgeyer-musisync-fonts
-    - deepin-icon-theme
-    - fontawesome-fonts
-    - fontawesome-fonts-web
-    - fontforge
-    - fontforge-devel
-    - fonts-tweak-tool
-    - greybird-dark-theme
-  gnome:
-    - gnome-tweaks
-  gutilities:
-    - Zim
-    - darktable
-    - feh
-    - gnuplot
-    - gpick
-    - grsync
-    - gtksourceview3
-    - guake
-    - mpv
-    - nitrogen
-    - nomacs-plugins
-    - qpdfview-qt5
-    - qt5ct
-    - qutebrowser
-    - redshift
-    - vlc
-    - wmctrl
-    - xarchiver
-    - yasm
-    - zenity
-  i3:
-    - Thunar
-    - arandr
-    - barrier
-    - guake
-    - i3
-    - lightdm
-    - notification-daemon
-    - picom
-    - polybar
-    - python3-i3ipc
-    - rofi
-  themes:
-    - numix-icon-theme
-    - materia-gtk-theme
-    - materia-kde-kvantum
-  x11:
-    - nitrogen
-    - x11vnc
-    - xbindkeys
-    - xorg-x11-drv-intel
-    - xorg-x11-drv-vesa
-    - xorg-x11-fonts-75dpi
-    - xorg-x11-fonts-100dpi
-    - xorg-x11-server-Xorg
-    - xorg-x11-server-devel
-    - xorg-x11-server-utils
-    - xorg-x11-utils
-    - xorg-x11-xinit
-    - xorg-x11-xinit-session
 development:
   common:
     - autoconf
@@ -247,9 +245,41 @@ development:
     - libmad-devel
     - libsndfile-devel
     - make
+  deadbeef:
+    - clang
+    - faad2-devel
+    - ffmpeg-devel
+    - flac-devel
+    - gtk3-devel
+    - imlib2-devel
+    - intltool
+    - jansson
+    - jansson-devel
+    - libmad-devel
+    - libmpg123-devel
+    - libogg-devel
+    - libopusenc-devel
+    - libsamplerate-devel
+    - libsndfile-devel
+    - libsndfile-utils
+    - libvorbis-devel
+    - libzip-devel
+    - opus-devel
+    - opus-tools
+    - opusfile-devel
+    - unzip
+    - vorbis-tools
+    - wavpack-devel
+    - zip
+  drobilla:
+    - dbus-glib-devel
+    - fmt-devel
+    - graphviz-devel
+    - suil-devel
   jalvselect:
     - gawk-devel
     - gtkmm24-devel
+    - gtkmm30-devel
     - jalv
     - jalv-gtk
     - jalv-gtkmm
@@ -302,6 +332,14 @@ development:
   njconnect:
     - jack-audio-connection-kit-devel
     - ncurses-devel
+  non:
+    - non-ntk-devel
+    - non-ntk-fluid
+    - liblo-devel
+    - liblrdf-devel
+    - ladspa-devel
+    - lv2-devel
+    - lilv-devel
   pipewire:
     - bluez-libs-devel
     - dbus-devel
@@ -328,6 +366,17 @@ development:
     - rubygem-bundler
     - taglib-devel
     - zlib-devel
+  seq64:
+    - atkmm-devel
+    - glibmm24
+    - glibmm24-devel
+    - gtk2-devel
+    - gtkmm24-devel
+    - libpng-devel
+    - libsigc++20-devel
+    - qt5-designer
+    - qt5-qtbase
+    - qt5-qtbase-devel
   sonicpi:
     - aubio
     - aubio-devel

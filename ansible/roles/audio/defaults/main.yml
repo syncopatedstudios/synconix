@@ -15,7 +15,7 @@ Baudline:
 
 DeadBeef:
   git: "https://github.com/DeaDBeeF-Player/deadbeef.git"
-  install: True
+  install: False
 
 Protokol:
   url: "https://hexler.net/pub/protokol/"

@@ -7,16 +7,17 @@
   ignore_errors: yes
 
 - set_fact:
-    installed_packages: "{{ gemlist.stdout }}"
+    installed_gems: "{{ gemlist.stdout }}"
 
 - name: set packages to install
   set_fact:
-    _gems: "{{ gems|difference(gemlist) }}"
+    _gems: "{{ gems|difference(installed_gems) }}"
 
 - name: install ruby gems
   shell: |
     sudo gem install {{ item }} --no-user-install
   with_items:
     - "{{ _gems }}"
+  when: _gems | length > 0
   become: True
   become_user: "{{ user.name }}"

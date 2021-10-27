@@ -26,7 +26,6 @@
 
     - name: build and install swami
       shell: |
-
         mkdir -pv build && build/
 
         cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
