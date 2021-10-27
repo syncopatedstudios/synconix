@@ -8,3 +8,11 @@ autofs:
     - storage02
 
 grub_cfg: /boot/grub2/grub.cfg
+
+systemd_networkd_network:
+  enp1s0:
+    - Match:
+      - Name: "enp1s0"
+    - Network:
+      - DHCP: "yes"
+      - IPv6AcceptRouterAdvertisements: "no"

@@ -70,6 +70,7 @@
       tags: ['test']
 
   roles:
+     - { role: networking, tags: ['networking'] }
      - { role: common, tags: ['common'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }

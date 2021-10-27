@@ -7,6 +7,16 @@
   ignore_errors: yes
   tags: ['sysinfo']
 
+- name: Install dnf.conf with fastestmirror enabled
+  copy:
+    src: etc/dnf/dnf.conf
+    dest: /etc/dnf/dnf.conf
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
+    backup: yes
+
 - name: Install fedora workstation repos
   dnf:
     name: "fedora-workstation-repositories"
@@ -33,6 +43,7 @@
       args:
         chdir: "{{ local_src }}"
       ignore_errors: True
+
   when: "'rpmfusion-free' not in repolist.stdout or 'planetccrma' not in repolist.stdout"
 
 - name: Enable some copr repos
@@ -42,7 +53,7 @@
   tags: ['repos', 'copr']
   when: "'linuxmao' not in repolist.stdout"
 
-- name: Enable additional yum repositories for atom and monogodb
+- name: Enable additional yum repositories atom and monogodb
   copy:
     src: "etc/yum.repos.d/{{ item }}"
     dest: "/etc/yum.repos.d/{{ item }}"
@@ -57,16 +68,6 @@
   shell: |
       dnf -y module enable nodejs:14
   tags: ['nodejs']
-
-- name: Install dnf.conf with fastestmirror enabled
-  copy:
-    src: etc/dnf/dnf.conf
-    dest: /etc/dnf/dnf.conf
-    owner: root
-    group: root
-    mode: '0644'
-    directory_mode: no
-    backup: yes
 
 - name: clean and update dnf
   shell: |

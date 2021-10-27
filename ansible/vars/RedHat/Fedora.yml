@@ -27,6 +27,13 @@ kernel:
   - kernel-rt-modules
   - kernel-rt-modules-extra
   - kernel-rt-modules-internal
+networkmanager:
+  - NetworkManager
+  - NetworkManager-libnm
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - NetworkManager-team
+  - nm-connection-editor
 libvirt:
   - libguestfs-tools
   - libvirt-daemon-config-network
