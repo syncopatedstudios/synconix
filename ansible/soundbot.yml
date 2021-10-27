@@ -85,6 +85,8 @@
           args:
             chdir: "{{ user.home }}"
 
+      become: True
+      become_user: "{{ user.name }}"
       when: not hazidots.stat.exists and dots['remote'] is defined
       tags: ['dots']
 
