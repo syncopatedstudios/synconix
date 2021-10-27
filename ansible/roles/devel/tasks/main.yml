@@ -7,6 +7,7 @@
 
 - name: install common devel packages
   shell: "{{ ansible_pkg_mgr }} -y install {{ _development_packages | join(' ') }}"
+  when: _development_packages | length > 0
   tags: ['packages', 'development']
 
 - include: ruby.yml
