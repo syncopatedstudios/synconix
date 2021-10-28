@@ -1,16 +1,16 @@
 ---
 
 - include: x11.yml
-  tags: ["x11"]
   when: install_x11|bool
+  tags: ["x11"]
 
 - include: i3.yml
-  tags: ["i3"]
   when: install_i3|bool
+  tags: ["i3"]
 
 - include: autologin.yml
-  tags: ['autologin']
   when: autologin|bool
+  tags: ['autologin']
 
 - include: theme.yml
   tags: ['theme']

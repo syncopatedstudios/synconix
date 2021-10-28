@@ -1,8 +1,5 @@
 ---
 
-networkmanager: False
-systemdnetwork: False
-
 systemd_networkd_link: {}
 systemd_networkd_netdev: {}
 systemd_networkd_network: {}
