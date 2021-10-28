@@ -1,11 +1,11 @@
 ---
 
-atom: False
-nvim: False
-timeshift: False
-rga: False
-googler: False
-chrome: False
+install_atom: False
+install_nvim: False
+install_timeshift: False
+install_rga: False
+install_googler: False
+install_chrome: False
 
 autofs_client: False
 autofs_configs: /etc
