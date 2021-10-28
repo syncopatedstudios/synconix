@@ -9,3 +9,6 @@ autofs:
 
 networkmanager: True
 systemdnetwork: False
+
+install_x11: True
+install_i3: True
