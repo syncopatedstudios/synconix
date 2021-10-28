@@ -8,3 +8,10 @@ autofs:
     - home
 
 kvm_host: True
+
+graphical_target: True
+
+install_x11: True
+install_i3: True
+
+autologin: True

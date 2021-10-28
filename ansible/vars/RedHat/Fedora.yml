@@ -9,6 +9,7 @@ common:
   - atool
   - bat
   - exa
+  - fuse
   - gtkspellmm30
   - http-parser
   - lnav
