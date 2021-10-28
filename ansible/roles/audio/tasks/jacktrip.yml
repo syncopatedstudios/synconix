@@ -25,4 +25,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: not jacktrip.stat.exists
+  when: not hazijacktrip.stat.exists
