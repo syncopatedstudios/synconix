@@ -2,7 +2,7 @@
 
 - name: set sound service packages to
   set_fact:
-    _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | difference| installed_packages }}"
+    _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | difference(installed_packages) }}"
   tags: ['packages']
 
 - name: set audio utility packages to
