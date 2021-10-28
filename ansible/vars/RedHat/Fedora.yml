@@ -113,7 +113,7 @@ ui:
     # - xorg-x11-drv-vesa
     - xorg-x11-fonts-75dpi
     - xorg-x11-fonts-100dpi
-    - xorg-x11-server-Xorg
+    # - xorg-x11-server-Xorg
     - xorg-x11-server-devel
     - xorg-x11-server-utils
     - xorg-x11-utils
