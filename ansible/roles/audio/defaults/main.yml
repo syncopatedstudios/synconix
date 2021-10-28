@@ -55,28 +55,28 @@ rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
   file: "rt-plugins-0.0.6.tar.gz"
 
-sonic-annotator:
+sonicannotator:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2708/"
   file: "sonic-annotator-1.6-linux64-static.tar.gz"
 
-sonic-lineup:
+soniclineup:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2766/"
   file: "SonicLineup-1.1-x86_64.AppImage"
 
-sonic-pi-tool:
+sonicpitool:
   pip:
     - click
     - oscpy
     - psutil
 
-sonic-pi:
+sonicpi:
   git: "https://github.com/syncopatedstudios/sonic-pi.git"
   branch: "v3.3-release"
   path: /opt/sonic-pi
   prebuild: "./linux-prebuild.sh --build-aubio"
   compile: "./linux-config.sh --config Release"
 
-sonic-visualiser:
+sonicvisualiser:
   git: "https://github.com/sonic-visualiser/sonic-visualiser"
 
 swami:
