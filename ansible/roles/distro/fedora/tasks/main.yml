@@ -6,18 +6,19 @@
   when: ansible_selinux['status'] == 'enabled'
   register: selinuxstatus
 
-- name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
-  mount:
-    path: "{{ item.mount }}"
-    src: "UUID={{ item.uuid }}"
-    fstype: "{{ item.fstype }}"
-    opts: "{{ item.options }},compress=lzo,autodefrag,noatime"
-    state: present
-    backup: yes
-  with_items:
-    - "{{ ansible_mounts }}"
-  when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') != 0"
-  register: fstab
+#TODO: find a way to use current fstab options instead of item.options
+# - name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
+#   mount:
+#     path: "{{ item.mount }}"
+#     src: "UUID={{ item.uuid }}"
+#     fstype: "{{ item.fstype }}"
+#     opts: "{{ item.options }},compress=lzo,autodefrag,noatime"
+#     state: present
+#     backup: yes
+#   with_items:
+#     - "{{ ansible_mounts }}"
+#   when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') != 0"
+#   register: fstab
 
 - block:
     - name: Reboot if selinux or fstab was changed
