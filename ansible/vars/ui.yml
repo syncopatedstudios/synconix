@@ -18,9 +18,9 @@ kvantum_theme: MateriaDark
 hintstyle: hintmedium
 
 # whether to set autologin or not
-autologin: False
+autologin: True
 
-install_x11: False
-install_i3: False
+install_x11: True
+install_i3: True
 
 install_gutilities: False
