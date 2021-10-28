@@ -1,10 +1,10 @@
 ---
+# vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 
 autofs_client: False
 autofs:
   host: bender
   shares:
-    - storage01
-    - storage02
+    - home
 
 kvm_host: True

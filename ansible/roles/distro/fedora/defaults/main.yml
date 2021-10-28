@@ -1,6 +1,9 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
 
+install_obs: True
+
+
 clean_dnf: False
 
 fedora_version: 32
