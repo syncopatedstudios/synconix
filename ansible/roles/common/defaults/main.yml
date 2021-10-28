@@ -4,4 +4,4 @@ backup: False
 
 admin_user: root
 
-nfshost: False
+nfs_host: False
