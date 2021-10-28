@@ -32,3 +32,4 @@
   systemd:
     name: dhcpcd
     enabled: no
+  ignore_errors: True
