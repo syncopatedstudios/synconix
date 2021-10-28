@@ -46,7 +46,7 @@
 
     - name: extract and install Protokol
       shell: |
-        unzip {{ Protokol.file }}
+        unzip {{ protokol.file }}
         mv Protokol /usr/local/bin/Protokol
       args:
         chdir: "{{ local_src }}"
