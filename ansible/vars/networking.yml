@@ -1,4 +1,4 @@
 ---
 
-# networkmanager: True
-# systemdnetwork: False
+networkmanager: True
+systemdnetwork: False
