@@ -57,20 +57,20 @@
     - makesfz
   tags: ['soundfonts']
 
-- name: cli audio utilities
+- name: install cli audio utilities
   shell: "{{ ansible_pkg_mgr }} -y {{ _audio_utils | join(' ') }}"
   when: "install_audio_utilities|bool and _audio_utils | length > 0"
-  tags: ['packages']
+  tags: ['audio_utils', 'packages']
 
-- name: graphical audio utilities
+- name: install graphical audio utilities
   shell: "{{ ansible_pkg_mgr }} -y {{ _audio_gutils | join(' ') }}"
   when: "install_audio_gutilities|bool and _audio_gutils | length > 0"
-  tags: ['packages']
+  tags: ['audio_gutils', 'packages']
 
-- name: plugins
+- name: install plugins
   shell: "{{ ansible_pkg_mgr }} -y {{ _audio_plugins | join(' ') }}"
   when: "install_audio_plugins|bool and _audio_plugins | length > 0"
-  tags: ['packages']
+  tags: ['audio_plugins', 'packages']
 
 - include: ardour.yml
   tags: ['ardour']
