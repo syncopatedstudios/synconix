@@ -99,7 +99,7 @@ To enable these settings, run the shell function `runtag theme`
 use git to manage your home directory. set these in [group_vars](group_vars/all.yml)
 
 ###### group_vars/all:
-```yaml class:"lineNo"
+```yaml
 dots:
   repo: git@github.com:b08x/dots
   home: "{{ user.home }}/.dots"

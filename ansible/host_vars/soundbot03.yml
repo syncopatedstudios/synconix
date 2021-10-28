@@ -1,14 +1,12 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_networkmanager: True
 
 autofs_client: True
 autofs:
   host: bender
   shares:
     - home
-
-use_networkmanager: True
-use_systemdnetwork: False
 
 graphical_target: True
 
