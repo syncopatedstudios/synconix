@@ -40,12 +40,12 @@
         dnf list --installed | awk -F '.' '{ print $1}'
       register: packagelist
       ignore_errors: yes
-      warn: False
 
     - set_fact:
         installed_packages: "{{ packagelist.stdout }}"
 
   tags: ['common', 'devel', 'soundbot', 'ui', 'audio', 'packagelist']
+  warn: False
 
 - name: Setup Fedora repos
   import_tasks: dnf.yml
