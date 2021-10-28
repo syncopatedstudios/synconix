@@ -1,4 +1,4 @@
 ---
 
-networkmanager: True
-systemdnetwork: False
+use_networkmanager: False
+use_systemdnetwork: False

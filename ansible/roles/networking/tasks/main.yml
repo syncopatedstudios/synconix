@@ -1,16 +1,7 @@
 ---
 
-- set_fact:
-    _networkmanager: "{{ hostvars[inventory_hostname].networkmanager }}"
-
-- set_fact:
-    _systemdnetwork: "{{ hostvars[inventory_hostname].systemdnetwork }}"
-
 - include: networkmanager.yml
-  when: _networkmanager|bool
+  when: use_networkmanager|bool
 
 - include: systemd-networkd.yml
-  when: _systemdnetwork|bool
-
-
-# vim: set ts=2 sw=2:
+  when: use_systemdnetwork|bool

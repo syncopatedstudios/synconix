@@ -7,8 +7,5 @@ autofs:
     - storage01
     - storage02
 
-networkmanager: True
-systemdnetwork: False
-
-install_x11: True
-install_i3: True
+use_networkmanager: True
+use_systemdnetwork: False
