@@ -96,7 +96,6 @@ ui:
     - arandr
     - barrier
     - i3
-    - lightdm
     - notification-daemon
     - picom
     - polybar

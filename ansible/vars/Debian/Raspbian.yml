@@ -63,7 +63,6 @@ ui:
     - feh
     - grsync
     - i3
-    - lightdm
     - picom
     - polybar
     - python3-i3ipc

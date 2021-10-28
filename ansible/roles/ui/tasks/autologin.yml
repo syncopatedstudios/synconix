@@ -1,5 +1,9 @@
 ---
 
+- name: Install lightdm
+  shell: "{{ ansible_pkg_mgr }} -y install lightdm"
+  when: "'lightdm' not in installed_packages"
+
 - name: Ensure group "autologin" exists
   group:
     name: autologin

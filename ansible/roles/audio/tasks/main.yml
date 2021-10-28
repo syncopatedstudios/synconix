@@ -2,22 +2,22 @@
 
 - name: set sound service packages to
   set_fact:
-    _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | differenceed_packages) }}"
+    _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | difference| installed_packages }}"
   tags: ['packages']
 
 - name: set audio utility packages to
   set_fact:
-    _audio_utils: "{{ audio['utilities']|differenceed_packages) }}"
+    _audio_utils: "{{ audio['utilities'] | difference(installed_packages) }}"
   tags: ['packages']
 
 - name: set graphical audio utility packages to
   set_fact:
-    _audio_gutils: "{{ audio['gutilities']|differenceed_packages) }}"
+    _audio_gutils: "{{ audio['gutilities']|difference(installed_packages) }}"
   tags: ['packages']
 
 - name: set audio plugin packages to
   set_fact:
-    _audio_plugins: "{{ audio['plugins']|differenceed_packages) }}"
+    _audio_plugins: "{{ audio['plugins']|difference(installed_packages) }}"
   tags: ['packages']
 
 - include: pipewire.yml
