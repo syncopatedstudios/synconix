@@ -30,7 +30,7 @@
         sleep: 5
         delay: 5
         timeout: 300
-  when: "selinuxstatus is changed or fstab is changed"
+  when: "selinuxstatus is changed"
 
 
 - block:
