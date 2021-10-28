@@ -3,6 +3,7 @@
 - hosts: all
   gather_facts: yes
   vars:
+    install_audio_utilities: False
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
