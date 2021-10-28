@@ -19,6 +19,7 @@
     mode: '644'
     backup: yes
   tags: ['grub']
+  register: grubcfg
 
 - block:
     - name: set rt-kernel as default
@@ -32,5 +33,5 @@
         sleep: 5
         timeout: 300
 
-  when: rtkernel is changed
+  when: "rtkernel is changed or grubcfg is changed"
   tags: ['rtkernel']
