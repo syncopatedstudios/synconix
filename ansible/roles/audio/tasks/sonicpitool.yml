@@ -8,7 +8,7 @@
 - block:
     - name: Install sonicpi-tools dependencies
       pip:
-        name: "{{ sonicpi-tool['pip'] }}"
+        name: "{{ sonicpitool['pip'] }}"
         extra_args: --user
 
     - name: fetch sonicpi-tool
