@@ -19,6 +19,7 @@ autologin: True
 
 install_rga: True
 install_googler: True
+install_chrome: True
 
 install_gutilities: True
 

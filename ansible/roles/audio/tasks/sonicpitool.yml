@@ -1,7 +1,7 @@
 ---
 
 - name: check if sonicpitool is already installed
-  stat: path="/usr/local/bin/sonicpi-tool"
+  stat: path="/usr/local/bin/sonic-pi-tool"
   register: hazisonicpitool
   tags: ['sonicpitool']
 
