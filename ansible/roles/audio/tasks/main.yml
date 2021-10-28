@@ -105,7 +105,7 @@
   tags: ['obs']
 
 - include: ocenaudio.yml
-  when: "ocenaudio|bool and 'ocenaudio' not ined_packages"
+  when: "ocenaudio|bool and 'ocenaudio' not in installed_packages"
   tags: ['ocenaudio']
 
 - include: qmidinet.yml
