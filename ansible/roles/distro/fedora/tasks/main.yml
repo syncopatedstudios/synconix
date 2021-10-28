@@ -16,7 +16,7 @@
     backup: yes
   with_items:
     - "{{ ansible_mounts }}"
-  when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') == 0"
+  when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') != 0"
   register: fstab
 
 - block:
