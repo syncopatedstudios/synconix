@@ -9,7 +9,6 @@ local_bin: "/usr/local/bin"
 # user_groups:
 #   - name: home
 #     gid: 1041
-install_obs: True
 
 user:
   name: b08x
