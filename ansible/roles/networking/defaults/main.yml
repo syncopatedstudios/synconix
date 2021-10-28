@@ -1,5 +1,11 @@
 ---
 
+use_networkmanager: False
+use_systemdnetwork: False
+
+conn_check:
+  interval: 0
+
 systemd_networkd_link: {}
 systemd_networkd_netdev: {}
 systemd_networkd_network: {}

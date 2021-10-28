@@ -1,4 +1,5 @@
 ---
+# vars here will override those found in host_vars/<host>.yml
 
 theme_folder: "{{ user.home }}/.themes"
 icon_folder: "{{ user.home }}/.icons"

@@ -7,4 +7,4 @@ autofs:
     - storage01
     - storage02
 
-kvmhost: True
+kvm_host: True

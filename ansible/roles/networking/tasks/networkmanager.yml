@@ -14,21 +14,21 @@
   template:
       src: etc/NetworkManager/conf.d/connectivity.conf.j2
       dest: /etc/NetworkManager/conf.d/20-connectivity.conf
-  when: network.conn_check is defined
+  when: conn_check is defined
 
 - name: Enable and start NetworkManager
-  service:
-      name: NetworkManager.service
-      enabled: yes
-      state: started
+  systemd:
+    name: NetworkManager.service
+    enabled: yes
+    state: started
 
 - name: Enable and start NetworkManager dispatcher
-  service:
-      name: NetworkManager-dispatcher.service
-      enabled: yes
-      state: started
+  systemd:
+    name: NetworkManager-dispatcher.service
+    enabled: yes
+    state: started
 
 - name: Disable dhcpcd service
-  service:
-      name: dhcpcd.service
-      enabled: no
+  systemd:
+    name: dhcpcd
+    enabled: no
