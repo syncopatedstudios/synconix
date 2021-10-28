@@ -5,6 +5,7 @@
 
 - include: rtkernel.yml
   tags: ['rtkernel']
+  when: kernel is defined
 
 - name: set packages to install
   set_fact:
@@ -28,31 +29,31 @@
 
 - include: nfs.yml
   tags: ['nfs']
-  when: nfshost|bool
+  when: nfs_host|bool
 
 - include: timeshift.yml
   tags: ['timeshift']
-  when: timeshift|bool
+  when: install_timeshift|bool
 
 - include: zsh.yml
   tags: ['zsh']
 
 - include: nvim.yml
   tags: ['nvim']
-  when: nvim|bool
+  when: install_nvim|bool
 
 - include: ripgrep.yml
   tags: ['ripgrep']
-  when: rga|bool
+  when: install_rga|bool
 
 - include: googler.yml
   tags: ['googler']
-  when: googler|bool
+  when: install_googler|bool
 
 - include: atom.yml
   tags: ['atom']
-  when: atom|bool
+  when: install_atom|bool
 
 - include: chrome.yml
   tags: ['chrome']
-  when: chrome|bool
+  when: install_chrome|bool

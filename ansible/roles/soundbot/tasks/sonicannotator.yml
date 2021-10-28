@@ -9,7 +9,7 @@
 - name: check if sonicannotator is already installed
   stat: path="/usr/local/bin/sonic-annotator"
   register: haziannotator
-  tags: ['annotator']
+  tags: ['sonicannotator']
 
 - block:
     - name: fetch sonic-annotator

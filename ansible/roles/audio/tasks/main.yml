@@ -59,49 +59,49 @@
 
 - name: cli audio utilities
   shell: "{{ ansible_pkg_mgr }} -y {{ _audio_utils | join(' ') }}"
-  when: "audio_utilities|bool and _audio_utils | length > 0"
+  when: "install_audio_utilities|bool and _audio_utils | length > 0"
   tags: ['packages']
 
 - name: graphical audio utilities
   shell: "{{ ansible_pkg_mgr }} -y {{ _audio_gutils | join(' ') }}"
-  when: "audio_gutilities|bool and _audio_gutils | length > 0"
+  when: "install_audio_gutilities|bool and _audio_gutils | length > 0"
   tags: ['packages']
 
 - name: plugins
   shell: "{{ ansible_pkg_mgr }} -y {{ _audio_plugins | join(' ') }}"
-  when: "audio_plugins|bool and _audio_plugins | length > 0"
+  when: "install_audio_plugins|bool and _audio_plugins | length > 0"
   tags: ['packages']
 
 - include: ardour.yml
   tags: ['ardour']
-  when: ardour|bool
+  when: install_ardour|bool
 
 - include: baudline.yml
-  when: baudline|bool
+  when: install_baudline|bool
   tags: ['baudline']
 
 - include: deadbeef.yml
-  when: deadbeef|bool
+  when: install_deadbeef|bool
   tags: ['deadbeef']
 
 - include: ecasound.yml
-  when: ecasound|bool
+  when: install_ecasound|bool
   tags: ['ecasound']
 
 - include: jacktrip.yml
-  when: jacktrip|bool
+  when: install_jacktrip|bool
   tags: ['jacktrip']
 
 - include: jalvselect.yml
-  when: raysession|bool
+  when: install_raysession|bool
   tags: ['jalvselect']
 
 - include: njconnect.yml
-  when: njconnect|bool
+  when: install_njconnect|bool
   tags: ['njconnect']
 
 - include: obs.yml
-  when: obs|bool
+  when: install_obs|bool
   tags: ['obs']
 
 - include: ocenaudio.yml
@@ -109,45 +109,45 @@
   tags: ['ocenaudio']
 
 - include: qmidinet.yml
-  when: qmidinet|bool
+  when: install_qmidinet|bool
   tags: ['qmidinet']
 
 - include: raysession.yml
-  when: raysession|bool
+  when: install_raysession|bool
   tags: ['raysession']
 
 - include: reaper.yml
-  when: reaper|bool
+  when: install_reaper|bool
   tags: ['reaper']
 
 - include: rtplugins.yml
-  when: rtplugins|bool
+  when: install_rtplugins|bool
   tags: ['rtplugins']
 
 - include: soniclineup.yml
-  when: soniclineup|bool
+  when: install_soniclineup|bool
   tags: ['soniclineup']
 
 - include: sonicpi.yml
-  when: sonicpi|bool
+  when: install_sonicpi|bool
   tags: ['sonicpi']
 
 - include: sonicpitool.yml
-  when: sonicpi|bool
+  when: install_sonicpi|bool
   tags: ['sonicpitool']
 
 - include: sonicvisualiser.yml
-  when: sonicvisualiser|bool
+  when: install_sonicvisualiser|bool
   tags: ['sonicvisualiser']
 
 - include: swami.yml
-  when: swami|bool
+  when: install_swami|bool
   tags: ['swami']
 
 - include: tony.yml
-  when: tony|bool
+  when: install_tony|bool
   tags: ['tony']
 
 - include: touchosc.yml
-  when: touchosc|bool
+  when: install_touchosc|bool
   tags: ['TouchOSC']
