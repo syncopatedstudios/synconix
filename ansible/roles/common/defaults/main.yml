@@ -6,3 +6,10 @@ backup: False
 admin_user: root
 
 nfs_host: False
+
+install_nvim: True
+install_atom: False
+install_timeshift: False
+install_rga: False
+install_googler: False
+install_chrome: False

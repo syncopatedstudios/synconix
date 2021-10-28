@@ -1,2 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+
+fedora_version: 34
+
+rpmfusion: False
+ccrma: False

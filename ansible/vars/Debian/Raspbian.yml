@@ -1,6 +1,9 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
 
+autofs_configs: /etc
+admin_user: sudo
+
 common:
   - bash-completion
   - cargo

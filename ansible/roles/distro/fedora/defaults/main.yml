@@ -6,8 +6,8 @@ clean_dnf: False
 fedora_version: 32
 grub_cfg: /boot/efi/EFI/fedora/grub.cfg
 
-rpmfusion: True
-ccrma: True
+rpmfusion: False
+ccrma: False
 
 rpmfusion_nonfree:
   url: "http://download1.rpmfusion.org/nonfree/fedora/"

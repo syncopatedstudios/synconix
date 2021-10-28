@@ -1,13 +1,6 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
 
-install_nvim: True
-install_atom: False
-install_timeshift: False
-install_rga: False
-install_googler: False
-install_chrome: False
-
 packages:
   - git
   - git-lfs

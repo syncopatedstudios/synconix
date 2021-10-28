@@ -11,3 +11,6 @@ use_networkmanager: True
 use_systemdnetwork: False
 
 graphical_target: True
+
+install_x11: True
+install_i3: True

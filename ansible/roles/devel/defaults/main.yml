@@ -1,2 +1,4 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
+
+kvm_host: False
