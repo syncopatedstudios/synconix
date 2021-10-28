@@ -10,9 +10,6 @@ chrome: False
 autofs_client: False
 autofs_configs: /etc
 
-networkmanager: False
-systemdnetwork: False
-
 packages:
   - git
   - git-lfs
