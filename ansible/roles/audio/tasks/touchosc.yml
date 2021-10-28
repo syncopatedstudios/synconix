@@ -8,13 +8,13 @@
 - block:
     - name: fetch TouchOSC
       get_url:
-        url: "{{ TouchOSC.url }}/{{ TouchOSC.file }}"
+        url: "{{ touchosc.url }}/{{ touchosc.file }}"
         dest: "{{ local_src }}"
       tags: ['TouchOSC']
 
     - name: extract and install TouchOSC
       shell: |
-        unzip {{ TouchOSC.file }}
+        unzip {{ touchosc.file }}
         mv TouchOSC /usr/local/bin/TouchOSC
       args:
         chdir: "{{ local_src }}"
@@ -40,7 +40,7 @@
 - block:
     - name: fetch Protokol
       get_url:
-        url: "{{ Protokol.url }}/{{ Protokol.file }}"
+        url: "{{ protokol.url }}/{{ protokol.file }}"
         dest: "{{ local_src }}"
       tags: ['Protokol']
 

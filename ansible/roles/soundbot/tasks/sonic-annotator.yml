@@ -14,14 +14,14 @@
 - block:
     - name: fetch sonic-annotator
       get_url:
-        url: "{{ SonicAnnotator.url }}{{ SonicAnnotator.file }}"
+        url: "{{ sonic-annotator.url }}{{ sonic-annotator.file }}"
         dest: "{{ local_src }}"
         validate_certs: no
       tags: ['sonic-annotator']
 
     - name: extract sonic-annotator
       shell: |
-        tar -xvf {{ SonicAnnotator.file }}
+        tar -xvf {{ sonic-annotator.file }}
 
         cd sonic-annotator-1.6-linux64-static/
 

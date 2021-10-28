@@ -7,7 +7,7 @@
 - block:
     - name: fetch SonicLineup
       get_url:
-        url: "{{ SonicLineup.url }}{{ SonicLineup.file }}"
+        url: "{{ sonic-lineup.url }}{{ sonic-lineup.file }}"
         dest: "{{ local_src }}"
         validate_certs: no
 
@@ -15,10 +15,10 @@
   become_user: "{{ user.name }}"
   when: not hazisoniclineup.stat.exists
 
-- name: link SonicLineup to bin
+- name: link soniclineup to bin
   shell: |
-    chmod +x {{ SonicLineup.file }}
-    ln -s {{ local_src }}/{{ SonicLineup.file }} /usr/local/bin/sonic-lineup
+    chmod +x {{ sonic-lineup.file }}
+    ln -s {{ local_src }}/{{ sonic-lineup.file }} /usr/local/bin/sonic-lineup
   args:
     chdir: "{{ local_src }}"
   when: not hazisoniclineup.stat.exists

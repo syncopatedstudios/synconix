@@ -7,7 +7,7 @@
 
 - name: set packages to install
   set_fact:
-    _dev_sonicpi: "{{ development['sonicpi']|difference(installed_packages) }}"
+    _dev_sonicpi: "{{ development['sonic-pi']|difference(installed_packages) }}"
   tags: ['packages']
 
 - name: install dependencies for SonicPi
@@ -18,21 +18,21 @@
 - block:
   - name: clone sonicpi
     git:
-      repo: "{{ SonicPi['git'] }}"
-      dest: "{{ SonicPi['path'] }}"
+      repo: "{{ sonic-pi['git'] }}"
+      dest: "{{ sonic-pi['path'] }}"
       accept_hostkey: yes
       update: no
       force: no
 
   - name: checkout releasev3.3 branch
-    shell: "git checkout {{ SonicPi['branch'] }}"
+    shell: "git checkout {{ sonic-pi['branch'] }}"
     args:
-      chdir: "{{ SonicPi['path'] }}"
+      chdir: "{{ sonic-pi['path'] }}"
 
   - name: checkout releasev3.3 branch for fedora
     shell: "git checkout v3.3-release_fedora"
     args:
-      chdir: "{{ SonicPi['path'] }}"
+      chdir: "{{ sonic-pi['path'] }}"
     when: "ansible_facts['os_family'] == 'RedHat'"
 
   - name: run pre-build
@@ -42,14 +42,14 @@
 
       echo -e "\n running linux-prebuild"
 
-      if {{ SonicPi['prebuild'] }} ; then
+      if {{ sonic-pi['prebuild'] }} ; then
         echo -e "\n prebuild success! now running linux-config"
-        {{ SonicPi['compile'] }}
+        {{ sonic-pi['compile'] }}
       else
         echo -e "\n build failed"
       fi
     args:
-      chdir: "{{ SonicPi['path'] }}"
+      chdir: "{{ sonic-pi['path'] }}"
     register: sonicpi_prebuild
     tags: ['sonicpi_prebuild']
 
@@ -61,7 +61,7 @@
 
       make
     args:
-      chdir: "{{ SonicPi['path'] }}"
+      chdir: "{{ sonic-pi['path'] }}"
     register: sonicpi_build
 
   # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"

@@ -1,0 +1,34 @@
+---
+
+- name: set packages to install
+  set_fact:
+    _networkmanager: "{{ networkmanager|difference(installed_packages) }}"
+  tags: ['packages']
+
+- name: install networkmanager stuff
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _networkmanager | join(' ') }}"
+  when: _networkmanager | length > 0
+  tags: ['packages']
+
+- name: Push connectivity check config
+  template:
+      src: etc/NetworkManager/conf.d/connectivity.conf.j2
+      dest: /etc/NetworkManager/conf.d/20-connectivity.conf
+  when: network.conn_check is defined
+
+- name: Enable and start NetworkManager
+  service:
+      name: NetworkManager.service
+      enabled: yes
+      state: started
+
+- name: Enable and start NetworkManager dispatcher
+  service:
+      name: NetworkManager-dispatcher.service
+      enabled: yes
+      state: started
+
+- name: Disable dhcpcd service
+  service:
+      name: dhcpcd.service
+      enabled: no

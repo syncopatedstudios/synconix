@@ -1,0 +1,29 @@
+---
+
+audio_utilities: False
+audio_gutilities: False
+audio_plugins: False
+
+ardour: False
+audiowaveform: False
+baudline: False
+deadbeef: False
+ecasound: False
+jacktrip: False
+jalvselect: False
+njconnect: False
+obs: False
+ocenaudio: False
+protokol: False
+qmidinet: False
+raysession: False
+reaper: False
+rtplugins: False
+sonic-annotator: False
+sonic-lineup: False
+sonic-pi: False
+sonic-visualiser: False
+swami: False
+tony: False
+touchosc: False
+vamp-plugins: False

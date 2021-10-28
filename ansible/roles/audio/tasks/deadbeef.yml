@@ -21,7 +21,7 @@
 
   - name: clone deadbeef
     git:
-      repo: "{{ DeadBeef['git'] }}"
+      repo: "{{ deadbeef['git'] }}"
       dest: "{{ local_src }}/deadbeef"
       accept_hostkey: yes
       update: no

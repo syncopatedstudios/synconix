@@ -1,27 +1,4 @@
 screen_layout: echo "set this in hostvars"
 
-theme_folder: "{{ user.home }}/.themes"
-icon_folder: "{{ user.home }}/.icons"
-
-# theme options
-gtk_theme: oomox-soundbotv2
-gtk_icon_theme: oomox-soundbotv2
-gtk_font:
-  name: Hack Nerd Font
-  size: 11
-gtk_cursor_theme: Adwaita
-
-qt5_icon_theme: oomox-soundbotv2
-qt5ct_style: gtk2
-
-kvantum_theme: MateriaDark
-hintstyle: hintmedium
-
-# whether to set autologin or not
-autologin: True
-
-install_x11: True
-install_i3: True
-
 swallow:
   git: "https://github.com/The-Repo-Club/i3-swallow"

@@ -7,7 +7,7 @@
 
 - name: set packages to install
   set_fact:
-    _dev_sonicvisualiser: "{{ development['sonicvisualiser']|difference(installed_packages) }}"
+    _dev_sonicvisualiser: "{{ development['sonic-visualiser']|difference(installed_packages) }}"
   tags: ['packages']
 
 - name: install sonicvisualiser deps
@@ -18,7 +18,7 @@
 - block:
     - name: clone sonic-visualiser
       git:
-        repo: "{{ SonicVisualiser['git'] }}"
+        repo: "{{ sonic-visualiser['git'] }}"
         dest: "/usr/local/src/sonic-visualiser"
         accept_hostkey: yes
         update: no

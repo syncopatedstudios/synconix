@@ -3,7 +3,7 @@
 - include: soundcard.yml
   tags: ['soundcard']
 
-- include: annotator.yml
+- include: sonic-annotator.yml
   tags: ['sonic-annotator']
 
 - include: audiowaveform.yml

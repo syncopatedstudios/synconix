@@ -1,5 +1,18 @@
 ---
 
+atom: False
+nvim: False
+timeshift: False
+rga: False
+googler: False
+chrome: False
+
+autofs_client: False
+autofs_configs: /etc
+
+networkmanager: False
+systemdnetwork: False
+
 packages:
   - git
   - git-lfs
