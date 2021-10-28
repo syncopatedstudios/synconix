@@ -1,0 +1,5 @@
+---
+# vars set here can been over written by host_vars/<host>.yml
+
+depends_on:
+  - speech-dispatcher-utils
