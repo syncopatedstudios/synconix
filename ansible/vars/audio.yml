@@ -19,10 +19,10 @@ qmidinet: False
 raysession: False
 reaper: False
 rtplugins: False
-sonic-annotator: False
-sonic-lineup: False
-sonic-pi: False
-sonic-visualiser: False
+sonicannotator: False
+soniclineup: False
+sonicpi: False
+sonicvisualiser: False
 swami: False
 tony: False
 touchosc: False

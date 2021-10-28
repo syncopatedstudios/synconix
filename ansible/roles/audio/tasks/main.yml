@@ -100,7 +100,7 @@
   when: njconnect|bool
   tags: ['njconnect']
 
-- include: obs-studio.yml
+- include: obs.yml
   when: obs|bool
   tags: ['obs']
 
@@ -124,21 +124,21 @@
   when: rtplugins|bool
   tags: ['rtplugins']
 
-- include: sonic-lineup.yml
-  when: sonic-lineup|bool
-  tags: ['sonic-lineup']
+- include: soniclineup.yml
+  when: soniclineup|bool
+  tags: ['soniclineup']
 
-- include: sonic-pi.yml
-  when: sonic-pi|bool
-  tags: ['sonic-pi']
+- include: sonicpi.yml
+  when: sonicpi|bool
+  tags: ['sonicpi']
 
-- include: sonic-pi-tool.yml
-  when: sonic-pi|bool
-  tags: ['sonic-pi-tool']
+- include: sonicpitool.yml
+  when: sonicpi|bool
+  tags: ['sonicpitool']
 
-- include: sonic-visualiser.yml
-  when: sonic-visualiser|bool
-  tags: ['sonic-visualiser']
+- include: sonicvisualiser.yml
+  when: sonicvisualiser|bool
+  tags: ['sonicvisualiser']
 
 - include: swami.yml
   when: swami|bool

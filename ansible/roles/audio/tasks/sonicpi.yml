@@ -1,13 +1,13 @@
 ---
 
-- name: check if sonic-pi is already installed
-  stat: path="/opt/sonic-pi/app/build/gui/qt/sonic-pi"
+- name: check if sonicpi is already installed
+  stat: path="/opt/sonicpi/app/build/gui/qt/sonicpi"
   register: hazisonicpi
-  tags: ['sonic-pi']
+  tags: ['sonicpi']
 
 - name: set packages to install
   set_fact:
-    _dev_sonicpi: "{{ development['sonic-pi']|difference(installed_packages) }}"
+    _dev_sonicpi: "{{ development['sonicpi']|difference(installed_packages) }}"
   tags: ['packages']
 
 - name: install dependencies for SonicPi
@@ -18,21 +18,21 @@
 - block:
   - name: clone sonicpi
     git:
-      repo: "{{ sonic-pi['git'] }}"
-      dest: "{{ sonic-pi['path'] }}"
+      repo: "{{ sonicpi['git'] }}"
+      dest: "{{ sonicpi['path'] }}"
       accept_hostkey: yes
       update: no
       force: no
 
   - name: checkout releasev3.3 branch
-    shell: "git checkout {{ sonic-pi['branch'] }}"
+    shell: "git checkout {{ sonicpi['branch'] }}"
     args:
-      chdir: "{{ sonic-pi['path'] }}"
+      chdir: "{{ sonicpi['path'] }}"
 
   - name: checkout releasev3.3 branch for fedora
     shell: "git checkout v3.3-release_fedora"
     args:
-      chdir: "{{ sonic-pi['path'] }}"
+      chdir: "{{ sonicpi['path'] }}"
     when: "ansible_facts['os_family'] == 'RedHat'"
 
   - name: run pre-build
@@ -42,14 +42,14 @@
 
       echo -e "\n running linux-prebuild"
 
-      if {{ sonic-pi['prebuild'] }} ; then
+      if {{ sonicpi['prebuild'] }} ; then
         echo -e "\n prebuild success! now running linux-config"
-        {{ sonic-pi['compile'] }}
+        {{ sonicpi['compile'] }}
       else
         echo -e "\n build failed"
       fi
     args:
-      chdir: "{{ sonic-pi['path'] }}"
+      chdir: "{{ sonicpi['path'] }}"
     register: sonicpi_prebuild
     tags: ['sonicpi_prebuild']
 
@@ -61,7 +61,7 @@
 
       make
     args:
-      chdir: "{{ sonic-pi['path'] }}"
+      chdir: "{{ sonicpi['path'] }}"
     register: sonicpi_build
 
   # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
