@@ -25,7 +25,7 @@
   when: "'google-chrome' not in repolist.stdout"
 
 - block:
-    - name: Fetch rpmfusion and ccrma rpms
+    - name: Fetch rpmfusion repo rpms
       get_url:
         url: "{{ item }}"
         dest: "{{ local_src }}"
@@ -33,18 +33,31 @@
       with_items:
         - "{{ rpmfusion_nonfree['url'] }}{{ rpmfusion_nonfree['file'] }}"
         - "{{ rpmfusion_free['url'] }}{{ rpmfusion_free['file'] }}"
-        - "{{ ccrma_repo['url'] }}{{ ccrma_repo['file'] }}"
 
-    - name: Install rpmfusion and ccrma repos
-      shell: |
-        dnf -y install {{ rpmfusion_nonfree['file'] }}
-        dnf -y install {{ rpmfusion_free['file'] }}
-        dnf -y install {{ ccrma_repo['file'] }}
+    - name: Install rpmfusion repos
+      shell: "dnf -y install {{ item }} && sleep 0.5"
       args:
         chdir: "{{ local_src }}"
+      with_items:
+        - "{{ rpmfusion_nonfree['file'] }}"
+        - "{{ rpmfusion_free['file'] }}"
       ignore_errors: True
 
-  when: "'rpmfusion-free' not in repolist.stdout or 'planetccrma' not in repolist.stdout"
+  when: "'rpmfusion-free' not in repolist.stdout"
+
+- - block:
+    - name: Fetch ccrma repo rpm
+      get_url:
+        url: "{{ ccrma_repo['url'] }}{{ ccrma_repo['file'] }}"
+        dest: "{{ local_src }}"
+        validate_certs: yes
+
+    - name: Install ccrma repo
+      shell:  "dnf -y install {{ ccrma_repo['file'] }} && sleep 0.5"
+      args:
+        chdir: "{{ local_src }}"
+
+  when: "'planetccrma' not in repolist.stdout"
 
 - name: Enable some copr repos
   shell: "dnf -y copr enable {{ item }}"
@@ -79,7 +92,6 @@
 
     - name: wait for reboot complete before moving on
       wait_for_connection:
-        connect_timeout: 5
         delay: 5
         sleep: 5
         timeout: 300
