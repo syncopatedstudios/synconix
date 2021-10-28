@@ -101,8 +101,8 @@ use git to manage your home directory. set these in [group_vars](group_vars/all.
 ###### group_vars/all:
 ```yaml class:"lineNo"
 dots:
-  remote: git@github.com:b08x/dots
-  repo: "{{ user.home }}/.dots"
+  repo: git@github.com:b08x/dots
+  home: "{{ user.home }}/.dots"
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False
 ```
