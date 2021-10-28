@@ -22,3 +22,5 @@ autologin: False
 
 install_x11: False
 install_i3: False
+
+install_gutilities: False
