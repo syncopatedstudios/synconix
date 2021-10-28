@@ -5,9 +5,11 @@ autofs_configs: /etc
 admin_user: wheel
 
 common:
+  - aspell-en
   - atool
   - bat
   - exa
+  - gtkspellmm30
   - http-parser
   - lnav
   - most

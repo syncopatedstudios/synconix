@@ -93,6 +93,7 @@ soniclineup:
   file: "SonicLineup-1.1-x86_64.AppImage"
 
 sonicpitool:
+  url: "https://raw.githubusercontent.com/emlyn/sonic-pi-tool/master/sonic-pi-tool.py"
   pip:
     - click
     - oscpy

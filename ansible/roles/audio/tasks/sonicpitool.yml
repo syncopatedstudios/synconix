@@ -13,7 +13,7 @@
 
     - name: fetch sonicpi-tool
       get_url:
-        url: https://raw.githubusercontent.com/emlyn/sonicpi-tool/master/sonicpi-tool.py
+        url: "{{ sonicpitool['url'] }}"
         dest: "{{ local_src }}"
         # validate_certs: no
 
