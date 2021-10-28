@@ -1,7 +1,7 @@
 ---
 
 - name: check if sonicpi is already installed
-  stat: path="/opt/sonicpi/app/build/gui/qt/sonicpi"
+  stat: path="/opt/sonic-pi/app/build/gui/qt/sonic-pi"
   register: hazisonicpi
   tags: ['sonicpi']
 
