@@ -22,8 +22,8 @@
 
 - include: pipewire.yml
 
-- name: sound services (alsa,jack,pulse)
-  shell: "{{ ansible_pkg_mgr }} -y {{ _sound_services | join(' ') }}"
+- name: install sound services (alsa,jack,pulse)
+  shell: "{{ ansible_pkg_mgr }} -y install {{ _sound_services | join(' ') }}"
   when: _sound_services | length > 0
   tags: ['packages']
 
