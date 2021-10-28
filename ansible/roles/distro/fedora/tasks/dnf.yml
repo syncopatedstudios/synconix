@@ -45,7 +45,7 @@
 
   when: "'rpmfusion-free' not in repolist.stdout"
 
-- - block:
+- block:
     - name: Fetch ccrma repo rpm
       get_url:
         url: "{{ ccrma_repo['url'] }}{{ ccrma_repo['file'] }}"
