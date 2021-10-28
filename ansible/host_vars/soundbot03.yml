@@ -1,7 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 
-autofs_client: False
+autofs_client: True
 autofs:
   host: bender
   shares:
@@ -16,3 +16,18 @@ install_x11: True
 install_i3: True
 
 autologin: True
+
+install_rga: True
+install_googler: True
+
+install_gutilities: True
+
+install_audio_utilities: True
+install_audio_gutilities: True
+install_audio_plugins: True
+install_jacktrip: True
+install_jalvselect: True
+install_njconnect: True
+install_sonicannotator: True
+install_sonicpi: True
+install_touchosc: True
