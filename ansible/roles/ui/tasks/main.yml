@@ -1,16 +1,16 @@
 ---
 
 - include: x11.yml
-  tags: ["x11"]
   when: install_x11|bool
+  tags: ["x11"]
 
 - include: i3.yml
-  tags: ["i3"]
   when: install_i3|bool
+  tags: ["i3"]
 
 - include: autologin.yml
-  tags: ['autologin']
   when: autologin|bool
+  tags: ['autologin']
 
 - include: theme.yml
   tags: ['theme']
@@ -22,5 +22,10 @@
 
 - name: Install GUI utils like mpv, feh, qpdfview, etc
   shell: "{{ ansible_pkg_mgr }} -y install {{ _ui_gutilities | join(' ') }}"
-  when: _ui_gutilities | length > 0
+  when: "_ui_gutilities | length > 0 and install_gutilities|bool"
   tags: ['packages']
+
+- name: set graphical-target as default
+  shell: |
+    systemctl set-default graphical.target
+  when: graphical_target|bool

@@ -8,22 +8,26 @@
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
   vars_files:
     - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
+    - "vars/audio.yml"
     - "vars/common.yml"
+    - "vars/devel.yml"
+    - "vars/networking.yml"
+    - "vars/ui.yml"
 
   pre_tasks:
-    - name: Load Fedora
-      include_role:
-        name: distro/fedora
-      when: "ansible_facts['os_family'] == 'RedHat'"
-      tags: ['fedora', 'packagelist']
+    - name: check whether this is an initial install
+      stat:
+        path: "{{ ansible_home }}/.installed"
 
-    - name: Load Debian
-      include_role:
-        name: distro/debian
-      when: "ansible_facts['os_family'] == 'Debian'"
-      tags: ['debian', 'packagelist']
+  tasks:
+    - name: touch installed
+      shell: |
+        touch .installed
+      args:
+        chdir: "{{ ansible_home }}"
 
   roles:
+     - { role: distro, tags: ['distro'] }
      - { role: common, tags: ['common'] }
      - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui'] }

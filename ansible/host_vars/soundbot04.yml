@@ -1,0 +1,38 @@
+---
+# vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_networkmanager: False
+
+systemd_networkd_network:
+  eth0:
+    - Match:
+      - Name: "eth0"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: 192.168.1.2
+      - Domains: "syncopatedstudios.net"
+
+      - Address: "192.168.1.27/24"
+      - Gateway: "192.168.1.1"
+
+autofs_client: True
+autofs:
+  host: bender
+  shares:
+    - home
+
+graphical_target: True
+
+install_x11: True
+install_i3: True
+
+autologin: True
+
+install_rga: True
+
+install_audio_utilities: False
+install_audio_gutilities: False
+install_audio_plugins: False
+install_jacktrip: False
+install_jalvselect: False
+install_njconnect: True

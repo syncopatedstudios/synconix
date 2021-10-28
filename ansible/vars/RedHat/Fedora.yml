@@ -1,12 +1,16 @@
 ---
+# vars here will override those found in host_vars/<host>.yml
 
 autofs_configs: /etc
 admin_user: wheel
 
 common:
+  - aspell-en
   - atool
   - bat
   - exa
+  - fuse
+  - gtkspellmm30
   - http-parser
   - lnav
   - most
@@ -83,6 +87,7 @@ ui:
     - qpdfview-qt5
     - qt5ct
     - qutebrowser
+    - python3-qt5-webengine
     - redshift
     - vlc
     - wmctrl
@@ -94,7 +99,6 @@ ui:
     - arandr
     - barrier
     - i3
-    - lightdm
     - notification-daemon
     - picom
     - polybar

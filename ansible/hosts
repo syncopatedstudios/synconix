@@ -1,2 +1,0 @@
-soundbot01 ansible_user=b08x ansible_become=true ansible_connection=local
-testbot ansible_user=b08x ansible_become=true

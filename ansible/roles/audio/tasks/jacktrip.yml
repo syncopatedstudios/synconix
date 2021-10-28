@@ -1,5 +1,10 @@
 ---
 
+- name: check if jacktrip is already installed
+  stat: path="/usr/local/bin/jacktrip"
+  register: hazijacktrip
+  tags: ['jacktrip']
+
 - block:
   - name: clone jacktrip
     git:
@@ -20,3 +25,4 @@
 
   become: True
   become_user: "{{ user.name }}"
+  when: not hazijacktrip.stat.exists

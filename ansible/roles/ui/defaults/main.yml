@@ -1,4 +1,10 @@
+---
+# vars set here can been over written by host_vars/<host>.yml
+
 screen_layout: echo "set this in hostvars"
+
+swallow:
+  git: "https://github.com/The-Repo-Club/i3-swallow"
 
 theme_folder: "{{ user.home }}/.themes"
 icon_folder: "{{ user.home }}/.icons"
@@ -17,11 +23,10 @@ qt5ct_style: gtk2
 kvantum_theme: MateriaDark
 hintstyle: hintmedium
 
-# whether to set autologin or not
-autologin: True
+graphical_target: False
+autologin: False
 
-install_x11: True
-install_i3: True
+install_x11: False
+install_i3: False
 
-swallow:
-  git: "https://github.com/The-Repo-Club/i3-swallow"
+install_gutilities: False

@@ -1,4 +1,4 @@
 ---
+# vars set here can been over written by host_vars/<host>.yml
 
-kvmhost: False
-solargraph: False
+kvm_host: False

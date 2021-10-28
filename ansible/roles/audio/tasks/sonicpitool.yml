@@ -1,0 +1,28 @@
+---
+
+- name: check if sonicpitool is already installed
+  stat: path="/usr/local/bin/sonic-pi-tool"
+  register: hazisonicpitool
+  tags: ['sonicpitool']
+
+- block:
+    - name: Install sonicpi-tools dependencies
+      pip:
+        name: "{{ sonicpitool['pip'] }}"
+        extra_args: --user
+
+    - name: fetch sonicpi-tool
+      get_url:
+        url: "{{ sonicpitool['url'] }}"
+        dest: "{{ local_src }}"
+        # validate_certs: no
+
+    - name: mark executable and copy to /usr/local/bin
+      shell: |
+        chmod +x sonicpi-tool.py
+        cp sonic-pi-tool.py /usr/local/bin/sonic-pi-tool
+      args:
+        chdir: "{{ local_src }}"
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazisonicpitool.stat.exists

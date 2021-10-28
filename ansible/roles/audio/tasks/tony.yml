@@ -7,7 +7,7 @@
 - block:
     - name: fetch tony
       get_url:
-        url: "{{ Tony.url }}{{ Tony.file }}"
+        url: "{{ tony.url }}{{ tony.file }}"
         dest: "{{ local_src }}"
         validate_certs: no
 
@@ -17,8 +17,8 @@
 
 - name: link tony to bin
   shell: |
-    chmod +x {{ Tony.file }}
-    ln -s {{ local_src }}/{{ Tony.file }} /usr/local/bin/tony
+    chmod +x {{ tony.file }}
+    ln -s {{ local_src }}/{{ tony.file }} /usr/local/bin/tony
   args:
     chdir: "{{ local_src }}"
   when: not hazitony.stat.exists

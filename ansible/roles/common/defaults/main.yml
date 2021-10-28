@@ -1,17 +1,15 @@
 ---
+# vars set here can been over written by host_vars/<host>.yml
 
-atom: True
-docker: True
-nvim: True
-timeshift: True
-rga: True
-googler: True
-chrome: True
-
-autofs_client: False
-autofs_configs: /etc
 backup: False
 
 admin_user: root
 
-nfshost: False
+nfs_host: False
+
+install_nvim: True
+install_rga: False
+install_googler: False
+install_atom: False
+install_timeshift: False
+install_chrome: False

@@ -14,5 +14,5 @@
   tags: ['ruby']
 
 - include: libvirt.yml
-  when: kvmhost|bool
+  when: kvm_host|bool
   tags: ['kvm']

@@ -1,6 +1,11 @@
 ---
 
+- include: sudoers.yml
+  tags: ['sudoers']
+
 - include: rtkernel.yml
+  tags: ['rtkernel']
+  when: kernel is defined
 
 - name: set packages to install
   set_fact:
@@ -11,15 +16,6 @@
   shell: "{{ ansible_pkg_mgr }} -y install {{ _packages| join(' ') }}"
   when: _packages | length > 0
   tags: ['packages']
-
-- include: sudoers.yml
-  tags: ['sudoers']
-
-- include: zsh.yml
-  tags: ['zsh']
-
-- include: gemrc.yml
-  tags: ['ruby']
 
 - include: filesystem.yml
   tags: ['filesystem']
@@ -33,30 +29,31 @@
 
 - include: nfs.yml
   tags: ['nfs']
-  when: nfshost|bool
-
-- include: grub.yml
-  tags: ['grub']
-
-- include: nvim.yml
-  tags: ['nvim']
-  when: nvim|bool
-
-- include: atom.yml
-  tags: ['atom']
+  when: nfs_host|bool
 
 - include: timeshift.yml
   tags: ['timeshift']
-  when: timeshift|bool
+  when: install_timeshift|bool
+
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: nvim.yml
+  tags: ['nvim']
+  when: install_nvim|bool
 
 - include: ripgrep.yml
   tags: ['ripgrep']
-  when: rga|bool
+  when: install_rga|bool
 
 - include: googler.yml
   tags: ['googler']
-  when: googler|bool
+  when: install_googler|bool
+
+- include: atom.yml
+  tags: ['atom']
+  when: install_atom|bool
 
 - include: chrome.yml
   tags: ['chrome']
-  when: chrome|bool
+  when: install_chrome|bool

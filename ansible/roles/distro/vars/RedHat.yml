@@ -1,0 +1,27 @@
+---
+# vars set here can been over written by host_vars/<host>.yml
+
+clean_dnf: False
+
+fedora_version: 32
+grub_cfg: /boot/efi/EFI/fedora/grub.cfg
+
+rpmfusion: True
+ccrma: True
+
+rpmfusion_nonfree:
+  url: "http://download1.rpmfusion.org/nonfree/fedora/"
+  file: "rpmfusion-nonfree-release-{{ fedora_version }}.noarch.rpm"
+
+rpmfusion_free:
+  url: "http://download1.rpmfusion.org/free/fedora/"
+  file: "rpmfusion-free-release-{{ fedora_version }}.noarch.rpm"
+
+ccrma_repo:
+  url: "http://ccrma.stanford.edu/planetccrma/mirror/fedora/linux/planetccrma/{{ fedora_version }}/x86_64/"
+  file: "planetccrma-repo-1.1-3.fc{{ fedora_version }}.ccrma.noarch.rpm"
+
+devel:
+  - rpmdevtools
+  - mock
+  - livecd-tools

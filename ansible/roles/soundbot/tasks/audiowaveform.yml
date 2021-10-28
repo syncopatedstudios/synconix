@@ -45,13 +45,6 @@
         chdir: "{{ local_src }}/audiowaveform"
       register: audiowaveform_build
 
-    - name: touch installed
-      shell: |
-        touch .installed
-      args:
-        chdir: "{{ local_src }}/audiowaveform"
-      when: "audiowaveform_build.rc == 0"
-
   become: True
   become_user: "{{ user.name }}"
   when: not haziaudiowaveform.stat.exists

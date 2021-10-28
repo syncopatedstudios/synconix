@@ -1,0 +1,32 @@
+---
+
+- name: check if SonicLineup is already installed
+  stat: path="/usr/local/bin/soniclineup"
+  register: hazisoniclineup
+
+- block:
+    - name: fetch SonicLineup
+      get_url:
+        url: "{{ soniclineup.url }}{{ soniclineup.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazisoniclineup.stat.exists
+
+- name: link soniclineup to bin
+  shell: |
+    chmod +x {{ soniclineup.file }}
+    ln -s {{ local_src }}/{{ soniclineup.file }} /usr/local/bin/soniclineup
+  args:
+    chdir: "{{ local_src }}"
+  when: not hazisoniclineup.stat.exists
+
+- name: install sonic lineup desktop entry
+  copy:
+    src: usr/local/share/applications/soniclineup.desktop
+    dest: /usr/local/share/applications/soniclineup.desktop
+    directory_mode: no
+    mode: '644'
+  notify: "update desktop database"

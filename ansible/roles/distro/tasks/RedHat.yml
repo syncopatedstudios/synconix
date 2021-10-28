@@ -1,0 +1,152 @@
+---
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+  when: ansible_selinux['status'] == 'enabled'
+  register: selinuxstatus
+  tags: ['selinux']
+
+#TODO: find a way to use current fstab options instead of item.options
+# - name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
+#   mount:
+#     path: "{{ item.mount }}"
+#     src: "UUID={{ item.uuid }}"
+#     fstype: "{{ item.fstype }}"
+#     opts: "{{ item.options }},compress=lzo,autodefrag,noatime"
+#     state: present
+#     backup: yes
+#   with_items:
+#     - "{{ ansible_mounts }}"
+#   when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') != 0"
+#   register: fstab
+
+- block:
+    - name: Reboot if selinux or fstab was changed
+      shell: "shutdown -r now"
+
+    - name: Wait for reboot complete before moving on
+      wait_for_connection:
+        connect_timeout: 5
+        sleep: 5
+        delay: 5
+        timeout: 300
+  when: "selinuxstatus is changed"
+  tags: ['selinux']
+
+- block:
+
+    - name: Get installed items list
+      shell: |
+        dnf list --installed | awk -F '.' '{ print $1}'
+      register: packagelist
+      ignore_errors: yes
+
+    - set_fact:
+        installed_packages: "{{ packagelist.stdout }}"
+
+  tags: ['dnf', 'packages', 'packagelist']
+
+- name: Get dnf repolist
+  shell: "dnf repolist | awk '{ print $1}'"
+  register: repolist
+  ignore_errors: yes
+  tags: ['dnf']
+
+- name: Install dnf.conf with fastestmirror enabled
+  copy:
+    src: etc/dnf/dnf.conf
+    dest: /etc/dnf/dnf.conf
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
+    backup: yes
+  register: dnf_conf
+  tags: ['dnf']
+
+- name: Install fedora workstation repos
+  dnf:
+    name: "fedora-workstation-repositories"
+    state: present
+  when: "'google-chrome' not in repolist.stdout"
+  tags: ['dnf', 'google-chrome']
+
+
+- block:
+    - name: Fetch rpmfusion repo rpms
+      get_url:
+        url: "{{ item }}"
+        dest: "{{ local_src }}"
+        validate_certs: yes
+      with_items:
+        - "{{ rpmfusion_nonfree['url'] }}{{ rpmfusion_nonfree['file'] }}"
+        - "{{ rpmfusion_free['url'] }}{{ rpmfusion_free['file'] }}"
+
+    - name: Install rpmfusion repos
+      shell: "dnf -y install {{ item }} && sleep 0.5"
+      args:
+        chdir: "{{ local_src }}"
+      with_items:
+        - "{{ rpmfusion_nonfree['file'] }}"
+        - "{{ rpmfusion_free['file'] }}"
+      ignore_errors: True
+
+  when: "'rpmfusion-free' not in repolist.stdout"
+  tags: ['dnf']
+
+- block:
+    - name: Fetch ccrma repo rpm
+      get_url:
+        url: "{{ ccrma_repo['url'] }}{{ ccrma_repo['file'] }}"
+        dest: "{{ local_src }}"
+        validate_certs: yes
+
+    - name: Install ccrma repo
+      shell:  "dnf -y install {{ ccrma_repo['file'] }} && sleep 0.5"
+      args:
+        chdir: "{{ local_src }}"
+
+  when: "'planetccrma' not in repolist.stdout"
+  tags: ['dnf']
+
+- name: Enable some copr repos
+  shell: "dnf -y copr enable {{ item }}"
+  with_items:
+    - "ycollet/linuxmao"
+  when: "'linuxmao' not in repolist.stdout"
+  tags: ['dnf', 'copr']
+
+- name: Enable additional yum repositories atom and monogodb
+  copy:
+    src: "etc/yum.repos.d/{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - atom.repo
+    - monogodb.repo
+  tags: ['dnf']
+
+- name: Enable nodejs 14 module
+  shell: "dnf -y module enable nodejs:14"
+  tags: ['dnf']
+
+- block:
+    - name: clean and update dnf
+      shell: "dnf clean all && dnf -y update"
+      args:
+        executable: /bin/bash
+
+    - name: Reboot after system update
+      shell: "shutdown -r now"
+
+    - name: wait for reboot complete before moving on
+      wait_for_connection:
+        delay: 5
+        sleep: 5
+        timeout: 300
+
+  when: dnf_conf is changed
+  tags: ['dnf']

@@ -1,0 +1,10 @@
+---
+# vars set here can been over written by host_vars/<host>.yml
+
+apt_update: False
+
+liquorix: False
+kx_repo: False
+monogodb: False
+
+grub_cfg: /boot/grub2/grub.cfg

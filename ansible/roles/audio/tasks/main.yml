@@ -1,21 +1,21 @@
 ---
 
-- name: set sound service packages to install
+- name: set sound service packages to
   set_fact:
     _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | difference(installed_packages) }}"
   tags: ['packages']
 
-- name: set audio utility packages to install
+- name: set audio utility packages to
   set_fact:
-    _audio_utils: "{{ audio['utilities']|difference(installed_packages) }}"
+    _audio_utils: "{{ audio['utilities'] | difference(installed_packages) }}"
   tags: ['packages']
 
-- name: set graphical audio utility packages to install
+- name: set graphical audio utility packages to
   set_fact:
     _audio_gutils: "{{ audio['gutilities']|difference(installed_packages) }}"
   tags: ['packages']
 
-- name: set audio plugin packages to install
+- name: set audio plugin packages to
   set_fact:
     _audio_plugins: "{{ audio['plugins']|difference(installed_packages) }}"
   tags: ['packages']
@@ -45,7 +45,7 @@
     append: yes
   tags: ['tuning']
 
-- name: install makesfz and makeh2drumkit
+- name: makesfz and makeh2drumkit
   copy:
     src: "usr/local/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
@@ -59,95 +59,95 @@
 
 - name: install cli audio utilities
   shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_utils | join(' ') }}"
-  when: "audio_utilities|bool and _audio_utils | length > 0"
-  tags: ['packages']
+  when: "install_audio_utilities|bool and _audio_utils | length > 0"
+  tags: ['audio_utils', 'packages']
 
 - name: install graphical audio utilities
   shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_gutils | join(' ') }}"
-  when: "audio_gutilities|bool and _audio_gutils | length > 0"
-  tags: ['packages']
+  when: "install_audio_gutilities|bool and _audio_gutils | length > 0"
+  tags: ['audio_gutils', 'packages']
 
 - name: install plugins
   shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_plugins | join(' ') }}"
-  when: "audio_plugins|bool and _audio_plugins | length > 0"
-  tags: ['packages']
+  when: "install_audio_plugins|bool and _audio_plugins | length > 0"
+  tags: ['audio_plugins', 'packages']
 
 - include: ardour.yml
   tags: ['ardour']
-  when: ardour.install|bool
+  when: install_ardour|bool
 
 - include: baudline.yml
-  when: Baudline.install|bool
+  when: install_baudline|bool
   tags: ['baudline']
 
 - include: deadbeef.yml
-  when: DeadBeef.install|bool
+  when: install_deadbeef|bool
   tags: ['deadbeef']
 
 - include: ecasound.yml
-  when: ecasound.install|bool
+  when: install_ecasound|bool
   tags: ['ecasound']
 
 - include: jacktrip.yml
-  when: jacktrip.install|bool
+  when: install_jacktrip|bool
   tags: ['jacktrip']
 
 - include: jalvselect.yml
-  when: raysession.install|bool
+  when: install_raysession|bool
   tags: ['jalvselect']
 
 - include: njconnect.yml
-  when: njconnect.install|bool
+  when: install_njconnect|bool
   tags: ['njconnect']
 
-- include: obs-studio.yml
-  when: obs|bool
+- include: obs.yml
+  when: install_obs|bool
   tags: ['obs']
 
 - include: ocenaudio.yml
-  when: "ocenaudio.install|bool and 'ocenaudio' not in installed_packages"
+  when: "ocenaudio|bool and 'ocenaudio' not in installed_packages"
   tags: ['ocenaudio']
 
 - include: qmidinet.yml
-  when: qmidinet.install|bool
+  when: install_qmidinet|bool
   tags: ['qmidinet']
 
 - include: raysession.yml
-  when: raysession.install|bool
+  when: install_raysession|bool
   tags: ['raysession']
 
 - include: reaper.yml
-  when: reaper.install|bool
+  when: install_reaper|bool
   tags: ['reaper']
 
 - include: rtplugins.yml
-  when: rtplugins.install|bool
+  when: install_rtplugins|bool
   tags: ['rtplugins']
 
-- include: sonic-lineup.yml
-  when: SonicLineup.install|bool
-  tags: ['sonic-lineup']
+- include: soniclineup.yml
+  when: install_soniclineup|bool
+  tags: ['soniclineup']
 
-- include: sonic-pi.yml
-  when: SonicPi.install|bool
-  tags: ['sonic-pi']
+- include: sonicpi.yml
+  when: install_sonicpi|bool
+  tags: ['sonicpi']
 
-- include: sonic-pi-tool.yml
-  when: SonicPi.install|bool
-  tags: ['sonic-pi-tool']
+- include: sonicpitool.yml
+  when: install_sonicpi|bool
+  tags: ['sonicpitool']
 
-- include: sonic-visualiser.yml
-  when: SonicVisualiser.install|bool
-  tags: ['sonic-visualiser']
+- include: sonicvisualiser.yml
+  when: install_sonicvisualiser|bool
+  tags: ['sonicvisualiser']
 
 - include: swami.yml
-  when: swami.install|bool
+  when: install_swami|bool
   tags: ['swami']
 
 - include: tony.yml
-  when: Tony.install|bool
+  when: install_tony|bool
   tags: ['tony']
 
 - include: touchosc.yml
-  when: TouchOSC.install|bool
+  when: install_touchosc|bool
   tags: ['TouchOSC']

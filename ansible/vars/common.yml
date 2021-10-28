@@ -1,4 +1,5 @@
 ---
+# vars here will override those found in host_vars/<host>.yml
 
 packages:
   - git

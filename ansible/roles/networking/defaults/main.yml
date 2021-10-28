@@ -1,4 +1,10 @@
 ---
+# vars set here can been over written by host_vars/<host>.yml
+use_networkmanager: False
+use_systemdnetwork: False
+
+conn_check:
+  interval: 0
 
 systemd_networkd_link: {}
 systemd_networkd_netdev: {}

@@ -27,7 +27,13 @@
     backup: yes
 
 - name: add user to libvirt group
-  user: name={{ user.name }} groups=libvirt append=yes
+  user:
+    name: "{{ user.name }}"
+    groups: "libvirt,qemu"
+    append: yes
 
 - name: enable libvirtd service
-  service: name=libvirtd enabled=yes state=started
+  service:
+    name: libvirtd
+    enabled: yes
+    state: started
