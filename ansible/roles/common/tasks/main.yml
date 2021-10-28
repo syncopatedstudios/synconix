@@ -16,12 +16,6 @@
   when: _packages | length > 0
   tags: ['packages']
 
-- include: zsh.yml
-  tags: ['zsh']
-
-- include: gemrc.yml
-  tags: ['ruby']
-
 - include: filesystem.yml
   tags: ['filesystem']
 
@@ -36,19 +30,16 @@
   tags: ['nfs']
   when: nfshost|bool
 
-- include: grub.yml
-  tags: ['grub']
+- include: timeshift.yml
+  tags: ['timeshift']
+  when: timeshift|bool
+
+- include: zsh.yml
+  tags: ['zsh']
 
 - include: nvim.yml
   tags: ['nvim']
   when: nvim|bool
-
-- include: atom.yml
-  tags: ['atom']
-
-- include: timeshift.yml
-  tags: ['timeshift']
-  when: timeshift|bool
 
 - include: ripgrep.yml
   tags: ['ripgrep']
@@ -57,6 +48,10 @@
 - include: googler.yml
   tags: ['googler']
   when: googler|bool
+
+- include: atom.yml
+  tags: ['atom']
+  when: atom|bool
 
 - include: chrome.yml
   tags: ['chrome']

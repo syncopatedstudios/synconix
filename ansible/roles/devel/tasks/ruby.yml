@@ -1,5 +1,15 @@
 ---
 
+- name: install system gemrc
+  copy:
+    src: etc/gemrc
+    dest: /etc/gemrc
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
 - name: Get list of installed items gems
   shell: |
     gem list | awk '{ print $1 }'

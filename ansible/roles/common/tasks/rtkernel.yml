@@ -10,8 +10,17 @@
   register: rtkernel
   tags: ['rtkernel']
 
-- block:
+- name: push default grub file
+  template:
+    src: etc/default/grub.j2
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: '644'
+    backup: yes
+  tags: ['grub']
 
+- block:
     - name: set rt-kernel as default
       shell: "grub2-set-default 1 && grub2-mkconfig -o {{ grub_cfg }}"
 
