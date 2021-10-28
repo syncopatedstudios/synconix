@@ -5,3 +5,5 @@ screen_layout: echo "set this in hostvars"
 
 swallow:
   git: "https://github.com/The-Repo-Club/i3-swallow"
+
+graphical_target: False

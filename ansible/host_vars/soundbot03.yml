@@ -9,3 +9,5 @@ autofs:
 
 use_networkmanager: True
 use_systemdnetwork: False
+
+graphical_target: True
