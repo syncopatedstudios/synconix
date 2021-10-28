@@ -109,8 +109,8 @@ ui:
   x11:
     - x11vnc
     - xbindkeys
-    - xorg-x11-drv-intel
-    - xorg-x11-drv-vesa
+    # - xorg-x11-drv-intel
+    # - xorg-x11-drv-vesa
     - xorg-x11-fonts-75dpi
     - xorg-x11-fonts-100dpi
     - xorg-x11-server-Xorg
