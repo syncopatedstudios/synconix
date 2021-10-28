@@ -125,19 +125,19 @@
   tags: ['rtplugins']
 
 - include: sonic-lineup.yml
-  when: soniclineup|bool
+  when: sonic-lineup|bool
   tags: ['sonic-lineup']
 
 - include: sonic-pi.yml
-  when: sonicpi|bool
+  when: sonic-pi|bool
   tags: ['sonic-pi']
 
 - include: sonic-pi-tool.yml
-  when: sonicpi|bool
+  when: sonic-pi|bool
   tags: ['sonic-pi-tool']
 
 - include: sonic-visualiser.yml
-  when: sonicvisualiser|bool
+  when: sonic-visualiser|bool
   tags: ['sonic-visualiser']
 
 - include: swami.yml
