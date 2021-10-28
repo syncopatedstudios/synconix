@@ -40,6 +40,7 @@
         dnf list --installed | awk -F '.' '{ print $1}'
       register: packagelist
       ignore_errors: yes
+      warn: False
 
     - set_fact:
         installed_packages: "{{ packagelist.stdout }}"
