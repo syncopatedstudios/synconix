@@ -84,6 +84,7 @@ ui:
     - qpdfview-qt5
     - qt5ct
     - qutebrowser
+    - python3-qt5-webengine
     - redshift
     - vlc
     - wmctrl
