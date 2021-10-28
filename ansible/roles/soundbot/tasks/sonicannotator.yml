@@ -6,7 +6,7 @@
     dest: "{{ user.home }}/"
   tags: ['vamp']
 
-- name: check if sonic-annotator is already installed
+- name: check if sonicannotator is already installed
   stat: path="/usr/local/bin/sonic-annotator"
   register: haziannotator
   tags: ['annotator']
@@ -14,14 +14,14 @@
 - block:
     - name: fetch sonic-annotator
       get_url:
-        url: "{{ sonic-annotator.url }}{{ sonic-annotator.file }}"
+        url: "{{ sonicannotator.url }}{{ sonicannotator.file }}"
         dest: "{{ local_src }}"
         validate_certs: no
-      tags: ['sonic-annotator']
+      tags: ['sonicannotator']
 
     - name: extract sonic-annotator
       shell: |
-        tar -xvf {{ sonic-annotator.file }}
+        tar -xvf {{ sonicannotator.file }}
 
         cd sonic-annotator-1.6-linux64-static/
 
@@ -30,7 +30,7 @@
         chmod +x /usr/local/bin/sonic-annotator
       args:
         chdir: "{{ local_src }}"
-      tags: ['sonic-annotator']
+      tags: ['sonicannotator']
 
   become: True
   become_user: "{{ user.name }}"
