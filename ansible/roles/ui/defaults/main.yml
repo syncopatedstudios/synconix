@@ -1,3 +1,6 @@
+---
+# vars set here can been over written by host_vars/<host>.yml
+
 screen_layout: echo "set this in hostvars"
 
 swallow:

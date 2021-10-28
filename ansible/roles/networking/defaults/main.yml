@@ -1,5 +1,5 @@
 ---
-
+# vars set here can been over written by host_vars/<host>.yml
 use_networkmanager: False
 use_systemdnetwork: False
 

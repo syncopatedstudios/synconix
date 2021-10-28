@@ -1,4 +1,5 @@
 ---
+# vars set here can been over written by host_vars/<host>.yml
 
 packages__reflector_args: >-
   --latest 200
