@@ -29,19 +29,36 @@
     chdir: "{{ local_src }}/swallow"
   when: not haziswallow.stat.exists
 
-- name: Ensure i3 config directory exists
-  shell: |
-    mkdir -pv {{ user.home }}/.config/i3
-  become: True
-  become_user: "{{ user.name }}"
+- block:
+    - name: Ensure i3 config directory exists
+      shell: |
+        mkdir -pv {{ user.home }}/.config/i3
+        mkdir -pv {{ user.home }}/.config/polybar
+        mkdir -pv {{ user.home }}/.config/rofi
 
-- name: push i3 config
-  template:
-    src: config/i3/config.j2
-    dest: "{{ user.home }}/.config/i3/config"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-    mode: "0644"
-    backup: no
+    - name: push i3 and polybar configs
+      template:
+        src: "config/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      with_items:
+        - "i3/config"
+        - "polybar/config"
+
+    - name: push rofi configs
+      template:
+        src: "config/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      with_items:
+        - "rofi/config.rasi"
+        - "rofi/colors.rasi"
+
   become: True
   become_user: "{{ user.name }}"
