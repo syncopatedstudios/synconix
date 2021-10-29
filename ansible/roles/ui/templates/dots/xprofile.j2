@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+[[ -f ~/.Xdefaults ]] && xrdb -merge ~/.Xdefaults
+
+/usr/bin/xmodmap -e "clear Lock"
+/usr/bin/xmodmap -e "keysym Caps_Lock = F13"
+
+numlockx on
+
+guake &

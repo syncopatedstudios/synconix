@@ -48,7 +48,7 @@ $exec_always $picom_start
 
 $exec /usr/libexec/notification-daemon &
 
-$exec "/opt/soundbot/bin/soundservices.sh -s -u -d"
+$exec "/opt/soundbot/bin/soundservices.sh -j -p"
 
 {% if ansible_facts['hostname'] == 'soundbot03' %}
 $exec "sleep 0.5; nm-applet &"

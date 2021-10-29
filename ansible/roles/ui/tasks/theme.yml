@@ -51,7 +51,7 @@
 
     - name: Update gtk3
       template:
-        src: "config/gtk-3.0/{{ item }}.j2"
+        src: "dots/config/gtk-3.0/{{ item }}.j2"
         dest: "{{ user.home }}/.config/gtk-3.0/{{ item }}"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"

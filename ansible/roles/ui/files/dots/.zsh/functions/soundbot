@@ -1,0 +1,75 @@
+#!/usr/bin/env zsh
+export SOXTEMP="/tmp/soundbot/soxtemp"
+
+if [ -d $SOXTEMP ];
+then
+  echo "already existing, thank you."
+else
+  echo "creating $SOXTEMP"
+  mkdir -pv $SOXTEMP
+fi
+
+fetch_gits() {
+  cd $SOUNDBOT && git fetch && git pull
+  cd $ANSIBLE_HOME && git fetch && git pull
+}
+
+waveform() {
+  timestamp=$(date +%s)
+  mktempdir
+
+  INPUT=$1
+  OUTPUT="$SOXTEMP/wavform_$timestamp.png"
+
+  zoom_level = ""
+  dimensions = ""
+  colors = ""
+
+  cd $PWD
+
+  audiowaveform -i "$INPUT" -o "${OUTPUT}" \
+    --pixels-per-second 200 -w 1000 -h 200 \
+    --split-channels -c audition --background-color 0f0e0e && \
+
+  feh "$OUTPUT"
+
+}
+
+hamming() {
+  timestamp=$(date +%s)
+
+  INPUT=$1
+  OUTPUT="$SOXTEMP/hamming_$timestamp.png"
+  LABEL="-c hamming -t $2"
+
+  sox -V2 "$INPUT" \
+    -n rate 24k spectrogram "$LABEL" \
+    -x 800 -z 100 -h -w hamming \
+    -o "$OUTPUT"
+}
+
+kaiser() {
+  timestamp=$(date +%s)
+
+  INPUT=$1
+  OUTPUT="$SOXTEMP/kaiser_$timestamp.png"
+  LABEL="-c kaiser -t $2"
+
+  sox -V2 "$INPUT" \
+    -n rate 24k spectrogram "$LABEL" \
+    -x 800 -z 100 -h -w Kaiser \
+    -o "$OUTPUT"
+}
+
+dolph() {
+  timestamp=$(date +%s)
+
+  INPUT=$1
+  OUTPUT="$SOXTEMP/dolph_$timestamp.png"
+  LABEL="-c dolph -t $2"
+
+  sox -V2 "$INPUT" \
+    -n rate 24k spectrogram "$LABEL" \
+    -x 800 -z 100 -h -w Dolph \
+    -o "$OUTPUT"
+}

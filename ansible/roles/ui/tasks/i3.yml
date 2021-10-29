@@ -38,7 +38,7 @@
 
     - name: push i3 and polybar configs
       template:
-        src: "config/{{ item }}.j2"
+        src: "dots/config/{{ item }}.j2"
         dest: "{{ user.home }}/.config/{{ item }}"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
@@ -50,7 +50,7 @@
 
     - name: push rofi configs
       template:
-        src: "config/{{ item }}.j2"
+        src: "dots/config/{{ item }}.j2"
         dest: "{{ user.home }}/.config/{{ item }}"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
@@ -62,3 +62,13 @@
 
   become: True
   become_user: "{{ user.name }}"
+
+- name: Push backgrounds
+  synchronize:
+    src: "usr/share/backgrounds/"
+    dest: "/usr/share/backgrounds/"
+    recursive: yes
+    mode: push
+    delete: no
+    rsync_opts: "--update"
+  tags: ['backgrounds']
