@@ -36,6 +36,7 @@ set $exec_always exec_always --no-startup-id
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window -theme ~/.config/rofi/config.rasi"
 
 set $picom_start "pkill picom; sleep 1; picom -b"
+
 ######################################
 # ---{ autostart }---
 ######################################
@@ -49,7 +50,7 @@ $exec /usr/libexec/notification-daemon &
 
 $exec "/opt/soundbot/bin/soundservices.sh -s -u -d"
 
-{% if ansible_facts['hostname'] == 'lapbot' %}
+{% if ansible_facts['hostname'] == 'soundbot03' %}
 $exec "sleep 0.5; nm-applet &"
 $exec barrierc soundbot01 &
 {% else %}
@@ -59,6 +60,9 @@ $exec barrierc soundbot01 &
 $exec barriers --daemon -c .config/Debauchee/barriers.sgc &
 {% else %}
 {% endif %}
+
+$exec terminator -e "tmuxinator start login"
+
 ######################################
 # ---{ window settings }---
 ######################################
@@ -81,6 +85,7 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
+for_window [class="(?i)xterm"] floating enable, resize set 712 598, border pixel 1, move to scratchpad, scratchpad show
 ######################################
 # ---{ scratchpad }---
 ######################################
@@ -132,6 +137,8 @@ bindcode $mod+Shift+Mod2+$KP_Enter $exec Thunar
 
 bindsym $mod+g $exec terminator -e googler
 bindsym $mod+Insert $exec zim --plugin quicknote
+
+bindsym $mod+Shift+g $exec "xterm -hold -e bat /opt/soundbot/lib/tmux/help.txt"
 
 bindsym $mod+grave scratchpad show
 
