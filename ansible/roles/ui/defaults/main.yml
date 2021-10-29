@@ -9,18 +9,18 @@ swallow:
 theme_folder: "{{ user.home }}/.themes"
 icon_folder: "{{ user.home }}/.icons"
 
-# theme options
-gtk_theme: oomox-soundbotv2
-gtk_icon_theme: oomox-soundbotv2
-gtk_font:
+font:
   name: Hack Nerd Font
   size: 11
-gtk_cursor_theme: Adwaita
 
-qt5_icon_theme: oomox-soundbotv2
+# theme options
+theme: oomox-soundbotv2
+icon_theme: oomox-soundbotv2
+cursor_theme: Adwaita
+
 qt5ct_style: gtk2
-
 kvantum_theme: MateriaDark
+
 hintstyle: hintmedium
 
 graphical_target: False
@@ -60,10 +60,11 @@ gray2: #3f3f3f
 indigo: #6C77BB
 blue-gray: #6D8895
 
-al:      #00000000;
+#background
 bg:      #101010ff;
-se:      #151515ff;
+#foreground
 fg:      #cbb907;
+#border_color
 ac:      #42A5F5ff;
 yellowish: #ffb52aff;
 
@@ -87,7 +88,10 @@ greys:
   - "#0C0C0C"
 
 polybar:
-  monitor:
+  fonts:
+    - "Feather:size=10;2"
+    - "Hack Nerd Font:pixelsize=11;2"
+  monitors:
   modules-left:
   modules-center:
   modules-right:

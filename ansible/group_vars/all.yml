@@ -19,6 +19,7 @@ user:
   group: b08x
   secondary_groups: "input,video,audio"
   shell: zsh
+  terminal: xterm
   zsh: /usr/share/oh-my-zsh
   email: rwpannick@gmail.com
   password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.
@@ -31,8 +32,6 @@ path:
   - "/usr/lib/jvm/default/bin"
   - "/opt/soundbot/bin"
   - "/opt/sonic-pi/bin"
-
-terminal: xterm
 
 dots:
   repo: https://gitlab.com/b08x/dots.git
