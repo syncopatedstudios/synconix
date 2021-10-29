@@ -30,3 +30,64 @@ install_x11: False
 install_i3: False
 
 install_gutilities: False
+
+background: #282828
+background-alt: #2828282f
+foreground: #282828
+foreground-alt: #EBDBB2
+primary: #ffb52a
+secondary: #e60053
+alert: #bd2c40
+
+white: #FFFFFF
+black: #000000
+red: #EC7875
+redish: #e22ca9
+pink: #EC6798
+purple: #BE78D1
+blue: #75A4CD
+cyan: #00C7DF
+teal: #00B19F
+green: #61C766
+lime: #B9C244
+highst_green: #689d6a
+yellow: #EBD369
+amber: #EDB83F
+orange: #E57C46
+brown: #AC8476
+gray: #9E9E9E
+gray2: #3f3f3f
+indigo: #6C77BB
+blue-gray: #6D8895
+
+al:      #00000000;
+bg:      #101010ff;
+se:      #151515ff;
+fg:      #cbb907;
+ac:      #42A5F5ff;
+yellowish: #ffb52aff;
+
+greys:
+  - "#282828"
+  - "#282828"
+  - "#1d2021"
+  - "#1d2021"
+  - "#928374"
+  - "#282828"
+  - "#32302f"
+  - "#32302f"
+  - "#928374"
+  - "#282828"
+  - "#ebdbb2"
+  - "#282828"
+  - "#000000"
+  - "#0C0C0C"
+  - "#FFFFFF"
+  - "#000000"
+  - "#0C0C0C"
+
+polybar:
+  monitor:
+  modules-left:
+  modules-center:
+  modules-right:
