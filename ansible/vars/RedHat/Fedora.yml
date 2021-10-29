@@ -241,6 +241,28 @@ development:
     - subversion
     - systemtap
     - yasm
+  ardour:
+    - boost-devel
+    - clang
+    - clang-devel
+    - cppunit-devel
+    - dbus-devel
+    - doxygen
+    - gnulib
+    - graphviz
+    - gtkmm-2.4-devel
+    - libarchive-devel
+    - libgudev-devel
+    - liblo-devel
+    - liblrdf-devel
+    - libsndfile-devel
+    - libwebsockets-devel
+    - llvm-devel
+    - lv2-c++-tools
+    - readline-devel
+    - rubberband-devel
+    - suil-devel
+    - vamp-plugin-sdk
   audiowaveform:
     - boost-devel
     - gcc-c++
