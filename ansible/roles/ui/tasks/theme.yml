@@ -42,7 +42,7 @@
 
     - name: Update gtk2
       template:
-        src: config/gtk-2.0/gtkrc-2.0.j2
+        src: "dots/config/gtk-2.0/gtkrc-2.0.j2"
         dest: "{{ user.home }}/.gtkrc-2.0"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
@@ -63,7 +63,7 @@
 
     - name: Update gtk4
       template:
-        src: config/gtk-4.0/settings.ini.j2
+        src: "dots/config/gtk-4.0/settings.ini.j2"
         dest: "{{ user.home }}/.config/gtk-3.0/settings.ini"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
@@ -72,7 +72,7 @@
 
     - name: Update qt5
       template:
-        src: config/qt5ct/qt5ct.conf.j2
+        src: "dots/config/qt5ct/qt5ct.conf.j2"
         dest: "{{ user.home }}/.config/qt5ct/qt5ct.conf"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
@@ -81,7 +81,7 @@
 
     - name: Update kvantum
       template:
-        src: config/Kvantum/kvantum.kvconfig.j2
+        src: "dots/config/Kvantum/kvantum.kvconfig.j2"
         dest: "{{ user.home }}/.config/Kvantum/kvantum.kvconfig"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
