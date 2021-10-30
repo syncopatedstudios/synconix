@@ -5,6 +5,8 @@
 
 - include_tasks: RedHat.yml
   when: "ansible_os_family == 'RedHat'"
+  tags: ['packagelist']
 
 - include_tasks: Debian.yml
   when: "ansible_os_family == 'Debian'"
+  tags: ['packagelist']

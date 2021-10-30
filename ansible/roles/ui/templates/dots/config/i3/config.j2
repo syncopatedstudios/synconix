@@ -37,6 +37,9 @@ set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window -theme ~/.config/
 
 set $picom_start "pkill picom; sleep 1; picom -b"
 
+# set $terminal {{ user.terminal }}
+#
+
 ######################################
 # ---{ autostart }---
 ######################################
@@ -138,7 +141,7 @@ bindcode $mod+Shift+Mod2+$KP_Enter $exec Thunar
 bindsym $mod+g $exec terminator -e googler
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-bindsym $mod+Shift+g $exec "xterm -hold -e bat ~/.config/i3/help.txt"
+bindsym $mod+Shift+g $exec "xterm -hold -e bat ~/.config/help.md"
 
 bindsym $mod+grave scratchpad show
 

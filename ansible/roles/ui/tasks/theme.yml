@@ -1,6 +1,16 @@
 ---
 
-- name: Install icons
+- name: Copy backgrounds to /usr/share/backgrounds
+  synchronize:
+    src: "usr/share/backgrounds/"
+    dest: "/usr/share/backgrounds/"
+    recursive: yes
+    mode: push
+    delete: no
+    rsync_opts: "--update"
+  tags: ['backgrounds']
+
+- name: Copy icons to /usr/share/pixmaps
   copy:
     src: usr/share/pixmaps/
     dest: /usr/share/pixmaps/
@@ -13,7 +23,7 @@
   command: bash -lc "gtk-update-icon-cache"
 
 - block:
-    - name: Ensure theme config dirs exist
+    - name: Ensure these directories exist
       file:
         path: "{{ item }}"
         state: directory

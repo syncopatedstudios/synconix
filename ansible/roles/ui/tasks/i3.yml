@@ -1,11 +1,11 @@
 ---
 
-- name: set packages to install
+- name: set desktop environment packages to install
   set_fact:
     _ui_i3: "{{ ui['i3']|difference(installed_packages) }}"
   tags: ['packages']
 
-- name: Install i3 Window Manager
+- name: Install i3 Window Manager and components
   shell: "{{ ansible_pkg_mgr }} -y install {{ _ui_i3 | join(' ') }}"
   when: _ui_i3 | length > 0
   tags: ['packages']
@@ -62,13 +62,3 @@
 
   become: True
   become_user: "{{ user.name }}"
-
-- name: Push backgrounds
-  synchronize:
-    src: "usr/share/backgrounds/"
-    dest: "/usr/share/backgrounds/"
-    recursive: yes
-    mode: push
-    delete: no
-    rsync_opts: "--update"
-  tags: ['backgrounds']
