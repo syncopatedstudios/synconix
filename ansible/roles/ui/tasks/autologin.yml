@@ -12,7 +12,7 @@
 
 - name: Add user to autologin group
   user:
-    name: {{ user.name }}
+    name: "{{ user.name }}"
     groups: autologin
     append: yes
 
