@@ -1,7 +1,12 @@
 ---
 
+- name: get a list of installed packages
+  import_playbook: installed_packages.yml
+  tags: ['bigbutt']
+
 - hosts: all
   gather_facts: yes
+  tags: ['butt']
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"

@@ -36,19 +36,6 @@
   when: "selinuxstatus is changed"
   tags: ['selinux']
 
-- block:
-
-    - name: Get installed items list
-      shell: |
-        dnf list --installed | awk -F '.' '{ print $1}'
-      register: packagelist
-      ignore_errors: yes
-
-    - set_fact:
-        installed_packages: "{{ packagelist.stdout }}"
-
-  tags: ['dnf', 'packages', 'packagelist']
-
 - name: Get dnf repolist
   shell: "dnf repolist | awk '{ print $1}'"
   register: repolist
