@@ -11,18 +11,35 @@ Choose what packages you want to install in one or all of these places:
 - [Arch](vars/Archlinux/Archlinux.yml)
 - [Ruby, Python and Atom packages](vars/common.yml)
 
-#### Package Names
+#### Packages
 
-Resources for app builds:
+######Resources
 
-[repology](https://repology.org/)
-[pkgs.org](https://pkgs.org/)
-[command-not-found](https://command-not-found.com/)
+Software that needs compilin' can be found in
 
-Perhaps some sort of script could be written that uses [whohas](https://github.com/whohas/whohas) to automatically convert package names
+[audio](roles/audio/defaults/main.yml)
 
-For making packages: [fpm](https://github.com/jordansissel/fpm)
+- [repology](https://repology.org/) | database of distro package names
 
+- [pkgs.org](https://pkgs.org/) | same
+
+- [command-not-found](https://command-not-found.com/) | find out what packages contains a command
+
+- [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
+
+- [fpm](https://github.com/jordansissel/fpm) | making all the packages
+
+To add a distro...
+* create a task file in the distro role.
+* add packages to install in vars/distro/distro.yml
+* edit distro/tasks/main.yml to include the task file for the newly added distro
+
+To add an application...
+* add the applications git repo or download location in audio/defaults/main.yml
+* create a task file in audio/tasks/<appname>.yml
+* add the task to the main task list in audio/tasks/main.yml
+
+# Wiki stuff
 
 Now...take your pants off then open [group_vars/all.yml](group_vars/all.yml)
 
@@ -70,13 +87,7 @@ After you're finished with that, you might want to add some environment variable
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
 ```
 
-# Digial Audio Workstation
-Software that needs compilin' can be found in
-
-[audio](roles/audio/defaults/main.yml)
-
-
-## window manager
+## Desktop Environment
 
 set which window manager and subsequent packages to install
 
@@ -128,20 +139,15 @@ dots:
 If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point. See [dots](roles/soundbot/README.md) for more detail.
 
 
-## [common](roles/common/README.md)
-
-There is where base system configuration tasks are stored. Generally speaking, you should be able to run a headless soundbot as a node in your network.
-
-## [soundbot](roles/soundbot/README.md)
-
 ## tasks
-
 
 ```bash
 ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 ```
 
-### ansible variable precdence
+# ansible stuff
+
+## variable precdence
 In ansible there are 22 areas where you can set variables. Here we use 8 of them. Here is where you can find them; ranging from highest to lowest in precdence.
 
 1. role (and include_role) params
