@@ -85,7 +85,7 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
-for_window [class="(?i)xterm"] floating enable, resize set 712 598, border pixel 1, move to scratchpad, scratchpad show
+for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
 ######################################
 # ---{ scratchpad }---
 ######################################
@@ -138,7 +138,7 @@ bindcode $mod+Shift+Mod2+$KP_Enter $exec Thunar
 bindsym $mod+g $exec terminator -e googler
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-bindsym $mod+Shift+g $exec "xterm -hold -e bat /opt/soundbot/lib/tmux/help.txt"
+bindsym $mod+Shift+g $exec "xterm -hold -e bat ~/.config/i3/help.txt"
 
 bindsym $mod+grave scratchpad show
 

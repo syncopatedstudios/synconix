@@ -265,7 +265,7 @@ development:
     - rubberband-devel
     - suil-devel
     - systemd-devel
-    - vamp-plugin-sdk
+    - vamp-plugin-sdk-devel
   audiowaveform:
     - boost-devel
     - gcc-c++
