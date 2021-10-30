@@ -32,3 +32,5 @@ autologin: True
 
 aliases:
   - h="history 1"
+
+install_clam: True

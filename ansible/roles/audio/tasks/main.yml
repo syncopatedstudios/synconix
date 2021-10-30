@@ -80,6 +80,10 @@
   when: install_baudline|bool
   tags: ['baudline']
 
+- include: clam.yml
+  when: install_clam|bool
+  tags: ['clam']
+
 - include: deadbeef.yml
   when: install_deadbeef|bool
   tags: ['deadbeef']
