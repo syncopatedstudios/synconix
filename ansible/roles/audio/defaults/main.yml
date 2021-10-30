@@ -111,6 +111,8 @@ sonicvisualiser:
 
 swami:
   git: "https://github.com/swami/swami.git"
+libinstpatch:
+  git: "https://github.com/swami/libinstpatch.git"
 
 tony:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2617/"

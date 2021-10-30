@@ -1,0 +1,41 @@
+---
+
+- name: check if jackbeat is already installed
+  stat: path="/usr/bin/jackbeat"
+  register: hazijackbeat
+  tags: ['jackbeat']
+
+- block:
+    - name: set jackbeat packages to install
+      set_fact:
+        _dev_jackbeat: "{{ development['jackbeat'] | difference(installed_packages) }}"
+      tags: ['packages']
+
+    - name: install jackbeat dependencies
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_jackbeat | join(' ') }}"
+      when: _dev_jackbeat | length > 0
+      tags: ['packages']
+
+    - name: clone jackbeat
+      git:
+        repo: "{{ jackbeat['git'] }}"
+        dest: "{{ local_src }}/jackbeat"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: Build jackbeat
+      shell: |
+         cd jackbeat/
+         libtoolize
+         aclocal
+         autoheader
+         autoconf
+         automake --add-missing
+         ./configure
+         make
+         make install
+      args:
+        chdir: "{{ local_src }}"
+
+  when: not hazijackbeat.stat.exists

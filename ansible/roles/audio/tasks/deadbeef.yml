@@ -1,11 +1,11 @@
 ---
 
-- block:
-    - name: check if deadbeef is already installed
-      stat: path="/usr/local/bin/deadbeef"
-      register: hazideadbeef
-      tags: ['deadbeef']
+- name: check if deadbeef is already installed
+  stat: path="/usr/local/bin/deadbeef"
+  register: hazideadbeef
+  tags: ['deadbeef']
 
+- block:
     - name: set packages to install
       set_fact:
         _dev_deadbeef: "{{ development['deadbeef']|difference(installed_packages) }}"
@@ -17,10 +17,10 @@
       tags: ['packages']
 
     - block:
-      - name: create deadbeef plugin dir
+      - name: Create deadbeef plugin dir
         command: mkdir -pv "{{ user.home }}/.local/lib/deadbeef/"
 
-      - name: clone deadbeef
+      - name: Clone deadbeef
         git:
           repo: "{{ deadbeef['git'] }}"
           dest: "{{ local_src }}/deadbeef"
@@ -28,31 +28,30 @@
           update: no
           force: no
 
-      - name: run autogen
+      - name: Run autogen
         command: bash -lc "./autogen.sh"
         args:
           chdir: "{{ local_src }}/deadbeef"
 
-      - name: run configure
+      - name: Run configure
         command: bash -lc "CC=clang CXX=clang++ ./configure --with-gnu-ld --disable-lfm --disable-notify --disable-cdda --disable-cdda-paranoia --disable-ffap --disable-sid --disable-coreaudio"
         args:
           chdir: "{{ local_src }}/deadbeef"
 
-      - name: make and install
+      - name: Make and install
         command: bash -lc "make && sudo make install"
         args:
           chdir: "{{ local_src }}/deadbeef"
 
-      - name: clean up
+      - name: Clean up build directory
         command: bash -lc "make distclean"
         args:
           chdir: "{{ local_src }}/deadbeef"
 
       become: True
       become_user: "{{ user.name }}"
-      when: not hazideadbeef.stat.exists
 
-    - name: install deadbeef plugins
+    - name: Install deadbeef plugins
       synchronize:
         src: usr/local/lib/deadbeef/
         dest: /usr/local/lib/deadbeef/
@@ -65,4 +64,6 @@
         # rsync_opts: "--update"
       tags: ['deadbeef']
 
-  when: "ansible_distribution_version != '32'"
+  when:
+    - "ansible_distribution_version != '32'"
+    - "not hazideadbeef.stat.exists"

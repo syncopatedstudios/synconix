@@ -25,7 +25,7 @@ install_audio_utilities: True
 install_audio_gutilities: True
 install_audio_plugins: True
 
-install_ardour: True
+install_ardour: False
 install_audiowaveform: True
 install_baudline: True
 install_deadbeef: True

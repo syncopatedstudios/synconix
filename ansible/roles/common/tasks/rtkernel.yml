@@ -27,6 +27,9 @@
 
     - name: Reboot if a different kernel was installed
       shell: "shutdown -r now"
+      async: 1
+      poll: 0
+      ignore_errors: True
 
     - name: wait for reboot complete before moving on
       wait_for_connection:

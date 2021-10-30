@@ -167,7 +167,7 @@ audio:
     - pipewire-pulseaudio
     - pipewire-utils
   plugins:
-    - DISTRHO-Ports.x86_64
+    - DISTRHO-Ports
     - caps-lv2
     - dragonfly-reverb
     - ladspa
@@ -305,6 +305,11 @@ development:
     - fmt-devel
     - graphviz-devel
     - suil-devel
+  ecasound:
+    - audiofile-devel
+    - liblo-devel
+    - ncurses-devel
+    - readline-devel
   jalvselect:
     - gawk-devel
     - gtkmm24-devel
@@ -384,6 +389,9 @@ development:
   raysession:
     - python3-qt5-devel
     - qt5-linguist
+  rtplugins:
+    - cppcheck
+    - ladspa-devel
   ruby:
     - libev-devel
     - libgit2-devel
@@ -456,5 +464,7 @@ development:
     - astyle
     - astyle-devel
     - fluidsynth-devel
+    - gobject-introspection-devel
+    - libcxx-devel
     - libgnomecanvas-devel
     - libinstpatch-devel

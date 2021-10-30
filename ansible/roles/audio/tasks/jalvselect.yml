@@ -5,34 +5,36 @@
   register: hazijalvselect
   tags: ['jalvselect']
 
-- name: set packages to install
-  set_fact:
-    _dev_jalvselect: "{{ development['jalvselect']|difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: install jalvselect deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_jalvselect | join(' ') }}"
-  when: _dev_jalvselect | length > 0
-  tags: ['packages']
-
 - block:
-  - name: clone jalv-select
-    git:
-      repo: "{{ jalvselect['git'] }}"
-      dest: "{{ local_src }}/jalv_select"
-      accept_hostkey: yes
-      update: no
-      force: no
+    - name: set packages to install
+      set_fact:
+        _dev_jalvselect: "{{ development['jalvselect']|difference(installed_packages) }}"
+      tags: ['packages']
 
-  - name: make and install jalv_select
-    shell: |
-      make
-      sleep 0.5
-      sudo make install
-    args:
-      chdir: "{{ local_src }}/jalv_select"
-    register: jalv_build
+    - name: install jalvselect deps
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_jalvselect | join(' ') }}"
+      when: _dev_jalvselect | length > 0
+      tags: ['packages']
 
-  become: True
-  become_user: "{{ user.name }}"
+    - block:
+      - name: clone jalv-select
+        git:
+          repo: "{{ jalvselect['git'] }}"
+          dest: "{{ local_src }}/jalv_select"
+          accept_hostkey: yes
+          update: no
+          force: no
+
+      - name: make and install jalv_select
+        shell: |
+          make
+          sleep 0.5
+          sudo make install
+        args:
+          chdir: "{{ local_src }}/jalv_select"
+        register: jalv_build
+
+      become: True
+      become_user: "{{ user.name }}"
+
   when: not hazijalvselect.stat.exists

@@ -10,10 +10,15 @@
   when: _ui_fonts | length > 0
   tags: ['packages']
 
+- name: check if locat fonts exists
+  stat: path="/usr/local/share/fonts/Feather.ttf"
+  register: hazilocalfonts
+
 - name: Extract fonts to /usr/local/share/fonts
   unarchive:
     src: usr/local/share/fonts.tar.gz
     dest: "/usr/local/share/"
+  when: not hazilocalfonts.stat.exists
 
 - block:
     - name: Ensure fontconfig dir exists

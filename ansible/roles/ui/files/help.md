@@ -32,3 +32,6 @@ i3
 | mod4 (Super_L) | $mod            |
 | mod2 (Alt_L)   |                 |
 | $mod+Enter     | Launch Terminal |
+| $mod+g         | googler         |
+
+```
