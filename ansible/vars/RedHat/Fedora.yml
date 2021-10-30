@@ -274,6 +274,10 @@ development:
     - libmad-devel
     - libsndfile-devel
     - make
+  clam:
+    - id3lib-devel
+    - xerces-c-devel
+    - scons
   deadbeef:
     - clang
     - faad2-devel

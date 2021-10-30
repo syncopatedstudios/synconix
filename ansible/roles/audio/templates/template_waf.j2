@@ -1,0 +1,32 @@
+- name: check if {{ application }} is already installed
+  stat: path="/usr/local/bin/{{ application }}"
+  register: hazi{{ application }}
+  tags: ['{{ application }}']
+
+- block:
+    - name: set packages to install
+      set_fact:
+        _dev_ardour: "{{ development['{{ application }}']|difference(installed_packages) }}"
+      tags: ['packages']
+
+    - name: install {{ application }} deps
+      shell: "{{ ansible_pkg_mgr }} -y install {{ {{ application }} | join(' ') }}"
+      when: {{ application }} | length > 0
+      tags: ['packages']
+
+    - name: build ardour
+      shell: |
+        git clone {{ {{ application }}.url }}
+
+        cd {{ application }}/
+
+        CC=/usr/bin/clang CXX=/usr/bin/clang++ ./waf configure --denormal-exception --no-phone-home --canvasui --freedesktop --optimize --thread-sanitizer --docs
+
+        ./waf
+
+        ./waf install && ./waf clean
+
+      args:
+        chdir: "{{ local_src }}"
+
+  when: not haziardour.stat.exists
