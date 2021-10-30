@@ -29,3 +29,8 @@ install_x11: True
 install_i3: True
 
 autologin: True
+
+install_deadbeef: True
+
+aliases:
+  - h="history 1"
