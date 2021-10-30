@@ -31,21 +31,10 @@
         sleep: 5
         delay: 5
         timeout: 300
+      ignore_errors: True
+
   when: "selinuxstatus is changed"
   tags: ['selinux']
-
-- block:
-
-    - name: Get installed items list
-      shell: |
-        dnf list --installed | awk -F '.' '{ print $1}'
-      register: packagelist
-      ignore_errors: yes
-
-    - set_fact:
-        installed_packages: "{{ packagelist.stdout }}"
-
-  tags: ['dnf', 'packages', 'packagelist']
 
 - name: Get dnf repolist
   shell: "dnf repolist | awk '{ print $1}'"
@@ -71,7 +60,6 @@
     state: present
   when: "'google-chrome' not in repolist.stdout"
   tags: ['dnf', 'google-chrome']
-
 
 - block:
     - name: Fetch rpmfusion repo rpms
@@ -141,12 +129,19 @@
 
     - name: Reboot after system update
       shell: "shutdown -r now"
+      async: 1
+      poll: 0
+      ignore_errors: True
+      register: reboot
 
     - name: wait for reboot complete before moving on
-      wait_for_connection:
-        delay: 5
-        sleep: 5
-        timeout: 300
+      local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 30
+        timeout: 120
+      when: reboot.changed
 
   when: dnf_conf is changed
   tags: ['dnf']

@@ -1,0 +1,69 @@
+---
+
+- name: check if {{ application }} is already installed
+  stat: path="{{ application.path }}"
+  register: hazi{{ application }}
+  tags: ['{{ application }}']
+
+- block:
+    - name: set packages to install
+      set_fact:
+        _dev_{{ application.name}}: "{{ application['dependencies'] |difference(installed_packages) }}"
+      tags: ['packages']
+
+    - name: install dependencies for {{ application }}
+      shell: "{{ ansible_pkg_mgr }} -y install {{ {{ application }} | join(' ') }}"
+      when: {{ application }} | length > 0
+      tags: ['packages']
+
+    - block:
+      - name: clone {{ application }}
+        git:
+          repo: "{{ {{ application }}['git'] }}"
+          dest: "{{ {{ application }}['path'] }}"
+          accept_hostkey: yes
+          update: no
+          force: no
+
+      - name: checkout releasev3.3 branch
+        shell: "git checkout {{ {{ application }}['branch'] }}"
+        #TODO: f.e: sonic-pi is cloned to /opt/sonic-pi and not really "installed"
+        # as opposed to other apps that are cloned to /usr/local/src then installed
+        # with make or etc
+        args:
+          chdir: "{{ application }}['path']"
+
+      - name: checkout releasev3.3 branch for fedora
+        shell: "git checkout v3.3-release_fedora"
+        args:
+          chdir: "{{ {{ application }}['path'] }}"
+        when: "ansible_facts['os_family'] == 'RedHat'"
+
+      - name: run a build step
+        shell: |
+          # see sonicpi.yml task for example
+          {{ script_to_run_build_steps }}
+
+        args:
+          chdir: "{{ {{ application }}['path'] }}"
+        register: build_status01
+        tags: ['']
+
+      - name: run another build step
+        shell: |
+          echo -e "\n change into the build directory"
+
+          cd app/build/
+
+          make
+        args:
+          chdir: "{{ application['path'] }}"
+        register: build_status02
+
+      # - debug: msg="{{ build_status01.stdout_lines }}"
+      # - debug: msg="{{ build_status02.stdout_lines }}"
+
+      become: True
+      become_user: "{{ user.name }}"
+
+  when: not hazi{{ application.name }}.stat.exists

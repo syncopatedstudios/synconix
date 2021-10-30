@@ -1,27 +1,34 @@
 ---
 
-- name: set packages to install
-  set_fact:
-    _dev_ardour: "{{ development['ardour']|difference(installed_packages) }}"
-  tags: ['packages']
+- name: check if ardour is already installed
+  stat: path="/usr/local/bin/ardour"
+  register: haziardour
+  tags: ['ardour']
 
-- name: install ardour deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_ardour | join(' ') }}"
-  when: _dev_ardour | length > 0
-  tags: ['packages']
+- block:
+    - name: set packages to install
+      set_fact:
+        _dev_ardour: "{{ development['ardour']|difference(installed_packages) }}"
+      tags: ['packages']
 
-- name: build ardour
-  shell: |
-    git clone {{ ardour.url }}
+    - name: install ardour deps
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_ardour | join(' ') }}"
+      when: _dev_ardour | length > 0
+      tags: ['packages']
 
-    cd ardour/
+    - name: build ardour
+      shell: |
+        git clone {{ ardour.url }}
 
-    ./waf configure --denormal-exception --no-phone-home --canvasui \
-    --freedesktop --optimize --thread-sanitizer --docs
+        cd ardour/
 
-    ./waf
+        CC=/usr/bin/clang CXX=/usr/bin/clang++ ./waf configure --denormal-exception --no-phone-home --canvasui --freedesktop --optimize --thread-sanitizer --docs
 
-    ./waf install && ./waf clean
+        ./waf
 
-  args:
-    chdir: "{{ local_src }}"
+        ./waf install && ./waf clean
+
+      args:
+        chdir: "{{ local_src }}"
+
+  when: not haziardour.stat.exists

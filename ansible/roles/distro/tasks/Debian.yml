@@ -1,28 +1,8 @@
 ---
 
-- block:
-
-    - name: Gather list of currently installed packages
-      shell: |
-        apt list --installed | cut -f1 -d / | tr "\n" " "
-      register: packagelist
-      check_mode: no
-      ignore_errors: yes
-
-    - set_fact:
-        installed_packages: "{{ packagelist.stdout }}"
-
-  tags: ['common', 'devel', 'soundbot', 'ui', 'audio', 'packages']
-
-- name: Setup some apt repositories
-  import_tasks: apt.yml
-
----
-
 - name: Check if a system-release file exists
   stat: path="/etc/system-release"
   register: hazirelease
-  tags: ['kernel']
 
 - name: Create link to os-release
   file:
@@ -31,20 +11,17 @@
     owner: root
     group: root
     state: link
-  tags: ['kernel']
   when: not hazirelease.stat.exists
 
 - name: Update apt cache
   shell: |
-    apt clean
-    apt -y update
-  when: apt_update|bool
+    apt clean all
+    apt-get update -qq
 
 - name: Install software-props to use apt-key
   apt:
     name: apt-transport-https
     state: present
-  tags: ['apt']
 
 - name: Gather list of currently installed repositories
   shell: |
@@ -52,36 +29,26 @@
   register: aptrepos
   check_mode: no
 
-- name: Grab the kxstudio repo package
-  get_url:
-    url: https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_10.0.3_all.deb
-    dest: "{{ local_src }}"
-  tags: ['kxrepo']
-  when: kx_repo|bool and 'kxstudio' not in aptrepos.stdout
-
 - name: Install kxstudio repo package
   shell: |
+    wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_10.0.3_all.deb
+
     dpkg -i ./kxstudio-repos_10.0.3_all.deb
-
-    apt clean all
-
-    apt update
   args:
     chdir: "{{ local_src }}"
-  tags: ['kxrepo']
+
+  register: kx_ppa
   when: kx_repo|bool and 'kxstudio' not in aptrepos.stdout
+  tags: ['kxrepo']
 
 - name: Install the Liquorix repos
-  shell: |
-    curl 'https://liquorix.net/add-liquorix-repo.sh' | sudo bash
-
-    apt clean all
-
-    apt update
+  shell: "curl 'https://liquorix.net/add-liquorix-repo.sh' | sudo bash"
   args:
     chdir: "{{ local_src }}"
-  tags: ['kernel', 'liquorix']
+
+  register: liquorix_ppa
   when: liquorix|bool and 'liquorix' not in aptrepos.stdout
+  tags: ['kernel', 'liquorix']
 
 - block:
     - name: Grab the nodejs deb repo setup script
@@ -95,9 +62,10 @@
       args:
         chdir: /tmp
 
-  tags: ['nodejs']
-  when: "'node' not in aptrepos.stdout"
+  register: nodejs_ppa
   check_mode: no
+  when: "'node' not in aptrepos.stdout"
+  tags: ['nodejs']
 
 - block:
     - name: Install gpg key for Atom repository
@@ -111,8 +79,8 @@
         path: /etc/apt/sources.list.d/atom.list
         line: "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
         create: yes
-      notify: apt update
 
+  register: atom_ppa
   when: atom|bool and 'atom' not in aptrepos.stdout
 
 - block:
@@ -135,18 +103,16 @@
         chdir: /tmp
       tags: ['docker']
       when: docker_repo.changed
-      notify: apt update
 
+  register: docker_ppa
   when: docker|bool and 'docker' not in aptrepos.stdout
   tags: ['docker']
 
 - block:
     - name: Install obs-studio ppa source
-      shell: |
-        add-apt-repository -y ppa:obsproject/obs-studio
+      shell: "add-apt-repository -y ppa:obsproject/obs-studio"
 
-        apt -y update
-
+  register: obs_ppa
   when: obs|bool and 'obs' not in aptrepos.stdout
   tags: ['obs']
 
@@ -157,8 +123,19 @@
 
         echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/5.0 main" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 
-        apt -y update
         apt-get install -y mongodb-org
 
+  register: monogodb_ppa
   when: monogodb|bool and 'mongodb' not in aptrepos.stdout
   tags: ['monogodb']
+
+- name: update apt
+  shell: "apt clean all && apt-get update -qq"
+  when: >
+    - (monogodb_ppa.changed) or
+    - (obs_ppa.changed) or
+    - (docker_ppa.changed) or
+    - (atom_ppa.changed) or
+    - (nodejs_ppa.changed) or
+    - (kx_ppa.changed) or
+    - (liquorix_ppa.changed)

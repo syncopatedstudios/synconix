@@ -5,68 +5,70 @@
   register: hazisonicpi
   tags: ['sonicpi']
 
-- name: set packages to install
-  set_fact:
-    _dev_sonicpi: "{{ development['sonicpi']|difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: install dependencies for SonicPi
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_sonicpi | join(' ') }}"
-  when: _dev_sonicpi | length > 0
-  tags: ['packages']
-
 - block:
-  - name: clone sonicpi
-    git:
-      repo: "{{ sonicpi['git'] }}"
-      dest: "{{ sonicpi['path'] }}"
-      accept_hostkey: yes
-      update: no
-      force: no
+    - name: set packages to install
+      set_fact:
+        _dev_sonicpi: "{{ development['sonicpi']|difference(installed_packages) }}"
+      tags: ['packages']
 
-  - name: checkout releasev3.3 branch
-    shell: "git checkout {{ sonicpi['branch'] }}"
-    args:
-      chdir: "{{ sonicpi['path'] }}"
+    - name: install dependencies for SonicPi
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_sonicpi | join(' ') }}"
+      when: _dev_sonicpi | length > 0
+      tags: ['packages']
 
-  - name: checkout releasev3.3 branch for fedora
-    shell: "git checkout v3.3-release_fedora"
-    args:
-      chdir: "{{ sonicpi['path'] }}"
-    when: "ansible_facts['os_family'] == 'RedHat'"
+    - block:
+      - name: clone sonicpi
+        git:
+          repo: "{{ sonicpi['git'] }}"
+          dest: "{{ sonicpi['path'] }}"
+          accept_hostkey: yes
+          update: no
+          force: no
 
-  - name: run pre-build
-    shell: |
-      echo -e "\n change into the app directory"
-      cd app/
+      - name: checkout releasev3.3 branch
+        shell: "git checkout {{ sonicpi['branch'] }}"
+        args:
+          chdir: "{{ sonicpi['path'] }}"
 
-      echo -e "\n running linux-prebuild"
+      - name: checkout releasev3.3 branch for fedora
+        shell: "git checkout v3.3-release_fedora"
+        args:
+          chdir: "{{ sonicpi['path'] }}"
+        when: "ansible_facts['os_family'] == 'RedHat'"
 
-      if {{ sonicpi['prebuild'] }} ; then
-        echo -e "\n prebuild success! now running linux-config"
-        {{ sonicpi['compile'] }}
-      else
-        echo -e "\n build failed"
-      fi
-    args:
-      chdir: "{{ sonicpi['path'] }}"
-    register: sonicpi_prebuild
-    tags: ['sonicpi_prebuild']
+      - name: run pre-build
+        shell: |
+          echo -e "\n change into the app directory"
+          cd app/
 
-  - name: build sonicpi
-    shell: |
-      echo -e "\n change into the build directory"
+          echo -e "\n running linux-prebuild"
 
-      cd app/build/
+          if {{ sonicpi['prebuild'] }} ; then
+            echo -e "\n prebuild success! now running linux-config"
+            {{ sonicpi['compile'] }}
+          else
+            echo -e "\n build failed"
+          fi
+        args:
+          chdir: "{{ sonicpi['path'] }}"
+        register: sonicpi_prebuild
+        tags: ['sonicpi_prebuild']
 
-      make
-    args:
-      chdir: "{{ sonicpi['path'] }}"
-    register: sonicpi_build
+      - name: build sonicpi
+        shell: |
+          echo -e "\n change into the build directory"
 
-  # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
-  # - debug: msg="{{ sonicpi_build.stdout_lines }}"
+          cd app/build/
 
-  become: True
-  become_user: "{{ user.name }}"
+          make
+        args:
+          chdir: "{{ sonicpi['path'] }}"
+        register: sonicpi_build
+
+      # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
+      # - debug: msg="{{ sonicpi_build.stdout_lines }}"
+
+      become: True
+      become_user: "{{ user.name }}"
+
   when: not hazisonicpi.stat.exists

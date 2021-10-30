@@ -5,46 +5,48 @@
   register: haziaudiowaveform
   tags: ['audiowaveform']
 
-- name: set packages to install
-  set_fact:
-    _dev_audiowaveform: "{{ development['audiowaveform']|difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: install audiowaveform deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_audiowaveform | join(' ') }}"
-  when: _dev_audiowaveform | length > 0
-  tags: ['packages']
-
 - block:
-    - name: clone audiowaveform
-      git:
-        repo: "{{ audiowaveform.git }}"
-        dest: "{{ local_src }}/audiowaveform"
-        accept_hostkey: yes
-        update: no
-        force: no
+    - name: set packages to install
+      set_fact:
+        _dev_audiowaveform: "{{ development['audiowaveform']|difference(installed_packages) }}"
+      tags: ['packages']
 
-    - name: fetch googletest
-      get_url:
-        url: "{{ googletest.url }}{{ googletest.file }}"
-        dest: "{{ local_src }}/audiowaveform"
-        validate_certs: no
+    - name: install audiowaveform deps
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_audiowaveform | join(' ') }}"
+      when: _dev_audiowaveform | length > 0
+      tags: ['packages']
 
-    - name: build and install audiowaveform
-      shell: |
-        tar -xvf googletest-release-1.11.0.tar.gz
+    - block:
+        - name: clone audiowaveform
+          git:
+            repo: "{{ audiowaveform.git }}"
+            dest: "{{ local_src }}/audiowaveform"
+            accept_hostkey: yes
+            update: no
+            force: no
 
-        ln -s googletest-release-1.11.0 googletest
+        - name: fetch googletest
+          get_url:
+            url: "{{ googletest.url }}{{ googletest.file }}"
+            dest: "{{ local_src }}/audiowaveform"
+            validate_certs: no
 
-        mkdir -pv build && cd build/
+        - name: build and install audiowaveform
+          shell: |
+            tar -xvf googletest-release-1.11.0.tar.gz
 
-        cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
+            ln -s googletest-release-1.11.0 googletest
 
-        make && sudo make install
-      args:
-        chdir: "{{ local_src }}/audiowaveform"
-      register: audiowaveform_build
+            mkdir -pv build && cd build/
 
-  become: True
-  become_user: "{{ user.name }}"
+            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
+
+            make && sudo make install
+          args:
+            chdir: "{{ local_src }}/audiowaveform"
+          register: audiowaveform_build
+
+      become: True
+      become_user: "{{ user.name }}"
+
   when: not haziaudiowaveform.stat.exists

@@ -14,22 +14,23 @@
   register: haziohymyzsh
   tags: ['ohmyzsh']
 
-- name: Clone oh-my-zsh
-  git:
-    repo: "https://github.com/ohmyzsh/ohmyzsh.git"
-    dest: "{{ local_src }}/ohmyzsh"
-    accept_hostkey: yes
-    update: no
-    force: no
+- block:
+    - name: Clone oh-my-zsh
+      git:
+        repo: "https://github.com/ohmyzsh/ohmyzsh.git"
+        dest: "{{ local_src }}/ohmyzsh"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-- name: Install oh-my-zsh
-  shell: |
-    export ZSH="/usr/share/oh-my-zsh" && \
-    sh -c './install.sh --unattended'
-  args:
-    chdir: "{{ local_src }}/ohmyzsh/tools/"
+    - name: Install oh-my-zsh
+      shell: |
+        export ZSH="/usr/share/oh-my-zsh" && \
+        sh -c './install.sh --unattended'
+      args:
+        chdir: "{{ local_src }}/ohmyzsh/tools/"
+
   when: not haziohymyzsh.stat.exists
-  tags: ['ohmyzsh']
 
 - name: Push base dots to /root
   synchronize:

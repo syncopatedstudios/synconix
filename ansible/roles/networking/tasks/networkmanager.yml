@@ -32,4 +32,5 @@
   systemd:
     name: dhcpcd
     enabled: no
-  ignore_errors: True
+    state: stopped
+  when: "ansible_os_family != 'RedHat'"

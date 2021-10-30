@@ -1,6 +1,6 @@
 ---
 
-- name: Install lightdm
+- name: Install lightdm-gtk-greeter
   shell: "{{ ansible_pkg_mgr }} -y install lightdm-gtk-greeter"
   when: "'lightdm' not in installed_packages"
 
@@ -10,10 +10,13 @@
     state: present
     system: yes
 
-- name: add user to autologin group
-  user: name={{ user.name }} groups=autologin append=yes
+- name: Add user to autologin group
+  user:
+    name: "{{ user.name }}"
+    groups: autologin
+    append: yes
 
-- name: put this file where it needs to be
+- name: Copy Xsession file to /etc/lightdm/Xsession
   copy:
     src: etc/lightdm/Xsession
     dest: /etc/lightdm/Xsession
@@ -22,7 +25,7 @@
     group: root
     mode: '0755'
 
-- name: push lightdm conf
+- name: Copy lightdm.conf template
   template:
     src: etc/lightdm/lightdm.conf.j2
     dest: /etc/lightdm/lightdm.conf

@@ -1,23 +1,40 @@
 ---
 
+- name: Check if rtplugins is already installed
+  stat: path="/usr/lib/ladspa/RTallpass1.so"
+  register: hazirtplugins
+
 - block:
-    - name: fetch rtplugins
-      get_url:
-        url: "{{ rtplugins.url }}{{ rtplugins.file }}"
-        dest: "{{ local_src }}"
-        validate_certs: no
+    - name: Set rtplugins packages to install
+      set_fact:
+        _dev_rtplugins: "{{ development['rtplugins'] | difference(installed_packages) }}"
+      tags: ['packages']
 
-    - name: make install rtplugins
-      shell: |
-        tar -xvf {{ rtplugins.file }}
+    - name: Install rtplugins dependencies
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_rtplugins | join(' ') }}"
+      when: _dev_rtplugins | length > 0
+      tags: ['packages']
 
-        cd rt-plugins-0.0.6/build/
+    - block:
+        - name: Fetch rtplugins
+          get_url:
+            url: "{{ rtplugins.url }}{{ rtplugins.file }}"
+            dest: "{{ local_src }}"
+            validate_certs: no
 
-        cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+        - name: Extract, build and install rtplugins
+          shell: |
+            tar -xvf {{ rtplugins.file }}
 
-        make && sudo make install
-      args:
-        chdir: "{{ local_src }}"
+            cd rt-plugins-0.0.6/build/
 
-  become: True
-  become_user: "{{ user.name }}"
+            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+
+            make && sudo make install
+          args:
+            chdir: "{{ local_src }}"
+
+      become: True
+      become_user: "{{ user.name }}"
+
+  when: not hazirtplugins.stat.exists

@@ -1,22 +1,27 @@
 ---
 
-- name: set packages to install
+- name: Set font packages to install
   set_fact:
     _ui_fonts: "{{ ui['fonts']|difference(installed_packages) }}"
   tags: ['packages']
 
-- name: install font packages
+- name: Install font packages
   shell: "{{ ansible_pkg_mgr }} -y install {{ _ui_fonts | join(' ') }}"
   when: _ui_fonts | length > 0
   tags: ['packages']
 
-- name: Extract fonts
+- name: check if locat fonts exists
+  stat: path="/usr/local/share/fonts/Feather.ttf"
+  register: hazilocalfonts
+
+- name: Extract fonts to /usr/local/share/fonts
   unarchive:
     src: usr/local/share/fonts.tar.gz
     dest: "/usr/local/share/"
+  when: not hazilocalfonts.stat.exists
 
 - block:
-    - name: ensure fontconfig dir exists
+    - name: Ensure fontconfig dir exists
       file:
         path: "{{ user.home}}/.config/fontconfig"
         owner: "{{ user.name }}"
@@ -43,5 +48,5 @@
 #    xset +fp /usr/share/fonts/100dpi
 #  tags: ['fonts']
 
-- name: update font-cache
+- name: Update font-cache
   command: fc-cache -r

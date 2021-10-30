@@ -4,9 +4,29 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 ## > This is what I'll do for Five dollars
 
-Take your pants off open [group_vars/all.yml](group_vars/all.yml)
+### More than one Linux!
+Choose what packages you want to install in one or all of these places:
+- [Fedora](vars/RedHat/Fedora.yml)
+- [Debian](vars/Debian/Debian.yml)
+- [Arch](vars/Archlinux/Archlinux.yml)
+- [Ruby, Python and Atom packages](vars/common.yml)
 
-Change the values to reflect your Linux lifestyle.
+#### Package Names
+
+Resources for app builds:
+
+[repology](https://repology.org/)
+[pkgs.org](https://pkgs.org/)
+[command-not-found](https://command-not-found.com/)
+
+Perhaps some sort of script could be written that uses [whohas](https://github.com/whohas/whohas) to automatically convert package names
+
+For making packages: [fpm](https://github.com/jordansissel/fpm)
+
+
+Now...take your pants off then open [group_vars/all.yml](group_vars/all.yml)
+
+Change these values to reflect your Linux lifestyle.
 
 ```yaml
 user:
@@ -18,6 +38,7 @@ user:
   group: b08x
   shell: zsh
   zsh: /usr/share/oh-my-zsh
+  terminal: xterm
   secondary_groups: "input,video,audio"
   email: rwpannick@gmail.com
   password: <sha8092>
@@ -29,8 +50,13 @@ path:
   - "/var/lib/gems/2.7.0/bin"
   - "/usr/lib/jvm/default/bin"
   - "/opt/sonic-pi/bin"
+```
 
-terminal: xterm
+If you have multiple hosts with a need for different aliases, put those in hosts_vars and they will be appended to ~/.aliases
+
+```yaml
+aliases:
+  - h="history 1"
 ```
 
 After you're finished with that, you might want to add some environment variables for ansible to work with. Open [soundbot.yml](soundbot.yml) Add anything you would export in your shell enviornment.
@@ -43,14 +69,6 @@ After you're finished with that, you might want to add some environment variable
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
 ```
-
-### More than one Linux!
-Choose what packages you want to install in one or all of these places:
-- [Fedora](vars/RedHat/Fedora.yml)
-- [Debian](vars/Debian/Debian.yml)
-- [Arch](vars/Archlinux/Archlinux.yml)
-- [Ruby, Python and Atom packages](vars/common.yml)
-
 
 # Digial Audio Workstation
 Software that needs compilin' can be found in

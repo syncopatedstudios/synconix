@@ -41,6 +41,9 @@ baudline:
   url: "https://www.baudline.com/"
   file: "baudline_1.08_linux_x86_64.tar.gz"
 
+clam:
+  git: "git@gitlab.com:b08x/clam.git"
+
 deadbeef:
   git: "https://github.com/DeaDBeeF-Player/deadbeef.git"
 
@@ -84,6 +87,10 @@ rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
   file: "rt-plugins-0.0.6.tar.gz"
 
+scala:
+  url: "http://www.huygens-fokker.org/software/"
+  file: "scala-22-pc64-linux.tar.bz2"
+
 sonicannotator:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2708/"
   file: "sonic-annotator-1.6-linux64-static.tar.gz"
@@ -111,6 +118,8 @@ sonicvisualiser:
 
 swami:
   git: "https://github.com/swami/swami.git"
+libinstpatch:
+  git: "https://github.com/swami/libinstpatch.git"
 
 tony:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2617/"

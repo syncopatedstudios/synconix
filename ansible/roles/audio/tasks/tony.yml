@@ -5,28 +5,29 @@
   register: hazitony
 
 - block:
-    - name: fetch tony
-      get_url:
-        url: "{{ tony.url }}{{ tony.file }}"
-        dest: "{{ local_src }}"
-        validate_certs: no
+    - block:
+        - name: fetch tony
+          get_url:
+            url: "{{ tony.url }}{{ tony.file }}"
+            dest: "{{ local_src }}"
+            validate_certs: no
 
-  become: True
-  become_user: "{{ user.name }}"
+      become: True
+      become_user: "{{ user.name }}"
+
+    - name: link tony to bin
+      shell: |
+        chmod +x {{ tony.file }}
+        ln -s {{ local_src }}/{{ tony.file }} /usr/local/bin/tony
+      args:
+        chdir: "{{ local_src }}"
+
+    - name: install desktop entry for tony
+      copy:
+        src: usr/local/share/applications/tony.desktop
+        dest: /usr/local/share/applications/tony.desktop
+        directory_mode: no
+        mode: '644'
+      notify: "update desktop database"
+
   when: not hazitony.stat.exists
-
-- name: link tony to bin
-  shell: |
-    chmod +x {{ tony.file }}
-    ln -s {{ local_src }}/{{ tony.file }} /usr/local/bin/tony
-  args:
-    chdir: "{{ local_src }}"
-  when: not hazitony.stat.exists
-
-- name: install desktop entry for tony
-  copy:
-    src: usr/local/share/applications/tony.desktop
-    dest: /usr/local/share/applications/tony.desktop
-    directory_mode: no
-    mode: '644'
-  notify: "update desktop database"

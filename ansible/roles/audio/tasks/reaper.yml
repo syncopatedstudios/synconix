@@ -30,6 +30,7 @@
         ./install-reaper.sh --install /opt --integrate-desktop --usr-local-bin-symlink
       args:
         chdir: "{{ local_src }}"
+
   become: True
   become_user: "{{ user.name }}"
   when: not hazireaper.stat.exists

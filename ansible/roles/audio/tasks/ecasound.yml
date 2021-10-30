@@ -1,36 +1,43 @@
 ---
 
-- name: set ecasound packages to install
-  set_fact:
-    _dev_ecasound: "{{ development['ecasound'] | difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: install ecasound
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_ecasound | join(' ') }}"
-  when: _dev_ecasound | length > 0
-  tags: ['packages']
-
-- name: fetch ecasound
-  get_url:
-    url: "{{ ecasound.url }}{{ ecasound.file }}"
-    dest: "{{ local_src }}"
-    validate_certs: no
-  become: True
-  become_user: "{{ user.name }}"
+- name: check if ecasound is already installed
+  stat: path="/usr/bin/ecasound"
+  register: haziecasound
   tags: ['ecasound']
 
-- name: extract ecasound
-  shell: |
-    tar -xvf {{ ecasound.file }}
+- block:
+    - name: Set ecasound packages to install
+      set_fact:
+        _dev_ecasound: "{{ development['ecasound'] | difference(installed_packages) }}"
+      tags: ['packages']
 
-    cd ecasound-2.9.3/
+    - name: Install ecasound dependencies
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_ecasound | join(' ') }}"
+      when: _dev_ecasound | length > 0
 
-    LIBLILV_CFLAGS=`pkg-config --cflags lilv-0` LIBLILV_LIBS=`pkg-config\n--libs lilv-0` ./configure
+    - block:
+        - name: Fetch ecasound
+          get_url:
+            url: "{{ ecasound.url }}{{ ecasound.file }}"
+            dest: "{{ local_src }}"
+            validate_certs: no
 
-    gmake
+        - name: Extract, build and install ecasound
+          shell: |
+            tar -xvf {{ ecasound.file }}
 
-  args:
-    chdir: "{{ local_src }}"
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['ecasound']
+            cd ecasound-2.9.3/
+
+            LIBLILV_CFLAGS=`pkg-config --cflags lilv-0` LIBLILV_LIBS=`pkg-config\n--libs lilv-0` ./configure --prefix=/usr
+
+            gmake && sudo gmake install
+
+          args:
+            chdir: "{{ local_src }}"
+          register: ecasound_build
+          failed_when: ecasound_build.failed
+
+      become: True
+      become_user: "{{ user.name }}"
+
+  when: not haziecasound.stat.exists

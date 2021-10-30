@@ -16,9 +16,11 @@ common:
   - lnav
   - lsof
   - most
+  - net-tools
   - nfs-common
   - notification-daemon
   - software-properties-common
+  - sox
   - ssh
   - tmux
   - unrar-free
@@ -92,13 +94,19 @@ ui:
     - xfonts-utils
 development:
   common:
+    - autoconf
+    - automake
+    - build-essential
     - cmake
     - cmake-curses-gui
     - g++
     - git
     - libgraphicsmagick++-dev
+    - libjack-jackd2-dev
+    - librtaudio-dev
     - libssl-dev
     - libswscale-dev
+    - libtool
     - libturbojpeg-dev
     - libxcb-cursor-dev
     - libxcb-keysyms1-dev
@@ -107,6 +115,8 @@ development:
     - libxkbcommon-dev
     - libxkbcommon-x11-dev
     - libzip4
+    - make
+    - qt5-default
   ardour:
     - clang
     - doxygen
