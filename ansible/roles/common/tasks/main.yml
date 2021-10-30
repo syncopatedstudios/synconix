@@ -17,6 +17,9 @@
   when: _packages | length > 0
   tags: ['packages']
 
+- include: realtime.yml
+  tags: ['realtime']
+
 - include: filesystem.yml
   tags: ['filesystem']
 

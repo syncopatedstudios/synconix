@@ -29,22 +29,6 @@
 
 - include: pulseaudio.yml
 
-- name: push jack limits file
-  copy:
-    src: etc/security/limits.conf
-    dest: /etc/security/limits.conf
-    owner: root
-    group: root
-    mode: '0644'
-  tags: ['tuning']
-
-- name: Add user to audio group
-  user:
-    name: "{{ user.name }}"
-    groups: audio
-    append: yes
-  tags: ['tuning']
-
 - name: makesfz and makeh2drumkit
   copy:
     src: "usr/local/bin/{{ item }}"

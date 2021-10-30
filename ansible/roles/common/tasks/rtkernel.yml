@@ -23,7 +23,7 @@
 
 - block:
     - name: set rt-kernel as default
-      shell: "grub2-set-default 1 && grub2-mkconfig -o {{ grub_cfg }}"
+      shell: "grub2-set-default 1 && grub2-mkconfig -o {{ grub_config }}"
 
     - name: Reboot if a different kernel was installed
       shell: "shutdown -r now"

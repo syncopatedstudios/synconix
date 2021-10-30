@@ -17,6 +17,7 @@ common:
   - nfs-utils
   - npm
   - openssh-server
+  - rtirq
   - screen
   - tmux
   - tree
@@ -32,6 +33,13 @@ kernel:
   - kernel-rt-modules
   - kernel-rt-modules-extra
   - kernel-rt-modules-internal
+tuned:
+  - tuna
+  - xauth
+  - pygtk2-libglade
+  - tuned
+  - tuned-profiles-realtime
+  - tuned-gtk
 networkmanager:
   - NetworkManager
   - NetworkManager-libnm

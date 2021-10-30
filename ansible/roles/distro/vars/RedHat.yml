@@ -4,7 +4,7 @@
 clean_dnf: False
 
 fedora_version: 32
-grub_cfg: /boot/efi/EFI/fedora/grub.cfg
+grub_config: /boot/efi/EFI/fedora/grub.cfg
 
 rpmfusion: True
 ccrma: True
