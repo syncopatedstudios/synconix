@@ -248,9 +248,11 @@ development:
     - cppunit-devel
     - dbus-devel
     - doxygen
+    - fftw-devel
     - gnulib
     - graphviz
-    - gtkmm-2.4-devel
+    - gtkmm24-devel
+    - itstool
     - libarchive-devel
     - libgudev-devel
     - liblo-devel
@@ -262,6 +264,7 @@ development:
     - readline-devel
     - rubberband-devel
     - suil-devel
+    - systemd-devel
     - vamp-plugin-sdk
   audiowaveform:
     - boost-devel

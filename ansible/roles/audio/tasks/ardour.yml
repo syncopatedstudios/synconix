@@ -16,8 +16,7 @@
 
     cd ardour/
 
-    ./waf configure --denormal-exception --no-phone-home --canvasui \
-    --freedesktop --optimize --thread-sanitizer --docs
+    CC=/usr/bin/clang CXX=/usr/bin/clang++ ./waf configure --denormal-exception --no-phone-home --canvasui --freedesktop --optimize --thread-sanitizer --docs
 
     ./waf
 
