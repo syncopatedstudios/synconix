@@ -1,0 +1,33 @@
+---
+
+clam:
+  binary: /usr/bin/clam
+  dependencies:
+    - id3lib-devel
+    - scons
+    - xerces-c-devel
+  source: "git@gitlab.com:b08x/clam.git"
+  ccflags:
+    i586: "-O2 -march=i586 -mtune=i686"
+    i686: "-O2 -march=i686 -mtune=i686"
+    x86_64: "-O2 -fPIC -DUSE_ALSA=1"
+  LIBDIRSUFFIX: 64
+  flags:
+    - "release=1"
+    - "intel_optimize=1"
+    - "verbose=1"
+    - "prefix=/usr"
+    - "double=0"
+    - "xmlbackend=xercesc"
+    - "with_ladspa=1"
+    - "with_jack=1"
+    - "with_fftw=1"
+    - "with_fftw3=1"
+    - "with_nr_fft=1"
+    - "with_sndfile=1"
+    - "with_oggvorbis=1"
+    - "with_mad=1"
+    - "with_id3=1"
+    - "with_alsa=1"
+    - "with_portaudio=1"
+    - "with_portmidi=1"

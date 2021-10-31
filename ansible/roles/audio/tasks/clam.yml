@@ -1,1 +1,82 @@
+---
 #https://github.com/gperon/mmyy_slackbuilds/blob/current/audio/clam/clam.SlackBuild
+- include_vars:
+   file: defaults/clam.yml
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - architecture
+
+- set_fact:
+    arch: "{{ ansible_architecture }}"
+
+- name: check if clam is already installed
+  stat: path="{{ clam.binary }}"
+  register: haziclam
+  tags: ['clam']
+
+# - set_fact:
+#     _ccflags: "{{ clam.ccflags['{{ 'arch' }}'] }}"
+#
+# - name: print ccflags
+#   debug:
+#     msg: "{{ clam.ccflags['{{ 'arch' }}'] }}"
+#
+# - name: print ccflags
+#   debug:
+#     msg: "{{ _ccflags }}"
+
+
+- block:
+    - name: set clam dependencies to install
+      set_fact:
+        _dev_clam: "{{ clam.dependencies | difference(installed_packages) }}"
+      tags: ['packages']
+
+    - name: install dependencies for clam
+      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_clam }} | join(' ') }}"
+      when: _dev_clam | length > 0
+      tags: ['packages']
+
+    - name: set source destination directory
+      set_fact:
+        destination: "/usr/local/src/clam"
+
+    - block:
+      - name: clone clam
+        git:
+          repo: "{{ clam.source }}"
+          dest: "{{ destination}}"
+          accept_hostkey: yes
+          update: yes
+          force: yes
+
+      - name: apply patches
+        shell: |
+          # link libvorbis/libogg test progs.
+          patch -p1 < scons_sucks.diff
+
+          # An include is called incorrectly
+          patch -p1 < wrong_include.patch
+
+          # scons script has hard-coded self.lib  = self.prefix + '/lib'
+          sed -i "s,/lib\>,/lib{{ clam.LIBDIRSUFFIX }}," scons/libs/clam_build_helpers.py
+
+          sed -i '/CheckLibrarySample.*jack_test_code/,+1d' \
+                  scons/libs/clam_dependent_libs_checks.py
+        args:
+          chdir: "{{ destination }}/CLAM"
+
+      - name: build and install CLAM
+        shell: |
+          CCFLAGS="{{ clam.ccflags.x86_64 }}" \
+          CPPFLAGS="{{ clam.ccflags.x86_64 }}" \
+          scons configure {{ clam.flags | join(' ') }}
+
+        args:
+          chdir: "{{ destination }}/CLAM"
+
+      become: True
+      become_user: "{{ user.name }}"
+      when: not haziclam.stat.exists
