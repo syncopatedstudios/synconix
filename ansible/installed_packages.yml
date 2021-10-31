@@ -22,9 +22,25 @@
             distro_family: "{{ ansible_os_family }}"
 
         - block:
+            - name: Gather list of currently installed packages
+              shell: |
+                yay -Qe | awk -F ' ' '{ print $1 }'
+              register: _packagelist
+              check_mode: no
+              ignore_errors: yes
+
+            - set_fact:
+                installed_packages: "{{ _packagelist.stdout }}"
+              when: _packagelist | length > 0
+
+          when:
+            - "distro_family == 'Archlinux'"
+            - "package_manager == 'pacman'"
+
+        - block:
             - name: Get installed items list
               shell: |
-                dnf list --installed | awk -F '.' '{ print $1}'
+                dnf list --installed | awk -F '.' '{ print $1 }'
               register: _packagelist
               check_mode: no
               ignore_errors: yes

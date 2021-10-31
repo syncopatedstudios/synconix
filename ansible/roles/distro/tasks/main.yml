@@ -10,3 +10,7 @@
 - include_tasks: Debian.yml
   when: "ansible_os_family == 'Debian'"
   tags: ['debian']
+
+- include_tasks: Archlinux.yml
+  when: "ansible_os_family == 'Archlinux'"
+  tags: ['debian']

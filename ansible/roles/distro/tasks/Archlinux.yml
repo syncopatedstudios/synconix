@@ -1,10 +1,14 @@
 ---
 
+- set_fact:
+    _ansible_pkg_mgr: "yay -S --noconfirm --needed --cleanafter"
+  when: _packagelist | length > 0
+
 - name: push pacman conf
   template:
     src: etc/pacman.conf.j2
     dest: /etc/pacman.conf
-    mode: '644'
+    mode: '0644'
     owner: root
     group: root
     backup: yes
@@ -38,27 +42,27 @@
   register: update_result
   tags: ['update']
 
-- name: install pamac
-  shell: |
-    yay -S --noconfirm --needed --cleanafter pamac
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['pamac']
-
-- name: clone aur module
-  git:
-    repo: "https://github.com/syncopatedstudios/ansible-aur.git"
-    dest: "{{ user.home }}/.ansible/plugins/modules/aur"
-    accept_hostkey: yes
-    update: no
-    force: no
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['aur']
+# - name: install pamac
+#   shell: |
+#     yay -S --noconfirm --needed --cleanafter pamac
+#   become: True
+#   become_user: "{{ user.name }}"
+#   tags: ['pamac']
+#
+# - name: clone aur module
+#   git:
+#     repo: "https://github.com/syncopatedstudios/ansible-aur.git"
+#     dest: "{{ user.home }}/.ansible/plugins/modules/aur"
+#     accept_hostkey: yes
+#     update: no
+#     force: no
+#   become: True
+#   become_user: "{{ user.name }}"
+#   tags: ['aur']
 
 - name: remove packages
   pacman:
-    name: "{{ packages['remove'] }}"
+    name: "{{ remove }}"
     state: absent
     force: yes
     extra_args: --noconfirm

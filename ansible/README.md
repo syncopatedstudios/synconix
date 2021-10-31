@@ -4,10 +4,11 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 ## > This is what I'll do for Five dollars
 
-### More than one Linux!
-Choose what packages you want to install in one or all of these places:
+### Linux!
+
+
+
 - [Fedora](vars/RedHat/Fedora.yml)
-- [Debian](vars/Debian/Debian.yml)
 - [Arch](vars/Archlinux/Archlinux.yml)
 - [Ruby, Python and Atom packages](vars/common.yml)
 

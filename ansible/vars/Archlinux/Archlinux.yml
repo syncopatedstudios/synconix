@@ -34,8 +34,6 @@ common:
   - r
   - sndio
   - wol
-kernel:
-zim:
   - zim
 ui:
   x11:
@@ -95,6 +93,7 @@ ui:
     - wordnet-cli
   gutilities:
     - atom
+    - barrier
     - celluloid
     - darktable
     - google-chrome
@@ -122,6 +121,16 @@ development:
     - libid3tag
     - libmad
     - libsndfile
+  ruby:
+    - libev
+    - libgit2
+    - libxml2
+    - openssl
+    - ruby-bundler
+    - rubygems
+    - sqlite
+    - taglib
+    - zlib
   sonicpi:
     - aubio
     - erlang
@@ -130,36 +139,42 @@ development:
     - rtmidi
 audio:
   alsa:
-  ambisonics:
-    - iempluginsuite
-  analyze:
+    - alsa-lib
+  gutilities:
     - baudline-bin
-  composition:
-    - scala-music
-    - scala-music-scales
-    - stochas
-    - tonespace
-  editors:
+    - carla
+    - fmit
+    - guitarix
+    - helm-synth
+    - hydrogen
+    - iempluginsuite
+    - jack-keyboard
+    - jalv-select
+    - mamba
+    - midifilter.lv2-git
+    - mixxx
+    - non-mixer-lv2-git
+    - non-sequencer
+    - obs-studio
     - ocenaudio-bin
     - polyphone
-  gutilities:
-    - carla
-    - jalv-select
-    - guitarix
+    - qmidiarp
+    - qmidinet
+    - scala-music
+    - scala-music-scales
+    - seq66-git
+    - sfizz
+    - sitala-bin
+    - stochas
+    - tonespace
+    - vital-synth
   jack:
     - jack2
     - jack2-dbus
-  midi:
-    - jack-keyboard
-    - mamba
-    - midifilter.lv2-git
-  mixers:
-    - non-mixer-lv2-git
-  network:
-    - qmidinet
-    - jacktrip
   pipewire:
+    - pipewire
   plugins:
+    - ams-lv2
     - calf
     - caps-lv2-git
     - distrho-ports
@@ -172,27 +187,10 @@ audio:
     - swh-lv2-git
   pulseaudio:
     - pulseaudio-jack
-  samplers:
-    - sitala-bin
-    - mixxx
-  sequencers:
-    - hydrogen
-    - non-sequencer
-    - qmidiarp
-    - seq66-git
-  supercollider:
-    - sc3-plugins
-    - supercollider
-  synthsizers:
-    - ams-lv2
-    - helm-synth
-    - sfizz
-    - vital-synth
-  tuner:
-    - fmit
   utilities:
     - a2jmidid
     - jack_capture
+    - jacktrip
     - njconnect
     - sox
     - xzgv
