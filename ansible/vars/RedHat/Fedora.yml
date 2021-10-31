@@ -13,6 +13,7 @@ common:
   - gtkspellmm30
   - http-parser
   - lnav
+  - mlocate
   - most
   - nfs-utils
   - npm

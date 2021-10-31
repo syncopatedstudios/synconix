@@ -32,6 +32,8 @@
           sudo make install
         args:
           chdir: "{{ local_src }}/RaySession"
+        register: raysession_build
+        failed_when: raysession_build.failed
 
       become: True
       become_user: "{{ user.name }}"

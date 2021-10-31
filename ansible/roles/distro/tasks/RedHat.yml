@@ -7,31 +7,22 @@
   register: selinuxstatus
   tags: ['selinux']
 
-#TODO: find a way to use current fstab options instead of item.options
-# - name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
-#   mount:
-#     path: "{{ item.mount }}"
-#     src: "UUID={{ item.uuid }}"
-#     fstype: "{{ item.fstype }}"
-#     opts: "{{ item.options }},compress=lzo,autodefrag,noatime"
-#     state: present
-#     backup: yes
-#   with_items:
-#     - "{{ ansible_mounts }}"
-#   when: "item.fstype == 'btrfs' and item.options.find('compress=lzo') != 0"
-#   register: fstab
-
 - block:
-    - name: Reboot if selinux or fstab was changed
+    - name: Reboot if selinux
       shell: "shutdown -r now"
-
-    - name: Wait for reboot complete before moving on
-      wait_for_connection:
-        connect_timeout: 5
-        sleep: 5
-        delay: 5
-        timeout: 300
+      async: 1
+      poll: 0
       ignore_errors: True
+      register: reboot
+
+    - name: wait for reboot complete before moving on
+      local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 10
+        timeout: 60
+      when: reboot.changed
 
   when: "selinuxstatus is changed"
   tags: ['selinux']
@@ -139,8 +130,8 @@
         module: wait_for
         host: "{{ inventory_hostname }}"
         state: started
-        delay: 30
-        timeout: 120
+        delay: 10
+        timeout: 60
       when: reboot.changed
 
   when: dnf_conf is changed

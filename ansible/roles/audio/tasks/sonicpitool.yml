@@ -19,7 +19,7 @@
 
     - name: mark executable and copy to /usr/local/bin
       shell: |
-        chmod +x sonicpi-tool.py
+        chmod +x sonic-pi-tool.py
         cp sonic-pi-tool.py /usr/local/bin/sonic-pi-tool
       args:
         chdir: "{{ local_src }}"

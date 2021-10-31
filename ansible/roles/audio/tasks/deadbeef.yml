@@ -37,11 +37,15 @@
         command: bash -lc "CC=clang CXX=clang++ ./configure --with-gnu-ld --disable-lfm --disable-notify --disable-cdda --disable-cdda-paranoia --disable-ffap --disable-sid --disable-coreaudio"
         args:
           chdir: "{{ local_src }}/deadbeef"
+        register: deadbeef_configure
+        failed_when: deadbeef_configure.failed
 
       - name: Make and install
         command: bash -lc "make && sudo make install"
         args:
           chdir: "{{ local_src }}/deadbeef"
+        register: deadbeef_build
+        failed_when: deadbeef_build.failed
 
       - name: Clean up build directory
         command: bash -lc "make distclean"

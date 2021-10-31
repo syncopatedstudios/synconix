@@ -5,6 +5,7 @@
   register: btrfs_exists
   check_mode: no
   ignore_errors: True
+  tags: ['filesystem']
 
 - block:
     - name: Install btrfsmaintenance
@@ -15,6 +16,7 @@
       systemd: enabled=yes state=started daemon_reload=yes name=btrfs-scrub.timer
 
   when: btrfs_exists.rc == 0
+  tags: ['filesystem']
 
 - name: Check if fstrim will be necessary
   shell: cat /sys/block/sda/queue/discard_max_bytes
@@ -22,29 +24,52 @@
   tags: ['filesystem']
   check_mode: no
   ignore_errors: True
+  tags: ['filesystem']
+
+- debug: msg="{{ fstrim_supported }}"
+  tags: ['filesystem']
 
 - name: Ensure fstrim.timer is enabled
   systemd:
     name: fstrim.timer
     enabled: yes
-  tags: ['filesystem']
   when: fstrim_supported.stdout != 0
+  tags: ['filesystem']
 
-- name: Increase inotify.max_user_watches
-  lineinfile:
-    path: /etc/sysctl.conf
-    line: 'fs.inotify.max_user_watches=524288'
-    create: no
-  tags: ['sysctl']
-
-- name: Install updatedb conf from template
-  template:
-    src: etc/updatedb.conf.j2
-    dest: /etc/updatedb.conf
-    owner: root
-    group: root
-    mode: '0644'
+#TODO: find a way to use current fstab options instead of item.options
+- name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
+  mount:
+    path: "{{ item.mount }}"
+    src: "UUID={{ item.uuid }}"
+    fstype: "{{ item.fstype }}"
+    opts: "subvol=root,compress=lzo,autodefrag,noatime,discard"
+    state: present
     backup: yes
+  with_items:
+    - "{{ ansible_mounts }}"
+  when:
+    - "item.fstype == 'btrfs'"
+    - "item.options.find('compress=lzo') != 0"
+    - "fstrim_supported.stdout != 0"
+  register: fstab
+  tags: ['filesystem']
 
-- name: updatedb
-  command: "updatedb"
+- block:
+    - name: Reboot if a different kernel was installed
+      shell: "shutdown -r now"
+      async: 1
+      poll: 0
+      ignore_errors: True
+      register: reboot
+
+    - name: wait for reboot complete before moving on
+      local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 10
+        timeout: 60
+      when: reboot.changed
+
+  when: fstab is changed
+  tags: ['filesystem']

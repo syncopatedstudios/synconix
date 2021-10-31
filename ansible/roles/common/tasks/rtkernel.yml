@@ -1,6 +1,6 @@
 ---
 
-- name: set packages to install
+- name: set kernel packages to install
   set_fact:
     _rtkernel: "{{ kernel|difference(installed_packages) }}"
 
@@ -30,11 +30,16 @@
       async: 1
       poll: 0
       ignore_errors: True
+      register: reboot
 
     - name: wait for reboot complete before moving on
-      wait_for_connection:
-        sleep: 5
-        timeout: 300
+      local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 10
+        timeout: 60
+      when: reboot.changed
 
   when: "rtkernel is changed or grubcfg is changed"
   tags: ['rtkernel']

@@ -1,10 +1,22 @@
 ---
 
+- name: Install updatedb conf from template
+  template:
+    src: etc/updatedb.conf.j2
+    dest: /etc/updatedb.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: updatedb
+  command: "updatedb"
+
 - name: Ensure /usr/local and /opt directories are writeable
   file:
     path: "{{ item }}"
     state: directory
-    owner: root
+    owner: "{{ user.name }}"
     group: "{{ user.group }}"
     mode: '2775'
   with_items:

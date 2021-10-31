@@ -6,7 +6,7 @@
   tags: ['sonicvisualiser']
 
 - block:
-    - name: set packages to install
+    - name: set sonic-visualiser dependencies to install
       set_fact:
         _dev_sonicvisualiser: "{{ development['sonicvisualiser']|difference(installed_packages) }}"
       tags: ['packages']
@@ -36,6 +36,9 @@
             sudo meson install
           args:
             chdir: "/usr/local/src/sonicvisualiser"
+          register: sv_build
+          failed_when: sv_build.failed
+
       become: True
       become_user: "{{ user.name }}"
 

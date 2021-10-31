@@ -3,7 +3,7 @@
 - name: Add user to audio groups
   user:
     name: "{{ user.name }}"
-    groups: "audio,jackuser,pulse-rt"
+    groups: "audio"
     append: yes
   tags: ['tuning']
 
@@ -24,21 +24,21 @@
     group: root
     mode: "0644"
 
-- name: push freqset script
-  copy:
-    src: usr/local/bin/freqset.sh
-    dest: /usr/local/bin/freqset.sh
-    owner: root
-    group: root
-    mode: '0775'
-
-- name: push freqset service file
-  copy:
-    src: usr/lib/systemd/system/freqset.service
-    dest: /usr/lib/systemd/system/freqset.service
-    owner: root
-    group: root
-    mode: '0644'
+# - name: push freqset script
+#   copy:
+#     src: usr/local/bin/freqset.sh
+#     dest: /usr/local/bin/freqset.sh
+#     owner: root
+#     group: root
+#     mode: '0775'
+#
+# - name: push freqset service file
+#   copy:
+#     src: usr/lib/systemd/system/freqset.service
+#     dest: /usr/lib/systemd/system/freqset.service
+#     owner: root
+#     group: root
+#     mode: '0644'
 
 - name: set vm.swappiness to 10
   sysctl: name=vm.swappiness value=10 state=present reload=yes
@@ -55,10 +55,10 @@
 - name: just force systemd to reread configs (2.4 and above)
   systemd: daemon_reload=yes name=freqset.service
 
-- name: enable freqset and cpupower service
-  service:
-    name: freqset
-    enabled: yes
+# - name: enable freqset and cpupower service
+#   systemd:
+#     name: freqset
+#     enabled: yes
 
 # To use real time scheduling, you will either need to boot Linux with the “threadirqs”
 # parameter or use a kernel with the realtime patch set. To always boot with the “threadirqs”

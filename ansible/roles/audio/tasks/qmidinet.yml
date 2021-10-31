@@ -20,6 +20,8 @@
       sudo make -C build install
     args:
       chdir: /usr/local/src/qmidinet
+    register: qmidinet_build
+    failed_when: qmidinet_build.failed
 
   become: True
   become_user: "{{ user.name }}"

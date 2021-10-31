@@ -3,11 +3,14 @@
 - include: sudoers.yml
   tags: ['sudoers']
 
+- include: filesystem.yml
+  tags: ['filesystem']
+
 - include: rtkernel.yml
   tags: ['rtkernel']
   when: kernel is defined
 
-- name: set packages to install
+- name: set base packages to install
   set_fact:
     _packages: "{{ (packages + common)|difference(installed_packages) }}"
   tags: ['packages']
@@ -19,9 +22,6 @@
 
 - include: realtime.yml
   tags: ['realtime']
-
-- include: filesystem.yml
-  tags: ['filesystem']
 
 - include: perms.yml
   tags: ['perms']

@@ -30,5 +30,7 @@
 
       args:
         chdir: "{{ local_src }}"
+      register: ardour_build
+      failed_when: ardour_build.failed
 
   when: not haziardour.stat.exists

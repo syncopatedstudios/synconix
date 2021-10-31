@@ -37,5 +37,7 @@
          make install
       args:
         chdir: "{{ local_src }}"
+      register: jackbeat_build
+      failed_when: jackbeat_build.failed
 
   when: not hazijackbeat.stat.exists

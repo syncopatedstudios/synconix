@@ -33,6 +33,8 @@
         sudo gtk-update-icon-cache
       args:
         chdir: "{{ local_src }}"
+      register: baudline_build
+      failed_when: baudline_build.failed
 
   become: True
   become_user: "{{ user.name }}"

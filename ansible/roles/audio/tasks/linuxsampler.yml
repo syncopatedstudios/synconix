@@ -37,6 +37,8 @@
     sudo make install
   args:
     chdir "{{ local_src }}"
+  register: libgig_build
+  failed_when: libgig_build.failed
 
 - name: copy ld config file
   copy:
@@ -67,6 +69,8 @@
     sudo make install
   args:
     chdir "{{ local_src }}"
+  register: liblscp_build
+  failed_when: liblscp_build.failed
 
 - name: build linuxsampler
   shell: |
@@ -83,6 +87,8 @@
     sudo make install
   args:
     chdir: "{{ local_src }}"
+  register: linuxsampler_build
+  failed_when: linuxsampler_build.failed
 
 - name: build jlscp
   shell: |
@@ -91,6 +97,8 @@
     mv lib/jlscp.jar $JAVE_HOME/jre/lib/ext/jlscp.jar
   args:
     chdir: "{{ local_src }}"
+  register: libjlscp_build
+  failed_when: libjlscp_build.failed
 
 - name: build jsampler
   shell: |

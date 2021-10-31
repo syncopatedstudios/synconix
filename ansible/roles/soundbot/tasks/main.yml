@@ -28,6 +28,11 @@
         update: no
         force: no
 
+    - name: checkout development branch
+      shell: "git checkout development"
+      args:
+        chdir: "/opt/soundbot"
+
     - name: check for Gemfile.lock
       stat: path="/opt/soundbot/Gemfile.lock"
       register: hazilock

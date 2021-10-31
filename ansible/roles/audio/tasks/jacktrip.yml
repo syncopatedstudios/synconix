@@ -22,6 +22,8 @@
       mv jacktrip /usr/local/bin/jacktrip
     args:
       chdir: "{{ local_src }}/jacktrip"
+    register: jacktrip
+    failed_when: jacktrip.failed
 
   become: True
   become_user: "{{ user.name }}"
