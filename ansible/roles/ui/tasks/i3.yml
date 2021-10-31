@@ -29,6 +29,11 @@
     chdir: "{{ local_src }}/swallow"
   when: not haziswallow.stat.exists
 
+- name: Install i3ipc for Python 3
+  pip:
+    name: i3ipc
+    executable: pip3
+
 - block:
     - name: Ensure i3 config directory exists
       shell: |

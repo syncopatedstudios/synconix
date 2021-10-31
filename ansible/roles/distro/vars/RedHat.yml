@@ -25,3 +25,5 @@ devel:
   - rpmdevtools
   - mock
   - livecd-tools
+
+rtirq_dir: /etc/sysconfig/rtirq

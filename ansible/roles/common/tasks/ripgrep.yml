@@ -4,16 +4,6 @@
   stat: path="/usr/local/bin/rga"
   register: hazirga
 
-- name: set packages to install
-  set_fact:
-    _ripgrep: "{{ ripgrep|difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: install ripgrep deps
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _ripgrep | join(' ') }}"
-  when: _ripgrep | length > 0
-  tags: ['packages']
-
 - block:
     - name: fetch ripgrep
       get_url:
@@ -25,9 +15,10 @@
         apt -y install ./ripgrep_13.0.0_amd64.deb
       args:
         chdir: "{{ local_src }}"
-  become: True
-  become_user: "{{ user.name }}"
-  when: ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS'
+
+  when:
+    - (ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS')
+    - not hazirga.stat.exists
 
 
 - block:
@@ -40,7 +31,7 @@
       shell: |
         tar -xvf ripgrep_all-v0.9.6-x86_64-unknown-linux-musl.tar.gz
         cd ripgrep_all-v0.9.6-x86_64-unknown-linux-musl/
-        ln -s /usr/local/src/ripgrep_all-v0.9.6-x86_64-unknown-linux-musl/rga /usr/local/bin/rga
+        mv /usr/local/src/ripgrep_all-v0.9.6-x86_64-unknown-linux-musl/rga /usr/local/bin/rga
       args:
         chdir: "{{ local_src }}"
   when: not hazirga.stat.exists

@@ -1,5 +1,26 @@
 ---
 
-- name: install obs-studio
-  shell: "{{ ansible_pkg_mgr }} -y install obs-studio"
-  when: "'obs-studio' not in installed_packages"
+# Note Ubuntu 20.04/Debian 10 must set ENABLE_PIPEWIRE=OFF and do not support wayland capture.
+# Modern platforms can use the default/enable pipewire for wayland capture support.
+
+- name: build and install obs-studio
+  shell: |
+    wget https://cdn-fastly.obsproject.com/downloads/cef_binary_4280_linux64.tar.bz2
+
+    tar -xjf ./cef_binary_4280_linux64.tar.bz2
+
+    git clone --recursive https://github.com/obsproject/obs-studio.git
+
+    cd obs-studio
+
+    mkdir build && cd build
+    cmake -DUNIX_STRUCTURE=1 -DENABLE_PIPEWIRE=OFF -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_BROWSER=ON -DCEF_ROOT_DIR="../../cef_binary_4280_linux64" ..
+
+    make -j$(nproc)
+
+    sudo checkinstall --default --pkgname=obs-studio --fstrans=no --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
+
+  args:
+    chdir: /usr/local/src
+  register: obs_build
+  failed_when: obs_build.failed

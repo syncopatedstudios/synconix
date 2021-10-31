@@ -21,7 +21,6 @@
 - name: Check if fstrim will be necessary
   shell: cat /sys/block/sda/queue/discard_max_bytes
   register: fstrim_supported
-  tags: ['filesystem']
   check_mode: no
   ignore_errors: True
   tags: ['filesystem']

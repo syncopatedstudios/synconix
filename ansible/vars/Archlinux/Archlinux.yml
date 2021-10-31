@@ -12,6 +12,8 @@ common:
   - boost
   - brightnessctl
   - faad2
+  - fd
+  - fzf
   - gcc-libs
   - gendesk
   - git-filter-repo
@@ -33,9 +35,6 @@ common:
   - sndio
   - wol
 kernel:
-ripgrep:
-  - fzf
-  - fd
 zim:
   - zim
 ui:

@@ -8,16 +8,30 @@ common:
   - bash-completion
   - cargo
   - debian-keyring
+  - fd-find
+  - ffmpeg
+  - fzf
+  - gir1.2-gtksource-3.0
   - git-flow
   - googler
   - gpgv
   - highlight
   - hunspell
+  - libgtksourceview-3.0-1
   - lnav
   - lsof
   - most
   - nfs-common
   - notification-daemon
+  - pandoc
+  - poppler-utils
+  - python3-actdiag
+  - python3-blockdiag
+  - python3-matplotlib
+  - python3-numpy
+  - python3-nwdiag
+  - python3-scipy
+  - python3-seqdiag
   - software-properties-common
   - ssh
   - tmux
@@ -27,26 +41,21 @@ common:
   - wkhtmltopdf
   - wordnet
   - xxdiff
-kernel:
-  - linux-image-5.10.0-8-rt-amd64
-  - linux-image-rt-amd64
-ripgrep:
-  - pandoc
-  - poppler-utils
-  - ffmpeg
-  - fzf
-  - fd-find
-zim:
-  - gir1.2-gtksource-3.0
-  - libgtksourceview-3.0-1
-  - python3-actdiag
-  - python3-blockdiag
-  - python3-matplotlib
-  - python3-numpy
-  - python3-nwdiag
-  - python3-scipy
-  - python3-seqdiag
   - zim
+tuned:
+  - tuna
+  - tuned
+  - tuned-utils
+  - tuned-gtk
+networkmanager:
+  - network-manager
+  - network-manager-gnome
+  - network-manager-openconnect
+  - network-manager-openconnect-gnome
+  - network-manager-openvpn
+  - network-manager-openvpn-gnome
+  - network-manager-pptp
+  - network-manager-vpnc
 ui:
   fonts:
     - fonts-liberation
@@ -67,9 +76,7 @@ ui:
     - feh
     - grsync
     - i3
-    - picom
     - polybar
-    - python3-i3ipc
     - qt5ct
     - rofi
     - thunar
@@ -102,7 +109,6 @@ development:
     - libturbojpeg-dev
     - libxcb-cursor-dev
     - libxcb-keysyms1-dev
-    - libxcb-util-dev
     - libxcb-xkb-dev
     - libxkbcommon-dev
     - libxkbcommon-x11-dev
@@ -176,6 +182,55 @@ development:
   njconnect:
     - libjack-jackd2-dev
     - libncurses-dev
+  obs:
+    - build-essential
+    - cmake
+    - git
+    - libasound2-dev
+    - libavcodec-dev
+    - libavdevice-dev
+    - libavfilter-dev
+    - libavformat-dev
+    - libavutil-dev
+    - libcurl4-openssl-dev
+    - libfdk-aac-dev
+    - libfontconfig-dev
+    - libfreetype6-dev
+    - libgles2-mesa
+    - libgles2-mesa-d
+    - libglvnd-dev
+    - libjack-jackd2-dev
+    - libjansson-dev
+    - libluajit-5.1-dev
+    - libmbedtls-dev
+    - libnss3-dev
+    - libpulse-dev
+    - libqt5svg5-dev
+    - libqt5x11extras5-dev
+    - libspeexdsp-dev
+    - libswresample-dev
+    - libswscale-dev
+    - libudev-dev
+    - libv4l-dev
+    - libvlc-dev
+    - libwayland-dev
+    - libx11-dev
+    - libx11-xcb-dev
+    - libx264-dev
+    - libxcb1-dev
+    - libxcb-randr0-dev
+    - libxcb-shm0-dev
+    - libxcb-xfixes0-dev
+    - libxcb-xinerama0-dev
+    - libxcomposite-dev
+    - libxinerama-dev
+    - libxss-dev
+    - pkg-config
+    - python3-dev
+    - qtbase5-dev
+    - qtbase5-private-dev
+    - qtwayland5
+    - swig
   oomox:
     - bc
     - librsvg2-bin

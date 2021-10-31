@@ -38,7 +38,9 @@
     chdir: "{{ local_src }}"
 
   register: kx_ppa
-  when: kx_repo|bool and 'kxstudio' not in aptrepos.stdout
+  when:
+    - repos.kx_repo|bool
+    - "'kxstudio' not in aptrepos.stdout"
   tags: ['kxrepo']
 
 - name: Install the Liquorix repos
@@ -47,7 +49,9 @@
     chdir: "{{ local_src }}"
 
   register: liquorix_ppa
-  when: liquorix|bool and 'liquorix' not in aptrepos.stdout
+  when:
+    - repos.liquorix|bool
+    - "'liquorix' not in aptrepos.stdout"
   tags: ['kernel', 'liquorix']
 
 - block:
@@ -61,8 +65,9 @@
         bash -x ./nodesource_setup.sh
       args:
         chdir: /tmp
+      register: nodejs_ppa
+      failed_when: nodejs_ppa.failed
 
-  register: nodejs_ppa
   check_mode: no
   when: "'node' not in aptrepos.stdout"
   tags: ['nodejs']
@@ -79,9 +84,10 @@
         path: /etc/apt/sources.list.d/atom.list
         line: "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main"
         create: yes
+      register: atom_ppa
 
-  register: atom_ppa
-  when: atom|bool and 'atom' not in aptrepos.stdout
+  when:
+    - "'atom' not in aptrepos.stdout"
 
 - block:
     - name: Install docker repo
@@ -93,28 +99,25 @@
         mode: '0644'
         directory_mode: no
         backup: yes
-      register: docker_repo
 
       # todo : this doesn't work
     - name: Add the docker gpg key
       shell: |
-        curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/ docker-archive-keyring.gpg
+        curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
       args:
         chdir: /tmp
+      become: True
+      become_user: "{{ user.name }}"
+      register: docker_ppa
+      failed_when: docker_ppa.failed
       tags: ['docker']
-      when: docker_repo.changed
 
-  register: docker_ppa
-  when: docker|bool and 'docker' not in aptrepos.stdout
+  rescue:
+    - debug:
+        msg: 'I caught an error, can do stuff here to fix it, :-)'
+
+  when: "'docker' not in aptrepos.stdout"
   tags: ['docker']
-
-- block:
-    - name: Install obs-studio ppa source
-      shell: "add-apt-repository -y ppa:obsproject/obs-studio"
-
-  register: obs_ppa
-  when: obs|bool and 'obs' not in aptrepos.stdout
-  tags: ['obs']
 
 - block:
     - name: Install monogodb for debian systems
@@ -122,20 +125,12 @@
         wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
 
         echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/5.0 main" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+      register: monogodb_ppa
 
-        apt-get install -y mongodb-org
-
-  register: monogodb_ppa
-  when: monogodb|bool and 'mongodb' not in aptrepos.stdout
+  when:
+    - repos.mongodb
+    - "'mongodb' not in aptrepos.stdout"
   tags: ['monogodb']
 
 - name: update apt
   shell: "apt clean all && apt-get update -qq"
-  when: >
-    - (monogodb_ppa.changed) or
-    - (obs_ppa.changed) or
-    - (docker_ppa.changed) or
-    - (atom_ppa.changed) or
-    - (nodejs_ppa.changed) or
-    - (kx_ppa.changed) or
-    - (liquorix_ppa.changed)

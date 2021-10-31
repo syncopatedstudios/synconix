@@ -1,5 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+grub_config: /boot/grub/grub.cfg
+
 use_networkmanager: True
 
 autofs_client: True

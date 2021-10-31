@@ -72,30 +72,15 @@
   shell: "{{ ansible_pkg_mgr }} -y install {{ _tuned | join(' ') }}"
   when: _tuned | length > 0
 
-- name: add threadirqs to grub cmdline opts
+- name: Copy over rtirq template
   template:
     src: etc/sysconfig/rtirq.j2
-    dest: /etc/sysconfig/rtirq
+    dest: "{{ rtirq_dir }}"
     owner: root
     group: root
     mode: "0644"
     backup: yes
   tags: ['realtime']
 
-- name: enable service
+- name: enable rtirq service
   systemd: name=rtirq state=started enabled=yes
-
-- name: add threadirqs to grub cmdline opts
-  template:
-    src: etc/default/grub.j2
-    dest: /etc/default/grub
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
-  tags: ['grub']
-  register: result
-
-- name: remake grub configs
-  command: "grub2-mkconfig -o {{ grub_config }}"
-  when: result is changed
