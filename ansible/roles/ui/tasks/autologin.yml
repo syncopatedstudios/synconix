@@ -1,9 +1,5 @@
 ---
 
-- name: Install lightdm-gtk-greeter
-  shell: "{{ __ansible_pkg_mgr_install }} lightdm-gtk-greeter"
-  when: "'lightdm' not in installed_packages"
-
 - name: Ensure group "autologin" exists
   group:
     name: autologin

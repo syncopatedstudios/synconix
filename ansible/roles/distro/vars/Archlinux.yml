@@ -1,5 +1,8 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
+grub_config: /boot/grub/grub2.cfg
+grub_cmd: update-grub
+grub_set_default: grub-set-default
 
 update_mirrors: False
 

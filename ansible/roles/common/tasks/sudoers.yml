@@ -6,6 +6,16 @@
     groups: "{{ admin_user }},{{ user.secondary_groups }}"
     append: yes
 
+- name: disable requiretty
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "^Defaults    requiretty"
+    line: "#Defaults    requiretty"
+    backrefs: yes
+    backup: yes
+    validate: 'visudo -cf %s'
+  tags: ['sudoers']
+
 - name: Check if unix admin sudoers file already exists
   stat: "path=/etc/sudoers.d/10-unix_admin"
   register: hazifile

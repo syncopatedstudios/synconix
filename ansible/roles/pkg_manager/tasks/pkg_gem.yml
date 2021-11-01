@@ -2,10 +2,26 @@
 
 - name: "Print all the Ruby gem packages to be {{ pkg_state }}"
   ansible.builtin.debug:
-    msg: "{{ pkg['gem'] }}"
+    msg: "{{ _gems }}"
 
-- name: "Ensure Ruby gem packages are {{ pkg_state }}"
-  ansible.builtin.pip:
-    name: "{{ pkg['gem'] | join(' ') }}"
-    state: "{{ pkg_state }}"
-  when: pkg['gem'] | length > 0
+- name: Get list of installed items gems
+  shell: |
+    gem list | awk '{ print $1 }'
+  register: gemlist
+  ignore_errors: yes
+
+- set_fact:
+    installed_gems: "{{ gemlist.stdout }}"
+
+- name: set packages to install
+  set_fact:
+    _gems: "{{ gems|difference(installed_gems) }}"
+
+- name: install ruby gems
+  shell: |
+    sudo gem install {{ item }} --no-user-install
+  with_items:
+    - "{{ _gems }}"
+  when: _gems | length > 0
+  become: True
+  become_user: "{{ user.name }}"

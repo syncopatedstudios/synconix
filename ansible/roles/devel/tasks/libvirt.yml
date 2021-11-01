@@ -2,13 +2,15 @@
 
 - name: set packages to install
   set_fact:
-    _libvirt: "{{ libvirt|difference(installed_packages) }}"
+    _packages: "{{ libvirt| join(',') }}"
   tags: ['packages']
 
-- name: install libvirt
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _libvirt | join(' ') }}"
-  when: _libvirt | length > 0
-  tags: ['packages', 'libvirt']
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
 - name: install libvirtd.conf
   copy:

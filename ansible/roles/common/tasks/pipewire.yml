@@ -1,0 +1,13 @@
+---
+
+- name: set packages to remove
+  set_fact:
+    _packages: "{{ pipewire| join(',') }}"
+  tags: ['packages']
+
+- name: Remove these packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: absent
+  tags: ['packages']

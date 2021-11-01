@@ -1,13 +1,15 @@
 ---
 #https://linuxsampler-devel.narkive.com/g4cCNyDP/libgig-compiler-error-on-ubuntustudio-16-04
-- name: set linuxsampler packages to install
+- name: set packages to install
   set_fact:
-    _dev_linuxsampler: "{{ development['linuxsampler'] | difference(installed_packages) }}"
+    _packages: "{{ development.linuxsampler| join(',') }}"
   tags: ['packages']
 
-- name: install linuxsampler dependencies
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_linuxsampler | join(' ') }}"
-  when: _dev_linuxsampler | length > 0
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
   tags: ['packages']
 
 - name: checkout latest versions of ls libs

@@ -1,12 +1,18 @@
 ---
-- name: Print all the Archlinux packages to be "{{ pkg_state }}"
-  ansible.builtin.debug:
-    msg: "{{ pkg['pamac'] }}"
+# - name: Archlinux packages to be "{{ pkg_state }}"
+#   ansible.builtin.debug:
+#     msg: "{{ _packages }}"
 
-- name: Ensure Archlinux packages are "{{ pkg_state }}"
+- name: Ensure "{{ _packages }}" are "{{ pkg_state }}"
   aur:
-    use: "{{ archlinux_pkg_mgr }}"
-    name: "{{ pkg['pamac'] }}"
+    use: auto
+    name: "{{ item }}"
     state: "{{ pkg_state }}"
+  with_items:
+    - "{{ _packages }}"
   become: True
   become_user: "{{ user.name }}"
+  register: package_result
+
+- set_fact:
+    package_results: "{{ package_result }}"

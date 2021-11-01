@@ -8,12 +8,14 @@
 - block:
     - name: set packages to install
       set_fact:
-        _dev_audiowaveform: "{{ development['audiowaveform']|difference(installed_packages) }}"
+        _packages: "{{ development.audiowaveform| join(',') }}"
       tags: ['packages']
 
-    - name: install audiowaveform deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_audiowaveform | join(' ') }}"
-      when: _dev_audiowaveform | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - block:
@@ -41,7 +43,7 @@
 
             cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
 
-            make && sudo make install
+            make -j{{ ansible_facts.processor_vcpus }} && sudo make install
           args:
             chdir: "{{ local_src }}/audiowaveform"
           register: audiowaveform_build

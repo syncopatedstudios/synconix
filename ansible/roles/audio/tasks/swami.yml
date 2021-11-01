@@ -6,13 +6,17 @@
   tags: ['swami']
 
 - block:
-    - name: set swami packages to install
+    - name: set packages to install
       set_fact:
-        _dev_swami: "{{ development['swami'] | difference(installed_packages) }}"
+        _packages: "{{ development.swami| join(',') }}"
+      tags: ['packages']
 
-    - name: Install swami dependencies
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_swami | join(' ') }}"
-      when: _dev_swami | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
 
     - block:
         - name: Clone libinstpatch

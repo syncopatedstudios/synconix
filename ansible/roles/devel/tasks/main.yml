@@ -1,14 +1,16 @@
 ---
 
-- name: Set development packages to install
+- name: set packages to install
   set_fact:
-    _development_packages: "{{ (development['common'] + development['ruby'])|difference(installed_packages) }}"
+    _packages: "{{ (development.base + development.ruby) | join(',') }}"
   tags: ['packages']
 
-- name: Install common devel packages
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _development_packages | join(' ') }}"
-  when: _development_packages | length > 0
-  tags: ['packages', 'development']
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
 - include: ruby.yml
   tags: ['ruby']

@@ -31,12 +31,15 @@
     systemctl set-default graphical.target
   when: graphical_target|bool
 
-- name: set multimedia packages to install
+- name: set packages to install
   set_fact:
-    _ui_gutilities: "{{ ui['gutilities']|difference(installed_packages) }}"
+    _packages: "{{ ui.gutilities | join(',') }}"
   tags: ['packages']
 
-- name: Install multimedia utils like mpv, feh, qpdfview, etc
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_gutilities | join(' ') }}"
-  when: "_ui_gutilities | length > 0 and install_gutilities|bool"
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  when: install_gutilities|bool
   tags: ['packages']

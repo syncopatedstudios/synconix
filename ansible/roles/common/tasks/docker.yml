@@ -1,7 +1,7 @@
 ---
 
 - name: install docker
-  shell: "{{ __ansible_pkg_mgr_install }} {{ docker | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ docker | join(',') }}"
   when: item not in installed_packages
   with_items: "{{ docker }}"
 

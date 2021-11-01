@@ -8,12 +8,14 @@
 - block:
     - name: set packages to install
       set_fact:
-        _dev_raysession: "{{ development['raysession']|difference(installed_packages) }}"
+        _packages: "{{ development.raysession| join(',') }}"
       tags: ['packages']
 
-    - name: install raysession deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_raysession | join(' ') }}"
-      when: _dev_raysession | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - block:

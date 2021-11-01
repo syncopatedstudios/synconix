@@ -1,11 +1,20 @@
 ---
 
-- name: Install autofs
-  shell: "{{ __ansible_pkg_mgr_install }} autofs"
+- name: set packages to install
+  set_fact:
+    _packages: autofs
+  tags: ['packages']
+
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
 - name: Create mount directory folder if it doesn't already exist
   file:
-    path: /mnt/{{ autofs.host }}
+    path: /mnt/{{ autofs_client.host }}
     state: directory
     mode: 0755
 

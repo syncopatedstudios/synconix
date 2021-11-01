@@ -5,6 +5,8 @@ clean_dnf: False
 
 fedora_version: 32
 grub_config: /boot/efi/EFI/fedora/grub.cfg
+grub_cmd: grub2-mkconfig
+grub_set_default: grub2-set-default
 
 rpmfusion: True
 ccrma: True

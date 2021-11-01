@@ -1,7 +1,0 @@
----
-
-- name: remove pipewire packages
-  shell: "{{ __ansible_pkg_mgr_remove }} {{ item }}"
-  with_items: "{{ audio['pipewire'] }}"
-  when: remove_pipewire|bool and item in installed_packages
-  tags: ['packages']

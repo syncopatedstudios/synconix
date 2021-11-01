@@ -2,10 +2,9 @@
 
 - name: "Print all the pip packages to be {{ pkg_state }}"
   ansible.builtin.debug:
-    msg: "{{ pkg['pip'] }}"
+    msg: "{{ _pips }}"
 
 - name: "Ensure pip packages are {{ pkg_state }}"
   ansible.builtin.pip:
-    name: "{{ pkg['pip'] | join(' ') }}"
+    name: "{{ _pips | join(',') }}"
     state: "{{ pkg_state }}"
-  when: pkg['pip'] | length > 0

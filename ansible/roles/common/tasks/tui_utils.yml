@@ -1,11 +1,11 @@
 ---
 
-- name: set x11 packages to install
+- name: set audio tui utility packages
   set_fact:
-    _packages: "{{ ui.x11 | join(',') }}"
+    _packages: "{{ audio.utilities | join(',') }}"
   tags: ['packages']
 
-- name: Install x11 packages
+- name: install audio tui utilities
   import_role:
     name: pkg_manager
   vars:

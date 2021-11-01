@@ -1,5 +1,11 @@
 ---
 
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
@@ -33,16 +39,16 @@
       args:
         chdir: "/opt/soundbot"
 
-    - name: check for Gemfile.lock
-      stat: path="/opt/soundbot/Gemfile.lock"
-      register: hazilock
-
-    - name: run bundle install
-      shell: "bundle install"
-      args:
-        chdir: /opt/soundbot
-      when: not hazilock.stat.exists
-
+    # - name: check for Gemfile.lock
+    #   stat: path="/opt/soundbot/Gemfile.lock"
+    #   register: hazilock
+    #
+    # - name: run bundle install
+    #   shell: "bundle install"
+    #   args:
+    #     chdir: /opt/soundbot
+    #   when: not hazilock.stat.exists
+    #
     # - name: run gem pristine if there is an issue with extensions
     #   shell: "sudo gem pristine --all"
     #   args:

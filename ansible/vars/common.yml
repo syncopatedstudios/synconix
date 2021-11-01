@@ -69,6 +69,7 @@ gems:
   - sync
   - sys-proctable
   - taglib-ruby
+  - tmuxinator
   - tty-box
   - tty-command
   - tty-cursor

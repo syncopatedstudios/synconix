@@ -1,0 +1,17 @@
+---
+
+- name: set sound service packages to install
+  set_fact:
+    _packages: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | join(',' }}"
+  tags: ['packages']
+
+- include: pipewire.yml
+
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- include: pulseaudio.yml

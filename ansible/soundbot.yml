@@ -1,8 +1,8 @@
 ---
 
-- name: get a list of installed packages
-  import_playbook: installed_packages.yml
-  tags: ['packages']
+# - name: get a list of installed packages
+#   import_playbook: installed_packages.yml
+#   tags: ['packages']
 
 - hosts: all
   gather_facts: yes
@@ -22,14 +22,22 @@
   pre_tasks:
     - name: check whether this is an initial install
       stat:
-        path: "{{ ansible_home }}/.installed"
+        path: "{{ user.home }}/.installed"
+      register: installed
+
+    - set_fact:
+        _installed: "{{ installed }}"
 
   tasks:
     - name: touch installed
       shell: |
         touch .installed
       args:
-        chdir: "{{ ansible_home }}"
+        chdir: "{{ user.home }}"
+
+    - name: Reboot on initial setup
+      shell: "shutdown -r now"
+      when: installed.changed
 
   roles:
      - { role: distro, tags: ['distro'] }

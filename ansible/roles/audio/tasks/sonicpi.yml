@@ -8,12 +8,14 @@
 - block:
     - name: set packages to install
       set_fact:
-        _dev_sonicpi: "{{ development['sonicpi']|difference(installed_packages) }}"
+        _packages: "{{ development.sonicpi| join(',') }}"
       tags: ['packages']
 
-    - name: install dependencies for SonicPi
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_sonicpi | join(' ') }}"
-      when: _dev_sonicpi | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - block:

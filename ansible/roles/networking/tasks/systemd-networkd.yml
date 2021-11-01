@@ -36,7 +36,14 @@
     force: yes
   when: systemd_networkd_symlink_resolv_conf
 
-- name: remove NetworkManager packages
-  shell: "{{ __ansible_pkg_mgr_remove }} {{ item }}"
-  when: item in installed_packages
-  with_items: "{{ networkmanager }}"
+- name: set packages to remove
+  set_fact:
+    _packages: "{{ networkmanager | join(',') }}"
+  tags: ['packages']
+
+- name: Remove these packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: absent
+  tags: ['packages']

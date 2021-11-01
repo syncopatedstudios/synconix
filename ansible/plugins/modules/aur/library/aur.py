@@ -104,7 +104,7 @@ def_lang = ['env', 'LC_ALL=C', 'LANGUAGE=C']
 
 use_cmd = {
     'yay': ['yay', '-S', '--noconfirm', '--needed', '--cleanafter'],
-    'pamac': ['pamac', '--no-confirm', '--no-upgrade'],
+    'pamac': ['pamac', 'install' '--no-confirm', '--no-upgrade'],
     'paru': ['paru', '-S', '--noconfirm', '--needed', '--cleanafter'],
     'pacaur': ['pacaur', '-S', '--noconfirm', '--noedit', '--needed'],
     'trizen': ['trizen', '-S', '--noconfirm', '--noedit', '--needed'],

@@ -49,7 +49,11 @@ $exec_always $HOME/.config/i3/scripts/polybar.sh
 
 $exec_always $picom_start
 
+{% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
+{% else %}
+$exec /usr/lib/notification-daemon-1.0/notification-daemon &
+{% endif %}
 
 $exec "/opt/soundbot/bin/soundservices.sh -j -p"
 

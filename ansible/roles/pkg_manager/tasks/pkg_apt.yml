@@ -1,11 +1,15 @@
 ---
-- name: Print all the Debian packages to be "{{ pkg_state }}"
-  ansible.builtin.debug:
-    msg: "{{ pkg['apt'] }}"
+# - name: Debian packages to be "{{ pkg_state }}"
+#   ansible.builtin.debug:
+#     msg: "{{ _packages }}"
 
-- name: Ensure Debian packages are "{{ pkg_state }}"
+- name: Ensure "{{ _packages }}" are "{{ pkg_state }}"
   ansible.builtin.apt:
-    pkg: "{{ pkg['apt'] }}"
+    pkg: "{{ _packages }}"
     state: "{{ pkg_state }}"
     update_cache: yes
     cache_valid_time: 600
+  register: package_result
+
+- set_fact:
+    package_results: package_result

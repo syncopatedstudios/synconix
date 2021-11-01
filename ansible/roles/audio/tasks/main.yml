@@ -1,34 +1,5 @@
 ---
 
-- name: set sound service packages to
-  set_fact:
-    _sound_services: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: set audio utility packages to
-  set_fact:
-    _audio_utils: "{{ audio['utilities'] | difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: set graphical audio utility packages to
-  set_fact:
-    _audio_gutils: "{{ audio['gutilities']|difference(installed_packages) }}"
-  tags: ['packages']
-
-- name: set audio plugin packages to
-  set_fact:
-    _audio_plugins: "{{ audio['plugins']|difference(installed_packages) }}"
-  tags: ['packages']
-
-- include: pipewire.yml
-
-- name: install sound services (alsa,jack,pulse)
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _sound_services | join(' ') }}"
-  when: _sound_services | length > 0
-  tags: ['packages']
-
-- include: pulseaudio.yml
-
 - name: makesfz and makeh2drumkit
   copy:
     src: "usr/local/bin/{{ item }}"
@@ -40,21 +11,6 @@
     - makeh2kit
     - makesfz
   tags: ['soundfonts']
-
-- name: install cli audio utilities
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _audio_utils | join(' ') }}"
-  when: "install_audio_utilities|bool and _audio_utils | length > 0"
-  tags: ['audio_utils', 'packages']
-
-- name: install graphical audio utilities
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _audio_gutils | join(' ') }}"
-  when: "install_audio_gutilities|bool and _audio_gutils | length > 0"
-  tags: ['audio_gutils', 'packages']
-
-- name: install plugins
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _audio_plugins | join(' ') }}"
-  when: "install_audio_plugins|bool and _audio_plugins | length > 0"
-  tags: ['audio_plugins', 'packages']
 
 - include: ardour.yml
   tags: ['ardour']
@@ -93,7 +49,7 @@
   tags: ['obs']
 
 - include: ocenaudio.yml
-  when: "ocenaudio|bool and 'ocenaudio' not in installed_packages"
+  when: ocenaudio|bool
   tags: ['ocenaudio']
 
 - include: qmidinet.yml

@@ -1,9 +1,13 @@
 ---
-- name: Print all the Fedora packages to be "{{ pkg_state }}"
-  ansible.builtin.debug:
-    msg: "{{ pkg['base'] }}"
+# - name: Fedora packages to be "{{ pkg_state }}"
+#   ansible.builtin.debug:
+#     msg: "{{ _packages }}"
 
-- name: Ensure Fedora packages are "{{ pkg_state }}"
+- name: Ensure "{{ _packages }}" are "{{ pkg_state }}"
   ansible.builtin.dnf:
-    name: "{{ pkg['base'] }}"
+    name: "{{ _packages }}"
     state: "{{ pkg_state }}"
+  register: package_result
+
+- set_fact:
+    package_results: "{{ package_result }}"

@@ -13,5 +13,3 @@ install_googler: False
 install_atom: False
 install_timeshift: False
 install_chrome: False
-
-autofs_client: False

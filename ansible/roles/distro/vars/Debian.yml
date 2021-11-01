@@ -9,4 +9,7 @@ repos:
   mongodb: False
 
 grub_config: /boot/grub2/grub.cfg
+grub_cmd: grub2-mkconfig
+grub_set_default: grub2-set-default
+
 rtirq_dir: /etc/default/rtirq

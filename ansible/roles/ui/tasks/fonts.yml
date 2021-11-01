@@ -2,12 +2,14 @@
 
 - name: Set font packages to install
   set_fact:
-    _ui_fonts: "{{ ui['fonts']|difference(installed_packages) }}"
+    _packages: "{{ ui.fonts | join(',') }}"
   tags: ['packages']
 
 - name: Install font packages
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_fonts | join(' ') }}"
-  when: _ui_fonts | length > 0
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
   tags: ['packages']
 
 - name: check if locat fonts exists

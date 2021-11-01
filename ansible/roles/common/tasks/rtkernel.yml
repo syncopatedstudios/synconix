@@ -1,14 +1,16 @@
 ---
 
-- name: set kernel packages to install
+- name: Set kernel packages to install
   set_fact:
-    _rtkernel: "{{ kernel|difference(installed_packages) }}"
+    _packages: "{{ kernel| join(',') }}"
+  tags: ['packages']
 
-- name: install rt-kernel
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _rtkernel | join(' ') }}"
-  when: _rtkernel | length > 0
-  register: rtkernel
-  tags: ['rtkernel']
+- name: Install kernel packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
 - name: push default grub file
   template:
@@ -23,7 +25,7 @@
 
 - block:
     - name: set rt-kernel as default
-      shell: "grub2-set-default 1 && grub2-mkconfig -o {{ grub_config }}"
+      shell: "{{ grub_set_default }} 1 && {{ grub_cmd }} -o {{ grub_config }}"
 
     - name: Reboot if a different kernel was installed
       shell: "shutdown -r now"
@@ -41,5 +43,5 @@
         timeout: 60
       when: reboot.changed
 
-  when: "rtkernel is changed or grubcfg is changed"
+  when: package_results.changed or grubcfg.changed
   tags: ['rtkernel']

@@ -52,6 +52,11 @@ base:
   - xterm
   - zim
   - zsh
+kernel:
+  - linux510-rt
+  - linux510-rt-acpi_call
+  - linux510-rt-headers
+  - linux510-rt-r8168
 tuned:
   - tuned
   - tuna
@@ -70,10 +75,12 @@ ui:
     - xorg-xrdb
   i3:
     - autorandr
+    - lightdm-gtk-greeter
     - notification-daemon
     - picom
-    - python-i3ipc
+    - polybar
     - quickswitch-i3
+    - rofi
     - xbindkeys_config-gtk2
     - xkill-shortcut
     - xorg-xrandr
@@ -88,7 +95,6 @@ ui:
     - adobe-source-han-sans-kr-fonts
     - gnu-free-fonts
     - nerd-fonts-hack
-    - nerd-fonts-iosevka
     - noto-fonts
     - opendesktop-fonts
     - otf-font-awesome
@@ -106,6 +112,7 @@ ui:
     - ttf-nerd-fonts-symbols
     - ttf-opensans
     - ttf-ubuntu-font-family
+    - ttf-unifont
     - xorg-fonts-alias-75dpi
     - xorg-fonts-alias-100dpi
     - xorg-fonts-alias-cyrillic
@@ -126,16 +133,16 @@ ui:
     - celluloid
     - darktable
     - google-chrome
+    - guake
     - mpv
     - mpv-plugin-excerpt-git
     - nomacs
     - radiotray-ng
 development:
-  common:
+  base:
     - base-devel
     - cmake
     - git
-    - libblocksruntime
     - libbluray
     - libgme
     - libmad
@@ -178,7 +185,6 @@ audio:
     - hydrogen
     - iempluginsuite
     - jack-keyboard
-    - jalv-select
     - mamba
     - midifilter.lv2-git
     - mixxx
@@ -208,7 +214,7 @@ audio:
     - caps-lv2-git
     - distrho-ports
     - dragonfly-reverb
-    - ir-lv2-git
+    # - ir-lv2-git
     - ladspa
     - lsp-plugins
     - lv2

@@ -8,12 +8,14 @@
 - block:
     - name: set packages to install
       set_fact:
-        _dev_ardour: "{{ development['ardour']|difference(installed_packages) }}"
+        _packages: "{{ development.ardour| join(',') }}"
       tags: ['packages']
 
-    - name: install ardour deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_ardour | join(' ') }}"
-      when: _dev_ardour | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - name: build ardour

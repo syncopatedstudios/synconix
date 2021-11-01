@@ -6,14 +6,16 @@
   tags: ['sonicvisualiser']
 
 - block:
-    - name: set sonic-visualiser dependencies to install
+    - name: set packages to install
       set_fact:
-        _dev_sonicvisualiser: "{{ development['sonicvisualiser']|difference(installed_packages) }}"
+        _packages: "{{ development.sonicvisualiser| join(',') }}"
       tags: ['packages']
 
-    - name: install sonicvisualiser deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_sonicvisualiser | join(' ') }}"
-      when: _dev_sonicvisualiser | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - block:

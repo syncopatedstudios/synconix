@@ -6,14 +6,16 @@
   tags: ['jackbeat']
 
 - block:
-    - name: set jackbeat packages to install
+    - name: set packages to install
       set_fact:
-        _dev_jackbeat: "{{ development['jackbeat'] | difference(installed_packages) }}"
+        _packages: "{{ development.jackbeat| join(',') }}"
       tags: ['packages']
 
-    - name: install jackbeat dependencies
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_jackbeat | join(' ') }}"
-      when: _dev_jackbeat | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - name: clone jackbeat

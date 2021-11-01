@@ -7,12 +7,14 @@
 - block:
     - name: set packages to install
       set_fact:
-        _dev_njconnect: "{{ development['njconnect'] | difference(installed_packages) }}"
+        _packages: "{{ development.njconnect | join(',') }}"
       tags: ['packages']
 
-    - name: install njconnect deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_njconnect | join(' ') }}"
-      when: _dev_njconnect | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - block:

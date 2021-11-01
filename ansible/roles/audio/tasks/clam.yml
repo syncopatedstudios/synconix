@@ -29,14 +29,16 @@
 
 
 - block:
-    - name: set clam dependencies to install
+    - name: set packages to install
       set_fact:
-        _dev_clam: "{{ clam.dependencies | difference(installed_packages) }}"
+        _packages: "{{ clam.dependencies| join(',') }}"
       tags: ['packages']
 
-    - name: install dependencies for clam
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_clam }} | join(' ') }}"
-      when: _dev_clam | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - name: set source destination directory
@@ -72,7 +74,7 @@
         shell: |
           CCFLAGS="{{ clam.ccflags.x86_64 }}" \
           CPPFLAGS="{{ clam.ccflags.x86_64 }}" \
-          scons configure {{ clam.flags | join(' ') }}
+          scons configure {{ clam.flags | join(',') }}
 
         args:
           chdir: "{{ destination }}/CLAM"

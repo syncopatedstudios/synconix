@@ -8,12 +8,14 @@
 - block:
     - name: set packages to install
       set_fact:
-        _dev_jalvselect: "{{ development['jalvselect']|difference(installed_packages) }}"
+        _packages: "{{ development.jalvselect| join(',') }}"
       tags: ['packages']
 
-    - name: install jalvselect deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_jalvselect | join(' ') }}"
-      when: _dev_jalvselect | length > 0
+    - name: Ensure all the required packages are installed
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
       tags: ['packages']
 
     - block:
