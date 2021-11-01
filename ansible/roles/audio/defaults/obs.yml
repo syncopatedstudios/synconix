@@ -1,0 +1,21 @@
+---
+
+application:
+  name: sndio
+  source:
+    url: "https://sndio.org/"
+    file: "sndio-1.8.1.tar.gz"
+    folder: "/usr/local/src/sndio"
+  name: x264
+  source:
+    git: "https://code.videolan.org/videolan/x264.git"
+    folder: "/usr/local/src/x264"
+  name: cef
+  source:
+    url: "https://cdn-fastly.obsproject.com/downloads/"
+    file: "cef_binary_4280_linux64.tar.bz2"
+    folder: "/usr/local/src/cef_binary_4280_linux64"
+  name: obs
+  source:
+    git: "https://github.com/obsproject/obs-studio.git"
+    folder: "/usr/local/src/obs"

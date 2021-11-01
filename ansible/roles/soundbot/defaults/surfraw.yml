@@ -1,0 +1,13 @@
+---
+
+application:
+  name: surfraw
+  source:
+    git: "https://gitlab.com/surfraw/Surfraw.git"
+    folder: "/usr/local/src/surfraw"
+  config:
+    opts:
+      - '--prefix=/usr'
+      - '--with-graphical-browser="google-chrome-stable"'
+  dependencies:
+    - pod2man

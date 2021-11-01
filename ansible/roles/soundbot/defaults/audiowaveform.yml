@@ -1,0 +1,29 @@
+---
+
+application:
+  name: audiowaveform
+  source:
+    git: "https://github.com/bbc/audiowaveform.git"
+    folder: "/usr/local/src/audiowaveform"
+  config:
+    opts:
+      - '-DCMAKE_INSTALL_PREFIX:PATH=/usr/local'
+  dependencies:
+    Archlinux:
+      - boost
+      - boost-libs
+      - gd
+      - libid3tag
+      - libmad
+      - libsndfile
+    RedHat:
+      - boost-devel
+      - gcc-c++
+      - gd-devel
+      - libid3tag-devel
+      - libmad-devel
+      - libsndfile-devel
+      - make
+googletest:
+  url: "https://github.com/google/googletest/archive/"
+  file: "release-1.11.0.tar.gz"
