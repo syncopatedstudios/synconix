@@ -5,17 +5,19 @@
   register: haziraysession
   tags: ['raysession']
 
+- name: set raysession dependencies to install
+  set_fact:
+    _packages: "{{ development.raysession }}"
+  tags: ['packages']
+
+- name: Install raysession dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 - block:
-    - name: set packages to install
-      set_fact:
-        _dev_raysession: "{{ development['raysession']|difference(installed_packages) }}"
-      tags: ['packages']
-
-    - name: install raysession deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_raysession | join(' ') }}"
-      when: _dev_raysession | length > 0
-      tags: ['packages']
-
     - block:
       - name: clone raysession
         git:

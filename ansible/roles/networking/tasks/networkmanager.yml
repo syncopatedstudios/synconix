@@ -1,13 +1,15 @@
 ---
 
-- name: set packages to install
+- name: Set networkmanager packages to install
   set_fact:
-    _networkmanager: "{{ networkmanager|difference(installed_packages) }}"
+    _packages: "{{ networkmanager  }}"
   tags: ['packages']
 
-- name: install networkmanager stuff
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _networkmanager | join(' ') }}"
-  when: _networkmanager | length > 0
+- name: Install networkmanager packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
   tags: ['packages']
 
 - name: Push connectivity check config

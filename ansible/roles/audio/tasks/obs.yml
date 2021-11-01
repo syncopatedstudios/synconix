@@ -3,24 +3,204 @@
 # Note Ubuntu 20.04/Debian 10 must set ENABLE_PIPEWIRE=OFF and do not support wayland capture.
 # Modern platforms can use the default/enable pipewire for wayland capture support.
 
-- name: build and install obs-studio
-  shell: |
-    wget https://cdn-fastly.obsproject.com/downloads/cef_binary_4280_linux64.tar.bz2
+# sudo checkinstall --default --pkgname=obs-studio --fstrans=no --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
 
-    tar -xjf ./cef_binary_4280_linux64.tar.bz2
+- name: set obs dependencies to install
+  set_fact:
+    _packages: "{{ development.obs }}"
+  tags: ['packages']
 
-    git clone --recursive https://github.com/obsproject/obs-studio.git
+- name: Install obs dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
-    cd obs-studio
+#######################################################
+# -----------sndio
+#######################################################
 
-    mkdir build && cd build
-    cmake -DUNIX_STRUCTURE=1 -DENABLE_PIPEWIRE=OFF -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_BROWSER=ON -DCEF_ROOT_DIR="../../cef_binary_4280_linux64" ..
+- name: check if sndio is already installed
+  stat: path="/usr/local/src/sndio-1.8.1/.installed"
+  register: hazisndio
+  tags: ['sndio']
 
-    make -j$(nproc)
+- block:
+    - name: fetch sndio
+      get_url:
+        url: "{{ sndio.url }}{{ sndio.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
 
-    sudo checkinstall --default --pkgname=obs-studio --fstrans=no --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
+    - name: extrat sndio
+      shell: |
+        tar -xvf {{ sndio.file }}
+      args:
+        chdir: "{{ local_src }}"
 
-  args:
-    chdir: /usr/local/src
-  register: obs_build
-  failed_when: obs_build.failed
+    - name: configure sndio
+      shell: |
+        ./configure  --enable-umidi --enable-rmidi --with-libbsd
+      args:
+        chdir: "{{ local_src }}/sndio-1.8.1"
+
+    - name: make sndio
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ local_src }}/sndio-1.8.1"
+      register: sndio_make
+      failed_when: sndio_make.failed
+
+    - name: install sndio
+      shell: "sudo make install"
+      args:
+        chdir: "{{ local_src }}/sndio-1.8.1"
+      register: sndio_install
+      when: sndio_make.rc == 0
+
+    - name: touch installed
+      shell: |
+        touch .installed
+      args:
+        chdir: "{{ local_src }}/sndio-1.8.1"
+      when: sndio_install.rc == 0
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazisndio.stat.exists
+
+- name: run ldconfig
+  command: bash -lc "ldconfig"
+
+#######################################################
+# -----------x264
+#######################################################
+
+- name: check if x264 is already installed
+  stat: path="/usr/local/src/x264/.installed"
+  register: hazix264
+  tags: ['x264']
+
+- block:
+    - set_fact:
+        destination: "/usr/local/src/x264"
+
+    - name: Clone libx264
+      git:
+        repo: "{{ x264.git }}"
+        dest: "{{ destination }}"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: configure x264
+      command: bash -lc "./configure --prefix=/usr --enable-shared"
+      args:
+        chdir: "{{ destination }}"
+
+    - name: make x264
+      command: bash -lc "make -j$(nproc)"
+      args:
+        chdir: "{{ destination }}"
+      register: x264_make
+      failed_when: x264_make.failed
+
+    - name: install x264
+      command: bash -lc "sudo make install"
+      args:
+        chdir: "{{ destination }}"
+      when: x264_make.rc == 0
+      register: x264_install
+
+    - name: touch installed
+      shell: |
+        touch .installed
+      args:
+        chdir: "{{ destination }}"
+      when: x264_install.rc == 0
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazix264.stat.exists
+
+- name: run ldconfig
+  command: bash -lc "ldconfig"
+
+#######################################################
+# -----------cef
+#######################################################
+
+- name: check if cef is already installed
+  stat: path="/usr/local/src/cef_binary_4280_linux64"
+  register: hazicef
+  tags: ['cef']
+
+- block:
+    - name: fetch cef_binary
+      get_url:
+        url: "{{ obs.cef.url }}{{ obs.cef.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+
+    - name: extract archive
+      shell: |
+        bunzip2 {{ obs.cef.file }}
+        tar -xvf cef_binary_4280_linux64.tar
+      args:
+        chdir: "{{ local_src }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+
+#######################################################
+# -----------obs
+#######################################################
+- name: check if obs is already installed
+  stat: path="/usr/bin/obs"
+  register: haziobs
+  tags: ['obs']
+
+- block:
+    - name: clone obs source
+      shell: |
+        git clone --recursive {{ obs.git }}
+      args:
+        chdir: "{{ local_src }}"
+
+    - name: build obs-studio
+      shell: |
+        mkdir build && cd build
+
+        cmake -DUNIX_STRUCTURE=1 -DENABLE_PIPEWIRE=OFF -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_BROWSER=ON -DCEF_ROOT_DIR="/usr/local/src/cef_binary_4280_linux64" ..
+
+      args:
+        chdir: "{{ local_src }}/obs-studio"
+      register: obs_cmake
+      failed_when: obs_cmake.failed
+
+    - name: make obs-studio
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ local_src }}/obs-studio/build"
+      register: obs_make
+      failed_when: obs_make.failed
+
+    - name: install obs-studio
+      shell: "sudo make install"
+      args:
+        chdir: "{{ local_src }}/obs-studio/build"
+      when: obs_make.rc == 0
+
+  rescue:
+    - name: remove obs source directory
+      shell:
+        rm -rf obs-studio
+        rm -rf cef_binary_4280_linux64.*
+      args:
+        chdir: "{{ local_src }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziobs.stat.exists
+  tags: ['obs']

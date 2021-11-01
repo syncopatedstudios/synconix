@@ -16,6 +16,18 @@
   register: haziclam
   tags: ['clam']
 
+- name: set clam dependencies to install
+  set_fact:
+    _packages: "{{ clam.dependencies }}"
+  tags: ['packages']
+
+- name: Install clam dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 # - set_fact:
 #     _ccflags: "{{ clam.ccflags['{{ 'arch' }}'] }}"
 #
@@ -29,16 +41,6 @@
 
 
 - block:
-    - name: set clam dependencies to install
-      set_fact:
-        _dev_clam: "{{ clam.dependencies | difference(installed_packages) }}"
-      tags: ['packages']
-
-    - name: install dependencies for clam
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_clam }} | join(' ') }}"
-      when: _dev_clam | length > 0
-      tags: ['packages']
-
     - name: set source destination directory
       set_fact:
         destination: "/usr/local/src/clam"
@@ -72,7 +74,7 @@
         shell: |
           CCFLAGS="{{ clam.ccflags.x86_64 }}" \
           CPPFLAGS="{{ clam.ccflags.x86_64 }}" \
-          scons configure {{ clam.flags | join(' ') }}
+          scons configure {{ clam.flags  }}
 
         args:
           chdir: "{{ destination }}/CLAM"

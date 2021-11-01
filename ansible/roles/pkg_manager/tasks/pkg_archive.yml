@@ -1,0 +1,23 @@
+---
+- name: Print all sources
+  debug:
+    msg: "{{ pkg['sources'] }}"
+  register: source_list
+
+
+- name: Prepare directories
+  ansible.builtin.file:
+    path: "{{ item.dest }}"
+    state: directory
+  when: pkg_state == 'present'
+  loop: "{{ archive_list.msg|flatten(levels=1) }}"
+
+- name: Download all archives
+  ansible.builtin.unarchive:
+    src: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+    list_files: yes
+  register: list_files
+  when: pkg_state == 'present'
+  loop: "{{ archive_list.msg|flatten(levels=1) }}"

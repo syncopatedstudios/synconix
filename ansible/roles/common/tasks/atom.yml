@@ -7,27 +7,22 @@
   check_mode: no
 
 - block:
-    - name: install atom package
-      shell: "{{ __ansible_pkg_mgr_install }} atom"
+    - name: gather list of installed apm packages
+      shell: |
+        apm list --installed --bare 2>&1 | xargs -0 | awk '{ print $1}'
+      register: apmlist
+      check_mode: no
+      ignore_errors: yes
 
-    - block:
-        - name: gather list of installed apm packages
-          shell: |
-            apm list --installed --bare 2>&1 | xargs -0 | awk '{ print $1}'
-          register: apmlist
-          check_mode: no
-          ignore_errors: yes
+    - name: install atom plugins
+      shell: |
+        apm install {{ item }}
+      args:
+        warn: no
+      when: item not in apmlist.stdout
+      with_items:
+        - "{{ apm }}"
 
-        - name: install atom plugins
-          shell: |
-            apm install {{ item }}
-          args:
-            warn: no
-          when: item not in apmlist.stdout
-          with_items:
-            - "{{ apm }}"
-
-      become: True
-      become_user: "{{ user.name }}"
-
-  when: not haziatom.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  when: haziatom.stat.exists

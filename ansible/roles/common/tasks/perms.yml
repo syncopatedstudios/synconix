@@ -24,6 +24,6 @@
     - "/usr/local/lib"
     - "/usr/local/lib/soundbot"
     - "/usr/local/share"
-    - "/usr/local/applications"
+    - "/usr/local/share/applications"
     - "{{ local_src }}"
     - "/opt"

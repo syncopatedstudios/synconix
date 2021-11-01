@@ -66,11 +66,15 @@
 # to the line for GRUB_CMDLINE_LINUX, then generate a new grub.cfg file.
 - name: set tuned packages to install
   set_fact:
-    _tuned: "{{ tuned | difference(installed_packages) }}"
+    _packages: "{{ tuned  }}"
+  tags: ['packages']
 
-- name: Install tuned packages
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _tuned | join(' ') }}"
-  when: _tuned | length > 0
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
 - name: Copy over rtirq template
   template:

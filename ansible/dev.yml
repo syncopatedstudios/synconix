@@ -1,0 +1,108 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  vars:
+    env_vars:
+      ZSH: "{{ user.zsh }}"
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+  vars_files:
+    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
+    - "vars/common.yml"
+
+  pre_tasks:
+    - name: Load Fedora
+      include_role:
+        name: distro/fedora
+      when: "ansible_facts['os_family'] == 'RedHat'"
+      tags: ['fedora', 'packagelist']
+
+    - name: Load Debian
+      include_role:
+        name: distro/debian
+      when: "ansible_facts['os_family'] == 'Debian'"
+      tags: ['debian', 'packagelist']
+
+  tasks:
+
+    - name: get installed items list
+      shell: |
+        dnf list --installed | awk -F '.' '{ print $1}'
+      register: packagelist
+      ignore_errors: yes
+      tags: ['test']
+
+    - set_fact:
+        installed_packages: "{{ packagelist.stdout.split('\n') }}"
+      tags: ['test']
+
+    - name: print vars
+      debug:
+        msg: "{{ hostvars[inventory_hostname].networkmanager }}"
+      tags: ['printvars']
+
+    - name: print vars
+      debug:
+        msg: "{{ (packages + common)|difference(installed_packages) }}"
+      tags: ['test']
+
+    - name: set packages var
+      set_fact:
+        _packages: "{{ packages | default(packages) }}"
+      tags: ['test']
+
+    - name: print fedora package array
+      debug:
+        var: "{{ _packages }}"
+      tags: ['test']
+
+    - name: print selinux status
+      debug:
+        msg: "{{ ansible_selinux['status'] }}"
+      tags: ['test']
+
+    - name: Reboot host
+      shell: "shutdown -r now"
+      async: 1
+      poll: 0
+      ignore_errors: True
+      register: reboot
+      tags: ['test_reboot']
+
+    - name: wait for reboot complete before moving on
+      local_action:
+        module: wait_for
+        host: "{{ inventory_hostname }}"
+        state: started
+        delay: 30
+        timeout: 120
+      when: reboot.changed
+      tags: ['test_reboot']
+
+    - name: System details
+      debug: msg="{{ item }}"
+      with_items:
+        - "{{ ansible_os_family }}"
+        - "{{ ansible_distribution }}"
+        - "{{ ansible_distribution_version }}"
+        - "{{ ansible_distribution_major_version }}"
+        - "{{ ansible_kernel }}"
+        - "{{ ansible_mounts }}"
+        - "{{ ansible_facts['hostname'] }}"
+      tags: ['test_reboot']
+
+    # - name: Do distro-specific stuff before anything else
+    #   include_role:
+    #     name: distro
+    #     apply:
+    #       tags:
+    #         - audio
+    #   tags: ['always']
+
+  roles:
+     - { role: networking, tags: ['networking'] }
+     - { role: common, tags: ['common'] }
+     - { role: ui, tags: ['ui'] }
+     - { role: devel, tags: ['devel'] }
+     - { role: soundbot, tags: ['soundbot'] }
+     - { role: audio, tags: ['audio'] }

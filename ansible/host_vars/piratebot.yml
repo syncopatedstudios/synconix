@@ -15,8 +15,7 @@ systemd_networkd_network:
       - Address: "192.168.1.2/24"
       - Gateway: "192.168.1.1"
 
-autofs_client: False
-autofs:
+autofs_client:
   host: bender
   shares:
     - home

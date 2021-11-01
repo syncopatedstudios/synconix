@@ -1,5 +1,8 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
+grub_config: /boot/grub/grub2.cfg
+grub_cmd: update-grub
+grub_set_default: grub-set-default
 
 update_mirrors: False
 
@@ -13,3 +16,6 @@ packages__reflector_args: >-
 packages__gpg_keyserver: keyserver.ubuntu.com
 packages__gpg_conf: |
   keyserver {{ packages__gpg_keyserver }}
+
+remove:
+  - vi

@@ -4,17 +4,19 @@
   stat: path="/usr/lib/ladspa/RTallpass1.so"
   register: hazirtplugins
 
+- name: set rtplugin dependencies to install
+  set_fact:
+    _packages: "{{ development.rtplugins }}"
+  tags: ['packages']
+
+- name: Install rtplugin dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 - block:
-    - name: Set rtplugins packages to install
-      set_fact:
-        _dev_rtplugins: "{{ development['rtplugins'] | difference(installed_packages) }}"
-      tags: ['packages']
-
-    - name: Install rtplugins dependencies
-      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_rtplugins | join(' ') }}"
-      when: _dev_rtplugins | length > 0
-      tags: ['packages']
-
     - block:
         - name: Fetch rtplugins
           get_url:

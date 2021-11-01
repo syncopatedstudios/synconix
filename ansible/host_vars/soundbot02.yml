@@ -1,8 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 
-autofs_client: False
-autofs:
+autofs_client:
   host: bender
   shares:
     - home

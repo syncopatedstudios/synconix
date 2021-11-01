@@ -10,7 +10,7 @@
       tags: ['packages']
 
     - name: install {{ application }} deps
-      shell: "{{ __ansible_pkg_mgr_install }} {{ {{ application }} | join(' ') }}"
+      shell: "{{ __ansible_pkg_mgr_install }} {{ {{ application }}  }}"
       when: {{ application }} | length > 0
       tags: ['packages']
 

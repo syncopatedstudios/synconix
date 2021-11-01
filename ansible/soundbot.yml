@@ -1,8 +1,8 @@
 ---
 
-- name: get a list of installed packages
-  import_playbook: installed_packages.yml
-  tags: ['packages']
+# - name: get a list of installed packages
+#   import_playbook: installed_packages.yml
+#   tags: ['packages']
 
 - hosts: all
   gather_facts: yes
@@ -11,25 +11,26 @@
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-  vars_files:
-    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
-    - "vars/audio.yml"
-    - "vars/common.yml"
-    - "vars/devel.yml"
-    - "vars/networking.yml"
-    - "vars/ui.yml"
-
-  pre_tasks:
+      
+  tasks:
     - name: check whether this is an initial install
       stat:
-        path: "{{ ansible_home }}/.installed"
+        path: "{{ user.home }}/.installed"
+      register: check_installed
 
-  tasks:
-    - name: touch installed
-      shell: |
-        touch .installed
-      args:
-        chdir: "{{ ansible_home }}"
+    - name: touch .installed in user home directory
+      file:
+        path: "{{ user.home }}/.installed"
+        state: touch
+      register: installed
+      when: not check_installed.stat.exists
+      become: True
+      become_user: "{{ user.name }}"
+
+    - name: Reboot on initial setup
+      shell: "shutdown -r now"
+      when: not check_installed.stat.exists
+      ignore_errors: True
 
   roles:
      - { role: distro, tags: ['distro'] }
@@ -37,5 +38,5 @@
      - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }
-     - { role: audio, tags: ['audio'] }
+     - { role: audio, tags: ['builds'] }
      - { role: soundbot, tags: ['soundbot'] }

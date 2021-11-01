@@ -1,0 +1,167 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+
+autofs_configs: /etc
+admin_user: wheel
+rtirq_dir: /etc/sysconfig/rtirq.conf
+
+base:
+  - aspell-en
+  - atool
+  - bat
+  - btrfsmaintenance
+  - exa
+  - fd-find
+  - ffmpeg
+  - fuse
+  - fzf
+  - gtkspellmm30
+  - htop
+  - http-parser
+  - iotop
+  - lnav
+  - mlocate
+  - most
+  - nfs-utils
+  - nodejs
+  - npm
+  - openssh-server
+  - pandoc
+  - pdf-tools
+  - poppler-utils
+  - python3-pip
+  - python3-xlib
+  - ranger
+  - ripgrep
+  - rsync
+  - rtirq
+  - screen
+  - screen
+  - terminator
+  - tmux
+  - tree
+  - w3m
+  - w3m-img
+  - wkhtmltopdf
+  - wordnet
+  - xarchiver
+  - xterm
+  - Zim
+  - zsh
+kernel:
+  - kernel-rt
+  - kernel-rt-core
+  - kernel-rt-devel
+  - kernel-rt-modules
+  - kernel-rt-modules-extra
+  - kernel-rt-modules-internal
+tuned:
+  - tuna
+  - xauth
+  - pygtk2-libglade
+  - tuned
+  - tuned-profiles-realtime
+  - tuned-gtk
+networkmanager:
+  - NetworkManager
+  - NetworkManager-libnm
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - NetworkManager-team
+  - nm-connection-editor
+  - network-manager-applet
+libvirt:
+  - libguestfs-tools
+  - libvirt-daemon-config-network
+  - libvirt-daemon-kvm
+  - python-libguestfs
+  - qemu-kvm
+  - virt-install
+  - virt-manager
+  - virt-top
+  - virt-viewer
+audio:
+  alsa:
+    - alsa-firmware
+    - alsa-lib
+    - alsa-lib-devel
+    - alsa-plugins-jack
+    - alsa-tools
+    - alsa-tools-firmware
+    - alsa-utils
+  gutilities:
+    - Carla
+    - freqtweak
+    - guitarix
+    - helm
+    - hydrogen
+    - jaaa
+    - jack-keyboard
+    - japa
+    - jkmeter
+    - jmeters
+    - jnoisemeter
+    - mixxx
+    - non-mixer
+    - polyphone
+    - qmidiarp
+    - qsampler
+    - sooperlooper
+    - vmpk
+    - vst3-stochas
+    - zita-mu1
+    - zita-rev1
+  jack:
+    - jack-audio-connection-kit
+    - jack-audio-connection-kit-dbus
+    - jack-audio-connection-kit-devel
+    - jack-audio-connection-kit-example-clients
+  pipewire:
+    - pipewire
+    - pipewire-alsa
+    - pipewire-gstreamer
+    - pipewire-jack-audio-connection-kit
+    - pipewire-jack-audio-connection-kit-devel
+    - pipewire-libs
+    - pipewire-pulseaudio
+    - pipewire-utils
+  plugins:
+    - DISTRHO-Ports
+    - caps-lv2
+    - dragonfly-reverb
+    - ladspa
+    - ladspa-amb1-plugins
+    - ladspa-amb-plugins
+    - ladspa-hoa3-plugins
+    - ladspa-swh-plugins
+    - lv2-swh-plugins
+    - lv2-x42-plugins
+    - noise-repellent-lv2
+  pulseaudio:
+    - pavucontrol
+    - pulseaudio
+    - pulseaudio-libs
+    - pulseaudio-libs-devel
+    - pulseaudio-libs-glib2
+    - pulseaudio-module-jack
+    - pulseaudio-module-x11
+    - pulseaudio-utils
+  utilities:
+    - a2jmidid
+    - aj-snapshot
+    - jack_capture
+    - jack_utils
+    - jacktrip
+    - jconvolver
+    - linuxsampler
+    - opus-tools
+    - osc2midi
+    - sox
+    - timemachine
+    - timidity++
+    - vamp-plugin-sdk
+    - wavpack
+    - xzgv
+    - youtube-dl
+    - zita-ajbridge
+    - zita-lrx

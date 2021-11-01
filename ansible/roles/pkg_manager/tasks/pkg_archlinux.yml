@@ -1,0 +1,16 @@
+---
+# - name: Archlinux packages to be "{{ pkg_state }}"
+#   ansible.builtin.debug:
+#     msg: "{{ _packages }}"
+
+- name: Ensure "{{ _packages }}" are "{{ pkg_state }}"
+  aur:
+    use: auto
+    name: "{{ _packages }}"
+    state: "{{ pkg_state }}"
+  become: True
+  become_user: "{{ user.name }}"
+  register: package_result
+
+- set_fact:
+    package_results: "{{ package_result }}"

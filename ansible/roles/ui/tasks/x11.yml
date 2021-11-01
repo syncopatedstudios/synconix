@@ -2,10 +2,12 @@
 
 - name: set x11 packages to install
   set_fact:
-    _ui_x11: "{{ ui['x11']|difference(installed_packages) }}"
+    _packages: "{{ ui.x11  }}"
   tags: ['packages']
 
-- name: Install x11 stuff
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_x11 | join(' ') }}"
-  when: _ui_x11 | length > 0
+- name: Install x11 packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
   tags: ['packages']

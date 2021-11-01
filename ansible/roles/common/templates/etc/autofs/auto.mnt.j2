@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
-{% for share in autofs.shares %}
-{{ share }}		-fstype=nfs4	{{ autofs.host }}:/{{ share }}
+{% for share in autofs_client.shares %}
+{{ share }}		-fstype=nfs4	{{ autofs_client.host }}:/{{ share }}
 {% endfor %}

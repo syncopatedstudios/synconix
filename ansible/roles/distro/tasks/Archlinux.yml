@@ -1,14 +1,17 @@
 ---
 
-- name: set the package manager variable
-  set_fact:
-    __ansible_pkg_mgr: "sudo pamac install --no-confirm --no-upgrade"
-  tags: ['packages']
+- name: Check if a system-release file exists
+  stat: path="/etc/system-release"
+  register: hazirelease
 
-- name: set the package manager variable
-  set_fact:
-    __ansible_pkg_mgr_remove: "sudo pamac remove --no-confirm --no-upgrade"
-  tags: ['packages']
+- name: Create link to os-release
+  file:
+    src: "/etc/os-release"
+    dest: "/etc/system-release"
+    owner: root
+    group: root
+    state: link
+  when: not hazirelease.stat.exists
 
 - name: push pacman conf
   template:

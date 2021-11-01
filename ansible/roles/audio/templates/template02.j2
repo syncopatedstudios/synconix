@@ -12,7 +12,7 @@
       tags: ['packages']
 
     - name: install dependencies for {{ application }}
-      shell: "{{ __ansible_pkg_mgr_install }} {{ {{ application }} | join(' ') }}"
+      shell: "{{ __ansible_pkg_mgr_install }} {{ {{ application }}  }}"
       when: {{ application }} | length > 0
       tags: ['packages']
 

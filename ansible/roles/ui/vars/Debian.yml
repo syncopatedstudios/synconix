@@ -1,0 +1,43 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+ui:
+  fonts:
+    - fonts-liberation
+  gutilities:
+    - darktable
+    - gpick
+    - guake
+    - kitty
+    - mpv
+    - printer-driver-escpr
+    - qpdfview
+    - qutebrowser
+    - redshift
+    - simplescreenrecorder
+    - xarchiver
+  i3:
+    - dmenu
+    - feh
+    - grsync
+    - i3
+    - polybar
+    - qt5ct
+    - rofi
+    - thunar
+    - wmctrl
+  themes:
+    - numix-icon-theme-circle
+    - qt5-style-kvantum
+  utilities:
+    - dict-wn
+    - youtube-dl
+  x11:
+    - nitrogen
+    - x11-utils
+    - x11-xserver-utils
+    - x11vnc
+    - xbindkeys
+    - xbindkeys-config
+    - xfonts-75dpi
+    - xfonts-100dpi
+    - xfonts-utils

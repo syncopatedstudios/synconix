@@ -1,13 +1,15 @@
 ---
 
-- name: set desktop environment packages to install
+- name: set packages to install
   set_fact:
-    _ui_i3: "{{ ui['i3']|difference(installed_packages) }}"
+    _packages: "{{ ui.i3 }}"
   tags: ['packages']
 
-- name: Install i3 Window Manager and components
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_i3 | join(' ') }}"
-  when: _ui_i3 | length > 0
+- name: Install ui packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
   tags: ['packages']
 
 - name: check if swallow is already installed

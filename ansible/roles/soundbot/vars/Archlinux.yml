@@ -1,2 +1,11 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
+
+development:
+  audiowaveform:
+    - boost
+    - boost-libs
+    - gd
+    - libid3tag
+    - libmad
+    - libsndfile

@@ -31,7 +31,7 @@ options:
         description:
             - Desired state of the package.
         default: present
-        choices: [ present, latest ]
+        choices: [ present, latest, absent ]
 
     upgrade:
         description:
@@ -104,7 +104,7 @@ def_lang = ['env', 'LC_ALL=C', 'LANGUAGE=C']
 
 use_cmd = {
     'yay': ['yay', '-S', '--noconfirm', '--needed', '--cleanafter'],
-    'pamac': ['pamac', '--no-confirm', '--no-upgrade'],
+    'pamac': ['pamac', 'install' '--no-confirm', '--no-upgrade'],
     'paru': ['paru', '-S', '--noconfirm', '--needed', '--cleanafter'],
     'pacaur': ['pacaur', '-S', '--noconfirm', '--noedit', '--needed'],
     'trizen': ['trizen', '-S', '--noconfirm', '--noedit', '--needed'],
@@ -296,7 +296,7 @@ def make_module():
             },
             'state': {
                 'default': 'present',
-                'choices': ['present', 'latest'],
+                'choices': ['present', 'latest', 'absent'],
             },
             'upgrade': {
                 'type': 'bool',

@@ -1,0 +1,112 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+
+autofs_configs: /etc
+admin_user: sudo
+
+base:
+  - bash-completion
+  - btrfsmaintenance
+  - cargo
+  - debian-keyring
+  - fd-find
+  - ffmpeg
+  - fzf
+  - gir1.2-gtksource-3.0
+  - git-flow
+  - googler
+  - gpgv
+  - highlight
+  - hunspell
+  - libgtksourceview-3.0-1
+  - lnav
+  - lsof
+  - most
+  - net-tools
+  - nfs-common
+  - notification-daemon
+  - pandoc
+  - poppler-utils
+  - python3-actdiag
+  - python3-blockdiag
+  - python3-matplotlib
+  - python3-numpy
+  - python3-nwdiag
+  - python3-scipy
+  - python3-seqdiag
+  - software-properties-common
+  - sox
+  - ssh
+  - tmux
+  - unrar-free
+  - unzip
+  - wakeonlan
+  - wkhtmltopdf
+  - wordnet
+  - xxdiff
+  - zim
+kernel:
+  - linux-image-5.10.0-8-rt-amd64
+  - linux-image-rt-amd64
+audio:
+  alsa:
+    - alsa-tools
+    - alsa-utils
+  gutilities:
+    - alsa-tools-gui
+    - carla
+    - fmit
+    - guitarix
+    - helm
+    - hydrogen
+    - jaaa
+    - jack-keyboard
+    - jalv
+    - japa
+    - non-mixer
+    - non-sequencer
+    - qmidiarp
+    - qmidinet
+    - sooperlooper
+    - vitalium
+    - vmpk
+    - zita-mu1
+    - zita-rev1
+  jack:
+    - jackd2
+  pipewire:
+    - pipewire
+  plugins:
+    - ams-lv2
+    - calf-plugins
+    - caps
+    - caps-lv2
+    - cmt
+    - distrho-plugin-ports-vst
+    - ir.lv2
+    - ladspa-sdk
+    - lilv-utils
+    - lsp-plugins
+    - luftikus
+    - lv2-dev
+    - noise-repellent
+    - sherlock.lv2
+    - swh-lv2
+    - swh-plugins
+    - x42-plugins
+  pulseaudio:
+    - pavucontrol
+    - pulseaudio-module-jack
+  utilities:
+    - a2jmidid
+    - aj-snapshot
+    - avahi-daemon
+    - jack-capture
+    - jack-tools
+    - jacktrip
+    - jconvolver
+    - libexif-dev
+    - xzgv
+    - zita-ajbridge
+    - zita-alsa-pcmi-utils
+    - zita-lrx

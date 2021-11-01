@@ -1,0 +1,71 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+ui:
+  x11:
+    - xorg-xmodmap
+    - xorg-xrdb
+  i3:
+    - autorandr
+    - lightdm-gtk-greeter
+    - notification-daemon
+    - picom
+    - polybar
+    - quickswitch-i3
+    - rofi
+    - xbindkeys_config-gtk2
+    - xkill-shortcut
+    - xorg-xrandr
+  themes:
+    - gtk-engine-murrine
+    - kvantum-qt5
+    - kvantum-theme-materia
+    - numix-circle-icon-theme-git
+  fonts:
+    - adobe-source-han-sans-cn-fonts
+    - adobe-source-han-sans-jp-fonts
+    - adobe-source-han-sans-kr-fonts
+    - gnu-free-fonts
+    - nerd-fonts-hack
+    - noto-fonts
+    - opendesktop-fonts
+    - otf-font-awesome
+    - terminus-font
+    - ttf-bitstream-vera
+    - ttf-caladea
+    - ttf-carlito
+    - ttf-croscore
+    - ttf-dejavu
+    - ttf-devicons
+    - ttf-font-awesome-4
+    - ttf-input
+    - ttf-jetbrains-mono
+    - ttf-liberation
+    - ttf-nerd-fonts-symbols
+    - ttf-opensans
+    - ttf-ubuntu-font-family
+    - ttf-unifont
+    - xorg-fonts-alias-75dpi
+    - xorg-fonts-alias-100dpi
+    - xorg-fonts-alias-cyrillic
+    - xorg-fonts-alias-misc
+    - xorg-mkfontscale
+    - xorg-xlsfonts
+  utilities:
+    - actdiag
+    - blockdiag
+    - epson-inkjet-printer-escpr2
+    - gtksourceview3
+    - nwdiag
+    - seqdiag
+    - wordnet-cli
+  gutilities:
+    - atom
+    - barrier
+    - celluloid
+    - darktable
+    - google-chrome
+    - guake
+    - mpv
+    - mpv-plugin-excerpt-git
+    - nomacs
+    - radiotray-ng

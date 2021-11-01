@@ -1,5 +1,4 @@
 .installed
-dev.yml
 hosts
 roles/ambisonics
 # /vars/Archlinux

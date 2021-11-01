@@ -1,5 +1,14 @@
 ---
 
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - name: copy help file to ~/.config/help.md
   copy:
     src: help.md
@@ -7,7 +16,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     mode: '0644'
-    backup: no
+    backup: yes
     directory_mode: no
   tags: ['help']
 
@@ -31,12 +40,15 @@
     systemctl set-default graphical.target
   when: graphical_target|bool
 
-- name: set multimedia packages to install
+- name: set packages to install
   set_fact:
-    _ui_gutilities: "{{ ui['gutilities']|difference(installed_packages) }}"
+    _packages: "{{ ui.gutilities  }}"
   tags: ['packages']
 
-- name: Install multimedia utils like mpv, feh, qpdfview, etc
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_gutilities | join(' ') }}"
-  when: "_ui_gutilities | length > 0 and install_gutilities|bool"
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  when: install_gutilities|bool
   tags: ['packages']

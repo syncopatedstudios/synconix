@@ -1,0 +1,65 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+ui:
+  fonts:
+    - aajohan-comfortaa-fonts
+    - allgeyer-fonts-common
+    - allgeyer-musiqwik-fonts
+    - allgeyer-musisync-fonts
+    - fontawesome-fonts
+    - fontawesome-fonts-web
+    - fontforge
+    - fontforge-devel
+    - fonts-tweak-tool
+    - greybird-dark-theme
+  gnome:
+    - gnome-tweaks
+  gutilities:
+    - Zim
+    - darktable
+    - feh
+    - gnuplot
+    - gpick
+    - grsync
+    - gtksourceview3
+    - guake
+    - mpv
+    - nitrogen
+    - nomacs-plugins
+    - qpdfview-qt5
+    - qt5ct
+    - qutebrowser
+    - python3-qt5-webengine
+    - redshift
+    - vlc
+    - wmctrl
+    - xarchiver
+    - yasm
+    - zenity
+  i3:
+    - Thunar
+    - arandr
+    - barrier
+    - i3
+    - lightdm-gtk-greeter
+    - notification-daemon
+    - picom
+    - polybar
+    - rofi
+  themes:
+    - numix-icon-theme
+    - materia-gtk-theme
+    - materia-kde-kvantum
+  x11:
+    - x11vnc
+    - xbindkeys
+    - xorg-x11-drv-intel
+    - xorg-x11-drv-vesa
+    - xorg-x11-fonts-75dpi
+    - xorg-x11-fonts-100dpi
+    - xorg-x11-server-Xorg
+    - xorg-x11-server-devel
+    - xorg-x11-server-utils
+    - xorg-x11-utils
+    - xorg-x11-xinit
+    - xorg-x11-xinit-session

@@ -1,11 +1,9 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
-grub_config: /boot/grub/grub.cfg
 
 use_networkmanager: True
 
-autofs_client: True
-autofs:
+autofs_client:
   host: bender
   shares:
     - home
@@ -15,23 +13,25 @@ graphical_target: True
 install_x11: True
 install_i3: True
 
-autologin: True
+autologin: False
 
 install_rga: True
 install_googler: True
-install_chrome: True
 install_gutilities: True
+install_atom: True
+
+install_sonicpi: True
 
 install_audio_utilities: True
 install_audio_gutilities: True
 install_audio_plugins: True
 
 install_audiowaveform: True
-install_baudline: True
+install_baudline: False
 install_protokol: True
 install_raysession: False
 install_reaper: True
-install_rtplugins: True
+install_rtplugins: False
 install_sonicannotator: True
 install_soniclineup: True
 install_tony: True

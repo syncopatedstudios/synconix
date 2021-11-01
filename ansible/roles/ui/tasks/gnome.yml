@@ -6,6 +6,6 @@
   tags: ['packages']
 
 - name: Install Gnome Stuff
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_gnome | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _ui_gnome  }}"
   when: _ui_gnome | length > 0
   tags: ['packages']

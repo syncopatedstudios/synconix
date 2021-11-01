@@ -1,5 +1,14 @@
 ---
 
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - include: sudoers.yml
   tags: ['sudoers']
 
@@ -7,18 +16,22 @@
   tags: ['filesystem']
 
 - include: rtkernel.yml
-  tags: ['rtkernel']
   when: kernel is defined
+  tags: ['rtkernel']
 
-- name: set base packages to install
+- include: soundservices.yml
+  tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]
+
+- name: Set base packages to install
   set_fact:
-    _packages: "{{ 0base |difference(installed_packages) }}"
+    _packages: "{{ base }}"
   tags: ['packages']
 
-- name: Install common packages
-  shell: "{{ __ansible_pkg_mgr_install }} {{ _packages| join(' ') }}"
-  when: _packages | length > 0
-  tags: ['packages']
+- name: Install base packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
 
 - include: realtime.yml
   tags: ['realtime']
@@ -27,36 +40,48 @@
   tags: ['perms']
 
 - include: autofs.yml
+  when: autofs_client is defined
   tags: ['autofs']
-  when: autofs_client|bool
 
 - include: nfs.yml
-  tags: ['nfs']
   when: nfs_host|bool
+  tags: ['nfs']
 
 - include: timeshift.yml
-  tags: ['timeshift']
   when: install_timeshift|bool
+  tags: ['timeshift']
 
 - include: zsh.yml
   tags: ['zsh']
 
 - include: nvim.yml
-  tags: ['nvim']
   when: install_nvim|bool
+  tags: ['nvim']
 
 - include: ripgrep.yml
-  tags: ['ripgrep']
   when: install_rga|bool
+  tags: ['ripgrep']
 
 - include: googler.yml
-  tags: ['googler']
   when: install_googler|bool
+  tags: ['googler']
 
 - include: atom.yml
-  tags: ['atom']
   when: install_atom|bool
+  tags: ['atom']
 
 - include: chrome.yml
-  tags: ['chrome']
   when: install_chrome|bool
+  tags: ['chrome']
+
+- include: tui_utils.yml
+  when: install_audio_utilities|bool
+  tags: ['audio']
+
+- include: gui_utils.yml
+  when: install_audio_gutilities|bool
+  tags: ['audio']
+
+- include: plugins.yml
+  when: install_audio_plugins|bool
+  tags: ['audio']

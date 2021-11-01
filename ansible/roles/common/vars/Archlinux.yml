@@ -1,0 +1,140 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+
+autofs_configs: /etc/autofs
+rtirq_dir: /etc/rtirq.conf
+
+base:
+  - bash-language-server
+  - bat
+  - barrier
+  - bind
+  - boost
+  - brightnessctl
+  - btrfsmaintenance
+  - exa
+  - faad2
+  - fd
+  - fzf
+  - gcc-libs
+  - gendesk
+  - git
+  - git-filter-repo
+  - git-lfs
+  - glibc
+  - htop
+  - iftop
+  - iotop
+  - jansson
+  - lnav
+  - lua
+  - mlocate
+  - ncurses
+  - net-tools
+  - nfs-utils
+  - nodejs
+  - npm
+  - numlockx
+  - opus
+  - opusfile
+  - python-pip
+  - qscintilla-qt5
+  - qt5-base
+  - qt5-tools
+  - r
+  - ranger
+  - rsync
+  - rtirq
+  - screen
+  - sndio
+  - sudo
+  - terminator
+  - tmux
+  - wol
+  - xterm
+  - zim
+  - zsh
+kernel:
+  - linux510-rt
+  - linux510-rt-acpi_call
+  - linux510-rt-headers
+  - linux510-rt-r8168
+tuned:
+  - tuned
+  - tuna
+networkmanager:
+  - libnm
+  - libnma
+  - networkmanager
+  - networkmanager-openconnect
+  - networkmanager-openvpn
+  - networkmanager-pptp
+  - networkmanager-vpnc
+  - nm-connection-editor
+audio:
+  alsa:
+    - alsa-lib
+  gutilities:
+    - baudline-bin
+    - carla
+    - fmit
+    - guitarix
+    - helm-synth
+    - hydrogen
+    - iempluginsuite
+    - jack-keyboard
+    - mamba
+    - midifilter.lv2-git
+    - mixxx
+    - non-mixer-lv2-git
+    - non-sequencer
+    - obs-studio
+    - ocenaudio-bin
+    - polyphone
+    - qmidiarp
+    - qmidinet
+    - scala-music
+    - scala-music-scales
+    - seq66-git
+    - sfizz
+    - sitala-bin
+    - stochas
+    - tonespace
+    - vital-synth
+  jack:
+    - jack2
+    - jack2-dbus
+  pipewire:
+    - pipewire
+  plugins:
+    - ams-lv2
+    - calf
+    - caps-lv2-git
+    - distrho-ports
+    - dragonfly-reverb
+    # - ir-lv2-git
+    - ladspa
+    - lsp-plugins
+    - lv2
+    - noise-repellent-git
+    - swh-lv2-git
+  pulseaudio:
+    - pulseaudio-jack
+  utilities:
+    - a2jmidid
+    - jack_capture
+    - jack_utils
+    - jacktrip
+    - jconvolver
+    - linuxsampler
+    - osc2midi
+    - njconnect
+    - sox
+    - timidity++
+    - vamp-plugin-sdk
+    - xzgv
+    - xzgv
+    - youtube-dl
+    - zita-ajbridge
+    - zita-alsa-pcmi
+    - zita-lrx
