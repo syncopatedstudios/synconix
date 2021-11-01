@@ -18,6 +18,9 @@
 - include: audiowaveform.yml
   tags: ['audiowaveform']
 
+- include_tasks: surfraw.yml
+  tags: ['surfraw']
+
 - name: ensure opt perms
   file:
     path: "/opt"
