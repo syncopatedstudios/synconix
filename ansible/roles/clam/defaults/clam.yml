@@ -40,3 +40,5 @@ application:
     - "with_alsa=1"
     - "with_portaudio=1"
     - "with_portmidi=1"
+
+# prefix=/usr/local clam_prefix=/usr/local release=1 intel_optimize=1 verbose=1 double=0 xmlbackend=xercesc with_ladspa=1 with_jack=1 with_fftw=1 with_fftw3=1 with_nr_fft=1 with_sndfile=1 with_oggvorbis=1 with_mad=1 with_id3=1 with_alsa=1 with_portaudio=1 with_portmidi=1

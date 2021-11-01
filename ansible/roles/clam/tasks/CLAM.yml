@@ -7,10 +7,10 @@
 
 - name: "Set {{ application.name }} dependencies to install"
   set_fact:
-    _packages: "{{ application.dependencies }}"
+    _packages: "{{ application.dependencies.Archlinux }}"
   tags: ['clam']
 
-- name: "Install {{ application.dependencies }}"
+- name: "Install {{ application.dependencies.Archlinux }}"
   import_role:
     name: pkg_manager
   vars:

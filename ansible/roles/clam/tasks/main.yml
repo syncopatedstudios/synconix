@@ -12,5 +12,4 @@
   tags: ['clam']
 
 - include: CLAM.yml
-  when: install_clam|bool
   tags: ['clam']
