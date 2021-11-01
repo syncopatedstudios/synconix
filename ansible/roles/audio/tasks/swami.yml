@@ -18,26 +18,37 @@
   tags: ['packages']
 
 - block:
-    - block:
-        - name: Clone libinstpatch
-          git:
-            repo: "{{ libinstpatch['git'] }}"
-            dest: "{{ local_src }}/libinstpatch"
-            accept_hostkey: yes
-            update: no
-            force: no
+    - name: Clone libinstpatch
+      git:
+        repo: "{{ libinstpatch['git'] }}"
+        dest: "{{ local_src }}/libinstpatch"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-        - name: Build and install libinstpatch
-          shell: |
-            mkdir -pv build && cd build/
+    - name: Build and install libinstpatch
+      shell: |
+        mkdir -pv build && cd build/
 
-            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+        cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
 
-            make && sudo make install
-          args:
-            chdir: "{{ local_src }}/libinstpatch"
-          register: libinstpatch_build
-          failed_when: libinstpatch_build.failed
+      args:
+        chdir: "{{ local_src }}/libinstpatch"
+      register: libinstpatch_cmake
+      failed_when: libinstpatch_cmake.failed
+
+    - name: make libinstpatch
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ local_src }}/libinstpatch/build"
+      register: libinstpatch_make
+      failed_when: libinstpatch_make.failed
+
+    - name: install libinstpatch
+      shell: "sudo make install"
+      args:
+        chdir: "{{ local_src }}/libinstpatch/build"
+      when: libinstpatch_make.rc == 0
 
   become: True
   become_user: "{{ user.name }}"
@@ -58,12 +69,23 @@
         mkdir -pv build && cd build/
 
         cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
-
-        make && sudo make install
       args:
         chdir: "{{ local_src }}/swami"
       register: swami_build
       failed_when: swami_build.failed
+
+    - name: make swami
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ local_src }}/swami/build"
+      register: swami_make
+      failed_when: swami_make.failed
+
+    - name: install swami
+      shell: "sudo make install"
+      args:
+        chdir: "{{ local_src }}/swami/build"
+      when: swami_make.rc == 0
 
   rescue:
     - debug:

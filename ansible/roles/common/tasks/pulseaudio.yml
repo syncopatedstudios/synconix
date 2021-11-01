@@ -20,7 +20,7 @@
       - "{{ _packages }}"
   when: "ansible_os_family == 'Archlinux'"
   register: alsapulse
-  failed_when: alsapulse.failed
+  failed_when: alsapulse.rc != 1
   tags: ['packages']
 
 - name: Remove pulseaudio systemd configs
