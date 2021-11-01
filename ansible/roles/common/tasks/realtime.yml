@@ -69,7 +69,7 @@
     _tuned: "{{ tuned | difference(installed_packages) }}"
 
 - name: Install tuned packages
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _tuned | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _tuned | join(' ') }}"
   when: _tuned | length > 0
 
 - name: Copy over rtirq template

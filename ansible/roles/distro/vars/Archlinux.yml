@@ -1,6 +1,8 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
 
+update_mirrors: False
+
 packages__reflector_args: >-
   --latest 200
   --sort rate

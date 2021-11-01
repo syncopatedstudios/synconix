@@ -11,7 +11,7 @@
         _dev_swami: "{{ development['swami'] | difference(installed_packages) }}"
 
     - name: Install swami dependencies
-      shell: "{{ ansible_pkg_mgr }} -y install {{ _dev_swami | join(' ') }}"
+      shell: "{{ __ansible_pkg_mgr_install }} {{ _dev_swami | join(' ') }}"
       when: _dev_swami | length > 0
 
     - block:

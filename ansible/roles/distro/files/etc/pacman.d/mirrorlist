@@ -1,23 +1,23 @@
 ##
-## Manjaro Linux custom mirrorlist
-## Generated on 2021-08-28 05:30
+## Manjaro Linux default mirrorlist
+## Generated on 2021-10-31 01:39
 ##
-## Please use 'pacman-mirrors -id' To reset custom mirrorlist
-## Please use 'pacman-mirrors -c all' To reset custom mirrorlist
-## To remove custom config run  'pacman-mirrors -c all'
+## Please use 'pacman-mirrors -f [NUMBER] [NUMBER]' to modify mirrorlist
+## (Use 0 for all mirrors)
 ##
 
-## Country : Global
-Server = https://mirrors.manjaro.org/repo/stable/$repo/$arch
+## Country : Netherlands
+Server = https://manjaro.mirrors.lavatech.top/stable/$repo/$arch
 
-## Country : United_States
-Server = https://mirrors.gigenet.com/manjaro/stable/$repo/$arch
+## Country : Sweden
+Server = https://mirror.zetup.net/manjaro/stable/$repo/$arch
 
-## Country : Canada
-Server = https://mirror.csclub.uwaterloo.ca/manjaro/stable/$repo/$arch
+## Country : Chile
+Server = https://mirror.ufro.cl/manjaro/stable/$repo/$arch
 
-## Country : United_States
-Server = https://mirror.math.princeton.edu/pub/manjaro/stable/$repo/$arch
+## Country : Germany
+Server = https://ftp.halifax.rwth-aachen.de/manjaro/stable/$repo/$arch
 
-## Country : United_States
-Server = https://mirror.dacentec.com/manjaro/stable/$repo/$arch
+## Country : Chile
+Server = http://manjaro.dcc.uchile.cl/stable/$repo/$arch
+

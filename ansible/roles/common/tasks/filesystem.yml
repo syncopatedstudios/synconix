@@ -9,13 +9,13 @@
 
 - block:
     - name: Install btrfsmaintenance
-      shell: "{{ ansible_pkg_mgr }} -y install btrfsmaintenance"
+      shell: "{{ __ansible_pkg_mgr_install }} btrfsmaintenance"
       when: "'btrfsmaintenance' not in installed_packages"
 
     - name: Enable and/or start btrfs-scrub@-.timer
       systemd: enabled=yes state=started daemon_reload=yes name=btrfs-scrub.timer
 
-  when: btrfs_exists.rc == 0
+  when: "btrfs_exists.rc == 0 and ansible_os_family != 'Archlinux'"
   tags: ['filesystem']
 
 - name: Check if fstrim will be necessary
@@ -36,39 +36,39 @@
   tags: ['filesystem']
 
 #TODO: find a way to use current fstab options instead of item.options
-- name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
-  mount:
-    path: "{{ item.mount }}"
-    src: "UUID={{ item.uuid }}"
-    fstype: "{{ item.fstype }}"
-    opts: "subvol=root,compress=lzo,autodefrag,noatime,discard"
-    state: present
-    backup: yes
-  with_items:
-    - "{{ ansible_mounts }}"
-  when:
-    - "item.fstype == 'btrfs'"
-    - "item.options.find('compress=lzo') != 0"
-    - "fstrim_supported.stdout != 0"
-  register: fstab
-  tags: ['filesystem']
+# - name: Ensure compression, autodefrag, and noatime are enabled for btrfs mounts
+#   mount:
+#     path: "{{ item.mount }}"
+#     src: "UUID={{ item.uuid }}"
+#     fstype: "{{ item.fstype }}"
+#     opts: "subvol=root,compress=zstd:3,noatime,discard"
+#     state: present
+#     backup: yes
+#   with_items:
+#     - "{{ ansible_mounts }}"
+#   when:
+#     - "item.fstype == 'btrfs'"
+#     - "item.options.find('compress=zstd') != 0"
+#     - "fstrim_supported.stdout != 0"
+#   register: fstab
+#   tags: ['filesystem']
 
-- block:
-    - name: Reboot if a different kernel was installed
-      shell: "shutdown -r now"
-      async: 1
-      poll: 0
-      ignore_errors: True
-      register: reboot
-
-    - name: wait for reboot complete before moving on
-      local_action:
-        module: wait_for
-        host: "{{ inventory_hostname }}"
-        state: started
-        delay: 10
-        timeout: 60
-      when: reboot.changed
-
-  when: fstab is changed
-  tags: ['filesystem']
+# - block:
+#     - name: Reboot if a different kernel was installed
+#       shell: "shutdown -r now"
+#       async: 1
+#       poll: 0
+#       ignore_errors: True
+#       register: reboot
+#
+#     - name: wait for reboot complete before moving on
+#       local_action:
+#         module: wait_for
+#         host: "{{ inventory_hostname }}"
+#         state: started
+#         delay: 10
+#         timeout: 60
+#       when: reboot.changed
+#
+#   when: fstab is changed
+#   tags: ['filesystem']

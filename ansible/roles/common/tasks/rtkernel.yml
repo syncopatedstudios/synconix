@@ -5,7 +5,7 @@
     _rtkernel: "{{ kernel|difference(installed_packages) }}"
 
 - name: install rt-kernel
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _rtkernel | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _rtkernel | join(' ') }}"
   when: _rtkernel | length > 0
   register: rtkernel
   tags: ['rtkernel']

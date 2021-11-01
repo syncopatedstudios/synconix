@@ -1,24 +1,6 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
 
-packages:
-  - git
-  - git-lfs
-  - htop
-  - iftop
-  - iotop
-  - mlocate
-  - net-tools
-  - nodejs
-  - numlockx
-  - python3-pip
-  - ranger
-  - rsync
-  - screen
-  - sudo
-  - terminator
-  - xterm
-  - zsh
 fonts:
   - ttf-bitstream-vera
   - fonts-dejavu

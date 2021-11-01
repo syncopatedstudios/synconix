@@ -4,7 +4,7 @@
 autofs_configs: /etc
 admin_user: wheel
 
-common:
+base:
   - aspell-en
   - atool
   - bat
@@ -14,20 +14,28 @@ common:
   - fuse
   - fzf
   - gtkspellmm30
+  - htop
   - http-parser
+  - iotop
   - lnav
   - mlocate
   - most
   - nfs-utils
+  - nodejs
   - npm
   - openssh-server
   - pandoc
   - pdf-tools
   - poppler-utils
+  - python3-pip
   - python3-xlib
+  - ranger
   - ripgrep
+  - rsync
   - rtirq
   - screen
+  - screen
+  - terminator
   - tmux
   - tree
   - w3m
@@ -35,6 +43,9 @@ common:
   - wkhtmltopdf
   - wordnet
   - xarchiver
+  - xterm
+  - zim
+  - zsh
 kernel:
   - kernel-rt
   - kernel-rt-core

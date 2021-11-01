@@ -1,7 +1,7 @@
 ---
 
 - name: Install autofs
-  shell: "{{ ansible_pkg_mgr }} -y install autofs"
+  shell: "{{ __ansible_pkg_mgr_install }} autofs"
 
 - name: Create mount directory folder if it doesn't already exist
   file:

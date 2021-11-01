@@ -23,7 +23,7 @@
 - include: pipewire.yml
 
 - name: install sound services (alsa,jack,pulse)
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _sound_services | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _sound_services | join(' ') }}"
   when: _sound_services | length > 0
   tags: ['packages']
 
@@ -42,17 +42,17 @@
   tags: ['soundfonts']
 
 - name: install cli audio utilities
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_utils | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _audio_utils | join(' ') }}"
   when: "install_audio_utilities|bool and _audio_utils | length > 0"
   tags: ['audio_utils', 'packages']
 
 - name: install graphical audio utilities
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_gutils | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _audio_gutils | join(' ') }}"
   when: "install_audio_gutilities|bool and _audio_gutils | length > 0"
   tags: ['audio_gutils', 'packages']
 
 - name: install plugins
-  shell: "{{ ansible_pkg_mgr }} -y install {{ _audio_plugins | join(' ') }}"
+  shell: "{{ __ansible_pkg_mgr_install }} {{ _audio_plugins | join(' ') }}"
   when: "install_audio_plugins|bool and _audio_plugins | length > 0"
   tags: ['audio_plugins', 'packages']
 

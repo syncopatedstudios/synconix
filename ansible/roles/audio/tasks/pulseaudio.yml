@@ -1,7 +1,7 @@
 ---
 
 - name: remove alsa-plugins-pulseaudio
-  shell: "{{ ansible_pkg_mgr }} -y remove alsa-plugins-pulseaudio"
+  shell: "{{ __ansible_pkg_mgr_remove }} alsa-plugins-pulseaudio"
   when: "'alsa-plugins-pulseaudio' in installed_packages"
   tags: ['packages']
 

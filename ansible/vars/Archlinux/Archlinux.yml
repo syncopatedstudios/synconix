@@ -2,10 +2,11 @@
 # vars here will override those found in host_vars/<host>.yml
 
 autofs_configs: /etc/autofs
+rtirq_dir: /etc
 
 remove:
   - vi
-common:
+base:
   - bash-language-server
   - bat
   - bind
@@ -16,14 +17,22 @@ common:
   - fzf
   - gcc-libs
   - gendesk
+  - git
   - git-filter-repo
+  - git-lfs
   - glibc
+  - htop
+  - iftop
+  - iotop
   - jansson
   - lnav
   - lua
   - mlocate
   - ncurses
+  - net-tools
   - nfs-utils
+  - nodejs
+  - npm
   - numlockx
   - opus
   - opusfile
@@ -32,9 +41,29 @@ common:
   - qt5-base
   - qt5-tools
   - r
+  - ranger
+  - rsync
+  - rtirq
+  - screen
   - sndio
+  - sudo
+  - terminator
   - wol
+  - xterm
   - zim
+  - zsh
+tuned:
+  - tuned
+  - tuna
+networkmanager:
+  - libnm
+  - libnma
+  - networkmanager
+  - networkmanager-openconnect
+  - networkmanager-openvpn
+  - networkmanager-pptp
+  - networkmanager-vpnc
+  - nm-connection-editor
 ui:
   x11:
     - xorg-xmodmap

@@ -1,7 +1,7 @@
 ---
 
 - name: Install timeshift
-  shell: "{{ ansible_pkg_mgr }} -y install timeshift"
+  shell: "{{ __ansible_pkg_mgr_install }} timeshift"
   when: "'timeshift' not in installed_packages"
 
 #TODO: vars for template

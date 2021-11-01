@@ -1,8 +1,14 @@
 ---
 
-- set_fact:
-    _ansible_pkg_mgr: "yay -S --noconfirm --needed --cleanafter"
-  when: _packagelist | length > 0
+- name: set the package manager variable
+  set_fact:
+    __ansible_pkg_mgr: "sudo pamac install --no-confirm --no-upgrade"
+  tags: ['packages']
+
+- name: set the package manager variable
+  set_fact:
+    __ansible_pkg_mgr_remove: "sudo pamac remove --no-confirm --no-upgrade"
+  tags: ['packages']
 
 - name: push pacman conf
   template:
@@ -33,6 +39,7 @@
 
 - name: update manjaro mirrors
   shell: pacman-mirrors -f 5
+  when: update_mirrors|bool
   tags: ['mirrors']
 
 - name: Update system package cache
@@ -49,16 +56,6 @@
 #   become_user: "{{ user.name }}"
 #   tags: ['pamac']
 #
-# - name: clone aur module
-#   git:
-#     repo: "https://github.com/syncopatedstudios/ansible-aur.git"
-#     dest: "{{ user.home }}/.ansible/plugins/modules/aur"
-#     accept_hostkey: yes
-#     update: no
-#     force: no
-#   become: True
-#   become_user: "{{ user.name }}"
-#   tags: ['aur']
 
 - name: remove packages
   pacman:

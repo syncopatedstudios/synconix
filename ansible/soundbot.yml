@@ -2,7 +2,7 @@
 
 - name: get a list of installed packages
   import_playbook: installed_packages.yml
-  tags: ['bigbutt']
+  tags: ['packages']
 
 - hosts: all
   gather_facts: yes

@@ -8,7 +8,7 @@
 
 - block:
     - name: install atom package
-      shell: "{{ ansible_pkg_mgr }} -y install atom"
+      shell: "{{ __ansible_pkg_mgr_install }} atom"
 
     - block:
         - name: gather list of installed apm packages
