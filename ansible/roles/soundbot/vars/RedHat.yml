@@ -3,3 +3,6 @@
 
 depends_on:
   - speech-dispatcher-utils
+
+dependencies:
+  audiowaveform:

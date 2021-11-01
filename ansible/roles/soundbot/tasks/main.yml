@@ -15,7 +15,7 @@
 - include: sonicannotator.yml
   tags: ['sonicannotator']
 
-- include: audiowaveform.yml
+- include_tasks: audiowaveform.yml
   tags: ['audiowaveform']
 
 - include_tasks: surfraw.yml

@@ -1,0 +1,54 @@
+---
+
+- name: check if audiowaveform is already installed
+  stat: path="/usr/local/bin/audiowaveform"
+  register: haziaudiowaveform
+  tags: ['audiowaveform']
+
+- name: set packages to install
+  set_fact:
+    _packages: "{{ development.audiowaveform }}"
+  tags: ['packages','audiowaveform']
+
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages','audiowaveform']
+
+- block:
+    - block:
+        - name: clone audiowaveform
+          git:
+            repo: "{{ audiowaveform.git }}"
+            dest: "{{ local_src }}/audiowaveform"
+            accept_hostkey: yes
+            update: no
+            force: no
+
+        - name: fetch googletest
+          get_url:
+            url: "{{ googletest.url }}{{ googletest.file }}"
+            dest: "{{ local_src }}/audiowaveform"
+            validate_certs: no
+
+        - name: build and install audiowaveform
+          shell: |
+            tar -xvf googletest-release-1.11.0.tar.gz
+
+            ln -s googletest-release-1.11.0 googletest
+
+            mkdir -pv build && cd build/
+
+            cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
+
+            make -j{{ ansible_facts.processor_vcpus }} && sudo make install
+          args:
+            chdir: "{{ local_src }}/audiowaveform"
+          register: audiowaveform_build
+
+      become: True
+      become_user: "{{ user.name }}"
+
+  when: not haziaudiowaveform.stat.exists
