@@ -42,7 +42,7 @@
 
 - name: set packages to install
   set_fact:
-    _packages: "{{ ui.gutilities | join(',') }}"
+    _packages: "{{ ui.gutilities  }}"
   tags: ['packages']
 
 - name: Ensure all the required packages are installed

@@ -2,7 +2,7 @@
 
 - name: set x11 packages to install
   set_fact:
-    _packages: "{{ ui.x11 | join(',') }}"
+    _packages: "{{ ui.x11  }}"
   tags: ['packages']
 
 - name: Install x11 packages

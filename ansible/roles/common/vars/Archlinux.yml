@@ -12,6 +12,7 @@ base:
   - bind
   - boost
   - brightnessctl
+  - exa
   - faad2
   - fd
   - fzf

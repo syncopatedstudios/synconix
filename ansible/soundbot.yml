@@ -45,5 +45,5 @@
      - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui'] }
      - { role: devel, tags: ['devel'] }
-     - { role: audio, tags: ['audio'] }
+     - { role: audio, tags: ['builds'] }
      - { role: soundbot, tags: ['soundbot'] }

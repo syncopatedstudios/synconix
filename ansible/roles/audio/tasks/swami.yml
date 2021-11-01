@@ -8,7 +8,7 @@
 - block:
     - name: set packages to install
       set_fact:
-        _packages: "{{ development.swami| join(',') }}"
+        _packages: "{{ development.swami }}"
       tags: ['packages']
 
     - name: Ensure all the required packages are installed

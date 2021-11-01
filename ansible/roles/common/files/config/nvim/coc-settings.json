@@ -9,6 +9,6 @@
     }
 
   },
-  "solargraph.commandPath": "/usr/local/bin/solargraph",
+  "solargraph.commandPath": "/usr/bin/solargraph",
   "codeLens.enable" :True
 }

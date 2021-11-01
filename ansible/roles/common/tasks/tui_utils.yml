@@ -2,7 +2,7 @@
 
 - name: set audio tui utility packages
   set_fact:
-    _packages: "{{ audio.utilities | join(',') }}"
+    _packages: "{{ audio.utilities  }}"
   tags: ['packages']
 
 - name: install audio tui utilities

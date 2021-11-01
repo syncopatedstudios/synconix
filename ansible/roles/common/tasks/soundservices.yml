@@ -2,7 +2,7 @@
 
 - name: set sound service packages to install
   set_fact:
-    _packages: "{{ (audio['alsa'] + audio['jack'] + audio['pulseaudio']) | join(',' }}"
+    _packages: "{{ (audio.alsa + audio.jack + audio.pulseaudio)"
   tags: ['packages']
 
 - include: pipewire.yml

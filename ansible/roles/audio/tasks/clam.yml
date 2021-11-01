@@ -31,7 +31,7 @@
 - block:
     - name: set packages to install
       set_fact:
-        _packages: "{{ clam.dependencies| join(',') }}"
+        _packages: "{{ clam.dependencies }}"
       tags: ['packages']
 
     - name: Ensure all the required packages are installed
@@ -74,7 +74,7 @@
         shell: |
           CCFLAGS="{{ clam.ccflags.x86_64 }}" \
           CPPFLAGS="{{ clam.ccflags.x86_64 }}" \
-          scons configure {{ clam.flags | join(',') }}
+          scons configure {{ clam.flags  }}
 
         args:
           chdir: "{{ destination }}/CLAM"

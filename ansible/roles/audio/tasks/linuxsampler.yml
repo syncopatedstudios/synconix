@@ -2,7 +2,7 @@
 #https://linuxsampler-devel.narkive.com/g4cCNyDP/libgig-compiler-error-on-ubuntustudio-16-04
 - name: set packages to install
   set_fact:
-    _packages: "{{ development.linuxsampler| join(',') }}"
+    _packages: "{{ development.linuxsampler }}"
   tags: ['packages']
 
 - name: Ensure all the required packages are installed

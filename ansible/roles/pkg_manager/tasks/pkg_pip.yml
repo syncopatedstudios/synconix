@@ -6,5 +6,5 @@
 
 - name: "Ensure pip packages are {{ pkg_state }}"
   ansible.builtin.pip:
-    name: "{{ _pips | join(',') }}"
+    name: "{{ _pips  }}"
     state: "{{ pkg_state }}"

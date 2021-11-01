@@ -71,6 +71,9 @@
   when: install_chrome|bool
   tags: ['chrome']
 
+- include: soundservices.yml
+  tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]
+
 - include: tui_utils.yml
   when: install_audio_utilities|bool
   tags: ['audio']

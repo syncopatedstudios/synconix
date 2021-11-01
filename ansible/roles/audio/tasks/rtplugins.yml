@@ -7,7 +7,7 @@
 - block:
     - name: set packages to install
       set_fact:
-        _packages: "{{ development.rtplugins| join(',') }}"
+        _packages: "{{ development.rtplugins }}"
       tags: ['packages']
 
     - name: Ensure all the required packages are installed

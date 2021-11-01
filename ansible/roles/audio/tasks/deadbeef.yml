@@ -8,7 +8,7 @@
 - block:
     - name: set packages to install
       set_fact:
-        _packages: "{{ development.deadbeef| join(',') }}"
+        _packages: "{{ development.deadbeef }}"
       tags: ['packages']
 
     - name: Ensure all the required packages are installed
@@ -24,7 +24,7 @@
 
       - name: Clone deadbeef
         git:
-          repo: "{{ deadbeef['git'] }}"
+          repo: "{{ deadbeef.git }}"
           dest: "{{ local_src }}/deadbeef"
           accept_hostkey: yes
           update: no

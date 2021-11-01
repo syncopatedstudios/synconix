@@ -7,7 +7,7 @@
 - block:
     - name: set packages to install
       set_fact:
-        _packages: "{{ development.njconnect | join(',') }}"
+        _packages: "{{ development.njconnect  }}"
       tags: ['packages']
 
     - name: Ensure all the required packages are installed

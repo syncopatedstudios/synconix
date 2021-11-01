@@ -66,7 +66,7 @@
 # to the line for GRUB_CMDLINE_LINUX, then generate a new grub.cfg file.
 - name: set tuned packages to install
   set_fact:
-    _packages: "{{ tuned | join(',') }}"
+    _packages: "{{ tuned  }}"
   tags: ['packages']
 
 - name: Ensure all the required packages are installed

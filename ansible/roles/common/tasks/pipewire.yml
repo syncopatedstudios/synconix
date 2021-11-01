@@ -2,7 +2,7 @@
 
 - name: set packages to remove
   set_fact:
-    _packages: "{{ pipewire| join(',') }}"
+    _packages: "{{ pipewire }}"
   tags: ['packages']
 
 - name: Remove these packages

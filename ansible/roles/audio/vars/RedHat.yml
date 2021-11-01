@@ -144,13 +144,18 @@ development:
     - libXcomposite-devel
     - libXdamage
     - libXinerama-devel
+    - libbsd
+    - libbsd-devel
     - libcurl-devel
     - libdrm-devel
+    - libftl-devel
+    - libftl-devel
     - libglvnd-devel
     - libv4l-devel
     - luajit-devel
     - make
     - mbedtls-devel
+    - nasm
     - pipewire-devel
     - pulseaudio-libs-devel
     - python3-devel
@@ -160,11 +165,14 @@ development:
     - qt5-qtwayland-devel
     - qt5-qtx11extras-devel
     - speexdsp-devel
+    - speexdsp-devel
     - swig
     - systemd-devel
     - vlc-devel
+    - vlc-devel
     - wayland-devel
-    - x264-dev
+    - x264-devel
+    - zlib-devel
   pipewire:
     - bluez-libs-devel
     - dbus-devel
