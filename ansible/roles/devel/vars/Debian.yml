@@ -1,0 +1,22 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+development:
+  base:
+    - cmake
+    - cmake-curses-gui
+    - g++
+    - git
+    - libgraphicsmagick++-dev
+    - libssl-dev
+    - libswscale-dev
+    - libturbojpeg-dev
+    - libxcb-cursor-dev
+    - libxcb-keysyms1-dev
+    - libxcb-xkb-dev
+    - libxkbcommon-dev
+    - libxkbcommon-x11-dev
+    - libzip4
+  ruby:
+    - ruby-dev*
+    - libssl-dev
+    - libgit2-dev

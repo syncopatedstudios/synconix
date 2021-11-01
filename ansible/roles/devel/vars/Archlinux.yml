@@ -1,0 +1,29 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+
+autofs_configs: /etc/autofs
+rtirq_dir: /etc
+
+
+development:
+  base:
+    - base-devel
+    - cmake
+    - git
+    - libbluray
+    - libgme
+    - libmad
+    - libopusenc
+    - libsamplerate
+    - libvdpau-va-gl
+    - libzip
+  ruby:
+    - libev
+    - libgit2
+    - libxml2
+    - openssl
+    - ruby-bundler
+    - rubygems
+    - sqlite
+    - taglib
+    - zlib

@@ -1,0 +1,9 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+development:
+  sonicpi:
+    - aubio
+    - erlang
+    - osmid
+    - rtaudio
+    - rtmidi

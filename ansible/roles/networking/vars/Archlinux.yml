@@ -1,0 +1,11 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+networkmanager:
+  - libnm
+  - libnma
+  - networkmanager
+  - networkmanager-openconnect
+  - networkmanager-openvpn
+  - networkmanager-pptp
+  - networkmanager-vpnc
+  - nm-connection-editor
