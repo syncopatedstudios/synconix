@@ -43,7 +43,7 @@ install_audio_plugins: True
 
 install_audiowaveform: True
 install_baudline: True
-install_obs: True
+install_obs: False
 install_njconnect: True
 install_qmidinet: True
 

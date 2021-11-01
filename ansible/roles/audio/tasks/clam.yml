@@ -16,6 +16,18 @@
   register: haziclam
   tags: ['clam']
 
+- name: set clam dependencies to install
+  set_fact:
+    _packages: "{{ clam.dependencies }}"
+  tags: ['packages']
+
+- name: Install clam dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 # - set_fact:
 #     _ccflags: "{{ clam.ccflags['{{ 'arch' }}'] }}"
 #
@@ -29,18 +41,6 @@
 
 
 - block:
-    - name: set packages to install
-      set_fact:
-        _packages: "{{ clam.dependencies }}"
-      tags: ['packages']
-
-    - name: Ensure all the required packages are installed
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
     - name: set source destination directory
       set_fact:
         destination: "/usr/local/src/clam"

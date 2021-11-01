@@ -19,9 +19,12 @@
   when: kernel is defined
   tags: ['rtkernel']
 
+- include: soundservices.yml
+  tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]
+
 - name: Set base packages to install
   set_fact:
-    _packages: "{{ base |join(',') }}"
+    _packages: "{{ base }}"
   tags: ['packages']
 
 - name: Install base packages
@@ -70,9 +73,6 @@
 - include: chrome.yml
   when: install_chrome|bool
   tags: ['chrome']
-
-- include: soundservices.yml
-  tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]
 
 - include: tui_utils.yml
   when: install_audio_utilities|bool

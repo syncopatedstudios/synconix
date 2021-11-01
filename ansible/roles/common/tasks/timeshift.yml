@@ -1,11 +1,11 @@
 ---
 
-- name: set packages to install
+- name: set timeshift to install
   set_fact:
     _packages: "{{ timeshift }}"
   tags: ['packages']
 
-- name: Ensure all the required packages are installed
+- name: Install timeshift
   import_role:
     name: pkg_manager
   vars:

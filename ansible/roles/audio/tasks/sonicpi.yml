@@ -5,19 +5,19 @@
   register: hazisonicpi
   tags: ['sonicpi']
 
+- name: set sonic-pi dependencies to install
+  set_fact:
+    _packages: "{{ development.sonicpi }}"
+  tags: ['packages']
+
+- name: Install sonic-pi dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 - block:
-    - name: set packages to install
-      set_fact:
-        _packages: "{{ development.sonicpi }}"
-      tags: ['packages']
-
-    - name: Ensure all the required packages are installed
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
     - block:
       - name: clone sonicpi
         git:

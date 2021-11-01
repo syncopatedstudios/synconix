@@ -2,12 +2,21 @@
 
 - name: set packages to remove
   set_fact:
-    _packages: "{{ pipewire }}"
+    _packages: "{{ audio.pipewire }}"
   tags: ['packages']
 
-- name: Remove these packages
+- name: Remove pipewire
   import_role:
     name: pkg_manager
   vars:
     pkg_state: absent
+  when: "ansible_os_family != 'Archlinux'"
   tags: ['packages']
+
+# - name: remove pipewire
+#   shell: |
+#     pamac remove --no-confirm --no-upgrade {{ item }}
+#   with_items:
+#     - "{{ _packages }}"
+#   when: "ansible_os_family == 'Archlinux'"
+#   tags: ['packages']

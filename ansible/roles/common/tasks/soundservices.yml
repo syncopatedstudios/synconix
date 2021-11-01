@@ -1,11 +1,11 @@
 ---
 
+- include: pipewire.yml
+
 - name: set sound service packages to install
   set_fact:
-    _packages: "{{ (audio.alsa + audio.jack + audio.pulseaudio)"
+    _packages: "{{ (audio.alsa + audio.jack + audio.pulseaudio) }}"
   tags: ['packages']
-
-- include: pipewire.yml
 
 - name: Ensure all the required packages are installed
   import_role:

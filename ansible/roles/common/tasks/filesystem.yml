@@ -8,17 +8,6 @@
   tags: ['filesystem']
 
 - block:
-    - name: set packages to install
-      set_fact:
-        _packages: btrfsmaintenance
-      tags: ['packages']
-
-    - name: Ensure all the required packages are installed
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
 
     - name: Enable and/or start btrfs-scrub@-.timer
       systemd: enabled=yes state=started daemon_reload=yes name=btrfs-scrub.timer

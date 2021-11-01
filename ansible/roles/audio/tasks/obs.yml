@@ -5,7 +5,7 @@
 
 # sudo checkinstall --default --pkgname=obs-studio --fstrans=no --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
 
-- name: set packages to install
+- name: set obs dependencies to install
   set_fact:
     _packages: "{{ development.obs }}"
   tags: ['packages']
@@ -16,6 +16,7 @@
   vars:
     pkg_state: present
   tags: ['packages']
+
 #######################################################
 # -----------sndio
 #######################################################
@@ -155,6 +156,10 @@
 #######################################################
 # -----------obs
 #######################################################
+- name: check if obs is already installed
+  stat: path="/usr/bin/obs"
+  register: haziobs
+  tags: ['obs']
 
 - block:
     - name: clone obs source
@@ -197,4 +202,5 @@
 
   become: True
   become_user: "{{ user.name }}"
+  when: not haziobs.stat.exists
   tags: ['obs']

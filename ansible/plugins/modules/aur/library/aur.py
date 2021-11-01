@@ -31,7 +31,7 @@ options:
         description:
             - Desired state of the package.
         default: present
-        choices: [ present, latest ]
+        choices: [ present, latest, absent ]
 
     upgrade:
         description:
@@ -296,7 +296,7 @@ def make_module():
             },
             'state': {
                 'default': 'present',
-                'choices': ['present', 'latest'],
+                'choices': ['present', 'latest', 'absent'],
             },
             'upgrade': {
                 'type': 'bool',

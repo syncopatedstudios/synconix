@@ -5,19 +5,19 @@
   register: hazijalvselect
   tags: ['jalvselect']
 
+- name: set jalv_select dependencies to install
+  set_fact:
+    _packages: "{{ development.jalvselect }}"
+  tags: ['packages']
+
+- name: Install jalv_select dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 - block:
-    - name: set packages to install
-      set_fact:
-        _packages: "{{ development.jalvselect }}"
-      tags: ['packages']
-
-    - name: Ensure all the required packages are installed
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
     - block:
       - name: clone jalv-select
         git:

@@ -9,6 +9,7 @@ base:
   - aspell-en
   - atool
   - bat
+  - btrfsmaintenance
   - exa
   - fd-find
   - ffmpeg

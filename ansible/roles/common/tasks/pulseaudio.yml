@@ -1,8 +1,26 @@
 ---
 
+- name: set packages to remove
+  set_fact:
+    _packages: alsa-plugins-pulseaudio
+  tags: ['packages']
+
+- name: Remove these packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: absent
+  when: "ansible_os_family != 'Archlinux'"
+  tags: ['packages']
+
 - name: remove alsa-plugins-pulseaudio
-  shell: "{{ __ansible_pkg_mgr_remove }} alsa-plugins-pulseaudio"
-  when: "'alsa-plugins-pulseaudio' in installed_packages"
+  shell: |
+    pamac remove {{ item }}
+  with_items:
+      - "{{ _packages }}"
+  when: "ansible_os_family == 'Archlinux'"
+  register: alsapulse
+  failed_when: alsapulse.failed
   tags: ['packages']
 
 - name: Remove pulseaudio systemd configs

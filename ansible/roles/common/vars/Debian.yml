@@ -6,6 +6,7 @@ admin_user: sudo
 
 base:
   - bash-completion
+  - btrfsmaintenance
   - cargo
   - debian-keyring
   - fd-find

@@ -12,6 +12,7 @@ base:
   - bind
   - boost
   - brightnessctl
+  - btrfsmaintenance
   - exa
   - faad2
   - fd
