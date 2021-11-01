@@ -130,7 +130,6 @@ audio:
     - osc2midi
     - njconnect
     - sox
-    - timemachine
     - timidity++
     - vamp-plugin-sdk
     - xzgv
