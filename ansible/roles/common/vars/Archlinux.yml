@@ -2,12 +2,12 @@
 # vars here will override those found in host_vars/<host>.yml
 
 autofs_configs: /etc/autofs
-rtirq_dir: /etc
-
+rtirq_dir: /etc/rtirq.conf
 
 base:
   - bash-language-server
   - bat
+  - barrier
   - bind
   - boost
   - brightnessctl
@@ -123,8 +123,19 @@ audio:
   utilities:
     - a2jmidid
     - jack_capture
+    - jack_utils
     - jacktrip
+    - jconvolver
+    - linuxsampler
+    - osc2midi
     - njconnect
     - sox
+    - timemachine
+    - timidity++
+    - vamp-plugin-sdk
     - xzgv
+    - xzgv
+    - youtube-dl
+    - zita-ajbridge
     - zita-alsa-pcmi
+    - zita-lrx

@@ -3,7 +3,7 @@
 
 autofs_configs: /etc
 admin_user: wheel
-
+rtirq_dir: /etc/sysconfig/rtirq.conf
 
 base:
   - aspell-en
