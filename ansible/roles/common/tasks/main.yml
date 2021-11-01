@@ -12,7 +12,7 @@
 
 - name: set base packages to install
   set_fact:
-    _packages: "{{ 0base |difference(installed_packages) }}"
+    _packages: "{{ base |difference(installed_packages) }}"
   tags: ['packages']
 
 - name: Install common packages

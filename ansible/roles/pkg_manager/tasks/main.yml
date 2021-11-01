@@ -1,0 +1,33 @@
+---
+# - name: Verify os family
+#   fail:
+#     msg: "Incompatible os family"
+#   when:
+#     - "ansible_os_family != 'Debian'"
+#     - "ansible_os_family != 'Fedora'"
+#     - "ansible_os_family != 'Archlinux'"
+
+# TODO: loop over package managers
+- name: "Install all apt packages"
+  include_tasks: pkg_apt.yml
+  when: "ansible_os_family == 'Debian'"
+
+- name: "Install all dnf packages"
+  include_tasks: pkg_dnf.yml
+  when: "ansible_os_family == 'RedHat'"
+
+- name: "Install all pamac packages"
+  include_tasks: pkg_pamac.yml
+  when: "ansible_os_family == 'Archlinux'"
+
+- name: "Install all pip packages"
+  include_tasks: pkg_pip.yml
+  when: pkg['pip'] is defined
+
+- name: "Install all gem packages"
+  include_tasks: pkg_gem.yml
+  when: pkg['gem'] is defined
+
+- name: "Download and unpack archives"
+  include_tasks: pkg_archive.yml
+  when: pkg['source'] is defined

@@ -1,0 +1,11 @@
+---
+
+- name: "Print all the Ruby gem packages to be {{ pkg_state }}"
+  ansible.builtin.debug:
+    msg: "{{ pkg['gem'] }}"
+
+- name: "Ensure Ruby gem packages are {{ pkg_state }}"
+  ansible.builtin.pip:
+    name: "{{ pkg['gem'] | join(' ') }}"
+    state: "{{ pkg_state }}"
+  when: pkg['gem'] | length > 0
