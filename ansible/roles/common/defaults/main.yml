@@ -23,6 +23,7 @@ apm:
   - file-types
   - fix-indent-on-paste
   - highlight-colors
+  - indent-sort
   - language-ansible
   - language-docker
   - language-dotfiles
@@ -39,4 +40,5 @@ apm:
   - sb-atom-sonic-pi
   - selection-highlight
   - tool-bar
+  - vibrant-ink-ruby
   - xml-formatter
