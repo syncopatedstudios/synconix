@@ -1,22 +1,31 @@
 ---
 
-clam:
-  binary: /usr/bin/clam
+application:
+  name: clam
   dependencies:
-    - id3lib-devel
-    - scons
-    - xerces-c-devel
-  source: "git@gitlab.com:b08x/clam.git"
+    Archlinux:
+      - id3lib
+      - scons
+      - xerces-c
+      - pyqt4-common
+    RedHat:
+      - id3lib-devel
+      - scons
+      - xerces-c-devel
+  source:
+    git: "git@gitlab.com:b08x/clam.git"
+    folder: "/usr/local/src/CLAM"
   ccflags:
     i586: "-O2 -march=i586 -mtune=i686"
     i686: "-O2 -march=i686 -mtune=i686"
     x86_64: "-O2 -fPIC -DUSE_ALSA=1"
   LIBDIRSUFFIX: 64
   flags:
+    - "prefix=/usr/local"
+    - "clam_prefix=/usr/local"
     - "release=1"
     - "intel_optimize=1"
     - "verbose=1"
-    - "prefix=/usr"
     - "double=0"
     - "xmlbackend=xercesc"
     - "with_ladspa=1"

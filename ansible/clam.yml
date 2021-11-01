@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+  gather_facts: yes
+  vars:
+    env_vars:
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+
+  # pre_tasks:
+  #   - name: Load Distro stuff
+  #     include_role:
+  #       name: distro
+
+  roles:
+    - { role: clam, tags: ['clam'] }

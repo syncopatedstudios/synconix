@@ -10,7 +10,6 @@ install_audio_plugins: False
 install_ardour: False
 install_audiowaveform: False
 install_baudline: False
-install_clam: False
 install_deadbeef: False
 install_ecasound: False
 install_jacktrip: False

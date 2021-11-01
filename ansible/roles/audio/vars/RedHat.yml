@@ -26,10 +26,6 @@ development:
     - suil-devel
     - systemd-devel
     - vamp-plugin-sdk-devel
-  clam:
-    - id3lib-devel
-    - xerces-c-devel
-    - scons
   deadbeef:
     - clang
     - faad2-devel

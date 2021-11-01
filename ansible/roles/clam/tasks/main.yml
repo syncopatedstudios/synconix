@@ -1,0 +1,16 @@
+---
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+  tags: ['clam']
+
+- name: Include clam build variables
+  include_vars: defaults/clam.yml
+  tags: ['clam']
+
+- include: CLAM.yml
+  when: install_clam|bool
+  tags: ['clam']
