@@ -43,7 +43,7 @@
           shell: "git checkout development"
           args:
             chdir: "/opt/soundbot"
-      when: not hazisoundbot.exists
+      when: not hazisoundbot.stat.exists
 
     # - name: check for Gemfile.lock
     #   stat: path="/opt/soundbot/Gemfile.lock"

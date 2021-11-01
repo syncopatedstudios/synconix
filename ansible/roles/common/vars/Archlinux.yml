@@ -4,8 +4,7 @@
 autofs_configs: /etc/autofs
 rtirq_dir: /etc
 
-remove:
-  - vi
+
 base:
   - bash-language-server
   - bat

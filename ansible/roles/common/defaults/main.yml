@@ -13,3 +13,30 @@ install_googler: False
 install_atom: False
 install_timeshift: False
 install_chrome: False
+
+apm:
+  - ansible-snippets
+  - atom-beautify
+  - blocky
+  - color-picker
+  - file-icons
+  - file-types
+  - fix-indent-on-paste
+  - highlight-colors
+  - language-ansible
+  - language-docker
+  - language-dotfiles
+  - language-markdown
+  - language-sfz
+  - language-squirrel
+  - markdown-preview-plus
+  - markdown-toolbar
+  - markdown-writer
+  - now-syntax
+  - open-terminal-here
+  - permanent-delete
+  - ruby-solargraph
+  - sb-atom-sonic-pi
+  - selection-highlight
+  - tool-bar
+  - xml-formatter

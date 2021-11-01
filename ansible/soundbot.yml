@@ -11,13 +11,6 @@
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-  vars_files:
-    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
-    - "vars/audio.yml"
-    - "vars/common.yml"
-    - "vars/devel.yml"
-    - "vars/networking.yml"
-    - "vars/ui.yml"
 
   pre_tasks:
     - name: check whether this is an initial install
