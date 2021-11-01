@@ -26,18 +26,24 @@
     group: "{{ user.group }}"
 
 - block:
-    - name: clone soundbot
-      git:
-        repo: "https://gitlab.com/syncopatedstudios/soundbot.git"
-        dest: "/opt/soundbot"
-        accept_hostkey: yes
-        update: no
-        force: no
+    - name: check if soundbot is already installed
+      stat: path="/opt/soundbot"
+      register: hazisoundbot
 
-    - name: checkout development branch
-      shell: "git checkout development"
-      args:
-        chdir: "/opt/soundbot"
+    - block:
+        - name: clone soundbot
+          git:
+            repo: "https://gitlab.com/syncopatedstudios/soundbot.git"
+            dest: "/opt/soundbot"
+            accept_hostkey: yes
+            update: no
+            force: no
+
+        - name: checkout development branch
+          shell: "git checkout development"
+          args:
+            chdir: "/opt/soundbot"
+      when: not hazisoundbot.exists
 
     # - name: check for Gemfile.lock
     #   stat: path="/opt/soundbot/Gemfile.lock"
