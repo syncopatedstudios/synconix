@@ -6,9 +6,6 @@
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-  vars_files:
-    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
-    - "vars/common.yml"
 
   pre_tasks:
     - name: Load Fedora
@@ -80,16 +77,9 @@
       tags: ['test_reboot']
 
     - name: System details
-      debug: msg="{{ item }}"
-      with_items:
-        - "{{ ansible_os_family }}"
-        - "{{ ansible_distribution }}"
-        - "{{ ansible_distribution_version }}"
-        - "{{ ansible_distribution_major_version }}"
-        - "{{ ansible_kernel }}"
-        - "{{ ansible_mounts }}"
-        - "{{ ansible_facts['hostname'] }}"
-      tags: ['test_reboot']
+      debug:
+        msg: "{{ ansible_lsb['id'] }}"
+      tags: ['sysinfo']
 
     # - name: Do distro-specific stuff before anything else
     #   include_role:

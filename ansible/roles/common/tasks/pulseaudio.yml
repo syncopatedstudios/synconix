@@ -13,16 +13,6 @@
   when: "ansible_os_family != 'Archlinux'"
   tags: ['packages']
 
-- name: remove alsa-plugins-pulseaudio
-  shell: |
-    pamac remove {{ item }}
-  with_items:
-      - "{{ _packages }}"
-  when: "ansible_os_family == 'Archlinux'"
-  register: alsapulse
-  failed_when: alsapulse.rc != 1
-  tags: ['packages']
-
 - name: Remove pulseaudio systemd configs
   file:
     path: "{{ item }}"

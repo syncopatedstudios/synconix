@@ -34,16 +34,20 @@
     backup: yes
   tags: ['pacmanconf']
 
-- name: install other mirror update thing
-  pacman:
-    name: pacman-mirrors
-    state: present
-  tags: ['mirrors']
+- name: Clone yay
+  git:
+    repo: "https://aur.archlinux.org/yay.git"
+    dest: "{{ local_src }}/yay"
+    accept_hostkey: yes
+    update: no
+    force: no
+  tags: ['yay']
 
-- name: update manjaro mirrors
-  shell: pacman-mirrors -f 5
-  when: update_mirrors|bool
-  tags: ['mirrors']
+- name: Make and install yay
+  shell: "makepkg -si"
+  args:
+    chdir: "{{ local_src }}/yay"
+  tags: ['yay']
 
 - name: Update system package cache
   pacman:
@@ -51,14 +55,6 @@
     upgrade: yes
   register: update_result
   tags: ['update']
-
-# - name: install pamac
-#   shell: |
-#     yay -S --noconfirm --needed --cleanafter pamac
-#   become: True
-#   become_user: "{{ user.name }}"
-#   tags: ['pamac']
-#
 
 - name: remove packages
   pacman:

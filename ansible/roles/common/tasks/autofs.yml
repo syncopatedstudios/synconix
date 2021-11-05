@@ -1,5 +1,13 @@
 ---
 
+- name: Install autofs
+  import_role:
+    name: pkg_manager
+  vars:
+    _packages: autofs
+    pkg_state: present
+  tags: ['packages']
+
 - name: Create mount directory folder if it doesn't already exist
   file:
     path: /mnt/{{ autofs_client.host }}

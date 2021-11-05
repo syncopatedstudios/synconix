@@ -15,7 +15,7 @@
 #LogFile     = /var/log/pacman.log
 #GPGDir      = /etc/pacman.d/gnupg/
 #HookDir     = /etc/pacman.d/hooks/
-{% if ansible_lsb['id'] == 'ManjaroLinux' %}
+{% if ansible_lsb == 'ManjaroLinux' %}
 HoldPkg      = pacman glibc manjaro-system linux54 linux54-headers
 SyncFirst    = manjaro-system archlinux-keyring manjaro-keyring
 {% else %}

@@ -1,17 +1,12 @@
 ---
 
-# - name: get a list of installed packages
-#   import_playbook: installed_packages.yml
-#   tags: ['packages']
-
 - hosts: all
   gather_facts: yes
-  tags: ['butt']
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-      
+
   tasks:
     - name: check whether this is an initial install
       stat:

@@ -7,6 +7,14 @@
     append: yes
   tags: ['tuning']
 
+- name: ensure /etc/security/limits.d exists
+  file:
+    path: /etc/security/limits.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0744'
+
 - name: push jack limits file
   copy:
     src: etc/security/limits.d/41-realtime.conf
@@ -52,8 +60,8 @@
 - name: dev.hpet.max-user-freq=3072
   sysctl: name=dev.hpet.max-user-freq value=3072 state=present reload=yes
 
-- name: just force systemd to reread configs (2.4 and above)
-  systemd: daemon_reload=yes name=freqset.service
+# - name: just force systemd to reread configs (2.4 and above)
+#   systemd: daemon_reload=yes name=freqset.service
 
 # - name: enable freqset and cpupower service
 #   systemd:
