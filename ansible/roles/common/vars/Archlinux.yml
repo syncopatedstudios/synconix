@@ -54,11 +54,6 @@ base:
   - xterm
   - zim
   - zsh
-kernel:
-  - linux510-rt
-  - linux510-rt-acpi_call
-  - linux510-rt-headers
-  - linux510-rt-r8168
 tuned:
   - tuned
   - tuna

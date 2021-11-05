@@ -12,7 +12,7 @@ systemd_networkd_network:
       - DNS: 192.168.1.2
       - Domains: "syncopatedstudios.net"
 
-      - Address: "192.168.1.21/24"
+      - Address: "192.168.1.25/24"
       - Gateway: "192.168.1.1"
 
 autofs_client:
