@@ -69,6 +69,9 @@ networkmanager:
 audio:
   alsa:
     - alsa-lib
+    - alsa-plugins
+    - alsa-tools
+    - alsa-utils
   gutilities:
     - baudline-bin
     - carla

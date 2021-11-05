@@ -42,7 +42,7 @@
   tags: ['jacktrip']
 
 - include: jalvselect.yml
-  when: install_raysession|bool
+  when: install_jalvselect|bool
   tags: ['jalvselect']
 
 - include: njconnect.yml

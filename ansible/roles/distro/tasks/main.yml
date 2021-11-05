@@ -9,6 +9,22 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Ensure /usr/local and /opt directories are writeable
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '2775'
+  with_items:
+    - "/usr/local/bin"
+    - "/usr/local/lib"
+    - "/usr/local/lib/soundbot"
+    - "/usr/local/share"
+    - "/usr/local/share/applications"
+    - "{{ local_src }}"
+    - "/opt"
+
 - include_tasks: RedHat.yml
   when: "ansible_os_family == 'RedHat'"
   tags: ['redhat']

@@ -27,3 +27,11 @@ development:
     - sqlite
     - taglib
     - zlib
+libvirt:
+  - libguestfs
+  - libvirt
+  - qemu
+  - virt-install
+  - virt-manager
+  - virt-viewer
+  # - python-libguestfs

@@ -40,20 +40,3 @@ install_atom: True
 install_audio_utilities: True
 install_audio_gutilities: True
 install_audio_plugins: True
-
-install_audiowaveform: True
-install_baudline: True
-install_obs: False
-install_njconnect: True
-install_qmidinet: True
-
-install_protokol: True
-install_raysession: True
-install_reaper: True
-install_rtplugins: True
-install_sonicannotator: True
-install_soniclineup: True
-install_sonicvisualiser: True
-install_swami: True
-install_tony: True
-install_touchosc: True

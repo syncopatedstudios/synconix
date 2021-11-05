@@ -31,7 +31,7 @@
 - name: add user to libvirt group
   user:
     name: "{{ user.name }}"
-    groups: "libvirt,qemu"
+    groups: "libvirt,kvm"
     append: yes
 
 - name: enable libvirtd service

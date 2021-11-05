@@ -34,19 +34,28 @@
     backup: yes
   tags: ['pacmanconf']
 
-- name: Clone yay
-  git:
-    repo: "https://aur.archlinux.org/yay.git"
-    dest: "{{ local_src }}/yay"
-    accept_hostkey: yes
-    update: no
-    force: no
+- name: Check if a yay already exists
+  stat: path="/usr/bin/yay"
+  register: haziyay
   tags: ['yay']
 
-- name: Make and install yay
-  shell: "makepkg -si"
-  args:
-    chdir: "{{ local_src }}/yay"
+- block:
+    - name: Clone yay
+      git:
+        repo: "https://aur.archlinux.org/yay.git"
+        dest: "{{ local_src }}/yay"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: Make and install yay
+      shell: "makepkg -si"
+      args:
+        chdir: "{{ local_src }}/yay"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziyay.stat.exists
   tags: ['yay']
 
 - name: Update system package cache
