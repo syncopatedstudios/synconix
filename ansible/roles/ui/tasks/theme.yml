@@ -1,5 +1,17 @@
 ---
 
+- name: Set font packages to install
+  set_fact:
+    _packages: "{{ ui.themes }}"
+  tags: ['packages']
+
+- name: Install font packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 - name: Copy backgrounds to /usr/share/backgrounds
   synchronize:
     src: "usr/share/backgrounds/"

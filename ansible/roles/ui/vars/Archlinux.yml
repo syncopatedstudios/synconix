@@ -5,8 +5,9 @@ ui:
     - xorg-xmodmap
     - xorg-xrdb
   i3:
-    - autorandr
+    - arandr
     - lightdm-gtk-greeter
+    - nitrogen
     - notification-daemon
     - picom
     - polybar

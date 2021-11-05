@@ -33,38 +33,38 @@
       stat: path="/opt/soundbot"
       register: hazisoundbot
 
-    - block:
-        - name: clone soundbot
-          git:
-            repo: "https://gitlab.com/syncopatedstudios/soundbot.git"
-            dest: "/opt/soundbot"
-            accept_hostkey: yes
-            update: no
-            force: no
-
-        - name: checkout development branch
-          shell: "git checkout development"
-          args:
-            chdir: "/opt/soundbot"
-      when: not hazisoundbot.stat.exists
-
-    # - name: check for Gemfile.lock
-    #   stat: path="/opt/soundbot/Gemfile.lock"
-    #   register: hazilock
-    #
-    # - name: run bundle install
-    #   shell: "bundle install"
-    #   args:
-    #     chdir: /opt/soundbot
-    #   when: not hazilock.stat.exists
-    #
-    # - name: run gem pristine if there is an issue with extensions
-    #   shell: "sudo gem pristine --all"
-    #   args:
-    #     chdir: /opt/soundbot
-
-  become: True
-  become_user: "{{ user.name }}"
+  #   - block:
+  #       - name: clone soundbot
+  #         git:
+  #           repo: "https://gitlab.com/b08x/soundbot.git"
+  #           dest: "/opt/soundbot"
+  #           accept_hostkey: yes
+  #           update: no
+  #           force: no
+  #
+  #       - name: checkout development branch
+  #         shell: "git checkout development"
+  #         args:
+  #           chdir: "/opt/soundbot"
+  #     when: not hazisoundbot.stat.exists
+  #
+  #   # - name: check for Gemfile.lock
+  #   #   stat: path="/opt/soundbot/Gemfile.lock"
+  #   #   register: hazilock
+  #   #
+  #   # - name: run bundle install
+  #   #   shell: "bundle install"
+  #   #   args:
+  #   #     chdir: /opt/soundbot
+  #   #   when: not hazilock.stat.exists
+  #   #
+  #   # - name: run gem pristine if there is an issue with extensions
+  #   #   shell: "sudo gem pristine --all"
+  #   #   args:
+  #   #     chdir: /opt/soundbot
+  #
+  # become: True
+  # become_user: "{{ user.name }}"
 
 - include: dots.yml
   when: dots['repo'] is defined
