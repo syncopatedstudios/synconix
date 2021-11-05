@@ -33,5 +33,3 @@ i3
 | mod2 (Alt_L)   |                 |
 | $mod+Enter     | Launch Terminal |
 | $mod+g         | googler         |
-
-```

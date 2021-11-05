@@ -61,6 +61,7 @@ $exec "/opt/soundbot/bin/soundservices.sh -j -p"
 
 {% if ansible_facts['hostname'] == 'soundbot03' %}
 $exec "sleep 0.5; nm-applet &"
+$exec touchpad-indicator &
 $exec barrierc soundbot01 &
 {% else %}
 {% endif %}
@@ -95,6 +96,28 @@ for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
+
+#############################
+### settings for i3-gaps: ###
+#############################
+
+# Set inner/outer gaps
+gaps inner 8
+gaps outer -2
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+
+
 ######################################
 # ---{ scratchpad }---
 ######################################

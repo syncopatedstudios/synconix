@@ -9,10 +9,10 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: copy help file to ~/.config/help.md
+- name: copy help file to ~/.config/conky_help
   copy:
-    src: help.md
-    dest: "{{ user.home }}/.config/help.md"
+    src: conky_help
+    dest: "{{ user.home }}/.config/conky_help"
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     mode: '0644'

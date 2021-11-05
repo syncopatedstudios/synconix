@@ -118,6 +118,7 @@ audio:
     - swh-lv2-git
   pulseaudio:
     - pulseaudio-jack
+    - pulsemixer
   utilities:
     - a2jmidid
     - jack_capture

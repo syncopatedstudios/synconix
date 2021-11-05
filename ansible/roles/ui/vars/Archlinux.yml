@@ -6,6 +6,7 @@ ui:
     - xorg-xrdb
   i3:
     - arandr
+    - conky
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
@@ -65,8 +66,10 @@ ui:
     - celluloid
     - darktable
     - google-chrome
+    - grsync
     - guake
     - mpv
     - mpv-plugin-excerpt-git
     - nomacs
+    - qpdfview
     - radiotray-ng
