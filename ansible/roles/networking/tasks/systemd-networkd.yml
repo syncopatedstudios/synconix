@@ -5,7 +5,7 @@
     name: NetworkManager
     enabled: no
     state: stopped
-  when: "'NetworkManager' in installed_packages"
+  ignore_errors: True
 
 - import_tasks: cleanup.yml
   when: systemd_networkd_cleanup | bool

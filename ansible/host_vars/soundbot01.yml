@@ -1,6 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_networkmanager: False
+use_systemdnetwork: True
 
 systemd_networkd_network:
   eth0:

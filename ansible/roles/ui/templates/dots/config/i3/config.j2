@@ -154,17 +154,17 @@ bindsym $mod+grave scratchpad show
 ######################################
 # ---{ navigation bindings }---
 ######################################
-{% if ansible_facts['hostname'] == 'ninjabot' %}
-workspace $ws1 output HDMI-1
+{% if ansible_facts['hostname'] == 'soundbot01' %}
+workspace $ws1 output HDMI-2
 workspace $ws2 output HDMI-1
 workspace $ws3 output HDMI-1
 workspace $ws4 output HDMI-1
 workspace $ws5 output HDMI-1
-workspace $ws6 output HDMI-2
-workspace $ws7 output HDMI-2
-workspace $ws8 output HDMI-2
-workspace $ws9 output HDMI-2
-workspace $ws10 output HDMI-2
+workspace $ws6 output HDMI-1
+workspace $ws7 output HDMI-1
+workspace $ws8 output HDMI-1
+workspace $ws9 output HDMI-1
+workspace $ws10 output HDMI-1
 {% else %}
 {% endif %}
 

@@ -40,7 +40,7 @@
     mode: push
     delete: no
     checksum: yes
-    perms: yes
+    perms: no
     rsync_opts: "--update"
   with_items:
     - ".zsh"
@@ -49,6 +49,8 @@
     - ".aliases"
     - ".Xdefaults"
     - ".xprofile"
-    - ".profile"
-    - ".config/terminator/config"
+    - ".config"
   tags: ['dots', 'base_root']
+
+- name: set perms for root home
+  shell: "chown -R root:root /root"

@@ -50,12 +50,12 @@ export SESSIONS="$STUDIO/sessions"
 
 export WORKSPACE="$HOME/Workspace"
 
-export SOUNDBOT="/opt/soundbot"
+export SOUNDBOT="$WORKSPACE/soundbot"
 
-export ANSIBLE_HOME="/opt/soundbot/ansible"
+export ANSIBLE_HOME="$SOUNDBOT/ansible"
 export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
 
-export HOSTNAME=`hostname`
+export HOSTNAME=`hostnamectl --static`
 #
 # export LIBGL_DRI3_DISABLE=1
 #
