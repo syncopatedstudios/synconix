@@ -12,6 +12,7 @@ ui:
     - notification-daemon
     - picom
     - polybar
+    - qt5ct
     - quickswitch-i3
     - rofi
     - xbindkeys_config-gtk2

@@ -23,16 +23,22 @@
     backup: yes
   tags: ['pacmanconf']
 
-- name: copy pacman mirrors config
-  copy:
-    src: etc/pacman.d/mirrorlist
+- name: push pacman mirrorlist
+  template:
+    src: etc/pacman.d/mirrorlist.j2
     dest: /etc/pacman.d/mirrorlist
+    mode: '0644'
     owner: root
     group: root
-    mode: '0644'
-    directory_mode: no
     backup: yes
   tags: ['pacmanconf']
+
+- name: Update system package cache
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  register: update_result
+  tags: ['update']
 
 - name: Check if a yay already exists
   stat: path="/usr/bin/yay"
@@ -57,13 +63,6 @@
   become_user: "{{ user.name }}"
   when: not haziyay.stat.exists
   tags: ['yay']
-
-- name: Update system package cache
-  pacman:
-    update_cache: yes
-    upgrade: yes
-  register: update_result
-  tags: ['update']
 
 - name: remove packages
   pacman:
