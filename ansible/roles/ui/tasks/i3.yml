@@ -74,7 +74,7 @@
         backup: yes
       with_items:
         - "rofi/config.rasi"
-        - "rofi/colors.rasi"
+        - "rofi/fancy.rasi"
 
   become: True
   become_user: "{{ user.name }}"
