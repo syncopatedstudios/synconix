@@ -2,7 +2,9 @@
 # vars here will override those found in host_vars/<host>.yml
 ui:
   x11:
+    - xorg-xev
     - xorg-xmodmap
+    - xorg-xrandr
     - xorg-xrdb
   i3:
     - arandr
@@ -17,7 +19,6 @@ ui:
     - rofi
     - xbindkeys_config-gtk2
     - xkill-shortcut
-    - xorg-xrandr
   themes:
     - gtk-engine-murrine
     - kvantum-qt5
@@ -66,6 +67,7 @@ ui:
     - barrier
     - celluloid
     - darktable
+    - feh
     - google-chrome
     - grsync
     - guake
@@ -74,3 +76,4 @@ ui:
     - nomacs
     - qpdfview
     - radiotray-ng
+    - teiler

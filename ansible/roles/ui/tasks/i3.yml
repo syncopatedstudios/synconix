@@ -74,7 +74,8 @@
         backup: yes
       with_items:
         - "rofi/config.rasi"
-        - "rofi/fancy.rasi"
+        - "rofi/gruvbox-dark.rasi"
+        - "rofi/gruvbox-common.rasi"
 
   become: True
   become_user: "{{ user.name }}"
