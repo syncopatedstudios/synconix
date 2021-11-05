@@ -41,3 +41,8 @@ install_atom: True
 install_audio_utilities: True
 install_audio_gutilities: True
 install_audio_plugins: True
+
+install_sonicpi: True
+install_reaper: True
+install_raysession: True
+install_polyphone: True

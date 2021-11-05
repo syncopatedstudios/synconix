@@ -57,6 +57,10 @@
   when: ocenaudio|bool
   tags: ['ocenaudio']
 
+- include: polyphone.yml
+  when: install_polyphone|bool
+  tags: ['polyphone']
+
 - include: qmidinet.yml
   when: install_qmidinet|bool
   tags: ['qmidinet']

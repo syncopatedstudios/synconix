@@ -17,6 +17,7 @@ install_jalvselect: False
 install_njconnect: False
 install_obs: False
 install_ocenaudio: False
+install_polyphone: False
 install_protokol: False
 install_qmidinet: False
 install_raysession: False
@@ -71,7 +72,7 @@ raysession:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper638_linux_x86_64.tar.xz
+  file: reaper640_linux_x86_64.tar.xz
 
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
@@ -90,14 +91,14 @@ soniclineup:
   file: "SonicLineup-1.1-x86_64.AppImage"
 
 sonicpitool:
-  url: "https://raw.githubusercontent.com/emlyn/sonic-pi-tool/master/sonic-pi-tool.py"
+  url: "https://gitlab.com/syncopated-linux/applications/sonic-pi-tool-python/-/raw/master/sonic-pi-tool.py"
   pip:
     - click
     - oscpy
     - psutil
 
 sonicpi:
-  git: "https://github.com/syncopatedstudios/sonic-pi.git"
+  git: "https://gitlab.com/syncopated-linux/applications/sonic-pi.git"
   branch: "v3.3-release"
   path: /opt/sonic-pi
   prebuild: "./linux-prebuild.sh --build-aubio"

@@ -1,0 +1,77 @@
+- include_vars:
+   file: defaults/polyphone.yml
+  tags: ['polyphone']
+
+- name: check whether this is an initial install
+  stat:
+    path: "{{ application.source.folder }}/.installed"
+  register: check_installed
+  tags: ['polyphone']
+
+- name: "Set {{ application.name }} dependencies to install"
+  set_fact:
+    _packages: "{{ application.dependencies.Archlinux }}"
+  tags: ['polyphone']
+
+- name: "Install {{ application.dependencies.Archlinux }}"
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['polyphone']
+
+- block:
+    - name: "clone {{ application.source }}"
+      git:
+        repo: "{{ application.source.git }}"
+        dest: "{{ application.source.folder }}"
+        accept_hostkey: yes
+        update: no
+        force: no
+      when: application.source.git is defined
+
+    - name: update polyphone.pro to use local libs
+      shell: |
+        sed -i 's/#DEFINES += USE_LOCAL_RTMIDI/DEFINES += USE_LOCAL_RTMIDI/g' polyphone.pro
+        sed -i 's/#DEFINES += USE_LOCAL_STK/DEFINES += USE_LOCAL_STK/g' polyphone.pro
+        sed -i 's/#DEFINES += USE_LOCAL_QCUSTOMPLOT/DEFINES += USE_LOCAL_QCUSTOMPLOT/g' polyphone.pro
+      args:
+        chdir: "{{ application.source.folder }}/sources"
+      register: sed_status
+      failed_when: sed_status.failed
+
+    - name: "configure {{ application.name }}"
+      shell: qmake-qt5
+      args:
+        chdir: "{{ application.source.folder }}/sources"
+      register: configure_status
+      failed_when: configure_status.failed
+
+    - name: "make {{ application.name }}"
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ application.source.folder }}/sources"
+      register: make_status
+      failed_when: make_status.failed
+
+    - name: "install {{ application.name }}"
+      shell: "sudo make install"
+      args:
+        chdir: "{{ application.source.folder }}/sources"
+      register: make_install_status
+      when: make_status.rc == 0
+
+    - name: run ldconfig
+      command: bash -lc "sudo ldconfig"
+      when: make_install_status.rc == 0
+
+    - name: touch .installed in user home directory
+      file:
+        path: "{{ application.source.folder }}/.installed"
+        state: touch
+      when: make_install_status.rc == 0
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not check_installed.stat.exists
+  tags: ['polyphone']

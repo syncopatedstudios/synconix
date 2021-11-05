@@ -1,0 +1,28 @@
+application:
+  name: polyphone
+  source:
+    git: "https://github.com/davy7125/polyphone.git"
+    folder: "/usr/local/src/polyphone"
+  config:
+    opts:
+      - ""
+  dependencies:
+    Archlinux:
+      - flac
+      - gcc-libs
+      - glibc
+      - hicolor-icon-theme
+      - jack2
+      - libogg
+      - libvorbis
+      - openssl
+      - portaudio
+      - qcustomplot
+      - qt5-base
+      - qt5-svg
+      - qt5-tools
+      - rtmidi
+      - stk
+      - zlib
+    RedHat:
+      - flac
