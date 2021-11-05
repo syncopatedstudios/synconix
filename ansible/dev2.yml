@@ -1,18 +1,18 @@
 ---
 
 - hosts: localhost
-  gather_facts: yes
+  gather_facts: no
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-  vars_files:
-    - "vars/{{ ansible_os_family }}/{{ ansible_distribution }}.yml"
-    - "vars/common.yml"
 
   tasks:
-    - name: Ensure all the required packages are installed
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
+    - name: gather facts
+      setup:
+        gather_subset:
+          - user
+
+    - name: print user
+      debug:
+        msg: "{{ ansible_facts }}"
