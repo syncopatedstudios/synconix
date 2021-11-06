@@ -13,7 +13,7 @@ application:
       - scons
       - xerces-c-devel
   source:
-    git: "git@gitlab.com:b08x/clam.git"
+    git: "https://gitlab.com/syncopated-linux/applications/clam.git "
     folder: "/usr/local/src/CLAM"
   ccflags:
     i586: "-O2 -march=i586 -mtune=i686"
