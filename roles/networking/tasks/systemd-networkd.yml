@@ -12,6 +12,15 @@
 
 - import_tasks: config.yml
 
+- name: push systemd-resolved.conf
+  template:
+    src: "etc/systemd/resolved.conf.j2"
+    dest: /etc/systemd/resolved.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+
 - name: enable systemd-networkd
   become: true
   service:

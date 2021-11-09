@@ -3,6 +3,10 @@
 use_networkmanager: False
 use_systemdnetwork: False
 
+dns:
+  nameserver: 192.168.1.2
+  search: syncopatedstudios.net
+
 conn_check:
   interval: 0
 
