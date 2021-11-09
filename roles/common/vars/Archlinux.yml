@@ -5,10 +5,11 @@ autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
 
 base:
+  - a2jmidid
   - autofs
+  - barrier
   - bash-language-server
   - bat
-  - barrier
   - bind
   - boost
   - brightnessctl
@@ -26,7 +27,12 @@ base:
   - htop
   - iftop
   - iotop
+  - jack_capture
+  - jack_utils
+  - jacktrip
   - jansson
+  - jconvolver
+  - linuxsampler
   - lnav
   - lua
   - mlocate
@@ -35,11 +41,13 @@ base:
   - neovim-symlinks
   - net-tools
   - nfs-utils
+  - njconnect
   - nodejs
   - npm
   - numlockx
   - opus
   - opusfile
+  - osc2midi
   - python-pip
   - qscintilla-qt5
   - qt5-base
@@ -50,12 +58,19 @@ base:
   - rtirq
   - screen
   - sndio
+  - sox
   - sudo
   - terminator
+  - timidity++
   - tmux
+  - vamp-plugin-sdk
   - wol
   - xterm
+  - youtube-dl
   - zim
+  - zita-ajbridge
+  - zita-alsa-pcmi
+  - zita-lrx
   - zsh
 tuned:
   - tuned
@@ -112,20 +127,3 @@ audio:
   pulseaudio:
     - pulseaudio-jack
     - pulsemixer
-  utilities:
-    - a2jmidid
-    - jack_capture
-    - jack_utils
-    - jacktrip
-    - jconvolver
-    - linuxsampler
-    - osc2midi
-    - njconnect
-    - sox
-    - timidity++
-    - vamp-plugin-sdk
-    - xzgv
-    - youtube-dl
-    - zita-ajbridge
-    - zita-alsa-pcmi
-    - zita-lrx

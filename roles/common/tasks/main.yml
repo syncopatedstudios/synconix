@@ -74,10 +74,6 @@
   when: install_chrome|bool
   tags: ['chrome']
 
-- include: tui_utils.yml
-  when: install_audio_utilities|bool
-  tags: ['audio']
-
 - include: gui_utils.yml
   when: install_audio_gutilities|bool
   tags: ['audio']
