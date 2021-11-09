@@ -21,6 +21,17 @@
 - include_tasks: surfraw.yml
   tags: ['surfraw']
 
+- name: copy soundservices.sh to /usr/local/bin
+  copy:
+    src: usr/local/bin/soundservices.sh
+    dest: "/usr/local/bin/soundservices.sh"
+    owner: root
+    group: root
+    mode: '0755'
+    backup: yes
+    directory_mode: no
+  tags: ['soundbot']
+
 - name: ensure opt perms
   file:
     path: "/opt"

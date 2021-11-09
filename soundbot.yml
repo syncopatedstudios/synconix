@@ -31,7 +31,7 @@
      - { role: distro, tags: ['distro'] }
      - { role: common, tags: ['common'] }
      - { role: networking, tags: ['networking'] }
-     - { role: ui, tags: ['ui'] }
+     - { role: ui, tags: ['ui', 'theme'] }
      - { role: devel, tags: ['devel'] }
-     - { role: audio, tags: ['builds'] }
+     - { role: audio, tags: ['audio'] }
      - { role: soundbot, tags: ['soundbot'] }

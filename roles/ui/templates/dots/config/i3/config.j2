@@ -57,7 +57,7 @@ $exec /usr/libexec/notification-daemon &
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-$exec "/opt/soundbot/bin/soundservices.sh -j -p"
+$exec "/usr/local/bin/soundservices.sh -j -p"
 
 {% if ansible_facts['hostname'] == 'soundbot03' %}
 $exec "sleep 0.5; nm-applet &"
@@ -71,7 +71,7 @@ $exec barriers --daemon -c .config/Debauchee/barriers.sgc &
 {% else %}
 {% endif %}
 
-$exec terminator -e "tmuxinator start login"
+$exec terminator -l mixer
 
 ######################################
 # ---{ window settings }---
