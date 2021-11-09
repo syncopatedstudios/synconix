@@ -55,7 +55,7 @@
         force: no
 
     - name: Make and install yay
-      shell: "makepkg -si"
+      shell: "makepkg -si --noconfirm --needed"
       args:
         chdir: "{{ local_src }}/yay"
 

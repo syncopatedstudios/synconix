@@ -27,7 +27,7 @@
       with_items:
         - nvim
         - vim
-  when: not hazinvim.stat.exists
+  when: "not hazinvim.stat.exists and ansible_os_family != 'Archlinux'"
 
 - block:
     - name: ensure nvim plugged directory exists
@@ -64,4 +64,4 @@
 - name: install bash-language-server
   shell: npm -g install bash-language-server
   tags: ['repl']
-  when: not hazibls.stat.exists
+  when: "not hazibls.stat.exists and ansible_os_family != 'Archlinux'"

@@ -46,3 +46,13 @@ development:
     - rubygem-bundler
     - taglib-devel
     - zlib-devel
+libvirt:
+  - libguestfs-tools
+  - libvirt-daemon-config-network
+  - libvirt-daemon-kvm
+  - python-libguestfs
+  - qemu-kvm
+  - virt-install
+  - virt-manager
+  - virt-top
+  - virt-viewer

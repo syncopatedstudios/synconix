@@ -45,9 +45,9 @@ base:
   - wordnet
   - xxdiff
   - zim
-kernel:
-  - linux-image-5.10.0-8-rt-amd64
-  - linux-image-rt-amd64
+# kernel:
+#   - linux-image-5.10.0-8-rt-amd64
+#   - linux-image-rt-amd64
 audio:
   alsa:
     - alsa-tools

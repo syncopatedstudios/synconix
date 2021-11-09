@@ -48,13 +48,13 @@ base:
   - xterm
   - Zim
   - zsh
-kernel:
-  - kernel-rt
-  - kernel-rt-core
-  - kernel-rt-devel
-  - kernel-rt-modules
-  - kernel-rt-modules-extra
-  - kernel-rt-modules-internal
+# kernel:
+#   - kernel-rt
+#   - kernel-rt-core
+#   - kernel-rt-devel
+#   - kernel-rt-modules
+#   - kernel-rt-modules-extra
+#   - kernel-rt-modules-internal
 tuned:
   - tuna
   - xauth
@@ -62,24 +62,6 @@ tuned:
   - tuned
   - tuned-profiles-realtime
   - tuned-gtk
-networkmanager:
-  - NetworkManager
-  - NetworkManager-libnm
-  - NetworkManager-openvpn
-  - NetworkManager-openvpn-gnome
-  - NetworkManager-team
-  - nm-connection-editor
-  - network-manager-applet
-libvirt:
-  - libguestfs-tools
-  - libvirt-daemon-config-network
-  - libvirt-daemon-kvm
-  - python-libguestfs
-  - qemu-kvm
-  - virt-install
-  - virt-manager
-  - virt-top
-  - virt-viewer
 audio:
   alsa:
     - alsa-firmware

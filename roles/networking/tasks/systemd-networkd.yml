@@ -36,14 +36,9 @@
     force: yes
   when: systemd_networkd_symlink_resolv_conf
 
-- name: set packages to remove
-  set_fact:
-    _packages: "{{ networkmanager  }}"
-  tags: ['packages']
-
-- name: Remove these packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: absent
-  tags: ['packages']
+- name: remove networkmanager packages
+  pacman:
+    name: "{{ networkmanager }}"
+    state: absent
+    force: yes
+    extra_args: --noconfirm

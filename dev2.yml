@@ -1,7 +1,7 @@
 ---
 
-- hosts: localhost
-  gather_facts: no
+- hosts: all
+  gather_facts: yes
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"
@@ -13,6 +13,14 @@
         gather_subset:
           - user
 
-    - name: print user
+    # - name: print user
+    #   debug:
+    #     msg: "{{ ansible_facts }}"
+
+    - name: System details
       debug:
-        msg: "{{ ansible_facts }}"
+        msg: "{{ item }}"
+      with_items:
+        - "{{ ansible_distribution_file_variety }}"
+        - "{{ ansible_distribution_release }}"
+        - "{{ ansible_lsb }}"

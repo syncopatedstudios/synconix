@@ -1,4 +1,4 @@
-{% if ansible_lsb['id'] == 'ManjaroLinux' %}
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'ManjaroLinux' %}
 Server = https://mirrors.gigenet.com/manjaro/stable/$repo/$arch
 Server = https://mirror.0xem.ma/manjaro/stable/$repo/$arch
 Server = https://manjaro.lucassymons.net/stable/$repo/$arch

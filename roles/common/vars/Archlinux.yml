@@ -5,6 +5,7 @@ autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
 
 base:
+  - autofs
   - bash-language-server
   - bat
   - barrier
@@ -30,6 +31,8 @@ base:
   - lua
   - mlocate
   - ncurses
+  - neovim
+  - neovim-symlinks
   - net-tools
   - nfs-utils
   - nodejs
@@ -57,15 +60,6 @@ base:
 tuned:
   - tuned
   - tuna
-networkmanager:
-  - libnm
-  - libnma
-  - networkmanager
-  - networkmanager-openconnect
-  - networkmanager-openvpn
-  - networkmanager-pptp
-  - networkmanager-vpnc
-  - nm-connection-editor
 audio:
   alsa:
     - alsa-lib

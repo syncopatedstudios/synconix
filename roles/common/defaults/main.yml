@@ -7,7 +7,7 @@ admin_user: root
 
 nfs_host: False
 
-install_nvim: True
+install_nvim: False
 install_rga: False
 install_googler: False
 install_atom: False
