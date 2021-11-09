@@ -37,9 +37,6 @@ set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
 set $picom_start "pkill picom; sleep 1; picom -b"
 
-# set $terminal {{ user.terminal }}
-#
-
 ######################################
 # ---{ autostart }---
 ######################################
@@ -57,12 +54,15 @@ $exec /usr/libexec/notification-daemon &
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-$exec "/usr/local/bin/soundservices.sh -j -p"
-
 {% if ansible_facts['hostname'] == 'soundbot03' %}
 $exec "sleep 0.5; nm-applet &"
 $exec touchpad-indicator &
-$exec barrierc soundbot01 &
+$exec /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot03 --disable-crypto [soundbot01]:24800 &
+{% else %}
+{% endif %}
+
+{% if ansible_facts['hostname'] == 'soundbot02' %}
+$exec /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot02 --disable-crypto [soundbot01]:24800 &
 {% else %}
 {% endif %}
 
@@ -71,7 +71,8 @@ $exec barriers --daemon -c .config/Debauchee/barriers.sgc &
 {% else %}
 {% endif %}
 
-$exec terminator -l mixer
+$exec "sleep 0.5; /usr/local/bin/soundservices.sh -j -p"
+$exec "sleep 0.5; terminator -l mixer"
 
 ######################################
 # ---{ window settings }---
