@@ -71,7 +71,6 @@ sanify_levels_on_card()
     unmute_and_set_level "$1" "Headphone" "92%"
     unmute_and_set_level "$1" "PCM" "90%"
     # unmute_and_set_level "$1" "PCM,1" "80%"
-    # unmute_and_set_level "$1" "Headphone+LO" "92%"
 
     # mute_and_zero_level "$1" "Mic"
     mute_and_zero_level "$1" "IEC958"         # Ubuntu #19648
@@ -80,6 +79,7 @@ sanify_levels_on_card()
     mute_and_zero_level "$1" "LFE"
     mute_and_zero_level "$1" "Capture"
     mute_and_zero_level "$1" "Capture,1"
+    mute_and_zero_level "$1" "Speaker+LO"
 
     # D1984 -- Thinkpad T61/X61
     switch_control "$1" "Speaker" off
