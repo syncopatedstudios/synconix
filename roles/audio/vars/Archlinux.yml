@@ -92,6 +92,7 @@ development:
   jalvselect:
     - jalv
     - gtkmm
+    - gtkmm3
   libcamera:
     - boost
     - doxygen

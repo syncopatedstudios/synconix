@@ -29,9 +29,9 @@
 
   roles:
      - { role: distro, tags: ['distro'] }
-     - { role: devel, tags: ['devel'] }     
+     - { role: devel, tags: ['devel'] }
      - { role: common, tags: ['common'] }
      - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui', 'theme'] }
-     - { role: audio, tags: ['audio'] }
+     - { role: audio, tags: ['builds'] }
      - { role: soundbot, tags: ['soundbot'] }
