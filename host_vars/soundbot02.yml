@@ -22,6 +22,8 @@ autofs_client:
   shares:
     - home
 
+graphical_target: True
+
 install_x11: True
 install_i3: True
 

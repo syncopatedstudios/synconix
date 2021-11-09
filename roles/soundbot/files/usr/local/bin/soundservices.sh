@@ -156,15 +156,43 @@ start_jack() {
 }
 
 stop_jack() {
-  jack_control exit
+  if pgrep -x "jackdbus" > /dev/null ; then
+    jack_control exit
+  else
+    systemd-cat -t "sound" printf "jackdbus is not running"
+  fi
+}
+
+start_pulse() {
+  if pgrep -x "pulseaudio" > /dev/null ; then
+    systemd-cat -t "sound" printf "pulseaudio is already running"
+  else
+    pulseaudio --start
+  fi
+}
+
+stop_pulse() {
+  if pgrep -x "pulseaudio" > /dev/null ; then
+    pulseaudio -k
+  else
+    systemd-cat -t "sound" printf "pulseaudio is not running"
+  fi
 }
 
 start_a2j() {
-  a2jmidid -e &
+  if pgrep -x "a2jmidid" > /dev/null ; then
+    systemd-cat -t "sound" printf "a2jmidid is already running"
+  else
+    a2jmidid -e &
+  fi
 }
 
 stop_a2j() {
-  pkill -9 a2jmidid
+  if pgrep -x "a2jmidid" > /dev/null ; then
+    pkill -9 a2jmidid
+  else
+    systemd-cat -t "sound" printf "a2jmidid is not running"
+  fi
 }
 
 disconnect_pulse_source() {
@@ -221,28 +249,28 @@ while [[ "${1}" != "" ]]; do
             usage
             exit
             ;;
-        -j|--jack)
-            unmute_all_cards
-            sleep 0.5
-            start_jack
-            sleep 0.5
+        -a|--a2jmidid)
             start_a2j
+            sleep 0.5
+            ;;
+        -j|--jack)
+            start_jack
             sleep 0.5
             ;;
         -s|--stop)
             stop_jack
             sleep 0.5
             stop_a2j
-            pulseaudio -k
+            sleep 0.5
+            stop_pulse
             ;;
         -l|--levels)
             systemd-cat -t "sound" printf "Unmuting all cards"
             unmute_all_cards
             ;;
         -p|--pulse)
-            pulseaudio --start
+            start_pulse
             disconnect_pulse_source
-            unmute_all_cards
             ;;
         *)
             echo "error: Unsupported argument"

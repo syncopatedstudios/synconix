@@ -20,6 +20,7 @@
   with_items:
     - /usr/lib/systemd/user/pulseaudio.service
     - /usr/lib/systemd/user/pulseaudio.socket
+    - /usr/lib/systemd/user/pulseaudio-x11.service
 
 - block:
     - name: ensure pulseaudio config directory exists

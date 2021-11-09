@@ -67,12 +67,16 @@ $exec /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot02 --disable-cr
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'soundbot01' %}
-$exec barriers --daemon -c .config/Debauchee/barriers.sgc &
+$exec /usr/bin/barriers -f --no-tray --debug INFO --name soundbot01 --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
 {% else %}
 {% endif %}
 
-$exec "sleep 0.5; /usr/local/bin/soundservices.sh -j -p"
-$exec "sleep 0.5; terminator -l mixer"
+$exec "/usr/local/bin/soundservices.sh -s; sleep 0.5"
+$exec "/usr/local/bin/soundservices.sh -j; sleep 0.5"
+$exec "/usr/local/bin/soundservices.sh -a; sleep 0.5"
+$exec "/usr/local/bin/soundservices.sh -p; sleep 0.5"
+$exec "/usr/local/bin/soundservices.sh -l; sleep 0.5"
+$exec terminator -l mixer
 
 ######################################
 # ---{ window settings }---
