@@ -79,3 +79,5 @@
 
 - include: dots.yml
   when: dots['repo'] is defined
+
+- include: beets.yml

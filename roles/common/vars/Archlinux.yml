@@ -35,6 +35,8 @@ base:
   - linuxsampler
   - lnav
   - lua
+  - man-pages
+  - man-db
   - mlocate
   - ncurses
   - neovim

@@ -29,7 +29,7 @@ autologin: False
 install_x11: False
 install_i3: False
 
-install_gutilities: False
+install_desktop: False
 
 background: #282828
 background-alt: #2828282f

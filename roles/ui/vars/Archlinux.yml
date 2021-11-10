@@ -56,25 +56,33 @@ ui:
     - xorg-xlsfonts
   utilities:
     - actdiag
-    - blockdiag
-    - epson-inkjet-printer-escpr2
-    - gtksourceview3
-    - nwdiag
-    - seqdiag
-    - wordnet-cli
-  gutilities:
-    - atom
     - barrier
-    - celluloid
-    - darktable
+    - blockdiag
     - feh
-    - google-chrome
-    - grsync
+    - gnuplot
+    - gtksourceview3
+    - gtkspell3
     - guake
     - mpv
     - mpv-plugin-excerpt-git
-    - nomacs
+    - nwdiag
+    - pcmanfm
     - qpdfview
-    - radiotray-ng
+    - qutebrowser
+    - pdfjs
+    - python-adblock
+    - seqdiag
     - teiler
+    - wordnet-cli
+    - xarchiver
+    - xdot
     - xzgv
+  desktop:
+    - atom
+    - celluloid
+    - darktable
+    - google-chrome
+    - grsync
+    - nomacs
+    - radiotray-ng
+    - epson-inkjet-printer-escpr2

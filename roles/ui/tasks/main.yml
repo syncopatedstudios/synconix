@@ -9,6 +9,18 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- name: set packages to install
+  set_fact:
+    _packages: "{{ ui.utilities }}"
+  tags: ['packages']
+
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
 - name: copy help file to ~/.config/conky_help
   copy:
     src: conky_help
@@ -20,13 +32,16 @@
     directory_mode: no
   tags: ['help']
 
+- include: environment.yml
+  tags: ['env', 'xorg', 'zsh']
+
 - include: x11.yml
   when: install_x11|bool
-  tags: ["x11"]
+  tags: ['x11']
 
 - include: i3.yml
   when: install_i3|bool
-  tags: ["i3"]
+  tags: ['i3']
 
 - include: autologin.yml
   when: autologin|bool
@@ -42,7 +57,7 @@
 
 - name: set packages to install
   set_fact:
-    _packages: "{{ ui.gutilities  }}"
+    _packages: "{{ ui.desktop }}"
   tags: ['packages']
 
 - name: Ensure all the required packages are installed
@@ -50,5 +65,5 @@
     name: pkg_manager
   vars:
     pkg_state: present
-  when: install_gutilities|bool
+  when: install_desktop|bool
   tags: ['packages']
