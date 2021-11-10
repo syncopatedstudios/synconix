@@ -28,6 +28,8 @@ gems:
   - nokogiri
   - osc-ruby
   - parallel
+  - pry
+  - pry-doc
   - pycall
   - rouge
   - rugged
