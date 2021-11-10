@@ -49,10 +49,12 @@
     - name: Ensure i3 config directory exists
       shell: |
         mkdir -pv {{ user.home }}/.config/i3
+        mkdir -pv {{ user.home }}/.config/i3/scripts
         mkdir -pv {{ user.home }}/.config/polybar
         mkdir -pv {{ user.home }}/.config/rofi
+        mkdir -pv {{ user.home }}/.config/picom
 
-    - name: push i3 and polybar configs
+    - name: Push i3 and polybar templates
       template:
         src: "dots/config/{{ item }}.j2"
         dest: "{{ user.home }}/.config/{{ item }}"
@@ -64,7 +66,18 @@
         - "i3/config"
         - "polybar/config"
 
-    - name: push rofi configs
+    - name: Push i3 scripts
+      template:
+        src: "dots/config/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0755"
+        backup: yes
+      with_items:
+        - "i3/scripts/polybar.sh"
+
+    - name: Push rofi templates
       template:
         src: "dots/config/{{ item }}.j2"
         dest: "{{ user.home }}/.config/{{ item }}"
@@ -74,8 +87,57 @@
         backup: yes
       with_items:
         - "rofi/config.rasi"
-        - "rofi/gruvbox-dark.rasi"
         - "rofi/gruvbox-common.rasi"
+        - "rofi/gruvbox-dark.rasi"
+
+    - name: Push xprofile templates
+      template:
+        src: "dots/{{ item }}.j2"
+        dest: "{{ user.home }}/.{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      with_items:
+        - "Xdefaults"
+        - "Xresources"
+        - "profile"
+        - "xprofile"
+
+    - name: Copy picom.conf
+      copy:
+        src: dots/config/picom/picom.conf
+        dest: "{{ user.home }}/.config/picom/picom.conf"
+        directory_mode: no
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        mode: '0644'
+
+    - name: Push zshell templates
+      template:
+        src: "dots/{{ item }}.j2"
+        dest: "{{ user.home }}/.{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      with_items:
+        - "aliases"
+        - "gitconfig"
+        - "zlogin"
+        - "zshenv"
+        - "zshrc"
+
+    - name: Push zshell function folder
+      synchronize:
+        src: dots/zsh/
+        dest: "{{ user.home }}/.zsh/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts: "--update"
 
   become: True
   become_user: "{{ user.name }}"

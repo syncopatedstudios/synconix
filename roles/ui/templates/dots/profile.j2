@@ -16,7 +16,9 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+if [ -x "$(command -v gnome-keyring-daemon)" ]; then
+  eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+fi
 
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 

@@ -1,4 +1,4 @@
-local _old_path="$PATH"
+  local _old_path="$PATH"
 
 # Local config
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
@@ -48,9 +48,10 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
 
 export DISABLE_AUTO_TITLE=true
 
-# export SOUNDBOT="/opt/soundbot"
-# export ANSIBLE_HOME="/opt/soundbot/ansible"
-# export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
+export WORKSPACE="$HOME/Workspace"
+
+export ANSIBLE_HOME="$WORKSPACE/syncopated-linux/tools/ansible"
+export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
 
 export HOSTNAME=`hostnamectl --static`
 

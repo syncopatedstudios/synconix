@@ -56,8 +56,8 @@ $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 
 {% if ansible_facts['hostname'] == 'soundbot03' %}
 $exec "sleep 0.5; nm-applet &"
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot03 --disable-crypto [soundbot01]:24800 &"
 $exec touchpad-indicator &
-$exec /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot03 --disable-crypto [soundbot01]:24800 &
 {% else %}
 {% endif %}
 
@@ -71,11 +71,6 @@ $exec /usr/bin/barriers -f --no-tray --debug INFO --name soundbot01 --disable-cr
 {% else %}
 {% endif %}
 
-$exec "/usr/local/bin/soundservices.sh -s; sleep 0.5"
-$exec "/usr/local/bin/soundservices.sh -j; sleep 0.5"
-$exec "/usr/local/bin/soundservices.sh -a; sleep 0.5"
-$exec "/usr/local/bin/soundservices.sh -p; sleep 0.5"
-$exec "/usr/local/bin/soundservices.sh -l; sleep 0.5"
 $exec terminator -l mixer
 
 ######################################

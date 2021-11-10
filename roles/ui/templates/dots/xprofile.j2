@@ -4,6 +4,15 @@
 /usr/bin/xmodmap -e "clear Lock"
 /usr/bin/xmodmap -e "keysym Caps_Lock = F13"
 
+xset s off
+xset -dpms
+
 numlockx on
+
+/usr/local/bin/soundservices.sh -s
+/usr/local/bin/soundservices.sh -j
+/usr/local/bin/soundservices.sh -a
+/usr/local/bin/soundservices.sh -p
+/usr/local/bin/soundservices.sh -l
 
 guake &

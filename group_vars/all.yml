@@ -24,6 +24,9 @@ user:
   email: rwpannick@gmail.com
   password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.
 
+zsh:
+  theme: re5et
+
 path:
   - "{{ user.home }}/.local/bin"
   - "{{ user.home }}/.cargo/bin"

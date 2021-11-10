@@ -33,12 +33,10 @@ alias dirperms="find . -type d -exec chmod 0755 {} +"
 #alias man="PAGER='most' man "
 #alias awman="PAGER='most' awman"
 
-alias info="sudo dnf info"
-alias search="sudo dnf search"
-alias install="sudo dnf install"
-alias uninstall="sudo dnf remove"
-alias list="sudo dnf list --installed"
-alias remove="sudo dnf remove"
+alias search="yay -Ss search"
+alias install="yay -S"
+alias uninstall="yay -Rdd"
+alias list="yay -Qe"
 
 alias p="sudo ping -c 4 google.com"
 
