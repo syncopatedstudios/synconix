@@ -1,5 +1,13 @@
 ---
 
+- name: ensure beets config dir exists
+  file:
+    path: "{{ beets.confdir }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+
 - block:
     - name: Install beets
       pip:
