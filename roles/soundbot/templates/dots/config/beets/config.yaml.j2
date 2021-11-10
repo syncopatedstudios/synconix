@@ -1,0 +1,229 @@
+library: {{ beets.confdir }}/library.db
+directory: {{ beets.library }}
+statefile: {{ beets.confdir }}/state.pickle
+
+import:
+    write: yes
+    copy: yes
+    move: no
+    link: no
+    hardlink: no
+    reflink: no
+    delete: no
+    resume: ask
+    incremental: yes
+    incremental_skip_later: no
+    from_scratch: no
+    quiet_fallback: skip
+    none_rec_action: ask
+    timid: yes
+    log: {{ beets.logdir }}/beet.log
+    autotag: yes
+    quiet: no
+    singletons: no
+    default_action: edit
+    detail: yes
+    flat: no
+    group_albums: no
+    pretend: no
+    duplicate_action: ask
+    bell: no
+    set_fields: {}
+
+
+clutter: [Thumbs.DB, .DS_Store]
+ignore:
+  - .*
+  - '*~'
+  - System Volume Information
+  - lost+found
+ignore_hidden: yes
+
+replace:
+    '[\\/]': _
+    ^\.: _
+    '[\x00-\x1f]': _
+    '[<>:"\?\*\|]': _
+    \.$: _
+    \s+$: ''
+    ^\s+: ''
+    ^-: _
+path_sep_replace: _
+drive_sep_replace: _
+asciify_paths: no
+art_filename: cover
+max_filename_length: 0
+
+aunique:
+    keys: albumartist album
+    disambiguators: albumtype year label catalognum albumdisambig releasegroupdisambig
+    bracket: '[]'
+
+overwrite_null:
+    album: []
+    track: []
+
+ui:
+    terminal_width: 80
+    length_diff_thresh: 10.0
+    color: yes
+    colors:
+        text_success: green
+        text_warning: yellow
+        text_error: red
+        text_highlight: red
+        text_highlight_minor: lightgray
+        action_default: turquoise
+        action: blue
+
+format_item: $artist - $album - $title
+format_album: $albumartist - $album
+time_format: '%Y-%m-%d %H:%M:%S'
+format_raw_length: no
+
+sort_album: albumartist+ album+
+sort_item: artist+ album+ disc+ track+
+sort_case_insensitive: yes
+
+album_fields:
+    bitrate: |
+        total = 0
+        for item in items:
+            total += item.bitrate
+        return total / len(items)
+
+# item_fields:
+#     instrument: |
+#         import os
+#         from beets.util import bytestring_path
+#         return bytestring_path(os.path.relpath(path))
+
+paths:
+    default: $grouping/$artist/$album/$track $title
+    label:clip: clips/$grouping/$artist/$album/$track $title
+    label:collection: collections/$artist/$album/$grouping/$track $title
+    label:fx: fx/$grouping/$artist/$album/$track $title
+    label:instrument: instruments/$grouping/$artist/$album/$track $title
+    label:loop: loops/$grouping/$artist/$album/$track $title
+    label:percussive: percussive/$grouping/$artist/$album/$track $title
+    label:soundscape: soundscapes/$grouping/$artist/$album/$track $title
+    label:synths: synths/$grouping/$artist/$album/$track $title
+
+musicbrainz:
+    host: musicbrainz.org
+    https: no
+    ratelimit: 1
+    ratelimit_interval: 1.0
+    searchlimit: 1
+    extra_tags: []
+    genres: no
+
+match:
+    strong_rec_thresh: 0.04
+    medium_rec_thresh: 0.25
+    rec_gap_thresh: 0.25
+    max_rec:
+        missing_tracks: medium
+        unmatched_tracks: medium
+    distance_weights:
+        source: 2.0
+        artist: 3.0
+        album: 3.0
+        media: 1.0
+        mediums: 1.0
+        year: 1.0
+        country: 0.5
+        label: 0.5
+        catalognum: 0.5
+        albumdisambig: 0.5
+        album_id: 5.0
+        tracks: 2.0
+        missing_tracks: 0.9
+        unmatched_tracks: 0.6
+        track_title: 3.0
+        track_artist: 2.0
+        track_index: 1.0
+        track_length: 2.0
+        track_id: 5.0
+    preferred:
+        countries: []
+        media: []
+        original_year: no
+    ignored: missing_tracks unmatched_tracks
+    required: []
+    ignored_media: []
+    ignore_data_tracks: yes
+    ignore_video_tracks: yes
+    track_length_grace: 10
+    track_length_max: 30
+
+
+plugins: [
+    badfiles,
+    chroma,
+    convert,
+    duplicates,
+    edit,
+    copyartifacts,
+    fromfilename,
+    inline
+]
+
+pluginpath: []
+threaded: no
+timeout: 5.0
+per_disc_numbering: no
+verbose: 2
+terminal_encoding: UTF-8
+original_date: no
+artist_credit: no
+id3v23: no
+va_name: Various Artists
+
+badfiles:
+    check_on_import: yes
+    commands:
+        flac: flac --test --warnings-as-errors --silent
+        wav: /usr/local/bin/wavcheck.rb
+        aiff: /usr/local/bin/aiffcheck.rb
+
+# beatport:
+#     source_weight: 0.5
+#     tokenfile:  ~/.config/beets/beatport_token.json
+
+chroma:
+    auto: no
+
+convert:
+    auto: yes
+    tmpdir: {{ beets.tmpdir }}
+    format: flac
+    never_convert_lossy_files: no
+
+copyartifacts:
+    extensions: .sfz .txt .jpg .png
+    print_ignored: yes
+
+duplicates:
+    album: no
+    checksum: 'ffmpeg -i {file} -f crc -'
+    copy: ''
+    count: no
+    delete: no
+    format: ''
+    full: no
+    merge: no
+    move: '{{ beets.duplicates }}'
+    path: no
+    tiebreak: {}
+    strict: no
+    tag: ''
+
+edit:
+  albumfields: album albumartist
+  itemfields: grouping label title track artist album albumartist
+  ignore_fields: id path
+
+fuzzy:
+    threshold: 0.7
+    prefix: '~'

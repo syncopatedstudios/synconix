@@ -81,3 +81,4 @@
   when: dots['repo'] is defined
 
 - include: beets.yml
+  tags: ['beets']

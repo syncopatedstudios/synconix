@@ -1,0 +1,50 @@
+---
+
+- block:
+    - name: Install beets
+      pip:
+        name: "{{ item }}"
+        extra_args: --user
+      with_items:
+        - beets
+        - beets-copyartifacts3
+        - pyacoustid
+        - requests
+        - requests_oauthlib
+
+    - name: Push beets config template
+      template:
+        src: "dots/config/beets/config.yaml.j2"
+        dest: "{{ beets.confdir }}/config.yaml"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+
+    - name: copy sound file checkers to /usr/local/bin
+      copy:
+        src: "usr/local/bin/{{ item }}"
+        dest: "/usr/local/bin/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0755'
+        backup: yes
+        directory_mode: no
+      with_items:
+        - aiffcheck.rb
+        - wavcheck.rb
+      tags: ['soundbot']
+
+    - name: check if .dots already exists
+      stat: path="{{ beets.confdir }}/state.pickle"
+      register: hazipickle
+
+    - name: touch .installed in user home directory
+      file:
+        path: "{{ beets.confdir }}/state.pickle"
+        state: touch
+      when: not hazipickle.stat.exists
+
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['beets']
