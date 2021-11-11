@@ -1,6 +1,0 @@
-set_editor() {
-  export EDITOR="$@"
-  export GIT_EDITOR="$@"
-  export SVN_EDITOR="$@"
-}
-set_editor nvim

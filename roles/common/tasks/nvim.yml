@@ -44,7 +44,7 @@
 
     - name: install nvim settings
       synchronize:
-        src: "config/nvim"
+        src: "dots/config/nvim"
         dest: "{{ user.home }}/.config/"
         recursive: yes
         mode: push

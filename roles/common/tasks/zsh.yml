@@ -32,9 +32,19 @@
 
   when: not haziohymyzsh.stat.exists
 
-- name: Push base dots to /root
+- name: Push zsh-maia-prompt
+  copy:
+    src: usr/share/zsh/zsh-maia-prompt
+    dest: /usr/share/zsh/zsh-maia-prompt
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+
+- name: Push root shell config
   synchronize:
-    src: "etc/skel/{{ item }}"
+    src: "root/"
     dest: "/root/"
     recursive: yes
     mode: push
@@ -42,15 +52,7 @@
     checksum: yes
     perms: no
     rsync_opts: "--update"
-  with_items:
-    - ".zsh"
-    - ".zshrc"
-    - ".zshenv"
-    - ".aliases"
-    - ".Xdefaults"
-    - ".xprofile"
-    - ".config"
-  tags: ['dots', 'base_root']
+  tags: ['dots']
 
 - name: set perms for root home
   shell: "chown -R root:root /root"

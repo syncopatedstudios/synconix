@@ -37,26 +37,11 @@ export PAGER=less
 
 export NO_AT_BRIDGE=1
 
-export VAMP_PATH="$HOME/.vamp"
-
 export LADSPA_PATH="/usr/lib/ladspa"
 export LADSPA_RDF_PATH="/usr/share/ladspa/rdf"
 
 export ECASOUND=ecasound
 
-export STUDIO="$HOME/Studio"
-export PROJECTS="$STUDIO/projects"
-export SESSIONS="$STUDIO/sessions"
-
-export WORKSPACE="$HOME/Workspace"
-
-export SOUNDBOT="$WORKSPACE/soundbot"
-
-export ANSIBLE_HOME="$SOUNDBOT/ansible"
-export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
-
 export HOSTNAME=`hostnamectl --static`
-#
-# export LIBGL_DRI3_DISABLE=1
-#
+
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH

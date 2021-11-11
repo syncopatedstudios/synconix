@@ -1,4 +1,0 @@
-fetch_gits() {
-  cd $SOUNDBOT && git fetch && git pull
-  cd $ANSIBLE_HOME && git fetch && git pull
-}

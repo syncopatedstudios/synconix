@@ -49,6 +49,7 @@
         - "{{ user.home }}/.config/qt5ct"
         - "{{ user.home }}/.config/Kvantum"
         - "{{ user.home }}/.config/fontconfig"
+        - "{{ user.home }}/.config/nitrogen"
         - "{{ user.home }}/.themes"
         - "{{ user.home }}/.icons"
 
@@ -86,7 +87,7 @@
     - name: Update gtk4
       template:
         src: "dots/config/gtk-4.0/settings.ini.j2"
-        dest: "{{ user.home }}/.config/gtk-3.0/settings.ini"
+        dest: "{{ user.home }}/.config/gtk-4.0/settings.ini"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
         mode: '644'
@@ -109,6 +110,18 @@
         group: "{{ user.group }}"
         mode: '644'
         backup: no
+
+    - name: Push nitrogen configs
+      template:
+        src: "dots/config/nitrogen/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/nitrogen/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: no
+      with_items:
+        - "bg-saved.cfg"
+        - "nitrogen.cfg"
 
   become: True
   become_user: "{{ user.name }}"

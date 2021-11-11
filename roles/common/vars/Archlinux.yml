@@ -39,6 +39,7 @@ base:
   - man-db
   - mlocate
   - ncurses
+  - neofetch
   - neovim
   - neovim-symlinks
   - net-tools
@@ -74,6 +75,11 @@ base:
   - zita-alsa-pcmi
   - zita-lrx
   - zsh
+  - zsh-autosuggestions
+  - zsh-completions
+  - zsh-history-substring-search
+  - zsh-syntax-highlighting
+  - zsh-theme-powerlevel10k
 tuned:
   - tuned
   - tuna

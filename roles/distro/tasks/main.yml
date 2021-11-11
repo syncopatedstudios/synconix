@@ -35,4 +35,4 @@
 
 - include_tasks: Archlinux.yml
   when: "ansible_os_family == 'Archlinux'"
-  tags: ['debian']
+  tags: ['archlinux']
