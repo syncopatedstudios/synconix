@@ -8,7 +8,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lilyinstarlight/vim-sonic-pi'
-Plug 'preservim/nerdtree'
+Plug 'https://github.com/Lokaltog/neoranger.git'
 Plug 'https://github.com/jalvesaq/vimcmdline.git'
 Plug 'ryanoasis/vim-devicons'
 Plug 'https://github.com/chrisbra/unicode.vim.git'
@@ -70,7 +70,13 @@ nnoremap <A-Up> <C-w>k
 nnoremap <A-Down> <C-w>j
 
 
-map <F2> :NERDTreeToggle<cr>
+map <F2> :Ranger<cr>
+
+" for setting ranger viewmode values
+let g:neoranger_viewmode='multipane' " supported values are ['multipane', 'miller']
+
+" for setting any extra option passed to ranger params
+let g:neoranger_opts='--cmd="set show_hidden true"' " this line makes ranger show hidden files by default
 
 " tab completion, select on enter
 inoremap <silent><expr> <TAB>
