@@ -20,3 +20,4 @@ packages__gpg_conf: |
 remove:
   - vi
   - vim
+  - python-pillow

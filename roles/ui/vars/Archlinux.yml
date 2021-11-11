@@ -56,6 +56,7 @@ ui:
     - xorg-xlsfonts
   utilities:
     - actdiag
+    - aspell-en
     - barrier
     - blockdiag
     - feh
@@ -67,12 +68,14 @@ ui:
     - mpv-plugin-excerpt-git
     - nwdiag
     - pcmanfm
-    - qpdfview
-    - qutebrowser
     - pdfjs
     - python-adblock
+    - python-pillow-simd
+    - qpdfview
+    - qutebrowser
     - seqdiag
     - teiler
+    - w3m
     - wordnet-cli
     - xarchiver
     - xdot
@@ -81,8 +84,8 @@ ui:
     - atom
     - celluloid
     - darktable
+    - epson-inkjet-printer-escpr2
     - google-chrome
     - grsync
     - nomacs
     - radiotray-ng
-    - epson-inkjet-printer-escpr2
