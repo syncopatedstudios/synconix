@@ -33,5 +33,5 @@
      - { role: common, tags: ['common'] }
      - { role: networking, tags: ['networking'] }
      - { role: ui, tags: ['ui', 'theme'] }
-     - { role: audio, tags: ['builds'] }
+     - { role: builds, tags: ['builds'] }
      - { role: soundbot, tags: ['soundbot'] }

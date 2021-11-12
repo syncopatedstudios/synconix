@@ -40,6 +40,13 @@
         mode: '644'
         backup: no
 
+    # if this isn't done then baudline won't load
+    - name: add x11 fonts to font paths
+      shell: |
+        xset +fp /usr/share/fonts/75dpi
+        xset +fp /usr/share/fonts/100dpi
+
+
   become: True
   become_user: "{{ user.name }}"
 

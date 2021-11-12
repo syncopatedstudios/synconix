@@ -1,6 +1,10 @@
 ---
 
+- include: alsa.yml
+  tags: ['alsa']
+
 - include: pipewire.yml
+  tags: ['pipewire']
 
 - name: set sound service packages to install
   set_fact:
@@ -15,3 +19,4 @@
   tags: ['packages']
 
 - include: pulseaudio.yml
+  tags: ['pulseaudio']

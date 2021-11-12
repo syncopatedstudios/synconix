@@ -1,0 +1,17 @@
+---
+
+- name: check to see if alsa modprobe mod file exists
+  stat: path="/etc/modprobe.d/10-alsa_usb.conf"
+  register: hazimodprobe
+  tags: ['modprobe']
+
+- name: Add modprobe option to not use a usb card are the default device
+  lineinfile:
+    path: /etc/modprobe.d/alsa-base.conf
+    line: "{{ item }}"
+    create: yes
+  with_items:
+    - "options snd_hda_intel index=0"
+    - "options snd_usb_audio index=-2"
+  when: not hazimodprobe.stat.exists
+  tags: ['modprobe']
