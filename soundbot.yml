@@ -8,7 +8,7 @@
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
 
   tasks:
-    - name: check whether this is an initial install
+    - name: Check whether this is an initial install or not.
       stat:
         path: "{{ user.home }}/.installed"
       register: check_installed

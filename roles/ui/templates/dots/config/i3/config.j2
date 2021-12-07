@@ -54,20 +54,21 @@ $exec /usr/libexec/notification-daemon &
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'soundbot03' %}
+{% if ansible_facts['hostname'] == 'lapbot' %}
 $exec "sleep 0.5; nm-applet &"
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot03 --disable-crypto [soundbot01]:24800 &"
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [calculon]:24800 &"
 $exec touchpad-indicator &
 {% else %}
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'soundbot02' %}
-$exec /usr/bin/barrierc -f --no-tray --debug INFO --name soundbot02 --disable-crypto [soundbot01]:24800 &
+{% if ansible_facts['hostname'] == 'crambot' %}
+$exec "sleep 0.5; nm-applet &"
+$exec /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [calculon]:24800 &
 {% else %}
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'soundbot01' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name soundbot01 --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
+{% if ansible_facts['hostname'] == 'calculon' %}
+$exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
 {% else %}
 {% endif %}
 
@@ -179,17 +180,17 @@ bindsym Print $exec teiler
 ######################################
 # ---{ navigation bindings }---
 ######################################
-{% if ansible_facts['hostname'] == 'soundbot01' %}
-workspace $ws1 output HDMI-2
+{% if ansible_facts['hostname'] == 'calculon' %}
+workspace $ws1 output HDMI-1
 workspace $ws2 output HDMI-1
 workspace $ws3 output HDMI-1
 workspace $ws4 output HDMI-1
-workspace $ws5 output HDMI-1
-workspace $ws6 output HDMI-1
-workspace $ws7 output HDMI-1
-workspace $ws8 output HDMI-1
-workspace $ws9 output HDMI-1
-workspace $ws10 output HDMI-1
+workspace $ws5 output HDMI-2
+workspace $ws6 output HDMI-2
+workspace $ws7 output HDMI-2
+workspace $ws8 output HDMI-2
+workspace $ws9 output HDMI-2
+workspace $ws10 output HDMI-2
 {% else %}
 {% endif %}
 

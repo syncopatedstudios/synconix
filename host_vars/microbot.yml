@@ -9,11 +9,11 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.1.2
-      - Domains: "syncopatedstudios.net"
+      - DNS: 192.168.1.1
+      - Domains: "syncopated.net"
 
-      - Address: "192.168.1.27/24"
-      - Gateway: "192.168.1.1"
+      - Address: "192.168.41.6/24"
+      - Gateway: "192.168.41.1"
 
 autofs_client:
   host: bender
@@ -32,7 +32,7 @@ install_rga: True
 install_audio_utilities: False
 install_audio_gutilities: False
 install_audio_plugins: False
-install_jacktrip: False
+install_jacktrip: True
 install_jalvselect: False
 install_njconnect: True
 

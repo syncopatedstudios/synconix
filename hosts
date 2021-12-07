@@ -1,3 +1,5 @@
-soundbot01 ansible_user=b08x ansible_become=true ansible_connection=local
-soundbot02 ansible_user=b08x ansible_become=true
-soundbot03 ansible_user=b08x ansible_become=true
+[desktop]
+calculon ansible_user=b08x ansible_become=true ansible_connection=local
+crambot ansible_user=b08x ansible_become=true
+microbot ansible_user=b08x ansible_become=true
+lapbot ansible_user=b08x ansible_become=true
