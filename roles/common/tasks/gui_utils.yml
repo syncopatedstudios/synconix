@@ -2,10 +2,10 @@
 
 - name: set graphical audio utility packages to
   set_fact:
-    _packages: "{{ audio['gutilities']  }}"
+    _packages: "{{ audio['utilities']  }}"
   tags: ['packages']
 
-- name: Install audio gui utilities
+- name: Install audio utilities
   import_role:
     name: pkg_manager
   vars:

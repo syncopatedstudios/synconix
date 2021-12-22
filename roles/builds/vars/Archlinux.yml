@@ -28,6 +28,7 @@ development:
   deadbeef:
     - alsa-oss
     - cdparanoia
+    - clang
     - curl
     - dbus
     - faad2
@@ -37,6 +38,7 @@ development:
     - intltool
     - libcddb
     - libcdio
+    - libdispatch
     - libice
     - libmad
     - libogg

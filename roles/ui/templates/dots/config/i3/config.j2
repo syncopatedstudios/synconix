@@ -62,8 +62,8 @@ $exec touchpad-indicator &
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'crambot' %}
-$exec "sleep 0.5; nm-applet &"
-$exec /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [calculon]:24800 &
+# $exec "sleep 0.5; nm-applet &"
+$exec /usr/bin/barrierc -f --debug INFO --name crambot --disable-crypto [192.168.40.2]:24800 &
 {% else %}
 {% endif %}
 
@@ -185,7 +185,7 @@ workspace $ws1 output HDMI-1
 workspace $ws2 output HDMI-1
 workspace $ws3 output HDMI-1
 workspace $ws4 output HDMI-1
-workspace $ws5 output HDMI-2
+workspace $ws5 output HDMI-1
 workspace $ws6 output HDMI-2
 workspace $ws7 output HDMI-2
 workspace $ws8 output HDMI-2

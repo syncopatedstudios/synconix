@@ -30,12 +30,13 @@ systemd_networkd_network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
 
-      - Address: "192.168.40.1/24"
+      - Address: "192.168.40.2/24"
 
 autofs_client:
   host: bender
   shares:
-    - home
+    - storage
+    - backup
 
 graphical_target: True
 

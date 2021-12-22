@@ -23,13 +23,14 @@ systemd_networkd_network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
       - Domains: "syncopated.net"
-      - Address: "192.168.36.1/24"
+      - Address: "192.168.40.1/24"
 
 
 autofs_client:
   host: bender
   shares:
-    - home
+    - storage
+    - backup
 
 kvm_host: True
 

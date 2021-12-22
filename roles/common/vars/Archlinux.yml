@@ -89,7 +89,7 @@ audio:
     - alsa-plugins
     - alsa-tools
     - alsa-utils
-  gutilities:
+  utilities:
     - baudline-bin
     - carla
     - fmit
@@ -99,7 +99,6 @@ audio:
     - iempluginsuite
     - jack-keyboard
     - mamba
-    - midifilter.lv2-git
     - mixxx
     - non-mixer-lv2-git
     - non-sequencer
@@ -112,6 +111,7 @@ audio:
     - seq66-git
     - sfizz
     - sitala-bin
+    - sooperlooper
     - stochas
     - tonespace
     - vital-synth
@@ -126,12 +126,13 @@ audio:
     - caps-lv2-git
     - distrho-ports
     - dragonfly-reverb
-    # - ir-lv2-git
+    - ir.lv2
     - ladspa
     - lsp-plugins
     - lv2
-    - noise-repellent-git
+    - noise-repellent
     - swh-lv2-git
+    - x42-plugins
   pulseaudio:
     - pulseaudio-jack
     - pulsemixer
