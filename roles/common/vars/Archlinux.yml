@@ -32,7 +32,6 @@ base:
   - jacktrip
   - jansson
   - jconvolver
-  - linux-lts-headers
   - lnav
   - lua
   - man-pages
@@ -86,6 +85,15 @@ base:
   - zsh-history-substring-search
   - zsh-syntax-highlighting
   - zsh-theme-powerlevel10k
+kernel:
+  lts:
+    - linux-lts
+    - linux-lts-headers
+  rt:
+    - linux510-rt
+    - linux510-rt-acpi_call
+    - linux510-rt-headers
+    - linux510-rt-r8168
 tuned:
   - tuned
   - tuna
@@ -104,7 +112,7 @@ audio:
     - hydrogen
     - iempluginsuite
     - jack-keyboard
-    - mamba
+    # - mamba
     - mixxx
     - non-mixer-lv2-git
     - non-sequencer
@@ -133,7 +141,6 @@ audio:
     - pipewire-v4l2
     - pipewire-zeroconf
     - wireplumber
-    - pulsemixer
   plugins:
     - ams-lv2
     - calf

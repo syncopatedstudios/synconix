@@ -16,8 +16,12 @@
   tags: ['filesystem']
 
 - include: rtkernel.yml
-  when: kernel is defined
+  when: use_kernel == 'rt'
   tags: ['rtkernel']
+
+- include: ltskernel.yml
+  when: use_kernel == 'lts'
+  tags: ['ltskernel']
 
 - include: soundservices.yml
   tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]

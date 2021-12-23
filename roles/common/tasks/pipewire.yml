@@ -10,7 +10,7 @@
     name: pkg_manager
   vars:
     pkg_state: present
-  when: "ansible_os_family != 'Archlinux'"
+  when: "ansible_os_family == 'Archlinux'"
   tags: ['packages']
 
 

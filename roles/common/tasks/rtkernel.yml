@@ -2,7 +2,7 @@
 
 - name: Set kernel packages to install
   set_fact:
-    _packages: "{{ kernel }}"
+    _packages: "{{ kernel['rt'] }}"
   tags: ['packages']
 
 - name: Install kernel packages
