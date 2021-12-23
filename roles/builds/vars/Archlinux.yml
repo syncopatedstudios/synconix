@@ -116,6 +116,17 @@ development:
     - qt5-base
     - qt5-tools
     - udev
+  linuxsampler:
+    - ant
+    - bison
+    - byacc
+    - docbook-xsl
+    - doxygen
+    - flex
+    - gpp
+    - jre8-openjdk
+    - libxslt
+    - subversion
   non:
     - gcc-libs
     - glibc

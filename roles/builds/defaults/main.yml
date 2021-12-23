@@ -14,6 +14,7 @@ install_deadbeef: False
 install_ecasound: False
 install_jacktrip: False
 install_jalvselect: False
+install_linuxsampler: False
 install_njconnect: False
 install_obs: False
 install_ocenaudio: False

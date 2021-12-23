@@ -32,7 +32,7 @@ base:
   - jacktrip
   - jansson
   - jconvolver
-  - linuxsampler
+  - linux-lts-headers
   - lnav
   - lua
   - man-pages
@@ -55,6 +55,12 @@ base:
   - qscintilla-qt5
   - qt5-base
   - qt5-tools
+  - qt6-base
+  - qt6-multimedia
+  - qt6-tools
+  - qt6-declarative
+  - gst-plugins-bad
+  - gst-libav
   - r
   - ranger
   - rsync
@@ -119,7 +125,15 @@ audio:
     - jack2
     - jack2-dbus
   pipewire:
+    - helvum
     - pipewire
+    - pipewire-alsa
+    - pipewire-jack
+    - pipewire-pulse
+    - pipewire-v4l2
+    - pipewire-zeroconf
+    - wireplumber
+    - pulsemixer
   plugins:
     - ams-lv2
     - calf
@@ -134,5 +148,5 @@ audio:
     - swh-lv2-git
     - x42-plugins
   pulseaudio:
+    - pulseaudio
     - pulseaudio-jack
-    - pulsemixer

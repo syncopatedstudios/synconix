@@ -45,6 +45,10 @@
   when: install_jalvselect|bool
   tags: ['jalvselect']
 
+- include: linuxsampler.yml
+  when: install_linuxsampler|bool
+  tags: ['linuxsampler']
+
 - include: njconnect.yml
   when: install_njconnect|bool
   tags: ['njconnect']

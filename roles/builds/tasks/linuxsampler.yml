@@ -1,5 +1,15 @@
 ---
 #https://linuxsampler-devel.narkive.com/g4cCNyDP/libgig-compiler-error-on-ubuntustudio-16-04
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - name: set linuxsampler dependencies to install
   set_fact:
     _packages: "{{ development.linuxsampler }}"
@@ -38,7 +48,7 @@
     make
     sudo make install
   args:
-    chdir "{{ local_src }}"
+    chdir: "{{ local_src }}"
   register: libgig_build
   failed_when: libgig_build.failed
 
@@ -55,24 +65,37 @@
 - name: run ldconfig
   shell: |
     ldconfig
-  chdir:
-    args: "{{ local_src }}"
+
+# - name: build liblscp
+#   shell: |
+#     cd linuxsampler/liblscp/
+#     libtoolize
+#     aclocal
+#     autoheader
+#     autoconf
+#     automake --add-missing
+#     ./configure
+#     make
+#     sudo make install
+#   args:
+#     chdir: "{{ local_src }}"
+#   register: liblscp_build
+#   failed_when: liblscp_build.failed
 
 - name: build liblscp
   shell: |
     cd linuxsampler/liblscp/
-    libtoolize
-    aclocal
-    autoheader
-    autoconf
-    automake --add-missing
-    ./configure
-    make
-    sudo make install
+    cmake -B build -S .
+    make -C build
+    sudo make -C build install
   args:
-    chdir "{{ local_src }}"
+    chdir: "{{ local_src }}"
   register: liblscp_build
   failed_when: liblscp_build.failed
+
+- name: run ldconfig
+  shell: |
+    ldconfig
 
 - name: build linuxsampler
   shell: |
@@ -82,9 +105,9 @@
     autoheader
     autoconf
     automake --add-missing
-    make parser
     CXXFLAGS="-O3 -msse -march=native -mfpmath=sse -ffast-math -fomit-frame-pointer -funroll-loops" \
     ./configure --enable-preload-samples=327680 --enable-rt-exceptions --disable-asio-driver --enable-dev-mode
+    make parser
     make
     sudo make install
   args:
@@ -92,11 +115,26 @@
   register: linuxsampler_build
   failed_when: linuxsampler_build.failed
 
+- name: build qsampler
+  shell: |
+    cd linuxsampler/qsampler/
+    cmake -B build -S .
+    make -C build
+    sudo make -C build install
+  args:
+    chdir: "{{ local_src }}"
+  register: qsampler_build
+  failed_when: qsampler_build.failed
+
+- name: run ldconfig
+  shell: |
+    ldconfig
+
 - name: build jlscp
   shell: |
     cd linuxsampler/jlscp
     ant build-lib
-    mv lib/jlscp.jar $JAVE_HOME/jre/lib/ext/jlscp.jar
+    mv lib/jlscp.jar /usr/lib/jvm/java-8-openjdk/jre/lib/ext/jlscp.jar
   args:
     chdir: "{{ local_src }}"
   register: libjlscp_build
