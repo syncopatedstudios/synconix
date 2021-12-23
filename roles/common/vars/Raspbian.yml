@@ -5,6 +5,9 @@ autofs_configs: /etc
 admin_user: sudo
 
 base:
+  - a2jmidid
+  - aj-snapshot
+  - avahi-daemon
   - bash-completion
   - btrfsmaintenance
   - cargo
@@ -18,6 +21,10 @@ base:
   - gpgv
   - highlight
   - hunspell
+  - jack-capture
+  - jack-tools
+  - jconvolver
+  - libexif-dev
   - libgtksourceview-3.0-1
   - lnav
   - lsof
@@ -44,7 +51,11 @@ base:
   - wkhtmltopdf
   - wordnet
   - xxdiff
+  - xzgv
   - zim
+  - zita-ajbridge
+  - zita-alsa-pcmi-utils
+  - zita-lrx
 # kernel:
 #   - linux-image-5.10.0-8-rt-amd64
 #   - linux-image-rt-amd64
@@ -52,7 +63,7 @@ audio:
   alsa:
     - alsa-tools
     - alsa-utils
-  gutilities:
+  utilities:
     - alsa-tools-gui
     - carla
     - fmit
@@ -97,16 +108,3 @@ audio:
   pulseaudio:
     - pavucontrol
     - pulseaudio-module-jack
-  utilities:
-    - a2jmidid
-    - aj-snapshot
-    - avahi-daemon
-    - jack-capture
-    - jack-tools
-    - jacktrip
-    - jconvolver
-    - libexif-dev
-    - xzgv
-    - zita-ajbridge
-    - zita-alsa-pcmi-utils
-    - zita-lrx

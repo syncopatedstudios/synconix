@@ -46,11 +46,9 @@ aliases:
 
 install_rga: True
 install_googler: True
-install_gutilities: True
 install_atom: True
 
-install_audio_utilities: True
-install_audio_gutilities: True
+install_audio_utils: True
 install_audio_plugins: True
 
 install_jalvselect: True

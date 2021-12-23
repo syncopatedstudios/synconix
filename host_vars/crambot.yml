@@ -45,6 +45,8 @@ install_i3: True
 
 autologin: True
 
+install_baudline: True
+install_audio_utils: True
 install_audio_plugins: True
 install_jalvselect: True
 install_raysession: True

@@ -1,11 +1,13 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_systemdnetwork: False
 use_networkmanager: True
 
 autofs_client:
   host: bender
   shares:
-    - home
+    - storage
+    - backup
 
 graphical_target: True
 
@@ -21,8 +23,7 @@ install_atom: True
 
 install_sonicpi: True
 
-install_audio_utilities: True
-install_audio_gutilities: True
+install_audio_utils: True
 install_audio_plugins: True
 
 install_baudline: False

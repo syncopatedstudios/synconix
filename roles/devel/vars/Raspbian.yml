@@ -26,6 +26,8 @@ development:
     - make
     - qt5-default
   ruby:
-    - ruby-dev*
-    - libssl-dev
     - libgit2-dev
+    - libsqlite3-dev
+    - libssl-dev
+    - libtag1-dev
+    - ruby-dev

@@ -13,6 +13,7 @@ install_googler: False
 install_atom: False
 install_timeshift: False
 install_chrome: False
+install_audio_utils: False
 
 apm:
   - ansible-snippets
