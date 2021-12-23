@@ -64,6 +64,13 @@
   when: not haziyay.stat.exists
   tags: ['yay']
 
+- name: update aur packages
+  shell: |
+    yay -Syuu --noconfirm --needed
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['yay']
+
 - name: remove packages
   pacman:
     name: "{{ remove }}"
