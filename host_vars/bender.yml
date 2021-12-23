@@ -1,6 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_networkmanager: False
+use_systemdnetwork: True
 
 systemd_networkd_network:
   eth0:
@@ -9,10 +10,18 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.1.2
-      - Domains: "syncopatedstudios.net"
+      - DNS: 192.168.41.1
+      - Domains: "syncopated.net"
 
-      - Address: "192.168.1.4/24"
-      - Gateway: "192.168.1.1"
+      - Address: "192.168.41.8/24"
+      - Gateway: "192.168.4.1"
 
 fedora_version: 34
+
+graphical_target: False
+autologin: False
+
+install_x11: False
+install_i3: False
+
+install_desktop: False

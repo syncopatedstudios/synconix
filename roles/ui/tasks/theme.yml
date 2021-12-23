@@ -111,17 +111,17 @@
         mode: '644'
         backup: no
 
-    - name: Push nitrogen configs
-      template:
-        src: "dots/config/nitrogen/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/nitrogen/{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: '0644'
-        backup: no
-      with_items:
-        - "bg-saved.cfg"
-        - "nitrogen.cfg"
+    # - name: Push nitrogen configs
+    #   template:
+    #     src: "dots/config/nitrogen/{{ item }}.j2"
+    #     dest: "{{ user.home }}/.config/nitrogen/{{ item }}"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: '0644'
+    #     backup: no
+    #   with_items:
+    #     - "bg-saved.cfg"
+    #     - "nitrogen.cfg"
 
   become: True
   become_user: "{{ user.name }}"

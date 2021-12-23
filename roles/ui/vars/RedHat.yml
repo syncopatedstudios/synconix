@@ -14,7 +14,21 @@ ui:
     - greybird-dark-theme
   gnome:
     - gnome-tweaks
-  gutilities:
+  i3:
+    - Thunar
+    - arandr
+    - barrier
+    - i3
+    - lightdm-gtk-greeter
+    - notification-daemon
+    - picom
+    - polybar
+    - rofi
+  themes:
+    - numix-icon-theme
+    - materia-gtk-theme
+    - materia-kde-kvantum
+  utilities:
     - Zim
     - darktable
     - feh
@@ -36,20 +50,6 @@ ui:
     - xarchiver
     - yasm
     - zenity
-  i3:
-    - Thunar
-    - arandr
-    - barrier
-    - i3
-    - lightdm-gtk-greeter
-    - notification-daemon
-    - picom
-    - polybar
-    - rofi
-  themes:
-    - numix-icon-theme
-    - materia-gtk-theme
-    - materia-kde-kvantum
   x11:
     - x11vnc
     - xbindkeys
