@@ -4,3 +4,4 @@ crambot ansible_user=b08x ansible_become=true
 seeedbot ansible_user=b08x ansible_become=true
 lapbot ansible_user=b08x ansible_become=true
 bender ansible_user=b08x ansible_become=true
+minibot ansible_user=b08x ansible_become=true

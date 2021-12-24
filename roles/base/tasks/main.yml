@@ -1,0 +1,73 @@
+---
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Set base packages to install
+  set_fact:
+    _packages: "{{ base }}"
+  tags: ['packages']
+
+- name: Install base packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+
+- name: enable and start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: permit traffic for sshd service
+  firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- include: ruby.yml
+  tags: ['ruby']
+
+- include: sudoers.yml
+  tags: ['sudoers']
+
+- include: perms.yml
+  tags: ['perms']
+
+- include: nfs.yml
+  when: nfs_host|bool
+  tags: ['nfs']
+
+- include: libvirt.yml
+  when: kvm_host|bool and libvirt is defined
+  tags: ['libvirt']
+
+- include: timeshift.yml
+  tags: ['timeshift']
+
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: nvim.yml
+  tags: ['nvim']
+
+- include: ripgrep.yml
+  tags: ['ripgrep']
+
+- include: ranger.yml
+  tags: ['ranger']
+
+- include: environment.yml
+  tags: ['environment']
+
+- include: dots.yml
+  tags: ['dots']

@@ -1,0 +1,41 @@
+---
+
+- name: set packages to install
+  set_fact:
+    _packages: "{{ libvirt }}"
+  tags: ['packages']
+
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- name: install libvirtd.conf
+  copy:
+    src: etc/libvirt/libvirtd.conf
+    dest: /etc/libvirt/libvirtd.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: disable lvmetad
+  lineinfile:
+    dest: /etc/lvm/lvm.conf
+    regexp: "^    use_lvmetad = 1"
+    line: "    use_lvmetad = 0"
+    backrefs: yes
+    backup: yes
+
+- name: add user to libvirt group
+  user:
+    name: "{{ user.name }}"
+    groups: "libvirt,kvm"
+    append: yes
+
+- name: enable libvirtd service
+  service:
+    name: libvirtd
+    enabled: yes
+    state: started

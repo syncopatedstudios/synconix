@@ -1,0 +1,81 @@
+---
+
+- name: push nfs configs
+  copy:
+    src: "etc/{{ item }}"
+    dest: "/etc/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+  with_items:
+    - idmapd.conf
+    - nfs.conf
+
+- name: ensure nfs/rpc services are enabled and started
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  with_items:
+    - nfs-server
+    - nfs-mountd
+    - nfs-idmapd
+    - rpcbind
+
+#ensure firewalld is allowing access to required ports
+- name: permit traffic for nfs service
+  firewalld:
+    service: nfs
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- name: permit traffic to rpcbind ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+  with_items: ["{{ nfs_ports }}"]
+
+#ensure selinux is allow nfs stuff to occur
+
+# - name: Allow daemons to use tcp wrapper
+#   seboolean:
+#     name: daemons_use_tcp_wrapper
+#     state: yes
+#     persistent: yes
+#
+# - name: Allow nfs to export all ro
+#   seboolean:
+#     name: nfs_export_all_ro
+#     state: yes
+#     persistent: yes
+#
+# - name: Allow nfs to export all rw
+#   seboolean:
+#     name: nfs_export_all_rw
+#     state: yes
+#     persistent: yes
+#
+# - name: Allow virt to sandbox use all caps
+#   seboolean:
+#     name: virt_sandbox_use_all_caps
+#     state: yes
+#     persistent: yes
+#
+# - name: Allow virt to use nfs
+#   seboolean:
+#     name: virt_use_nfs
+#     state: yes
+#     persistent: yes
+#
+# - name: allow nfs rcpbind to use random ports
+#   seboolean:
+#     name: nis_enabled
+#     state: yes
+#     persistent: yes

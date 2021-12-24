@@ -54,12 +54,12 @@
     rsync_opts: "--update"
   tags: ['dots']
 
-- name: set perms for root home
-  shell: "chown -R root:root /root"
-
 - name: set root shell to zsh
   user:
     name: root
     shell: /bin/zsh
     state: present
   tags: ['system', 'root']
+
+- name: set perms for root home
+  shell: "chown -R root:root /root"
