@@ -1,0 +1,10 @@
+---
+
+- name: permit traffic to rpcbind ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+  with_items: ["{{ qbittorrent }}"]

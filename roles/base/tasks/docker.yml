@@ -1,9 +1,16 @@
 ---
 
-- name: install docker
-  shell: "{{ __ansible_pkg_mgr_install }} {{ docker  }}"
-  when: item not in installed_packages
-  with_items: "{{ docker }}"
+- name: set packages to install
+  set_fact:
+    _packages: "{{ docker }}"
+  tags: ['packages']
+
+- name: Ensure all the required packages are installed
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
 
 - name: add user to dockergroup
   command: bash -lc "usermod -a -G docker {{ user.name }}"

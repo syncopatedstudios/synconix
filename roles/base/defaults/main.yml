@@ -11,6 +11,12 @@ nfs_ports:
   - 662/tcp
   - 662/udp
 
+qbittorrent:
+  - 8080/tcp
+  - 36278/udp
+  - 44448/tcp
+  - 44448/udp
+
 kvm_host: False
 
 gems:
