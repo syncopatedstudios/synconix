@@ -35,6 +35,7 @@ autofs_client:
     - backup
 
 kvm_host: True
+docker_host: True
 
 graphical_target: True
 

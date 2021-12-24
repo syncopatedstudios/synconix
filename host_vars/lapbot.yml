@@ -11,6 +11,9 @@ autofs_client:
     - storage
     - backup
 
+kvm_host: False
+docker_host: False
+
 graphical_target: True
 
 install_x11: True

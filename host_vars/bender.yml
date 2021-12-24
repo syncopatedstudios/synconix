@@ -18,8 +18,10 @@ systemd_networkd_network:
 
 nfs_host: True
 kvm_host: False
+docker_host: True
 
-fedora_version: 34
+docker:
+  storage: /var/lib/docker
 
 graphical_target: False
 autologin: False

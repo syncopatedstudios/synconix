@@ -15,7 +15,24 @@
 - name: add user to dockergroup
   command: bash -lc "usermod -a -G docker {{ user.name }}"
 
+- name: push docker service config
+  template:
+    src: usr/lib/systemd/docker.service.j2
+    dest: /usr/lib/systemd/docker.service
+    owner: root
+    group: root
+    mode: '644'
+    backup: yes
+  tags: ['docker']
+  register: dockerservice
+
+- name: reload systemd
+  shell: |
+    systemctl daemon-reload
+  tags: ['docker']
+
 - name: enable docker service
   systemd:
     name: docker
-    enabled: no
+    state: started
+    enabled: yes

@@ -18,6 +18,10 @@ qbittorrent:
   - 44448/udp
 
 kvm_host: False
+docker_host: False
+
+docker:
+  storage: /var/lib/docker
 
 gems:
   - activesupport
@@ -45,6 +49,7 @@ gems:
   - pry
   - pry-doc
   - pycall
+  - rdoc
   - rouge
   - rugged
   - sync
