@@ -107,10 +107,16 @@ audio:
     - baudline-bin
     - carla
     - fmit
+    - friture
     - guitarix
     - helm-synth
     - hydrogen
-    - iempluginsuite
+    # - iempluginsuite
+    - jack-audio-tools-carla
+    - jack-audio-tools-common
+    - jack-audio-tools-dbus
+    - jack-audio-tools-lv2
+    - jack-audio-tools-transport
     - jack-keyboard
     # - mamba
     - mixxx

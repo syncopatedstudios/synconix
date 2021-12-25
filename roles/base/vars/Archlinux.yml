@@ -24,6 +24,7 @@ base:
   - glibc
   - htop
   - iftop
+  - imlib2
   - iotop
   - jansson
   - libbluray
@@ -67,6 +68,7 @@ base:
   - sudo
   - taglib
   - terminator
+  - w3m
   - wol
   - xterm
   - zsh
