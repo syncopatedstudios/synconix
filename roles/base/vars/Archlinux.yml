@@ -24,6 +24,7 @@ base:
   - glibc
   - htop
   - iftop
+  - imlib2
   - iotop
   - jansson
   - libbluray
@@ -52,6 +53,7 @@ base:
   - npm
   - numlockx
   - openssl
+  - opusfile
   - python-pip
   - qscintilla-qt5
   - r
@@ -62,11 +64,14 @@ base:
   - ruby-bundler
   - rubygems
   - screen
+  - sox
   - sndio
   - sqlite
   - sudo
   - taglib
   - terminator
+  - wavpack
+  - w3m
   - wol
   - xterm
   - zsh
