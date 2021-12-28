@@ -19,7 +19,7 @@ user:
   group: b08x
   secondary_groups: "input,video,audio"
   shell: zsh
-  terminal: xterm
+  terminal: xterm-256color
   zsh: /usr/share/oh-my-zsh
   email: rwpannick@gmail.com
   password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.

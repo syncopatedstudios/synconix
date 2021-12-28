@@ -161,10 +161,13 @@ bindsym $mod+Return $exec "terminator -b"
 bindsym $mod+F13 $exec $rofi
 bindsym $mod+d $exec $rofi
 
-bindsym $mod+Shift+Home $exec google-chrome-stable %U
-bindsym $mod+Home $exec qutebrowser
+bindsym $mod+Home $exec google-chrome-stable %U
+bindsym $mod++Shift+Home $exec qutebrowser
 
-bindcode $mod+Mod2+$KP_Enter $exec terminator -e ranger
+set $ranger "xterm -ti vt340 -e 'TERM=xterm-256color ranger'"
+bindcode $mod+Mod2+$KP_Enter $exec $ranger
+
+#bindcode $mod+Mod2+$KP_Enter $exec terminator -e ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec pcmanfm
 
