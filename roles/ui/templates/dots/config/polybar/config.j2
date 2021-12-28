@@ -80,7 +80,11 @@ font-1 = "Hack Nerd Font:pixelsize=11;2"
 
 modules-left = menu i3
 modules-center =
+{% if ansible_facts['hostname'] == 'lapbot' %}
+modules-right = battery date
+{% else %}
 modules-right = date
+{% endif %}
 
 tray-position = right
 tray-padding = 2
