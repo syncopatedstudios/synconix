@@ -1,3 +1,6 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+admin_user: wheel
 autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
 
@@ -80,6 +83,15 @@ base:
   - zsh-history-substring-search
   - zsh-syntax-highlighting
   - zsh-theme-powerlevel10k
+kernel:
+  lts:
+    - linux-lts
+    - linux-lts-headers
+  rt:
+    - linux510-rt
+    - linux510-rt-acpi_call
+    - linux510-rt-headers
+    - linux510-rt-r8168
 libvirt:
   - libguestfs
   - libvirt
@@ -90,3 +102,6 @@ libvirt:
 docker:
   - docker
   - docker-compose
+tuned:
+  - tuned
+  - tuna

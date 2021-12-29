@@ -34,6 +34,15 @@
   notify:
     - "reload firewalld"
 
+- include: rtkernel.yml
+  when: use_kernel == 'rt'
+  tags: ['rtkernel']
+
+- include: ltskernel.yml
+  when: use_kernel == 'lts'
+  tags: ['ltskernel']
+
+
 - include: ruby.yml
   tags: ['ruby']
 
@@ -42,6 +51,9 @@
 
 - include: perms.yml
   tags: ['perms']
+
+- include: realtime.yml
+  tags: ['realtime']
 
 - include: nfs.yml
   when: nfs_host|bool
@@ -75,6 +87,10 @@
 
 - include: dots.yml
   tags: ['dots']
+
+- include: autofs.yml
+  when: autofs_client is defined
+  tags: ['autofs']
 
 - name: push mkinitcpio configs
   copy:

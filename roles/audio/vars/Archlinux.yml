@@ -1,0 +1,90 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+
+base:
+  - a2jmidid
+  - brightnessctl
+  - jack_capture
+  - jack_utils
+  - jacktrip
+  - jconvolver
+  - njconnect
+  - opus
+  - osc2midi
+  - gst-plugins-bad
+  - gst-libav
+  - sox
+  - timidity++
+  - tmux
+  - vamp-plugin-sdk
+  - xterm
+  - youtube-dl
+  - zita-ajbridge
+  - zita-alsa-pcmi
+  - zita-lrx
+audio:
+  alsa:
+    - alsa-lib
+    - alsa-plugins
+    - alsa-tools
+    - alsa-utils
+  utilities:
+    - baudline-bin
+    - carla
+    - fmit
+    - friture
+    - guitarix
+    - helm-synth
+    - hydrogen
+    # - iempluginsuite
+    - jack-audio-tools-carla
+    - jack-audio-tools-common
+    - jack-audio-tools-dbus
+    - jack-audio-tools-lv2
+    - jack-audio-tools-transport
+    - jack-keyboard
+    # - mamba
+    - mixxx
+    - non-mixer-lv2-git
+    - non-sequencer
+    - obs-studio
+    - ocenaudio-bin
+    - qmidiarp
+    - qmidinet
+    - scala-music
+    - scala-music-scales
+    - seq66-git
+    - sfizz
+    - sitala-bin
+    - sooperlooper
+    - stochas
+    - tonespace
+    - vital-synth
+  jack:
+    - jack2
+    - jack2-dbus
+  pipewire:
+    - helvum
+    - pipewire
+    - pipewire-alsa
+    - pipewire-jack
+    - pipewire-pulse
+    - pipewire-v4l2
+    - pipewire-zeroconf
+    - wireplumber
+  plugins:
+    - ams-lv2
+    - calf
+    - caps-lv2-git
+    - distrho-ports
+    - dragonfly-reverb
+    - ir.lv2
+    - ladspa
+    - lsp-plugins
+    - lv2
+    - noise-repellent
+    - swh-lv2-git
+    - x42-plugins
+  pulseaudio:
+    - pulseaudio
+    - pulseaudio-jack

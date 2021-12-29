@@ -33,12 +33,15 @@
     directory_mode: no
   tags: ['help']
 
-- include: environment.yml
-  tags: ['env', 'xorg', 'zsh']
+- include: qt.yml
+  tags: ['qt']
 
 - include: x11.yml
   when: install_x11|bool
   tags: ['x11']
+
+- include: xprofile.yml
+  tags: ['xprofile']
 
 - include: i3.yml
   when: install_i3|bool

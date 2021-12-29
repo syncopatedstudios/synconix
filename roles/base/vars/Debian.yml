@@ -1,5 +1,4 @@
 ---
-
 # vars here will override those found in host_vars/<host>.yml
 
 autofs_configs: /etc
@@ -22,3 +21,8 @@ base:
   - libxkbcommon-x11-dev
   - libzip4
   - ruby-dev
+tuned:
+  - tuna
+  - tuned
+  - tuned-utils
+  - tuned-gtk

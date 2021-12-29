@@ -19,6 +19,13 @@ ui:
     - rofi
     - xbindkeys_config-gtk2
     - xkill-shortcut
+  qt:
+    - qt5-base
+    - qt5-tools
+    - qt6-base
+    - qt6-multimedia
+    - qt6-tools
+    - qt6-declarative
   themes:
     - gtk-engine-murrine
     - kvantum-qt5
@@ -57,27 +64,17 @@ ui:
   utilities:
     - actdiag
     - aspell-en
-    - barrier
     - blockdiag
-    - feh
     - gnuplot
     - gtksourceview3
     - gtkspell3
-    - guake
-    - mpv
     - mpv-plugin-excerpt-git
     - nwdiag
-    - pcmanfm
     - pdfjs
     - python-adblock
     - python-pillow-simd
-    - qpdfview
-    - qutebrowser
     - seqdiag
-    - teiler
-    - w3m
     - wordnet-cli
-    - xarchiver
     - xdot
     - xzgv
   desktop:
@@ -85,7 +82,15 @@ ui:
     - celluloid
     - darktable
     - epson-inkjet-printer-escpr2
+    - feh
     - google-chrome
     - grsync
+    - guake
+    - mpv
     - nomacs
+    - pcmanfm
+    - qpdfview
+    - qutebrowser
     - radiotray-ng
+    - xarchiver
+    - zim

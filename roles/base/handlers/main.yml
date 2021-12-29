@@ -4,3 +4,6 @@
 - name: reload firewalld
   shell: |
     firewall-cmd --reload
+
+- name: restart libvirtd
+  action: service name=libvirtd state=restarted

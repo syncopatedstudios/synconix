@@ -1,4 +1,0 @@
----
-
-- name: restart libvirtd
-  action: service name=libvirtd state=restarted

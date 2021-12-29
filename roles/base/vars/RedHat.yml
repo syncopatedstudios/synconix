@@ -57,3 +57,17 @@ libvirt:
   - virt-manager
   - virt-top
   - virt-viewer
+kernel:
+  - kernel-rt
+  - kernel-rt-core
+  - kernel-rt-devel
+  - kernel-rt-modules
+  - kernel-rt-modules-extra
+  - kernel-rt-modules-internal
+tuned:
+  - tuna
+  - xauth
+  - pygtk2-libglade
+  - tuned
+  - tuned-profiles-realtime
+  - tuned-gtk

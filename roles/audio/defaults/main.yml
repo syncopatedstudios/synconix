@@ -1,0 +1,18 @@
+---
+# vars set here can been over written by host_vars/<host>.yml
+
+backup: False
+
+admin_user: root
+
+nfs_host: False
+
+use_kernel: lts
+
+install_nvim: True
+install_rga: False
+install_googler: False
+install_atom: False
+install_timeshift: False
+install_chrome: False
+install_audio_utils: False
