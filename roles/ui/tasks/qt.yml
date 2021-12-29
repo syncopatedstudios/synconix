@@ -1,11 +1,11 @@
 ---
 
-- name: set x11 packages to install
+- name: set qt packages to install
   set_fact:
-    _packages: "{{ ui.x11  }}"
+    _packages: "{{ ui.qt  }}"
   tags: ['packages']
 
-- name: Install x11 packages
+- name: Install qt packages
   import_role:
     name: pkg_manager
   vars:
