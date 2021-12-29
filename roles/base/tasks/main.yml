@@ -9,17 +9,6 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Set base packages to install
-  set_fact:
-    _packages: "{{ base }}"
-  tags: ['packages']
-
-- name: Install base packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-
 - name: enable and start firewalld
   service:
     name: firewalld
@@ -34,12 +23,26 @@
   notify:
     - "reload firewalld"
 
+- include: filesystem.yml
+  tags: ['filesystem']
+
 - include: kernel.yml
   when: kernel is defined
   tags: ['kernel']
 
 - include: grub.yml
   tags: ['grub']
+
+- name: Set base packages to install
+  set_fact:
+    _packages: "{{ base }}"
+  tags: ['packages']
+
+- name: Install base packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
 
 - include: sudoers.yml
   tags: ['sudoers']
@@ -62,7 +65,7 @@
   tags: ['autofs']
 
 - include: docker.yml
-  when: docker_host|bool
+  when: docker_host|bool and docker is defined
   tags: ['docker']
 
 - include: libvirt.yml

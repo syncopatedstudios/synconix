@@ -2,7 +2,7 @@
 
 - name: set audio plugins packages to
   set_fact:
-    _packages: "{{ audio.plugins  }}"
+    _packages: "{{ plugins  }}"
   tags: ['packages']
 
 - name: Install audio plugins

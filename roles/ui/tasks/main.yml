@@ -71,6 +71,3 @@
     pkg_state: present
   when: install_desktop|bool
   tags: ['packages']
-
-- include: ranger.yml
-  tags: ['ranger']

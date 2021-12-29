@@ -83,7 +83,7 @@
       vars:
         pkg_state: present
 
-  when: ansible_os_family != 'Raspian'
+  when: ansible_os_family != 'Raspian' and tuned is defined
   tags: ['packages']
 
 - name: Copy over rtirq template

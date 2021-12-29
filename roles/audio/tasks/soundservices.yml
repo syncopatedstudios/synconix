@@ -2,7 +2,7 @@
 
 - name: set sound service packages to install
   set_fact:
-    _packages: "{{ (audio.alsa + audio.jack) }}"
+    _packages: "{{ (alsa + jack) }}"
   tags: ['packages']
 
 - name: Ensure all the required packages are installed

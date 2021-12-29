@@ -77,8 +77,5 @@
   # become: True
   # become_user: "{{ user.name }}"
 
-- include: dots.yml
-  when: dots['repo'] is defined
-
 - include: beets.yml
   tags: ['beets']

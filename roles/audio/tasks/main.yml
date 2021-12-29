@@ -9,19 +9,15 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include: filesystem.yml
-  tags: ['filesystem']
-
-
 - include: soundservices.yml
   tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]
 
-- name: Set base packages to install
+- name: Set audio packages to install
   set_fact:
-    _packages: "{{ base }}"
+    _packages: "{{ audio }}"
   tags: ['packages']
 
-- name: Install base packages
+- name: Install audio packages
   import_role:
     name: pkg_manager
   vars:

@@ -68,7 +68,6 @@ ui:
     - gnuplot
     - gtksourceview3
     - gtkspell3
-    - mpv-plugin-excerpt-git
     - nwdiag
     - pdfjs
     - python-adblock
@@ -87,6 +86,7 @@ ui:
     - grsync
     - guake
     - mpv
+    - mpv-plugin-excerpt-git
     - nomacs
     - pcmanfm
     - qpdfview

@@ -2,7 +2,7 @@
 
 - name: set packages to install
   set_fact:
-    _packages: "{{ audio.pipewire }}"
+    _packages: "{{ pipewire }}"
   tags: ['packages']
 
 - name: install pipewire

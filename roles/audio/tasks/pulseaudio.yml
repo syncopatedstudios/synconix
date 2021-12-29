@@ -2,7 +2,7 @@
 
 - name: set packages to remove
   set_fact:
-    _packages: "{{ audio.pulseaudio }}"
+    _packages: "{{ pulseaudio }}"
   tags: ['packages']
 
 # - name: Remove these packages
