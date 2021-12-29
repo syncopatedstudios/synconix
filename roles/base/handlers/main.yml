@@ -2,8 +2,11 @@
 
 
 - name: reload firewalld
-  shell: |
-    firewall-cmd --reload
+  shell: "firewall-cmd --reload"
 
 - name: restart libvirtd
   action: service name=libvirtd state=restarted
+
+- name: Reboot
+  shell: "shutdown -r now"
+  ignore_errors: True

@@ -4,6 +4,10 @@ autofs_configs: /etc
 admin_user: wheel
 rtirq_dir: /etc/sysconfig/rtirq.conf
 
+grub_config: /boot/efi/EFI/fedora/grub.cfg
+grub_cmd: grub2-mkconfig
+grub_set_default: grub2-set-default
+
 base:
   - autoconf
   - automake

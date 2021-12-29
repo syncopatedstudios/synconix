@@ -14,7 +14,6 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - DNS: 192.168.41.1
       - Domains: "syncopated.net"
-
       - Address: "192.168.41.3/24"
       - Gateway: "192.168.41.1"
 
@@ -24,7 +23,6 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - Domains: "syncopated.net"
       - Address: "192.168.40.1/24"
 
 
@@ -41,11 +39,7 @@ graphical_target: True
 
 install_x11: True
 install_i3: True
-
 autologin: True
-
-aliases:
-  - h="history 1"
 
 install_rga: True
 install_googler: True

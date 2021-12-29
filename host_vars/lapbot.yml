@@ -15,10 +15,8 @@ kvm_host: False
 docker_host: False
 
 graphical_target: True
-
 install_x11: True
 install_i3: True
-
 autologin: False
 
 install_rga: True
@@ -26,17 +24,18 @@ install_googler: True
 install_gutilities: True
 install_atom: True
 
-install_sonicpi: True
+
 
 install_audio_utils: True
 install_audio_plugins: True
 
 install_baudline: False
-install_protokol: True
 install_jalvselect: True
+install_protokol: True
 install_raysession: True
 install_reaper: True
 install_rtplugins: False
 install_soniclineup: True
+install_sonicpi: True
 install_tony: True
 install_touchosc: True

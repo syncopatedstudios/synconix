@@ -1,0 +1,23 @@
+---
+
+- name: Set kernel packages to install
+  set_fact:
+    _packages: "{{ kernel['lts'] }}"
+  when: use_kernel == 'lts'
+
+- name: Set kernel packages to install
+  set_fact:
+    _packages: "{{ kernel['rt'] }}"
+  when: use_kernel == 'rt'
+
+- name: Install kernel packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  register: package_results
+
+- name: Reboot if a different kernel was installed
+  shell: "shutdown -r now"
+  ignore_errors: True
+  when: package_results.changed

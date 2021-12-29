@@ -4,6 +4,10 @@ admin_user: wheel
 autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
 
+grub_config: /boot/grub/grub2.cfg
+grub_cmd: update-grub
+grub_set_default: grub-set-default
+
 base:
   - autofs
   - barrier

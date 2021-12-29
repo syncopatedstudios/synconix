@@ -1,0 +1,34 @@
+---
+
+- name: push mkinitcpio configs
+  copy:
+    src: "etc/mkinitcpio.conf"
+    dest: "/etc/mkinitcpio.conf"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+  tags: ['initram']
+  register: mkinit
+
+- name: create an initial ramdisk environment.
+  shell: |
+    mkinitcpio -P
+  when: mkinit.changed
+  tags: ['initram']
+
+- name: push default grub file
+  template:
+    src: etc/default/grub.j2
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: '644'
+    backup: yes
+  register: grubcfg
+
+- name: remake grub
+  shell: "{{ grub_cmd }} -o {{ grub_config }}"
+  when: grubcfg.changed
+  notify: Reboot

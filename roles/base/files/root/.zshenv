@@ -28,8 +28,8 @@ fi
 
 unset _old_path
 
-export TERM="xterm"
-export TERMINAL="xterm"
+export TERM="xterm-256color"
+export TERMINAL="xterm-256color"
 export TERMCMD="$TERMINAL"
 
 export BROWSER="qutebrowser"
