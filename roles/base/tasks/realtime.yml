@@ -83,7 +83,7 @@
       vars:
         pkg_state: present
 
-  when: when: ansible_os_family != 'Raspian'
+  when: ansible_os_family != 'Raspian'
   tags: ['packages']
 
 - name: Copy over rtirq template
