@@ -32,6 +32,7 @@ base:
   - jansson
   - libbluray
   - libev
+  - libev
   - libgit2
   - libgme
   - libmad
@@ -67,16 +68,17 @@ base:
   - ruby-bundler
   - rubygems
   - screen
-  - sox
   - sndio
+  - sox
   - sqlite
   - sudo
   - taglib
   - terminator
-  - wavpack
   - w3m
+  - wavpack
   - wol
   - xterm
+  - zlib
   - zsh
   - zsh-autosuggestions
   - zsh-completions

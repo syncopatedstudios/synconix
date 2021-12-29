@@ -1,6 +1,6 @@
 ---
 
-- name: permit traffic to rpcbind ports
+- name: permit traffic to qbittorrent ports
   firewalld:
     port: "{{ item }}"
     permanent: yes
