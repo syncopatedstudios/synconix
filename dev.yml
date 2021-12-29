@@ -8,18 +8,14 @@
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
 
   pre_tasks:
-    - name: Load Fedora
-      include_role:
-        name: distro/fedora
-      when: "ansible_facts['os_family'] == 'RedHat'"
-      tags: ['fedora', 'packagelist']
+    - name: gather facts
+      setup:
+        gather_subset:
+          - os_family
+          - pkg_mgr
 
-    - name: Load Debian
-      include_role:
-        name: distro/debian
-      when: "ansible_facts['os_family'] == 'Debian'"
-      tags: ['debian', 'packagelist']
-
+    - name: Include OS-specific variables.
+      include_vars: "{{ ansible_os_family }}.yml"
   tasks:
 
     - name: get installed items list
@@ -58,41 +54,25 @@
         msg: "{{ ansible_selinux['status'] }}"
       tags: ['test']
 
-    - name: Reboot host
-      shell: "shutdown -r now"
-      async: 1
-      poll: 0
-      ignore_errors: True
-      register: reboot
-      tags: ['test_reboot']
-
-    - name: wait for reboot complete before moving on
-      local_action:
-        module: wait_for
-        host: "{{ inventory_hostname }}"
-        state: started
-        delay: 30
-        timeout: 120
-      when: reboot.changed
-      tags: ['test_reboot']
+    # - name: Reboot host
+    #   shell: "shutdown -r now"
+    #   async: 1
+    #   poll: 0
+    #   ignore_errors: True
+    #   register: reboot
+    #   tags: ['test_reboot']
+    #
+    # - name: wait for reboot complete before moving on
+    #   local_action:
+    #     module: wait_for
+    #     host: "{{ inventory_hostname }}"
+    #     state: started
+    #     delay: 30
+    #     timeout: 120
+    #   when: reboot.changed
+    #   tags: ['test_reboot']
 
     - name: System details
       debug:
         msg: "{{ ansible_lsb['id'] }}"
       tags: ['sysinfo']
-
-    # - name: Do distro-specific stuff before anything else
-    #   include_role:
-    #     name: distro
-    #     apply:
-    #       tags:
-    #         - audio
-    #   tags: ['always']
-
-  roles:
-     - { role: networking, tags: ['networking'] }
-     - { role: common, tags: ['common'] }
-     - { role: ui, tags: ['ui'] }
-     - { role: devel, tags: ['devel'] }
-     - { role: soundbot, tags: ['soundbot'] }
-     - { role: audio, tags: ['audio'] }

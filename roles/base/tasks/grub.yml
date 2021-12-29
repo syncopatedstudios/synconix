@@ -1,16 +1,15 @@
 ---
 
-- name: push mkinitcpio configs
-  copy:
-    src: "etc/mkinitcpio.conf"
+- name:  push mkinitcpio configs
+  template:
+    src: "etc/mkinitcpio.conf.j2"
     dest: "/etc/mkinitcpio.conf"
     owner: root
     group: root
-    mode: '0644'
+    mode: '644'
     backup: yes
-    directory_mode: no
-  tags: ['initram']
   register: mkinit
+  tags: ['initram']
 
 - name: create an initial ramdisk environment.
   shell: |

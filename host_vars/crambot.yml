@@ -41,6 +41,7 @@ autofs_client:
 
 kvm_host: False
 docker_host: True
+docker_storage: /storage/docker
 
 graphical_target: True
 install_x11: True

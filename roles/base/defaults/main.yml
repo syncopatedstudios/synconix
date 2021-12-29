@@ -20,8 +20,7 @@ qbittorrent:
 kvm_host: False
 docker_host: False
 
-docker:
-  storage: /var/lib/docker
+docker_storage: /var/lib/docker
 
 gems:
   - activesupport

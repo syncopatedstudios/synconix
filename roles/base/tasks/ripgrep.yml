@@ -20,7 +20,6 @@
     - (ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS')
     - not hazirga.stat.exists
 
-
 - block:
     - name: fetch ripgrep-all
       get_url:
@@ -37,4 +36,30 @@
         chdir: "{{ local_src }}"
   when:
     - (ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS')
+    - not hazirga.stat.exists
+
+- block:
+    - name: install ripgrep-all-git for manjaro
+      aur:
+        use: auto
+        name: ripgrep-all-git
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+
+  when:
+    - ansible_lsb['id'] == 'ManjaroLinux'
+    - not hazirga.stat.exists
+
+- block:
+    - name: install ripgrep-all for arch
+      aur:
+        use: auto
+        name: ripgrep-all
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+
+  when:
+    - ansible_os_family == 'Archlinux'
     - not hazirga.stat.exists

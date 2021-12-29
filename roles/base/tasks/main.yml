@@ -9,6 +9,17 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Set base packages to install
+  set_fact:
+    _packages: "{{ base }}"
+  tags: ['packages']
+
+- name: Install base packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+
 - name: enable and start firewalld
   service:
     name: firewalld
@@ -32,17 +43,6 @@
 
 - include: grub.yml
   tags: ['grub']
-
-- name: Set base packages to install
-  set_fact:
-    _packages: "{{ base }}"
-  tags: ['packages']
-
-- name: Install base packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
 
 - include: sudoers.yml
   tags: ['sudoers']

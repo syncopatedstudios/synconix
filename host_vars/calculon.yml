@@ -32,11 +32,11 @@ autofs_client:
     - storage
     - backup
 
-kvm_host: True
+kvm_host: False
 docker_host: True
+docker_storage: /storage/docker
 
 graphical_target: True
-
 install_x11: True
 install_i3: True
 autologin: True

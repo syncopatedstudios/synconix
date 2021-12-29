@@ -1,149 +1,156 @@
 ---
 #https://linuxsampler-devel.narkive.com/g4cCNyDP/libgig-compiler-error-on-ubuntustudio-16-04
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
+- name: check if linuxsampler is already installed
+  stat: path="/usr/local/bin/linuxsampler"
+  register: hazilinuxsampler
 
-- name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
+- block:
+    - name: gather facts
+      setup:
+        gather_subset:
+          - os_family
+          - pkg_mgr
 
-- name: set linuxsampler dependencies to install
-  set_fact:
-    _packages: "{{ development.linuxsampler }}"
-  tags: ['packages']
+    - name: Include OS-specific variables.
+      include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install linuxsampler dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
+    - name: set linuxsampler dependencies to install
+      set_fact:
+        _packages: "{{ development.linuxsampler }}"
+      tags: ['packages']
 
-- name: checkout latest versions of ls libs
-  shell: |
-    mkdir -pv linuxsampler
-    cd linuxsampler/
-    svn co https://svn.linuxsampler.org/svn/libgig/trunk libgig
-    svn co https://svn.linuxsampler.org/svn/liblscp/trunk liblscp
-    svn co https://svn.linuxsampler.org/svn/linuxsampler/trunk linuxsampler
-    svn co https://svn.linuxsampler.org/svn/qsampler/trunk qsampler
-    svn co https://svn.linuxsampler.org/svn/jlscp/trunk jlscp
-    svn co https://svn.linuxsampler.org/svn/jsampler/trunk jsampler
-    svn co https://svn.linuxsampler.org/svn/gigedit/trunk gigedit
-  args:
-    chdir: "{{ local_src }}"
+    - name: Install linuxsampler dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
 
-- name: build libgig
-  shell: |
-    cd linuxsampler/libgig/
-    libtoolize
-    aclocal
-    autoheader
-    autoconf
-    automake --add-missing
-    ./configure
-    make
-    sudo make install
-  args:
-    chdir: "{{ local_src }}"
-  register: libgig_build
-  failed_when: libgig_build.failed
+    - name: checkout latest versions of ls libs
+      shell: |
+        mkdir -pv linuxsampler
+        cd linuxsampler/
+        svn co https://svn.linuxsampler.org/svn/libgig/trunk libgig
+        svn co https://svn.linuxsampler.org/svn/liblscp/trunk liblscp
+        svn co https://svn.linuxsampler.org/svn/linuxsampler/trunk linuxsampler
+        svn co https://svn.linuxsampler.org/svn/qsampler/trunk qsampler
+        svn co https://svn.linuxsampler.org/svn/jlscp/trunk jlscp
+        svn co https://svn.linuxsampler.org/svn/jsampler/trunk jsampler
+        svn co https://svn.linuxsampler.org/svn/gigedit/trunk gigedit
+      args:
+        chdir: "{{ local_src }}"
 
-- name: copy ld config file
-  copy:
-    src: etc/ld.so.conf
-    dest: /etc/ld.so.conf
-    owner: root
-    group: root
-    mode: '0644'
-    directory_mode: no
-    backup: yes
+    - name: build libgig
+      shell: |
+        cd linuxsampler/libgig/
+        libtoolize
+        aclocal
+        autoheader
+        autoconf
+        automake --add-missing
+        ./configure
+        make
+        sudo make install
+      args:
+        chdir: "{{ local_src }}"
+      register: libgig_build
+      failed_when: libgig_build.failed
 
-- name: run ldconfig
-  shell: |
-    ldconfig
+    - name: copy ld config file
+      copy:
+        src: etc/ld.so.conf
+        dest: /etc/ld.so.conf
+        owner: root
+        group: root
+        mode: '0644'
+        directory_mode: no
+        backup: yes
 
-# - name: build liblscp
-#   shell: |
-#     cd linuxsampler/liblscp/
-#     libtoolize
-#     aclocal
-#     autoheader
-#     autoconf
-#     automake --add-missing
-#     ./configure
-#     make
-#     sudo make install
-#   args:
-#     chdir: "{{ local_src }}"
-#   register: liblscp_build
-#   failed_when: liblscp_build.failed
+    - name: run ldconfig
+      shell: |
+        ldconfig
 
-- name: build liblscp
-  shell: |
-    cd linuxsampler/liblscp/
-    cmake -B build -S .
-    make -C build
-    sudo make -C build install
-  args:
-    chdir: "{{ local_src }}"
-  register: liblscp_build
-  failed_when: liblscp_build.failed
+    # - name: build liblscp
+    #   shell: |
+    #     cd linuxsampler/liblscp/
+    #     libtoolize
+    #     aclocal
+    #     autoheader
+    #     autoconf
+    #     automake --add-missing
+    #     ./configure
+    #     make
+    #     sudo make install
+    #   args:
+    #     chdir: "{{ local_src }}"
+    #   register: liblscp_build
+    #   failed_when: liblscp_build.failed
 
-- name: run ldconfig
-  shell: |
-    ldconfig
+    - name: build liblscp
+      shell: |
+        cd linuxsampler/liblscp/
+        cmake -B build -S .
+        make -C build
+        sudo make -C build install
+      args:
+        chdir: "{{ local_src }}"
+      register: liblscp_build
+      failed_when: liblscp_build.failed
 
-- name: build linuxsampler
-  shell: |
-    cd linuxsampler/linuxsampler/
-    libtoolize
-    aclocal
-    autoheader
-    autoconf
-    automake --add-missing
-    CXXFLAGS="-O3 -msse -march=native -mfpmath=sse -ffast-math -fomit-frame-pointer -funroll-loops" \
-    ./configure --enable-preload-samples=327680 --enable-rt-exceptions --disable-asio-driver --enable-dev-mode
-    make parser
-    make
-    sudo make install
-  args:
-    chdir: "{{ local_src }}"
-  register: linuxsampler_build
-  failed_when: linuxsampler_build.failed
+    - name: run ldconfig
+      shell: |
+        ldconfig
 
-- name: build qsampler
-  shell: |
-    cd linuxsampler/qsampler/
-    cmake -B build -S .
-    make -C build
-    sudo make -C build install
-  args:
-    chdir: "{{ local_src }}"
-  register: qsampler_build
-  failed_when: qsampler_build.failed
+    - name: build linuxsampler
+      shell: |
+        cd linuxsampler/linuxsampler/
+        libtoolize
+        aclocal
+        autoheader
+        autoconf
+        automake --add-missing
+        CXXFLAGS="-O3 -msse -march=native -mfpmath=sse -ffast-math -fomit-frame-pointer -funroll-loops" \
+        ./configure --enable-preload-samples=327680 --enable-rt-exceptions --disable-asio-driver --enable-dev-mode
+        make parser
+        make
+        sudo make install
+      args:
+        chdir: "{{ local_src }}"
+      register: linuxsampler_build
+      failed_when: linuxsampler_build.failed
 
-- name: run ldconfig
-  shell: |
-    ldconfig
+    - name: build qsampler
+      shell: |
+        cd linuxsampler/qsampler/
+        cmake -B build -S .
+        make -C build
+        sudo make -C build install
+      args:
+        chdir: "{{ local_src }}"
+      register: qsampler_build
+      failed_when: qsampler_build.failed
 
-- name: build jlscp
-  shell: |
-    cd linuxsampler/jlscp
-    ant build-lib
-    mv lib/jlscp.jar /usr/lib/jvm/java-8-openjdk/jre/lib/ext/jlscp.jar
-  args:
-    chdir: "{{ local_src }}"
-  register: libjlscp_build
-  failed_when: libjlscp_build.failed
+    - name: run ldconfig
+      shell: |
+        ldconfig
 
-- name: build jsampler
-  shell: |
-    cd linuxsampler/jsampler
-    ant build-jsclassic
-    mv dist/JS_Classic-0.9.jar /usr/local/bin/JS_Classic-0.9.jar
-  args:
-    chdir: "{{ local_src }}"
+    - name: build jlscp
+      shell: |
+        cd linuxsampler/jlscp
+        ant build-lib
+        mv lib/jlscp.jar /usr/lib/jvm/java-8-openjdk/jre/lib/ext/jlscp.jar
+      args:
+        chdir: "{{ local_src }}"
+      register: libjlscp_build
+      failed_when: libjlscp_build.failed
+
+    - name: build jsampler
+      shell: |
+        cd linuxsampler/jsampler
+        ant build-jsclassic
+        mv dist/JS_Classic-0.9.jar /usr/local/bin/JS_Classic-0.9.jar
+      args:
+        chdir: "{{ local_src }}"
+
+  when: not hazilinuxsampler.stat.exists
