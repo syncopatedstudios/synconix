@@ -1,4 +1,4 @@
-GRUB_TIMEOUT=5
+GRUB_TIMEOUT=3
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
 GRUB_DEFAULT=saved
 GRUB_SAVEDEFAULT=true
@@ -9,8 +9,6 @@ GRUB_CMDLINE_LINUX="crashkernel=auto threadirqs rhgb net.ifnames=0 biosdevname=0
 {% endif %}
 GRUB_DISABLE_RECOVERY=True
 GRUB_DISABLE_SUBMENU=True
-GRUB_TERMINAL_OUTPUT=console
+GRUB_TERMINAL_OUTPUT="console"
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
-GRUB_TIMEOUT_STYLE=menu
-GRUB_GFXMODE=auto
-GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_TIMEOUT_STYLE="menu"
