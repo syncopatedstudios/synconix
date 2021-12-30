@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-[[ -f ~/.Xdefaults ]] && xrdb -merge ~/.Xdefaults
+if test -f "$HOME/.Xresources"; then
+    echo "merging ..."
+    xrdb -merge "$HOME/.Xresources"
+fi
 
 /usr/bin/xmodmap -e "clear Lock"
 /usr/bin/xmodmap -e "keysym Caps_Lock = F13"

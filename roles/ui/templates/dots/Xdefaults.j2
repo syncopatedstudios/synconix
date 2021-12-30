@@ -21,16 +21,15 @@
 *.color14: #6ECFCF
 *.color15: #C0AF9F
 
-xterm.termName:       xterm-256color
+
 ! normal term session
 xterm.vt100.geometry: 122x61
+
 ! tmux two panes
-!xterm.vt100.geometry: 151x73
+! xterm.vt100.geometry: 151x73
 
-xterm*saveLines: 30000
-
-!XTerm*metaSendsEscape: true
-!XTerm*altIsNotMeta: true
+! XTerm*metaSendsEscape: true
+! XTerm*altIsNotMeta: true
 
 ! fix C-h not working
 ! https://www.emacswiki.org/emacs/BackspaceKey
@@ -45,13 +44,13 @@ xterm*charClass: 33:48,37-38:48,45-47:48,64:48,58:48,126:48,61:48,63:48,43:48,35
 
 !===================
 ! scrollbar start
-!xterm*scrollBar:      true
-!xterm*rightScrollBar: true
+xterm*scrollBar:      true
+xterm*rightScrollBar: true
 ! scrollbar end
 !=====================
 
 ! stop output from moving scroll down to the bottom (scroll position relative to the bottom is kept)
-!xterm*scrollTtyOutput: false
+! xterm*scrollTtyOutput: false
 
 ! Enable mouse scrolling in applications like vim
 xterm*vt100*alternateScroll: true
@@ -60,45 +59,5 @@ xterm*vt100*translations:   #override                       \n \
   Shift Ctrl <KeyPress>C: copy-selection(CLIPBOARD)       \n \
   Shift Ctrl <KeyPress>V: insert-selection(CLIPBOARD)     \n
 
-xterm*faceName: Hack Nerd Font
-!xterm*faceName: Droid Sans Mono
-xterm*faceSize: 11
-
-
-URxvt.depth:                32
-URxvt.geometry:             90x30
-URxvt.loginShell:           true
-URxvt.internalBorder:       3
-URxvt.lineSpace:            0
-
-! transparency - true or false (default)
-URxvt*transparent: true
-
-! tint with any color; i.e., blue, red, tomato4, olivedrab2, etc.
-!   some nice listings are at:
-!     http://www.nisrv.com/drupal/?q=node/11
-!     http://www.htmlgoodies.com/tutorials/colors/article.php/3478921
-!URxvt*tintColor: S_base03
-
-!shading - 0 to 99 darkens, 101 to 200 lightens.
-!Dont use with tintColor; just use a darker or lighter color instead.
-URxvt*shading: 15
-
-URxvt*saveLines: 12000
-
-URxvt*foreground: #657b83
-URxvt*background: #002b36
-
-! Monaco Linux font
-URxvt*font: xft:Hack Nerd Font:pixelsize=15
-URxvt*boldFont: xft:Hack Nerd Font:bold:pixelsize=15
-URxvt*letterSpace: -1
-
-! scrollbar - true (default) or false
-URxvt*scrollBar: true
-
-! scrollbar position - left=false (default) or right=true
-URxvt*scrollBar_right: false
-
-! scrollbar style - rxvt (default), plain, next, or xterm
-URxvt*scrollstyle: plain
+*faceName: Hack Nerd Font
+*faceSize: 11
