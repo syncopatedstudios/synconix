@@ -1,4 +1,8 @@
 ---
+- include_vars:
+   file: defaults/clam.yml
+  tags: ['clam']
+
 - name: check whether this is an initial install
   stat:
     path: "{{ application.source.folder }}/.installed"
