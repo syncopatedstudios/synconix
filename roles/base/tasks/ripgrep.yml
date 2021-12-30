@@ -43,17 +43,6 @@
   register: hazirga
 
 - block:
-    - name: install ripgrep-all-git for manjaro
-      aur:
-        use: auto
-        name: ripgrep-all-git
-        state: present
-      become: True
-      become_user: "{{ user.name }}"
-
-  when: not hazirga.stat.exists
-
-- block:
     - name: install ripgrep-all for arch
       aur:
         use: auto
