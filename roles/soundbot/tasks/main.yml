@@ -77,5 +77,8 @@
   # become: True
   # become_user: "{{ user.name }}"
 
+- include: sonic-pi.yml
+  tags: ['sonic-pi']
+
 - include: beets.yml
   tags: ['beets']
