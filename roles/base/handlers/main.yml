@@ -7,6 +7,9 @@
 - name: restart libvirtd
   action: service name=libvirtd state=restarted
 
-- name: Reboot
+- name: remake grub
+  shell: "{{ grub_cmd }} -o {{ grub_config }}"
+
+- name: reboot
   shell: "shutdown -r now"
   ignore_errors: True

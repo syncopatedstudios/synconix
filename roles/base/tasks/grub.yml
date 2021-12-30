@@ -25,9 +25,6 @@
     group: root
     mode: '644'
     backup: yes
-  register: grubcfg
-
-- name: remake grub
-  shell: "{{ grub_cmd }} -o {{ grub_config }}"
-  when: grubcfg.changed
-  notify: Reboot
+  notify:
+    - remake grub
+    - reboot

@@ -18,6 +18,10 @@
   register: package_results
 
 - name: Reboot if a different kernel was installed
-  shell: "shutdown -r now"
-  ignore_errors: True
-  when: package_results.changed
+  shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
+  when:
+    - use_kernel == 'lts'
+    - package_results.changed
+  notify:
+    - remake grub
+    - reboot

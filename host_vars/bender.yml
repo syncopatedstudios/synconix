@@ -1,5 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_kernel: lts
+
 use_networkmanager: False
 use_systemdnetwork: True
 
@@ -20,6 +22,12 @@ nfs_host: True
 kvm_host: False
 docker_host: True
 docker_storage: /storage/docker
+
+qbittorrent:
+  - 8080/tcp
+  - 36278/udp
+  - 44448/tcp
+  - 44448/udp
 
 graphical_target: False
 autologin: False

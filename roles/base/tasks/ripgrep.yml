@@ -1,8 +1,8 @@
 ---
 
-- name: check if ripgrep-all is already installed
+- name: check if ripgrep-all is already installed from source
   stat: path="/usr/local/bin/rga"
-  register: hazirga
+  register: hazirga_source
 
 - block:
     - name: fetch ripgrep
@@ -18,7 +18,7 @@
 
   when:
     - (ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS')
-    - not hazirga.stat.exists
+    - not hazirga_source.stat.exists
 
 - block:
     - name: fetch ripgrep-all
@@ -36,7 +36,11 @@
         chdir: "{{ local_src }}"
   when:
     - (ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS')
-    - not hazirga.stat.exists
+    - not hazirga_source.stat.exists
+
+- name: check if ripgrep-all is already installed via pkg manager
+  stat: path="/usr/bin/rga"
+  register: hazirga
 
 - block:
     - name: install ripgrep-all-git for manjaro
@@ -47,9 +51,7 @@
       become: True
       become_user: "{{ user.name }}"
 
-  when:
-    - ansible_lsb['id'] == 'ManjaroLinux'
-    - not hazirga.stat.exists
+  when: not hazirga.stat.exists
 
 - block:
     - name: install ripgrep-all for arch

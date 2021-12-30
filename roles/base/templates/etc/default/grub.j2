@@ -1,6 +1,7 @@
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
 GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
 {% if ansible_distribution == 'Fedora' %}
 GRUB_CMDLINE_LINUX="crashkernel=auto threadirqs rhgb net.ifnames=0 biosdevname=0 audit=0 selinux=0"
 {% else %}
