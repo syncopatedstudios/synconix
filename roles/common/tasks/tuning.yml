@@ -1,9 +1,0 @@
----
-
-- name: push jack limits file
-  copy:
-    src: etc/security/limits.conf
-    dest: /etc/security/limits.conf
-    owner: root
-    group: root
-    mode: '0644'

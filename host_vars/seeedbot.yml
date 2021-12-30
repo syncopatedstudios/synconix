@@ -1,5 +1,6 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_systemdnetwork: False
 use_networkmanager: False
 
 systemd_networkd_network:
@@ -11,7 +12,6 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - DNS: 192.168.41.1
       - Domains: "syncopated.net"
-
       - Address: "192.168.41.15/24"
       - Gateway: "192.168.41.1"
 
@@ -21,64 +21,16 @@ autofs_client:
     - storage
     - backup
 
-graphical_target: True
-
-install_x11: True
-install_i3: True
-
-autologin: True
+graphical_target: False
+install_x11: False
+install_i3: False
+autologin: False
 
 install_rga: True
 
 install_audio_utils: False
 install_audio_plugins: False
+
 install_jacktrip: True
 install_jalvselect: False
 install_njconnect: True
-
-pkgs:
-    - a2jmidid
-    - compton
-    - compton
-    - dex
-    - fancontrol
-    - fmit
-    - fonts-font-awesome
-    - fonts-hack-ttf
-    - fonts-lmodern
-    - fonts-stix
-    - guake
-    - libcanberra0
-    - libncurses-dev
-    - lm-sensors
-    - neovim
-    - nitrogen
-    - picom
-    - qt5-qmak
-    - ranger
-    - screen
-    - sensors
-    - stress
-    - terminator
-    - x42-plugins
-    - xfonts-cyrillic
-    - xinit
-    - xterm
-    - ladspa-sdk
-    - libasound2-dev
-    - libdb-dev
-    - libnotify-dev
-    - libopusfile-dev
-    - libreadline
-    - libreadline-dev
-    - libspeexdsp-dev
-    - libsystemd-dev
-    - libzita-alsa-pcmi-dev
-    - libzita-resampler-dev
-    - lilv-utils
-    - linux-cpupower
-    - lv2file
-    - lv2ls
-    - opus-tools
-    - perl-tk
-    - readline-common

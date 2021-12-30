@@ -12,7 +12,8 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-
+      - DNS: 192.168.41.1
+      - Domains: "syncopated.net"
       - Address: "192.168.41.4/24"
       - Gateway: "192.168.41.1"
 
@@ -22,7 +23,6 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-
       - Address: "192.168.36.1/24"
 
   eth2:
@@ -31,7 +31,6 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-
       - Address: "192.168.40.2/24"
 
 autofs_client:
@@ -42,17 +41,17 @@ autofs_client:
 
 kvm_host: False
 docker_host: True
+docker_storage: /storage/docker
 
 graphical_target: True
-
 install_x11: True
 install_i3: True
-
 autologin: True
 
-install_baudline: True
-install_audio_utils: True
 install_audio_plugins: True
+install_audio_utils: True
+
+install_baudline: True
 install_jalvselect: True
 install_raysession: True
 install_reaper: True

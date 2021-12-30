@@ -4,6 +4,10 @@ autofs_configs: /etc
 admin_user: wheel
 rtirq_dir: /etc/sysconfig/rtirq.conf
 
+grub_config: /boot/efi/EFI/fedora/grub.cfg
+grub_cmd: grub2-mkconfig
+grub_set_default: grub2-set-default
+
 base:
   - autoconf
   - automake
@@ -57,3 +61,17 @@ libvirt:
   - virt-manager
   - virt-top
   - virt-viewer
+kernel:
+  - kernel-rt
+  - kernel-rt-core
+  - kernel-rt-devel
+  - kernel-rt-modules
+  - kernel-rt-modules-extra
+  - kernel-rt-modules-internal
+tuned:
+  - tuna
+  - xauth
+  - pygtk2-libglade
+  - tuned
+  - tuned-profiles-realtime
+  - tuned-gtk

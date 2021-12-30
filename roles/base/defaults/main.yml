@@ -11,17 +11,10 @@ nfs_ports:
   - 662/tcp
   - 662/udp
 
-qbittorrent:
-  - 8080/tcp
-  - 36278/udp
-  - 44448/tcp
-  - 44448/udp
-
 kvm_host: False
-docker_host: False
 
-docker:
-  storage: /var/lib/docker
+docker_host: False
+docker_storage: /var/lib/docker
 
 gems:
   - activesupport

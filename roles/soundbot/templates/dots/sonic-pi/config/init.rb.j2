@@ -1,0 +1,15 @@
+# Sonic Pi init file
+# Code in here will be evaluated on launch.
+
+SONIC = File.join(ENV['HOME'], ".sonic-pi")
+
+SOUNDS = File.join(ENV['HOME'], "Library", "Sounds", "Collections/**")
+
+SAMPLES = File.join(ENV['HOME'], "Studio", "sessions/**")
+
+load_snippets SONIC + "/snippets", true
+
+# Run all files in the helpers subdirectory
+Dir.glob(SONIC + "/helpers/**/*.{spi,rb}").each do |path|
+  run_file path
+end

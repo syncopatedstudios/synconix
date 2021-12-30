@@ -1,30 +1,6 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
 development:
-  sonicpi:
-    - aubio
-    - boost
-    - cmake
-    - erlang
-    - gcc-libs
-    - gendesk
-    - glibc
-    - lua
-    - osmid
-    - qscintilla-qt5
-    - qt5-base
-    - qt5-tools
-    - rtaudio
-    - rtmidi
-    - ruby
-    - sc3-plugins
-    - supercollider
-    - wkhtmltopdf
-  raysession:
-    - git
-    - qt5-tools
-    - python-pyliblo
-    - python-pyqt5
   deadbeef:
     - alsa-oss
     - cdparanoia
@@ -124,6 +100,7 @@ development:
     - doxygen
     - flex
     - gpp
+    - jdk8-openjdk
     - jre8-openjdk
     - libxslt
     - subversion
@@ -172,6 +149,30 @@ development:
     - sdl2
     - valgrind
     - webrtc-audio-processing
+  raysession:
+    - git
+    - qt5-tools
+    - python-pyliblo
+    - python-pyqt5
+  sonicpi:
+    - aubio
+    - boost
+    - cmake
+    - erlang
+    - gcc-libs
+    - gendesk
+    - glibc
+    - lua
+    - osmid
+    - qscintilla-qt5
+    - qt5-base
+    - qt5-tools
+    - rtaudio
+    - rtmidi
+    - ruby
+    - sc3-plugins
+    - supercollider
+    - wkhtmltopdf
   sonicvisualiser:
     - alsa-lib
     - bzip2

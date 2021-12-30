@@ -1,0 +1,52 @@
+---
+
+- name: set packages to remove
+  set_fact:
+    _packages: "{{ pulseaudio }}"
+  tags: ['packages']
+
+# - name: Remove these packages
+#   import_role:
+#     name: pkg_manager
+#   vars:
+#     pkg_state: absent
+#   when: "ansible_os_family == 'Archlinux'"
+#   tags: ['packages']
+
+- name: remove pulseaudio
+  shell: |
+    yay -R pulseaudio pulseaudio-jack --noconfirm
+  tags: ['pulseaudio']
+  become: True
+  become_user: "{{ user.name }}"
+  ignore_errors: True
+
+- name: Remove pulseaudio systemd configs
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /usr/lib/systemd/user/pulseaudio.service
+    - /usr/lib/systemd/user/pulseaudio.socket
+    - /usr/lib/systemd/user/pulseaudio-x11.service
+
+- block:
+    - name: ensure pulseaudio config directory exists
+      shell: "mkdir -pv {{ user.home }}/.config/pulse"
+
+    - name: ensure pulseaudio configs are placed in ~/.config/pulse
+      copy:
+        src: "dots/config/pulse/{{ item }}"
+        dest: "{{ user.home }}/.config/pulse/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: yes
+        directory_mode: no
+      with_items:
+        - client.conf
+        - daemon.conf
+        - default.pa
+
+  become: True
+  become_user: "{{ user.name }}"

@@ -1,0 +1,13 @@
+---
+
+- name: set graphical audio utility packages to
+  set_fact:
+    _packages: "{{ utilities }}"
+  tags: ['packages']
+
+- name: Install audio utilities
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']

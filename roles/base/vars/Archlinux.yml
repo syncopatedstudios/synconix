@@ -1,5 +1,12 @@
+---
+# vars here will override those found in host_vars/<host>.yml
+admin_user: wheel
 autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
+
+grub_config: /boot/grub/grub.cfg
+grub_cmd: grub-mkconfig
+grub_set_default: grub-set-default
 
 base:
   - autofs
@@ -28,6 +35,7 @@ base:
   - iotop
   - jansson
   - libbluray
+  - libev
   - libev
   - libgit2
   - libgme
@@ -58,28 +66,38 @@ base:
   - qscintilla-qt5
   - r
   - ranger
-  - ripgrep-all
+  # - ripgrep-all
   - rsync
   - rtirq
   - ruby-bundler
   - rubygems
   - screen
-  - sox
   - sndio
+  - sox
   - sqlite
   - sudo
   - taglib
   - terminator
-  - wavpack
   - w3m
+  - wavpack
   - wol
   - xterm
+  - zlib
   - zsh
   - zsh-autosuggestions
   - zsh-completions
   - zsh-history-substring-search
   - zsh-syntax-highlighting
   - zsh-theme-powerlevel10k
+kernel:
+  lts:
+    - linux-lts
+    - linux-lts-headers
+  rt:
+    - linux510-rt
+    - linux510-rt-acpi_call
+    - linux510-rt-headers
+    - linux510-rt-r8168
 libvirt:
   - libguestfs
   - libvirt
@@ -90,3 +108,6 @@ libvirt:
 docker:
   - docker
   - docker-compose
+tuned:
+  - tuned
+  - tuna

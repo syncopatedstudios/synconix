@@ -66,7 +66,7 @@
 
 - name: update aur packages
   shell: |
-    yay -Syuu --noconfirm --needed
+    yay -Syyuu --noconfirm --needed
   become: True
   become_user: "{{ user.name }}"
   tags: ['yay']

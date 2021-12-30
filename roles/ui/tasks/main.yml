@@ -33,16 +33,29 @@
     directory_mode: no
   tags: ['help']
 
-- include: environment.yml
-  tags: ['env', 'xorg', 'zsh']
+- include: qt.yml
+  tags: ['qt']
 
 - include: x11.yml
   when: install_x11|bool
   tags: ['x11']
 
+- include: xprofile.yml
+  tags: ['xprofile']
+
 - include: i3.yml
   when: install_i3|bool
   tags: ['i3']
+
+- name: Copy terminator config
+  copy:
+    src: dots/config/terminator/config
+    dest: "{{ user.home }}/.config/terminator/config"
+    directory_mode: no
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0644'
+  tags: ['terminator']
 
 - include: autologin.yml
   when: autologin|bool
@@ -68,6 +81,3 @@
     pkg_state: present
   when: install_desktop|bool
   tags: ['packages']
-
-- include: ranger.yml
-  tags: ['ranger']

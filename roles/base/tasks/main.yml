@@ -34,21 +34,38 @@
   notify:
     - "reload firewalld"
 
-- include: ruby.yml
-  tags: ['ruby']
+- include: filesystem.yml
+  tags: ['filesystem']
+
+- include: kernel.yml
+  when: kernel is defined
+  tags: ['kernel']
+
+- include: grub.yml
+  tags: ['grub']
 
 - include: sudoers.yml
   tags: ['sudoers']
 
+- include: realtime.yml
+  tags: ['realtime']
+
 - include: perms.yml
   tags: ['perms']
+
+- include: ruby.yml
+  tags: ['ruby']
 
 - include: nfs.yml
   when: nfs_host|bool
   tags: ['nfs']
 
+- include: autofs.yml
+  when: autofs_client is defined
+  tags: ['autofs']
+
 - include: docker.yml
-  when: docker|bool
+  when: docker_host|bool and docker is defined
   tags: ['docker']
 
 - include: libvirt.yml
@@ -70,52 +87,11 @@
 - include: ranger.yml
   tags: ['ranger']
 
-- include: environment.yml
-  tags: ['environment']
+- include: shell.yml
+  tags: ['shell']
 
 - include: dots.yml
   tags: ['dots']
-
-- name: push mkinitcpio configs
-  copy:
-    src: "etc/mkinitcpio.conf"
-    dest: "/etc/mkinitcpio.conf"
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
-    directory_mode: no
-  tags: ['initram']
-  register: mkinit
-
-- name: create an initial ramdisk environment.
-  shell: |
-    mkinitcpio -P
-  when: mkinit.changed
-  tags: ['initram']
-
-- name: push default grub file
-  template:
-    src: etc/default/grub.j2
-    dest: /etc/default/grub
-    owner: root
-    group: root
-    mode: '644'
-    backup: yes
-  tags: ['grub']
-  register: grubcfg
-
-- name: remake grub
-  shell: |
-    grub-mkconfig -o /boot/grub/grub.cfg
-  when: grubcfg.changed
-  tags: ['grub']
-
-- name: Reboot on initial setup
-  shell: "shutdown -r now"
-  when: grubcfg.changed
-  ignore_errors: True
-  tags: ['grub']
 
 - include: firewalld.yml
   tags: ['bender']

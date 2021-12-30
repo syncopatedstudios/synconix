@@ -4,9 +4,6 @@
 clean_dnf: False
 
 fedora_version: 32
-grub_config: /boot/efi/EFI/fedora/grub.cfg
-grub_cmd: grub2-mkconfig
-grub_set_default: grub2-set-default
 
 rpmfusion: True
 ccrma: True
@@ -22,10 +19,3 @@ rpmfusion_free:
 ccrma_repo:
   url: "http://ccrma.stanford.edu/planetccrma/mirror/fedora/linux/planetccrma/{{ fedora_version }}/x86_64/"
   file: "planetccrma-repo-1.1-3.fc{{ fedora_version }}.ccrma.noarch.rpm"
-
-devel:
-  - rpmdevtools
-  - mock
-  - livecd-tools
-
-rtirq_dir: /etc/sysconfig/rtirq

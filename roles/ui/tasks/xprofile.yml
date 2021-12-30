@@ -1,0 +1,21 @@
+---
+
+# x11 stuff (xinit,xprofile, etc)
+# shell stuff (profile, zsh, bashrc, etc)
+- block:
+    - name: Push xprofile templates
+      template:
+        src: "dots/{{ item }}.j2"
+        dest: "{{ user.home }}/.{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      with_items:
+        - "Xdefaults"
+        - "Xresources"
+        - "profile"
+        - "xprofile"
+
+  become: True
+  become_user: "{{ user.name }}"

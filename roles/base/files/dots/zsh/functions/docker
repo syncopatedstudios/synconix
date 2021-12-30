@@ -1,11 +1,7 @@
-#drmi() {
-#  images=$( docker images | awk '{ print $3 }' | grep -v IMAGE | xargs )
-#  docker images rm $images
-#  Error response from daemon: invalid reference format
-#}
+drmi() {
+  docker images | awk '{ print $3 }' | grep -v IMAGE | xargs docker image rm
+}
 
 drmc() {
-  containers=$( docker ps -a | awk '{ print $1 }' | grep -v CONTAINER | xargs )
-  docker container rm $containers
-  docker image prune
+  docker ps -a | awk '{ print $1 }' | grep -v CONTAINER | xargs docker container rm
 }

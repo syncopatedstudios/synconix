@@ -1,0 +1,27 @@
+---
+
+- name: Set kernel packages to install
+  set_fact:
+    _packages: "{{ kernel['lts'] }}"
+  when: use_kernel == 'lts'
+
+- name: Set kernel packages to install
+  set_fact:
+    _packages: "{{ kernel['rt'] }}"
+  when: use_kernel == 'rt'
+
+- name: Install kernel packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  register: package_results
+
+- name: Reboot if a different kernel was installed
+  shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
+  when:
+    - use_kernel == 'lts'
+    - package_results.changed
+  notify:
+    - remake grub
+    - reboot
