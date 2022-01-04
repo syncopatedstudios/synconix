@@ -1,7 +1,7 @@
 ---
 
 - hosts: all
-  strategy: free
+  strategy: linear
   tags: ['base']
   gather_facts: no
   vars:
@@ -15,6 +15,7 @@
         gather_subset:
           - os_family
           - pkg_mgr
+      tags: ['audio', 'base', 'builds', 'distro', 'networking', 'pkg_manager', 'soundbot', 'ui']
 
   tasks:
     - name: Check whether this is an initial install or not.
@@ -46,7 +47,7 @@
      - { role: base, tags: ['base'] }
 
 - hosts: desktop
-  strategy: free
+  strategy: linear
   tags: ['desktop']
   gather_facts: yes
   vars:
