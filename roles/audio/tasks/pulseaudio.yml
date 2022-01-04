@@ -1,18 +1,5 @@
 ---
 
-- name: set packages to remove
-  set_fact:
-    _packages: "{{ pulseaudio }}"
-  tags: ['packages']
-
-# - name: Remove these packages
-#   import_role:
-#     name: pkg_manager
-#   vars:
-#     pkg_state: absent
-#   when: "ansible_os_family == 'Archlinux'"
-#   tags: ['packages']
-
 - name: remove pulseaudio
   shell: |
     yay -R pulseaudio pulseaudio-jack --noconfirm

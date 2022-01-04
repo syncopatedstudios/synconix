@@ -8,6 +8,7 @@ alsa:
   - alsa-utils
 audio:
   - a2jmidid
+  - aribb24
   - brightnessctl
   - jack_capture
   - jack_utils
@@ -35,6 +36,7 @@ pipewire:
   - pipewire
   - pipewire-alsa
   - pipewire-jack
+  - pipewire-jack-dropin
   - pipewire-pulse
   - pipewire-v4l2
   - pipewire-zeroconf
@@ -80,7 +82,7 @@ utilities:
   - qmidinet
   - scala-music
   - scala-music-scales
-  - seq66-git
+  - seq66-devel-git
   - sfizz
   - sitala-bin
   - sooperlooper

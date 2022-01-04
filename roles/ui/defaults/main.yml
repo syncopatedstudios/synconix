@@ -11,7 +11,7 @@ icon_folder: "{{ user.home }}/.icons"
 
 font:
   name: Hack Nerd Font
-  size: 11
+  size: 10
 
 # theme options
 theme: oomox-soundbotv2

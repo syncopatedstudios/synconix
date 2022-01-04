@@ -103,7 +103,7 @@ EXAMPLES = '''
 def_lang = ['env', 'LC_ALL=C', 'LANGUAGE=C']
 
 use_cmd = {
-    'yay': ['yay', '-S', '--noconfirm', '--needed', '--cleanafter'],
+    'yay': ['yay', '-S', '--noconfirm', '--needed', '--cleanafter', '--useask'],
     'pamac': ['pamac', 'install' '--no-confirm', '--no-upgrade'],
     'paru': ['paru', '-S', '--noconfirm', '--needed', '--cleanafter'],
     'pacaur': ['pacaur', '-S', '--noconfirm', '--noedit', '--needed'],

@@ -9,9 +9,41 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include: soundservices.yml
-  tags: ['audio', 'alsa', 'jack', 'pulseaudio', pipewire]
+- include: pulseaudio.yml
+  tags: ['pulseaudio']
 
+- name: set alsa packages to install
+  set_fact:
+    _packages: "{{ alsa }}"
+  tags: ['packages']
+
+- name: install alsa packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- include: alsa.yml
+  tags: ['alsa']
+
+- name: set pipewire packages to install
+  set_fact:
+    _packages: "{{ pipewire }}"
+  tags: ['packages']
+
+- name: install pipewire packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  when: "ansible_os_family == 'Archlinux'"
+  tags: ['packages']
+
+- include: pipewire.yml
+  tags: ['pipewire']
+
+#-------------------------------------#
 - name: Set audio packages to install
   set_fact:
     _packages: "{{ audio }}"
