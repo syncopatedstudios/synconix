@@ -57,7 +57,7 @@ ocenaudio:
 
 protokol:
   url: "https://hexler.net/pub/protokol/"
-  file: "protokol-0.4.1.83-linux-x86_64.zip"
+  file: "protokol-0.4.2.84-linux-x86_64.zip"
 
 qmidinet:
   git: "https://github.com/rncbc/qmidinet.git"
@@ -113,7 +113,7 @@ tony:
 
 touchosc:
   url: "https://hexler.net/pub/touchosc/"
-  file: "touchosc-1.0.3.101-linux-x86_64.zip"
+  file: "touchosc-1.0.9.126-linux-x86_64.zip"
 
 vampplugins:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2696/"

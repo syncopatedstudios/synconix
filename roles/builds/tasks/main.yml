@@ -107,4 +107,4 @@
 
 - include: touchosc.yml
   when: install_touchosc|bool
-  tags: ['TouchOSC']
+  tags: ['touchosc']

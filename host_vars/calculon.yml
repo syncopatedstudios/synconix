@@ -54,3 +54,4 @@ install_polyphone: True
 install_raysession: True
 install_reaper: True
 install_sonicpi: True
+install_touchosc: True
