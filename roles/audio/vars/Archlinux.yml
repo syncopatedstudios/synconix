@@ -58,6 +58,8 @@ pulseaudio:
   - pulseaudio
   - pulseaudio-jack
 utilities:
+  # - iempluginsuite
+  # - mamba
   - baudline-bin
   - carla
   - fmit
@@ -65,21 +67,23 @@ utilities:
   - guitarix
   - helm-synth
   - hydrogen
-  # - iempluginsuite
+  - intersect.lv2-git
   - jack-audio-tools-carla
   - jack-audio-tools-common
   - jack-audio-tools-dbus
   - jack-audio-tools-lv2
   - jack-audio-tools-transport
   - jack-keyboard
-  # - mamba
   - mixxx
+  - mod-utilities-lv2-git
   - non-mixer-lv2-git
   - non-sequencer
   - obs-studio
   - ocenaudio-bin
+  - psi-plugins.lv2-git
   - qmidiarp
   - qmidinet
+  - qpwgraph
   - scala-music
   - scala-music-scales
   - seq66-devel-git
