@@ -28,6 +28,18 @@ audio:
   - zita-ajbridge
   - zita-alsa-pcmi
   - zita-lrx
+daw:
+  - baudline-bin
+  - carla
+  - mixxx
+  - obs-studio
+  - ocenaudio-bin
+  - qpwgraph
+  - scala-music
+  - scala-music-scales
+  - stochas
+  - tonespace
+  - vital-synth
 jack:
   - jack2
   - jack2-dbus
@@ -42,54 +54,43 @@ pipewire:
   - pipewire-zeroconf
   - wireplumber
 plugins:
+  # - lsp-plugins
   - ams-lv2
   - calf
   - caps-lv2-git
   - distrho-ports
   - dragonfly-reverb
+  - intersect.lv2-git
   - ir.lv2
   - ladspa
-  - lsp-plugins
   - lv2
+  - mod-utilities-lv2-git
   - noise-repellent
+  - psi-plugins.lv2-git
   - swh-lv2-git
   - x42-plugins
 pulseaudio:
   - pulseaudio
   - pulseaudio-jack
 utilities:
+  # - friture
   # - iempluginsuite
   # - mamba
-  - baudline-bin
-  - carla
+  # - sitala-bin
   - fmit
-  - friture
   - guitarix
   - helm-synth
   - hydrogen
-  - intersect.lv2-git
   - jack-audio-tools-carla
   - jack-audio-tools-common
   - jack-audio-tools-dbus
   - jack-audio-tools-lv2
   - jack-audio-tools-transport
   - jack-keyboard
-  - mixxx
-  - mod-utilities-lv2-git
   - non-mixer-lv2-git
   - non-sequencer
-  - obs-studio
-  - ocenaudio-bin
-  - psi-plugins.lv2-git
   - qmidiarp
   - qmidinet
-  - qpwgraph
-  - scala-music
-  - scala-music-scales
   - seq66-devel-git
   - sfizz
-  - sitala-bin
   - sooperlooper
-  - stochas
-  - tonespace
-  - vital-synth

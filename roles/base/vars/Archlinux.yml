@@ -9,6 +9,7 @@ grub_cmd: grub-mkconfig
 grub_set_default: grub-set-default
 
 base:
+  # - ripgrep-all
   - autofs
   - barrier
   - base-devel
@@ -66,7 +67,6 @@ base:
   - qscintilla-qt5
   - r
   - ranger
-  # - ripgrep-all
   - rsync
   - rtirq
   - ruby-bundler
@@ -81,6 +81,7 @@ base:
   - w3m
   - wavpack
   - wol
+  - xf86-video-intel
   - xterm
   - zlib
   - zsh

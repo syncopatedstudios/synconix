@@ -50,6 +50,7 @@ autologin: True
 
 install_audio_plugins: True
 install_audio_utils: True
+install_daw: True
 
 install_baudline: True
 install_jalvselect: True

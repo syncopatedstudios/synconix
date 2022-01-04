@@ -1,14 +1,14 @@
 ---
 
-- name: remove current alsa modprobe options
-  file:
-    path: /etc/modprobe.d/10-alsa_usb.conf
-    state: absent
-  ignore_errors: True
+# - name: remove current alsa modprobe options
+#   file:
+#     path: /etc/modprobe.d/10-alsa_usb.conf
+#     state: absent
+#   ignore_errors: True
 
 - name: check to see if alsa modprobe mod file exists
   stat: path="/etc/modprobe.d/10-alsa_usb.conf"
-  register: hazimodprobe
+  register: hazialsamod
   tags: ['modprobe']
 
 - name: Add modprobe option to not use a usb card are the default device
@@ -16,5 +16,6 @@
     path: /etc/modprobe.d/10-alsa_usb.conf
     line: "options snd slots=snd-hda-intel,snd-usb-audio"
     create: yes
-  when: not hazimodprobe.stat.exists
+    backup: yes
+  when: not hazialsamod.stat.exists
   tags: ['modprobe']

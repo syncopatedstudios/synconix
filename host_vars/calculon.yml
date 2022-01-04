@@ -47,6 +47,7 @@ install_atom: True
 
 install_audio_utils: True
 install_audio_plugins: True
+install_daw: True
 
 install_jalvselect: True
 install_linuxsampler: True
