@@ -1,7 +1,8 @@
 [desktop]
 calculon ansible_user=b08x ansible_become=true ansible_connection=local
 crambot ansible_user=b08x ansible_become=true
-seeedbot ansible_user=b08x ansible_become=true
 lapbot ansible_user=b08x ansible_become=true
+[pi]
+seeedbot ansible_user=b08x ansible_become=true
+[server]
 bender ansible_user=b08x ansible_become=true
-minibot ansible_user=b08x ansible_become=true
