@@ -24,7 +24,6 @@
 - name: check if sndio is already installed
   stat: path="/usr/local/src/sndio-1.8.1/.installed"
   register: hazisndio
-  tags: ['sndio']
 
 - block:
     - name: fetch sndio
@@ -134,7 +133,6 @@
 - name: check if cef is already installed
   stat: path="/usr/local/src/cef_binary_4280_linux64"
   register: hazicef
-  tags: ['cef']
 
 - block:
     - name: fetch cef_binary

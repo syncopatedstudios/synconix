@@ -3,7 +3,7 @@
 - name: check if TouchOSC is already installed
   stat: path="/usr/local/bin/TouchOSC"
   register: haziTouchOSC
-  tags: ['TouchOSC']
+  tags: ['touchosc']
 
 - block:
     - block:
@@ -31,12 +31,12 @@
       notify: "update desktop database"
 
   when: not haziTouchOSC.stat.exists
-  tags: ['TouchOSC']
+  tags: ['touchosc']
 
 - name: check if Protokol is already installed
   stat: path="/usr/local/bin/Protokol"
   register: haziProtokol
-  tags: ['Protokol']
+  tags: ['protokol']
 
 - block:
     - block:
@@ -44,7 +44,7 @@
           get_url:
             url: "{{ protokol.url }}/{{ protokol.file }}"
             dest: "{{ local_src }}"
-          tags: ['Protokol']
+          tags: ['protokol']
 
         - name: extract and install Protokol
           shell: |
@@ -64,15 +64,15 @@
         owner: root
         group: root
         mode: '644'
-      tags: ['Protokol']
+      tags: ['protokol']
       notify: "update desktop database"
 
   when: not haziProtokol.stat.exists
-  tags: ['Protokol']
+  tags: ['protokol']
 
 - name: enable avahi service
   systemd:
     name: avahi-daemon
     enabled: yes
     state: started
-  tags: ['TouchOSC', 'Protokol']
+  tags: ['touchosc', 'protokol']

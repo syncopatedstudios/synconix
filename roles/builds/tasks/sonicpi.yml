@@ -55,7 +55,6 @@
           chdir: "{{ sonicpi['path'] }}"
         register: sonicpi_prebuild
         failed_when: sonicpi_prebuild.failed
-        tags: ['sonicpi_prebuild']
 
       - name: build sonicpi
         shell: |

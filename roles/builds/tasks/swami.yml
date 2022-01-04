@@ -53,7 +53,6 @@
   become: True
   become_user: "{{ user.name }}"
   when: not haziswami.stat.exists
-  tags: ['libinstpatch']
 
 - block:
     - name: Clone swami
