@@ -36,6 +36,10 @@
       when: not check_installed.stat.exists
       ignore_errors: True
 
+    - name: print hostname
+      debug: msg="inventory_hostname={{inventory_hostname}}"
+      tags: ['inventory']
+
   roles:
      - { role: distro, tags: ['distro'] }
      - { role: networking, tags: ['networking'] }
