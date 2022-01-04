@@ -1,7 +1,4 @@
 ---
-# - name: Archlinux packages to be "{{ pkg_state }}"
-#   ansible.builtin.debug:
-#     msg: "{{ _packages }}"
 
 - name: Ensure "{{ _packages }}" are "{{ pkg_state }}"
   aur:

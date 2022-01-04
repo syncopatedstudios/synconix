@@ -1,16 +1,4 @@
 ---
-# - name: Verify os family
-#   fail:
-#     msg: "Incompatible os family"
-#   when:
-#     - "ansible_os_family != 'Debian'"
-#     - "ansible_os_family != 'Fedora'"
-#     - "ansible_os_family != 'Archlinux'"
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
 
 - name: "Install Debian packages"
   include_tasks: pkg_apt.yml

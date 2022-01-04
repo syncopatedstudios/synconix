@@ -1,9 +1,9 @@
 ---
+
 - name: Print all sources
   debug:
     msg: "{{ pkg['sources'] }}"
   register: source_list
-
 
 - name: Prepare directories
   ansible.builtin.file:

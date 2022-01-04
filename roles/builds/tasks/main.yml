@@ -1,11 +1,5 @@
 ---
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
@@ -19,7 +13,7 @@
   with_items:
     - makeh2kit
     - makesfz
-  tags: ['soundfonts']
+  tags: ['audio', 'utils']
 
 - include: ardour.yml
   tags: ['ardour']

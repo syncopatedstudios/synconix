@@ -14,7 +14,7 @@
         checksum: yes
         perms: no
         rsync_opts: "--update"
-      tags: ['piepwire']
+      tags: ['pipewire']
 
     - name: enable pipewire services
       systemd:

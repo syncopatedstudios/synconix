@@ -1,11 +1,20 @@
 ---
 
 - hosts: all
-  gather_facts: yes
+  strategy: free
+  tags: ['base']
+  gather_facts: no
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+
+  pre_tasks:
+    - name: gather facts
+      setup:
+        gather_subset:
+          - os_family
+          - pkg_mgr
 
   tasks:
     - name: Check whether this is an initial install or not.
@@ -31,6 +40,23 @@
      - { role: distro, tags: ['distro'] }
      - { role: networking, tags: ['networking'] }
      - { role: base, tags: ['base'] }
+
+- hosts: desktop
+  strategy: free
+  tags: ['desktop']
+  gather_facts: yes
+  vars:
+    env_vars:
+      ZSH: "{{ user.zsh }}"
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+
+  pre_tasks:
+    - name: gather facts
+      setup:
+        gather_subset:
+          - os_family
+          - pkg_mgr
+  roles:
      - { role: audio, tags: ['audio'] }
      - { role: ui, tags: ['ui', 'theme'] }
      - { role: builds, tags: ['builds'] }

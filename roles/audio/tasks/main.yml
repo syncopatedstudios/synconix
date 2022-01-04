@@ -1,10 +1,10 @@
 ---
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
+# - name: gather facts
+#   setup:
+#     gather_subset:
+#       - os_family
+#       - pkg_mgr
 
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
@@ -55,10 +55,49 @@
   vars:
     pkg_state: present
 
-- include: utils.yml
-  when: install_audio_utils|bool
-  tags: ['audio']
+- block:
+    - name: Set daw packages to install
+      set_fact:
+        _packages: "{{ daw }}"
+      tags: ['packages']
 
-- include: plugins.yml
+    - name: Install daw packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
+  when: install_daw|bool
+  tags: ['audio','daw']
+
+- block:
+    - name: set graphical audio utility packages to
+      set_fact:
+        _packages: "{{ utilities }}"
+      tags: ['packages']
+
+    - name: Install audio utilities
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
+  when: install_audio_utils|bool
+  tags: ['audio','utils']
+
+- block:
+    - name: set audio plugins packages to
+      set_fact:
+        _packages: "{{ plugins }}"
+      tags: ['packages']
+
+    - name: Install audio plugins
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
   when: install_audio_plugins|bool
-  tags: ['audio']
+  tags: ['audio', 'plugins']
