@@ -11,3 +11,13 @@
   vars:
     pkg_state: present
   tags: ['packages']
+
+- name: copy x11 intel graphics config
+  copy:
+    src: etc/X11/xorg.conf.d/20-intel.conf
+    dest: /etc/X11/xorg.conf.d/20-intel.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+    directory_mode: no

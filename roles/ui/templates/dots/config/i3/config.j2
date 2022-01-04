@@ -35,7 +35,7 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
-set $picom_start "pkill picom; sleep 1; picom -b"
+set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 ######################################
 # ---{ autostart }---
