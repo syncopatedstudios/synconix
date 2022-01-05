@@ -2,7 +2,7 @@
 
 - hosts: all
   strategy: linear
-  tags: ['base']
+  # tags: ['base']
   gather_facts: no
   vars:
     env_vars:
@@ -48,7 +48,7 @@
 
 - hosts: desktop
   strategy: linear
-  tags: ['desktop']
+  # tags: ['desktop']
   gather_facts: yes
   vars:
     env_vars:

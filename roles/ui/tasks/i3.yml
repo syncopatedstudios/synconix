@@ -59,6 +59,7 @@
       with_items:
         - "i3/config"
         - "polybar/config"
+      tags: ['polybar']
 
     - name: Push i3 scripts
       template:
@@ -70,6 +71,7 @@
         backup: yes
       with_items:
         - "i3/scripts/polybar.sh"
+      tags: ['polybar']
 
     - name: Push rofi templates
       template:
@@ -83,6 +85,7 @@
         - "rofi/config.rasi"
         - "rofi/gruvbox-common.rasi"
         - "rofi/gruvbox-dark.rasi"
+      tags: ['rofi']
 
     - name: Copy picom.conf
       copy:
@@ -92,6 +95,7 @@
         owner: "{{ user.name }}"
         group: "{{ user.name }}"
         mode: '0644'
+      tags: ['picom']
 
   become: True
   become_user: "{{ user.name }}"
