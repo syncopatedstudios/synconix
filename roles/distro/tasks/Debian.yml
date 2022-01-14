@@ -36,7 +36,6 @@
     dpkg -i ./kxstudio-repos_10.0.3_all.deb
   args:
     chdir: "{{ local_src }}"
-
   register: kx_ppa
   when:
     - repos.kx_repo|bool
@@ -69,7 +68,9 @@
       failed_when: nodejs_ppa.failed
 
   check_mode: no
-  when: "'node' not in aptrepos.stdout"
+  when:
+    - repos.node|bool
+    - "'node' not in aptrepos.stdout"
   tags: ['nodejs']
 
 - block:
@@ -87,6 +88,7 @@
       register: atom_ppa
 
   when:
+    - repos.atom|bool
     - "'atom' not in aptrepos.stdout"
 
 - block:
@@ -116,7 +118,9 @@
     - debug:
         msg: 'I caught an error, can do stuff here to fix it, :-)'
 
-  when: "'docker' not in aptrepos.stdout"
+  when:
+    - repos.docker|bool
+    - "'docker' not in aptrepos.stdout"
   tags: ['docker']
 
 - block:

@@ -21,6 +21,14 @@ autofs_client:
     - storage
     - backup
 
+repos:
+  liquorix: False
+  kx_repo: True
+  mongodb: False
+  node: False
+  atom: False
+  docker: False
+
 graphical_target: False
 install_x11: False
 install_i3: False
