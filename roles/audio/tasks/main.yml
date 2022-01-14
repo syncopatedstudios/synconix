@@ -84,7 +84,7 @@
       tags: ['packages']
 
   when: install_audio_utils|bool
-  tags: ['audio','utils']
+  tags: ['audio']
 
 - block:
     - name: set audio plugins packages to
