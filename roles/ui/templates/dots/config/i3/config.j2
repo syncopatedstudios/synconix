@@ -189,11 +189,11 @@ bindsym $mod++Shift+Home $exec qutebrowser
 set $ranger "xterm -ti vt340 -e 'TERM=xterm-256color ranger'"
 bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
-#bindcode $mod+Mod2+$KP_Enter $exec terminator -e ranger
+bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
-bindcode $mod+Shift+Mod2+$KP_Enter $exec pcmanfm
+set $googler "xterm -ti vt340 -e 'TERM=xterm-256color googler'"
+bindsym $mod+g $exec $googler
 
-bindsym $mod+g $exec terminator -e googler
 bindsym $mod+Insert $exec zim --plugin quicknote
 
 bindsym $mod+Shift+g $exec "xterm -hold -e bat ~/.config/help.md"
