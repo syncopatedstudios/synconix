@@ -72,6 +72,7 @@ $exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-cryp
 {% else %}
 {% endif %}
 
+# $exec --no-startup-id redshift-gtk -c /home/b08x/.config/redshift/redshift.conf
 # $exec terminator -l mixer
 
 ######################################
@@ -96,6 +97,7 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
+for_window [title="^mpv"] floating enable, resize set 640 480
 # for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
 
 #############################
@@ -184,16 +186,16 @@ bindsym Print $exec teiler
 # ---{ navigation bindings }---
 ######################################
 {% if ansible_facts['hostname'] == 'calculon' %}
-workspace $ws1 output HDMI-1
-workspace $ws2 output HDMI-1
-workspace $ws3 output HDMI-1
-workspace $ws4 output HDMI-1
-workspace $ws5 output HDMI-1
-workspace $ws6 output HDMI-2
-workspace $ws7 output HDMI-2
-workspace $ws8 output HDMI-2
-workspace $ws9 output HDMI-2
-workspace $ws10 output HDMI-2
+workspace $ws1 output HDMI1
+workspace $ws2 output HDMI1
+workspace $ws3 output HDMI1
+workspace $ws4 output HDMI1
+workspace $ws5 output HDMI1
+workspace $ws6 output HDMI2
+workspace $ws7 output HDMI2
+workspace $ws8 output HDMI2
+workspace $ws9 output HDMI2
+workspace $ws10 output HDMI2
 {% else %}
 {% endif %}
 
