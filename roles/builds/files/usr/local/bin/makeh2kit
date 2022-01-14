@@ -45,9 +45,9 @@ p, li { white-space: pre-wrap; }
 &lt;p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">"
 declare -r infoHtmlTagClose="&lt;/p>&lt;/body>&lt;/html>"
 
-declare isReverseSortOn=False
-declare isInteractiveModeOn=False
-declare isServiceMenuModeOn=False
+declare isReverseSortOn=false
+declare isInteractiveModeOn=false
+declare isServiceMenuModeOn=false
 
 
 function setTextColour() { tput setf $1; }
@@ -61,38 +61,38 @@ function moveCursorUpOneLine() { tput cuu1; }
 function resetText() { echo -en "\e[0m"; }
 
 
-function exitWithError() 
+function exitWithError()
 {
     declare errorMessage="$1"
-    
+
     setTextColour $RED
-    
+
     # 1>&2 means redirect text headed for stdout to stderr
     echo -e "\n$errorMessage\n" 1>&2
-    
+
     resetText
-    
+
     exit 1
 }
 
 
-function showHelp() 
+function showHelp()
 {
     cat << EOF
 
 Usage:  makeh2kit [options]
         makeh2kit [options] --files 'file name' ...
 
-Running makeh2kit with no arguments will scan the current directory 
-for flac files and create a h2drumkit file named after the current 
+Running makeh2kit with no arguments will scan the current directory
+for flac files and create a h2drumkit file named after the current
 directory.
 
-Audio files can be treated as indiviual instruments or as instrument 
-layers grouped either by sub-directory or by file name with numeric 
+Audio files can be treated as indiviual instruments or as instrument
+layers grouped either by sub-directory or by file name with numeric
 prefixes/suffixes indicating the layers.
 
-Hydrogen kits that "map" SFZ drum kits can also be created. The 
-resulting kit won't contain any audio files and will instead trigger 
+Hydrogen kits that "map" SFZ drum kits can also be created. The
+resulting kit won't contain any audio files and will instead trigger
 the MIDI note of each instrument in the SFZ kit.
 
 Options:
@@ -101,7 +101,7 @@ Options:
   -l, --license 'LICENSE'       License to use for the drumkit
   -i, --info 'INFO'             Additional info; accepts HTML-
                                 formatting tags
-  -f, --format FORMAT           File format; FORMAT may be 
+  -f, --format FORMAT           File format; FORMAT may be
                                 flac (default), wav, au, aiff, or sfz
   -L, --layers LAYER_MARKER     Files are grouped into instruments
                                 according to a "layer marker"
@@ -120,7 +120,7 @@ EOF
 }
 
 
-function setFileType() 
+function setFileType()
 {
     declare input=$1
 
@@ -189,11 +189,11 @@ function processArgs()
                 --format )          (( i++ )); setFileType ${ARGS[$i]};;
                 -L )                (( i++ )); setLayerMarker ${ARGS[$i]};;
                 --layers )          (( i++ )); setLayerMarker ${ARGS[$i]};;
-                -r )                isReverseSortOn=True;;
-                --reverse )         isReverseSortOn=True;;
-                -I )                isInteractiveModeOn=True;;
-                --interactive )     isInteractiveModeOn=True;;
-                --service-menu )    isServiceMenuModeOn=True;;
+                -r )                isReverseSortOn=true;;
+                --reverse )         isReverseSortOn=true;;
+                -I )                isInteractiveModeOn=true;;
+                --interactive )     isInteractiveModeOn=true;;
+                --service-menu )    isServiceMenuModeOn=true;;
                 -h )                showHelp; exit 0;;
                 --help )            showHelp; exit 0;;
                 --files )           (( i++ )); setSearchPaths $i; break;;
@@ -209,9 +209,9 @@ function guessFileTypeFromFileList()
 {
     declare filePath=""
     declare prevFileType=""
-    
+
     fileType=""
-    
+
     for filePath in "${fileSearchPaths[@]}"; do
         fileType="${filePath##*.}"
 
@@ -232,7 +232,7 @@ function guessFileTypeFromFileList()
 function showWelcomeMessage()
 {
     setTextColour $YELLOW; startUnderline; echo -e "\nMake h2drumkit"; stopUnderline
-    
+
     setTextColour $WHITE; cat << EOF
 
 This script will auto-generate a h2drumkit file from the selected file(s).
@@ -253,7 +253,7 @@ EOF
 
 # This function only gets called if makeh2kit was launched from a KDE service menu
 function setWorkingDir()
-{    
+{
     # Try to work out present working directory from list of files passed on the command line
     if (( ${#fileSearchPaths[@]} > 0 )); then
         cd "${fileSearchPaths[0]%/*}"
@@ -265,8 +265,8 @@ function setWorkingDir()
         setTextColour $WHITE; echo "Should makeh2kit set this as the current directory?"
         echo -e "yes - create files in ${dirSearchPaths[0]} (default)\nno  - create files in ${dirSearchPaths[0]%/*}"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="yes"; moveCursorUpOneLine; echo "$input"
         fi
 
@@ -289,24 +289,24 @@ function getValuesFromUser()
     declare input=""
 
     guessFileTypeFromFileList
-    
+
     showWelcomeMessage
 
     setTextColour $YELLOW; echo -e "Please enter the following details or simply press enter to accept the\ndefault values...\n"
-    
+
     if $isServiceMenuModeOn; then
         setWorkingDir
     fi
-    
+
     # Set file type
     if [[ $fileType == "" ]]; then
         setTextColour $WHITE; echo "File format (flac (default), wav, au, aiff, or sfz):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="flac"; moveCursorUpOneLine; echo "$input"
         fi
-        
+
         setFileType "$input"
     fi
 
@@ -314,8 +314,8 @@ function getValuesFromUser()
     if [[ $fileType != [sS][fF][zZ] ]]; then
         setTextColour $WHITE; echo "Drumkit name (default is name of current directory, \"${PWD##*/}\"):"
         setTextColour $CYAN; read -e kitName
-        
-        if [[ $kitName == "" ]]; then 
+
+        if [[ $kitName == "" ]]; then
             kitName="${PWD##*/}"; moveCursorUpOneLine; echo $kitName
         fi
     fi
@@ -336,12 +336,12 @@ function getValuesFromUser()
     if [[ $fileType != [sS][fF][zZ] ]]; then
         setTextColour $WHITE; echo "Set \"layer marker\" (none (default), dirs, prefix, or suffix (or d, p, s)):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="none"; moveCursorUpOneLine; echo "$input"
         fi
-        
-        if [[ $input != "none" ]]; then 
+
+        if [[ $input != "none" ]]; then
             setLayerMarker "$input"
         fi
     fi
@@ -350,15 +350,15 @@ function getValuesFromUser()
     if [[ $fileType != [sS][fF][zZ] ]]; then
         setTextColour $WHITE; echo "Reverse sort order? (default is no):"
         setTextColour $CYAN; read -e input
-        
-        if [[ $input == "" ]]; then 
+
+        if [[ $input == "" ]]; then
             input="no"; moveCursorUpOneLine; echo "$input"
         fi
 
         if [[ $input == [yY] ]] || [[ $input == [yY][eE][sS] ]]; then
-            isReverseSortOn=True
+            isReverseSortOn=true
         elif [[ $input == [nN] ]] || [[ $input == [nN][oO] ]]; then
-            isReverseSortOn=False
+            isReverseSortOn=false
         else
             exitWithError "Invalid value: \"$input\""
         fi
@@ -382,12 +382,12 @@ function makeInputXmlCompatible()
 function makePathsRelative()
 {
     declare -i i=0
-    
+
     # Remove PWD from start of files and dirs so paths are relative rather than absolute
     for (( i = 0; i < ${#fileSearchPaths[@]}; i++ )); do
         fileSearchPaths[i]="${fileSearchPaths[i]#$PWD/}"
     done
-    
+
     for (( i = 0; i < ${#dirSearchPaths[@]}; i++ )); do
         if [[ ${dirSearchPaths[i]} == "$PWD" ]] || [[ ${dirSearchPaths[i]} == "$PWD/" ]]; then
             dirSearchPaths[i]="."
@@ -501,7 +501,7 @@ function findFilesInSubDirs()
     # IFS (Internal Field Separator) is set to null for duration of read operation to prevent
     # file names containing spaces or new lines from being split
 
-    # Find sub-directories containing audio files 
+    # Find sub-directories containing audio files
     while IFS= read -r -d '' dirName; do
         numFiles=$( getNumMatchingFiles "$dirName" )
 
@@ -669,7 +669,7 @@ function calculateF()
 }
 
 
-function printIndent() 
+function printIndent()
 {
     declare -i i=0
 
@@ -679,7 +679,7 @@ function printIndent()
 }
 
 
-function addLayerXML() 
+function addLayerXML()
 {
     xmlLines+=("$indent<layer>")
 
@@ -703,7 +703,7 @@ function addLayerXML()
 }
 
 
-function addInstrumentXML() 
+function addInstrumentXML()
 {
     velIncrement=$( calculateF "1 / $numLayers" )
     velHi=1
@@ -717,12 +717,12 @@ function addInstrumentXML()
         xmlLines+=("$indent<id>$instrID</id>")
         xmlLines+=("$indent<name>$instrName</name>")
         xmlLines+=("$indent<volume>1</volume>")
-        xmlLines+=("$indent<isMuted>False</isMuted>")
+        xmlLines+=("$indent<isMuted>false</isMuted>")
         xmlLines+=("$indent<pan_L>1</pan_L>")
         xmlLines+=("$indent<pan_R>1</pan_R>")
         xmlLines+=("$indent<randomPitchFactor>0</randomPitchFactor>")
         xmlLines+=("$indent<gain>1</gain>")
-        xmlLines+=("$indent<filterActive>False</filterActive>")
+        xmlLines+=("$indent<filterActive>false</filterActive>")
         xmlLines+=("$indent<Attack>0</Attack>")
         xmlLines+=("$indent<Decay>0</Decay>")
         xmlLines+=("$indent<Sustain>1</Sustain>")
@@ -732,7 +732,7 @@ function addInstrumentXML()
             xmlLines+=("$indent<midiOutChannel>0</midiOutChannel>")
             xmlLines+=("$indent<midiOutNote>${instrMidiNotes[$instrID]}</midiOutNote>")
         fi
-        xmlLines+=("$indent<isStopNote>False</isStopNote>")
+        xmlLines+=("$indent<isStopNote>false</isStopNote>")
 
         while (( fileID < filesIndex + numLayers )); do
             if (( fileID == filesIndex + numLayers - 1 )); then
@@ -753,7 +753,7 @@ function addInstrumentXML()
 }
 
 
-function addInstrumentListXML() 
+function addInstrumentListXML()
 {
     declare -ri numInstruments=${#instrumentNames[@]}
     declare -i instrID=0
@@ -898,7 +898,7 @@ function parseSfzFile()
                 result = 11
                 break
         }
-        
+
         if ( input ~ /[[:alpha:]]#/ )
         {
             result++
@@ -1061,7 +1061,7 @@ if [[ $fileType == "sfz" ]]; then
         done < <(parseSfzFile "$fileName")
 
         formatInstrNames
-        
+
         createDir "$kitName"
         createDrumkitXmlFile
         createH2DrumkitFile
