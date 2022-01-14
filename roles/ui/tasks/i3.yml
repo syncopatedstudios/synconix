@@ -48,7 +48,17 @@
         mkdir -pv {{ user.home }}/.config/rofi
         mkdir -pv {{ user.home }}/.config/picom
 
-    - name: Push i3 and polybar templates
+    - name: Push i3 templates
+      template:
+        src: "dots/config/i3/config.j2"
+        dest: "{{ user.home }}/.config/i3/config"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      tags: ['i3']
+
+    - name: Push polybar templates
       template:
         src: "dots/config/{{ item }}.j2"
         dest: "{{ user.home }}/.config/{{ item }}"
@@ -57,19 +67,7 @@
         mode: "0644"
         backup: yes
       with_items:
-        - "i3/config"
         - "polybar/config"
-      tags: ['polybar']
-
-    - name: Push i3 scripts
-      template:
-        src: "dots/config/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0755"
-        backup: yes
-      with_items:
         - "i3/scripts/polybar.sh"
       tags: ['polybar']
 

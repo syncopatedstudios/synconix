@@ -32,7 +32,7 @@ install_i3: False
 install_desktop: False
 
 background: #282828
-background-alt: #2828282f
+background-alt: #2828282
 foreground: #282828
 foreground-alt: #EBDBB2
 primary: #ffb52a
