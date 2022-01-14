@@ -15,10 +15,10 @@ font:
 
 # theme options
 theme: oomox-soundbotv2
-icon_theme: Numix-Circle
+icon_theme: Yaru-Deepblue
 cursor_theme: Adwaita
 
-qt5ct_style: gtk2
+qt5ct_style: fusion
 kvantum_theme: MateriaDark
 
 hintstyle: hintmedium
