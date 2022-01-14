@@ -15,7 +15,7 @@ font:
 
 # theme options
 theme: oomox-soundbotv2
-icon_theme: Yaru-Deepblue
+icon_theme: Yaru-Cinnamon
 cursor_theme: Adwaita
 
 qt5ct_style: fusion

@@ -5,3 +5,5 @@
 
 - name: enable redshift
   shell: "systemctl --user enable redshift-gtk.service"
+  become: True
+  become_user: "{{ user.name }}"
