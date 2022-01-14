@@ -2,3 +2,6 @@
 
 - name: update desktop database
   command: bash -lc "update-desktop-database"
+
+- name: enable redshift
+  shell: "systemctl --user enable redshift-gtk.service"

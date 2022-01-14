@@ -97,5 +97,17 @@
         mode: '0644'
       tags: ['picom']
 
+    - name: Copy redshift.conf
+      copy:
+        src: dots/config/redshift/redshift.conf
+        dest: "{{ user.home }}/.config/redshift/redshift.conf"
+        directory_mode: no
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        mode: '0644'
+      notify: enable redshift
+      tags: ['redshift']
+
+
   become: True
   become_user: "{{ user.name }}"
