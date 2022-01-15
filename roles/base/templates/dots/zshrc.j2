@@ -91,4 +91,7 @@ _load_settings "$HOME/.zsh/configs"
 
 #neofetch
 
+{% if ansible_facts['hostname'] != 'lapbot' %}
 (cat ~/.cache/wal/sequences &)
+{% else %}
+{% endif %}

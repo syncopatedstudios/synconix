@@ -47,6 +47,7 @@
         mkdir -pv {{ user.home }}/.config/polybar
         mkdir -pv {{ user.home }}/.config/rofi
         mkdir -pv {{ user.home }}/.config/picom
+        mkdir -pv {{ user.home }}/.config/redshift
 
     - name: Push i3 templates
       template:
