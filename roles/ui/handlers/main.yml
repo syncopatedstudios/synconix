@@ -3,7 +3,9 @@
 - name: update desktop database
   command: bash -lc "update-desktop-database"
 
-- name: enable redshift
-  shell: "systemctl --user enable redshift-gtk.service"
-  become: True
-  become_user: "{{ user.name }}"
+- name: restart redshift service
+  systemd:
+    name: redshift
+    state: restarted
+    enabled: yes
+    scope: user

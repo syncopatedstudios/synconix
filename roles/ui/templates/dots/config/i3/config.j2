@@ -192,7 +192,8 @@ bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
-set $googler "xterm -ti vt340 -e 'TERM=xterm-256color googler'"
+#set $googler "xterm -ti vt340 -e 'TERM=xterm-256color googler'"
+set $googler "guake --show -e googler"
 bindsym $mod+g $exec $googler
 
 bindsym $mod+Insert $exec zim --plugin quicknote
