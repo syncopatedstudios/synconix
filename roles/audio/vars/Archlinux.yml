@@ -88,7 +88,6 @@ utilities:
   - jack-audio-tools-transport
   - jack-keyboard
   - jack-rack
-  - non-mixer-lv2-git
   - non-sequencer
   - qmidiarp
   - qmidinet
