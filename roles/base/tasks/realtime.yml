@@ -98,3 +98,26 @@
 
 - name: enable rtirq service
   systemd: name=rtirq state=started enabled=yes
+
+- name: Copy rtkit conf to etc
+  copy:
+    src: etc/rtkit.conf
+    dest: /etc/rtkit.conf
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '0644'
+  tags: ['rtkit']
+
+- name: Copy rtkit systemd file
+  copy:
+    src: usr/lib/systemd/system/rtkit-daemon.service
+    dest: /usr/lib/systemd/system/rtkit-daemon.service
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '0644'
+  tags: ['rtkit']
+
+- name: restart rtkit-daemon service
+  systemd: name=rtkit-daemon state=restarted enabled=yes daemon_reload=yes
