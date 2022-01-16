@@ -19,7 +19,7 @@
     - name: enable pipewire services
       systemd:
         name: pipewire
-        state: restarted
+        state: reloaded
         scope: user
 
     # - name: enable wireplumber services
