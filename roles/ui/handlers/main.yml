@@ -2,3 +2,10 @@
 
 - name: update desktop database
   command: bash -lc "update-desktop-database"
+
+- name: restart redshift service
+  systemd:
+    name: redshift
+    state: restarted
+    enabled: yes
+    scope: user

@@ -1,8 +1,1 @@
 ---
-
-- name: remake grub config
-  shell: grub2-mkconfig -o {{ grub_config }}
-
-- name: reload systemd
-  shell: |
-    systemctl daemon-reload

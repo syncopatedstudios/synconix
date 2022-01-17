@@ -19,3 +19,8 @@ numlockx on
 # /usr/local/bin/soundservices.sh -l
 
 guake &
+
+{% if ansible_facts['hostname'] != 'lapbot' %}
+wal -R
+{% else %}
+{% endif %}

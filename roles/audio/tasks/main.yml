@@ -1,10 +1,14 @@
 ---
 
-# - name: gather facts
-#   setup:
-#     gather_subset:
-#       - os_family
-#       - pkg_mgr
+- name: starting audio role
+  debug:
+    msg: "starting audio role"
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
 
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
@@ -44,6 +48,19 @@
   tags: ['pipewire']
 
 #-------------------------------------#
+
+- name: makesfz and makeh2drumkit
+  copy:
+    src: "usr/local/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - makeh2kit
+    - makesfz
+  tags: ['audio', 'utils']
+
 - name: Set audio packages to install
   set_fact:
     _packages: "{{ audio }}"
@@ -84,7 +101,7 @@
       tags: ['packages']
 
   when: install_audio_utils|bool
-  tags: ['audio','utils']
+  tags: ['audio']
 
 - block:
     - name: set audio plugins packages to

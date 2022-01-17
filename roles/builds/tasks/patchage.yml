@@ -1,0 +1,52 @@
+---
+
+- name: check if patchage is already installed
+  stat: path="/usr/local/bin/patchage"
+  register: hazipatchage
+
+- name: set patchage dependencies to install
+  set_fact:
+    _packages: "{{ development.drobilla }}"
+  tags: ['packages']
+
+- name: Install patchage dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- block:
+    - name: clone patchage
+      git:
+        repo: "{{ patchage['git'] }}"
+        dest: "{{ local_src }}/patchage"
+        accept_hostkey: yes
+        update: no
+        force: no
+        recursive: yes
+
+    - name: configure patchage
+      command: bash -lc "./waf configure && ./waf"
+      args:
+        chdir: "{{ local_src }}/patchage"
+
+    - name: install patchage
+      command: bash -lc "sudo ./waf install && ./waf clean"
+      args:
+        chdir: "{{ local_src }}/patchage"
+
+    - name: archive the source folder
+      archive:
+        path: "{{ local_src }}/patchage"
+        dest: "{{ local_src }}/patchage.tar.gz"
+        format: gz
+
+    - name: remove the build directory
+      file:
+        path: "{{ local_src }}/patchage"
+        state: absent
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazipatchage.stat.exists

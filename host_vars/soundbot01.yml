@@ -1,0 +1,33 @@
+---
+# vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_systemdnetwork: False
+use_networkmanager: False
+
+systemd_networkd_network:
+  eth0:
+    - Match:
+      - Name: "eth0"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: 192.168.41.1
+      - Domains: "syncopated.net"
+      - Address: "192.168.41.15/24"
+      - Gateway: "192.168.41.1"
+
+autofs_client:
+  host: bender
+  shares:
+    - storage
+    - backup
+
+repos:
+  liquorix: False
+  kx_repo: True
+  mongodb: False
+  node: False
+  atom: False
+  docker: False
+
+install_audio_utils: False
+install_audio_plugins: False

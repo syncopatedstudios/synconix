@@ -15,10 +15,10 @@ font:
 
 # theme options
 theme: oomox-soundbotv2
-icon_theme: Numix-Circle
+icon_theme: Yaru-Cinnamon
 cursor_theme: Adwaita
 
-qt5ct_style: gtk2
+qt5ct_style: fusion
 kvantum_theme: MateriaDark
 
 hintstyle: hintmedium
@@ -32,7 +32,7 @@ install_i3: False
 install_desktop: False
 
 background: #282828
-background-alt: #2828282f
+background-alt: #2828282
 foreground: #282828
 foreground-alt: #EBDBB2
 primary: #ffb52a

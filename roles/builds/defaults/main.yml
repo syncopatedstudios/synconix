@@ -10,8 +10,10 @@ install_jacktrip: False
 install_jalvselect: False
 install_linuxsampler: False
 install_njconnect: False
+install_non: False
 install_obs: False
 install_ocenaudio: False
+install_patchage: False
 install_polyphone: False
 install_protokol: False
 install_qmidinet: False
@@ -47,6 +49,9 @@ jacktrip:
 jalvselect:
   git: "https://github.com/brummer10/jalv_select.git"
 
+non:
+  git: "https://github.com/falkTX/non.git"
+
 njconnect:
   git: "https://github.com/radiganm/njconnect.git"
 
@@ -54,6 +59,9 @@ ocenaudio:
   url:
     debian: "https://www.ocenaudio.com/start_download/ocenaudio_debian9_64.deb"
     fedora: "https://www.ocenaudio.com/downloads/index.php/ocenaudio_centos8.rpm?"
+
+patchage:
+  git: "https://gitlab.com/drobilla/patchage.git"
 
 protokol:
   url: "https://hexler.net/pub/protokol/"
@@ -67,7 +75,7 @@ raysession:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper643_linux_x86_64.tar.xz
+  file: reaper645_linux_x86_64.tar.xz
 
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"

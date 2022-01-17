@@ -12,7 +12,6 @@ audio:
   - brightnessctl
   - jack_capture
   - jack_utils
-  - jacktrip
   - jconvolver
   - njconnect
   - opus
@@ -87,7 +86,7 @@ utilities:
   - jack-audio-tools-lv2
   - jack-audio-tools-transport
   - jack-keyboard
-  - non-mixer-lv2-git
+  - jack-rack
   - non-sequencer
   - qmidiarp
   - qmidinet

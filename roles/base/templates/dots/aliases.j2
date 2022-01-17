@@ -18,8 +18,7 @@ alias np='nano -w PKGBUILD'
 alias more=less
 
 #alias ll="ls -lah"
-alias ll="exa -alH --group-directories-first -s time -t modified"
-alias ll="exa -alH --icons -s time -t modified"
+alias ll="exa -alH --group-directories-first --icons -s time -t modified"
 
 alias nocomment='grep -v "^\($\|#\)"'
 
@@ -58,7 +57,6 @@ alias cpup="sudo cpupower -c all frequency-set -g performance"
 alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
 alias dst='dots status'
 
-
 # open rb file in pry
 alias loadpry='pry -r'
 
@@ -70,19 +68,18 @@ alias vnc_serv="x11vnc -ncache_cr -display :0"
 # stolen with malice and spite from: https://reposhub.com/linux/miscellaneous/pawelduda-fzf-live-repl.html
 # alias manp="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
 
-alias awkp="echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'"
+alias awk_preview="echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'"
 
-alias rubyp="echo '' | fzf --print-query --preview 'ruby -e {q}'"
+alias ruby_preview="echo '' | fzf --print-query --preview 'ruby -e {q}'"
 
 alias lsmi="/usr/local/src/lsmi/lsmi-keyhack -v -k ~/.keydb -d /dev/input/event5"
 
 alias gitree="git log --oneline --decorate --graph --all"
 
-alias backups="cd /mnt/bender/home"
+alias backups="cd /mnt/bender/backup"
 
 alias atom_home="atom -n /home/b08x"
 alias atom_archive="atom -n /home/b08x/Workspace/archive"
-alias atom_ansible="atom -n /opt/ansible"
 
 # Re-enable caps lock
 # (in case if you accidentally disable capslock when capslock is still ON)
@@ -90,3 +87,5 @@ alias clearcaps='/usr/bin/xmodmap -e "clear Lock"'
 alias capsf13='/usr/bin/xmodmap -e "keysym Caps_Lock = F13"'
 
 alias betty="~/Workspace/betty/main.rb"
+
+alias youtube-dl="youtube-dl -x --audio-format best --external-downloader aria2c"

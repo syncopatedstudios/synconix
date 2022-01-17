@@ -1,19 +1,17 @@
 ---
 
+- name: starting builds role
+  debug:
+    msg: "starting builds role"
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
-
-- name: makesfz and makeh2drumkit
-  copy:
-    src: "usr/local/bin/{{ item }}"
-    dest: "/usr/local/bin/{{ item }}"
-    owner: root
-    group: root
-    mode: '0755'
-  with_items:
-    - makeh2kit
-    - makesfz
-  tags: ['audio', 'utils']
 
 - include: ardour.yml
   tags: ['ardour']
@@ -47,13 +45,21 @@
   when: install_njconnect|bool
   tags: ['njconnect']
 
+- include: non.yml
+  when: install_non|bool
+  tags: ['non']
+
 - include: obs.yml
   when: install_obs|bool
   tags: ['obs']
 
 - include: ocenaudio.yml
-  when: ocenaudio|bool
+  when: install_ocenaudio|bool
   tags: ['ocenaudio']
+
+- include: patchage.yml
+  when: install_patchage|bool
+  tags: ['patchage']
 
 - include: polyphone.yml
   when: install_polyphone|bool
