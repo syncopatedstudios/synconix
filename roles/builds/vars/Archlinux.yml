@@ -104,6 +104,8 @@ development:
     - jre8-openjdk
     - libxslt
     - subversion
+  njconnect:
+    - ncurses
   non:
     - gcc-libs
     - glibc

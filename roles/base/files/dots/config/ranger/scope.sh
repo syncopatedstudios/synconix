@@ -113,7 +113,8 @@ case "$mimetype" in
         img2txt --gamma=0.6 --width="$width" "$path" && exit 4 || exit 1;;
     audio/*)
         #mpv "$path" && exit 5;;
-        soxi "$path" && exit 5;;
+        #soxi "$path" && exit 5;;
+        mediainfo -f "$path" && exit 5;;
     # Display information about media files:
     video/*)
         mediainfo "$path" && exit 5
