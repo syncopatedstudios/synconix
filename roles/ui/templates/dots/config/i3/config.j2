@@ -40,13 +40,13 @@ set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 ######################################
 # ---{ autostart }---
 ######################################
-$exec_always nitrogen --restore
-
 $exec_always $HOME/.screenlayout/$HOSTNAME.sh
 
-$exec_always $HOME/.config/i3/scripts/polybar.sh
-
 $exec_always $picom_start
+
+$exec_always bash -c '~/.fehbg'
+
+$exec_always $HOME/.config/i3/scripts/polybar.sh
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
@@ -71,9 +71,6 @@ $exec /usr/bin/barrierc -f --debug INFO --name crambot --disable-crypto [calculo
 $exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
 {% else %}
 {% endif %}
-
-# $exec --no-startup-id redshift-gtk -c /home/b08x/.config/redshift/redshift.conf
-# $exec terminator -l mixer
 
 ######################################
 # ---{ window settings }---
