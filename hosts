@@ -1,8 +1,16 @@
-[desktop]
-calculon ansible_user=b08x ansible_become=true ansible_connection=local
-crambot ansible_user=b08x ansible_become=true
-lapbot ansible_user=b08x ansible_become=true ansible_connection=local
-[pi]
-seeedbot ansible_user=b08x ansible_become=true
-[server]
-bender ansible_user=b08x ansible_become=true
+[desktops]
+calculon ansible_connection=local
+crambot
+lapbot
+
+[nodes]
+bender
+soundbot01
+
+[soundbots:children]
+desktops
+nodes
+
+[soundbots:vars]
+ansible_user=b08x
+ansible_become=true

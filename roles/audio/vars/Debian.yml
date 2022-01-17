@@ -98,7 +98,6 @@ audio:
     - avahi-daemon
     - jack-capture
     - jack-tools
-    - jacktrip
     - jconvolver
     - libexif-dev
     - xzgv

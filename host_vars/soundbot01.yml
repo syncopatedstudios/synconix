@@ -29,16 +29,5 @@ repos:
   atom: False
   docker: False
 
-graphical_target: False
-install_x11: False
-install_i3: False
-autologin: False
-
-install_rga: True
-
 install_audio_utils: False
 install_audio_plugins: False
-
-install_jacktrip: True
-install_jalvselect: False
-install_njconnect: True
