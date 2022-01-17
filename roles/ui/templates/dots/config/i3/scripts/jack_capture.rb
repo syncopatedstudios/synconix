@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
-
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'i3ipc'
 require 'tty-command'
 
 def cmd
@@ -40,6 +39,6 @@ Dir.chdir("/tmp")
 
 forkoff("jacktrip -s -n 5 -D --udprt")
 
-forkoff("uxterm -T 'seeedbot' -e ssh -v seeedbot 'ruby soundbot01.rb calculon'")
+forkoff("uxterm -T 'seeedbot' -e ssh seeedbot 'ruby soundbot01.rb calculon'")
 
 forkoff("uxterm -T 'jack_capture' -e jack_capture -f wav -mb -tm -tmpb 10 --channels 6 --port 'JackTrip:receive*' --port 'PowerMicII-NS:capture_MONO' --osc 9999")
