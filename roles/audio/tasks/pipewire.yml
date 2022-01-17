@@ -14,6 +14,7 @@
     checksum: yes
     perms: no
     rsync_opts: "--update"
+  register: pipe
   tags: ['pipewire']
 
 - name: Push wireplumber configs
@@ -26,22 +27,32 @@
     checksum: yes
     perms: no
     rsync_opts: "--update"
+  register: wireplumb
   tags: ['pipewire', 'wireplumber']
 
-- block:
-    - name: restart pipewire services
-      systemd:
-        name: "{{ item }}"
-        state: restarted
-        daemon_reload: yes
-        scope: user
-      with_items:
-        - pipewire
-        - pipewire-pulse
-        - pipewire.socket
-        - wireplumber
-      environment:
-        XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+- name: Push wireplumber template for main sound card
+  template:
+    src: "usr/share/wireplumber/main.lua.d/50-alsa-config.lua.j2"
+    dest: "/usr/share/wireplumber/main.lua.d/50-alsa-config.lua"
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+  tags: ['wireplumber']
+
+- name: restart pipewire services
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: yes
+    scope: user
+  with_items:
+    - pipewire
+    - pipewire-pulse
+    - pipewire.socket
+    - wireplumber
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become: True
   become_user: "{{ user.name }}"
   tags: ['pipewire', 'wireplumber']

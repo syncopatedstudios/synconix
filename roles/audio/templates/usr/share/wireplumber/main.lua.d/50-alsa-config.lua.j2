@@ -17,7 +17,7 @@ alsa_monitor.properties = {
 
 alsa_monitor.rules = {
   -- An array of matches/actions to evaluate.
-  -- 
+  --
   -- If you want to disable some devices or nodes, you can apply properties per device as the following example.
   -- The name can be found by running pw-cli ls Device, or pw-cli dump Device
   --{
@@ -88,22 +88,22 @@ alsa_monitor.rules = {
       },
       {
         -- Matches all sinks.
-        { "node.name", "matches", "alsa_output.pci-0000_00_1b.0.playback.0.0" },
+        { "node.name", "matches", "{{ soundcard['alsa_out'] }}" },
       },
     },
     apply_properties = {
-      ["node.nick"]              = "Stereo Out",
+      ["node.nick"]              = "main_output",
       --["priority.driver"]        = 100,
       --["priority.session"]       = 100,
       --["node.pause-on-idle"]     = false,
-      ["resample.quality"]       = 10,
+      ["resample.quality"]       = {{ soundcard['resample_quality'] }},
       --["channelmix.normalize"]   = false,
       --["channelmix.mix-lfe"]     = false,
-      ["audio.channels"]         = 2,
-      ["audio.format"]           = "S32LE",
-      ["audio.rate"]             = 48000,
-      ["audio.allowed-rates"]    = "32000,44100,48000,96000",
-      ["audio.position"]         = "FL,FR",
+      ["audio.channels"]         = {{ soundcard['channels'] }},
+      ["audio.format"]           = "{{ soundcard['format'] }}",
+      ["audio.rate"]             = {{ soundcard['rate'] }},
+      ["audio.allowed-rates"]    = "{{ soundcard['allowed-rates'] }}",
+      ["audio.position"]         = "{{ soundcard['position'] }}",
       --["api.alsa.period-size"]   = 1024,
       ["api.alsa.headroom"]      = 0
       --["api.alsa.disable-mmap"]  = false,
