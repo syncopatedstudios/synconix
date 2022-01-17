@@ -1,11 +1,5 @@
 ---
 
-# - name: remove current alsa modprobe options
-#   file:
-#     path: /etc/modprobe.d/10-alsa_usb.conf
-#     state: absent
-#   ignore_errors: True
-
 - name: check to see if alsa modprobe mod file exists
   stat: path="/etc/modprobe.d/10-alsa_usb.conf"
   register: hazialsamod

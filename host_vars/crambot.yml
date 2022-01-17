@@ -43,17 +43,6 @@ kvm_host: False
 docker_host: True
 docker_storage: /storage/docker
 
-graphical_target: True
-install_x11: True
-install_i3: True
-autologin: True
-
 install_audio_plugins: True
 install_audio_utils: True
 install_daw: True
-
-install_baudline: True
-install_jalvselect: True
-install_raysession: True
-install_reaper: True
-install_sonicpi: True

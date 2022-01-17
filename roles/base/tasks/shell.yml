@@ -1,7 +1,5 @@
 ---
 
-# x11 stuff (xinit,xprofile, etc)
-# shell stuff (profile, zsh, bashrc, etc)
 - block:
     - name: Push zshell templates
       template:
@@ -31,3 +29,4 @@
 
   become: True
   become_user: "{{ user.name }}"
+  tags: ['ui']

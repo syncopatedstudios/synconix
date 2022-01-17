@@ -16,7 +16,7 @@ function listtasks() {
 
 function runtag() {
   TAGS="${1}"
-  ansible-playbook --connection=local -i $HOSTNAME, $PLAYBOOK --tags $TAGS
+  ansible-playbook -i $INVENTORY $PLAYBOOK --limit $HOSTNAME --tags $TAGS
 }
 
 function checktag() {

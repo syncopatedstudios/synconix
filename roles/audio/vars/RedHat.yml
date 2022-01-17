@@ -118,7 +118,6 @@ audio:
     - aj-snapshot
     - jack_capture
     - jack_utils
-    - jacktrip
     - jconvolver
     - linuxsampler
     - opus-tools

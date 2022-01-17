@@ -1,41 +1,47 @@
 ---
 
+- name: ensure pipewire config directory exists
+  shell: "mkdir -pv /usr/share/{pipewire,wireplumber}"
+  tags: ['pipewire', 'wireplumber']
+
+- name: Push pipewire configs
+  synchronize:
+    src: "usr/share/pipewire/"
+    dest: "/usr/share/pipewire/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts: "--update"
+  tags: ['pipewire']
+
+- name: Push wireplumber configs
+  synchronize:
+    src: "usr/share/wireplumber/"
+    dest: "/usr/share/wireplumber/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts: "--update"
+  tags: ['pipewire', 'wireplumber']
+
 - block:
-    - name: ensure pipewire config directory exists
-      shell: "mkdir -pv {{ user.home }}/.config/pipewire"
-
-    - name: Push pipewire configs
-      synchronize:
-        src: "dots/config/pipewire/"
-        dest: "{{ user.home }}/.config/pipewire/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        rsync_opts: "--update"
-      tags: ['pipewire']
-
-    - name: enable pipewire services
+    - name: restart pipewire services
       systemd:
-        name: pipewire
+        name: "{{ item }}"
         state: restarted
+        daemon_reload: yes
         scope: user
-
-    # - name: enable wireplumber services
-    #   systemd:
-    #     name: wireplumber
-    #     state: restarted
-    #     scope: user
-
+      with_items:
+        - pipewire
+        - pipewire-pulse
+        - pipewire.socket
+        - wireplumber
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become: True
   become_user: "{{ user.name }}"
-
-
-# - name: remove pipewire
-#   shell: |
-#     pamac remove --no-confirm --no-upgrade {{ item }}
-#   with_items:
-#     - "{{ _packages }}"
-#   when: "ansible_os_family == 'Archlinux'"
-#   tags: ['packages']
+  tags: ['pipewire', 'wireplumber']

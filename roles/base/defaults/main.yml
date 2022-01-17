@@ -2,6 +2,8 @@
 
 admin_user: root
 
+use_kernel: lts
+
 nfs_host: False
 nfs_ports:
   - 32803/tcp

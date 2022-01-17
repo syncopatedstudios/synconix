@@ -23,7 +23,7 @@ kvm_host: False
 docker_host: True
 docker_storage: /storage/docker
 
-qbittorrent:
+firewalld:
   - 8080/tcp
   - 36278/udp
   - 44448/tcp

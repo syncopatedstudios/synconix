@@ -1,0 +1,22 @@
+---
+
+graphical_target: True
+install_x11: True
+install_i3: True
+autologin: True
+
+install_baudline: True
+install_deadbeef: True
+install_jalvselect: True
+install_linuxsampler: True
+install_non: True
+install_patchage: True
+install_polyphone: True
+install_protokol: True
+
+install_raysession: True
+install_reaper: True
+install_soniclineup: True
+install_sonicpi: True
+install_tony: True
+install_touchosc: True

@@ -47,29 +47,37 @@
         mkdir -pv {{ user.home }}/.config/polybar
         mkdir -pv {{ user.home }}/.config/rofi
         mkdir -pv {{ user.home }}/.config/picom
+        mkdir -pv {{ user.home }}/.config/redshift
 
-    - name: Push i3 and polybar templates
+    - name: Push i3 templates
       template:
-        src: "dots/config/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/{{ item }}"
+        src: "dots/config/i3/config.j2"
+        dest: "{{ user.home }}/.config/i3/config"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
         mode: "0644"
         backup: yes
-      with_items:
-        - "i3/config"
-        - "polybar/config"
+      tags: ['i3']
 
-    - name: Push i3 scripts
+    - name: Push polybar templates
       template:
-        src: "dots/config/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/{{ item }}"
+        src: "dots/config/polybar/config.j2"
+        dest: "{{ user.home }}/.config/polybar/config"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      tags: ['polybar']
+
+    - name: Push i3 polybar script
+      template:
+        src: "dots/config/i3/scripts/polybar.sh.j2"
+        dest: "{{ user.home }}/.config/i3/scripts/polybar.sh"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
         mode: "0755"
         backup: yes
-      with_items:
-        - "i3/scripts/polybar.sh"
+      tags: ['polybar']
 
     - name: Push rofi templates
       template:
@@ -83,6 +91,7 @@
         - "rofi/config.rasi"
         - "rofi/gruvbox-common.rasi"
         - "rofi/gruvbox-dark.rasi"
+      tags: ['rofi']
 
     - name: Copy picom.conf
       copy:
@@ -92,6 +101,19 @@
         owner: "{{ user.name }}"
         group: "{{ user.name }}"
         mode: '0644'
+      tags: ['picom']
+
+    - name: Copy redshift.conf
+      copy:
+        src: dots/config/redshift/redshift.conf
+        dest: "{{ user.home }}/.config/redshift/redshift.conf"
+        directory_mode: no
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        mode: '0644'
+      notify: enable redshift
+      tags: ['redshift']
+
 
   become: True
   become_user: "{{ user.name }}"

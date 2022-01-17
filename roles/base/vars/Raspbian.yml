@@ -12,7 +12,6 @@ base:
   - cmake
   - cmake-curses-gui
   - compton
-  - dex
   - fancontrol
   - fmit
   - fonts-font-awesome

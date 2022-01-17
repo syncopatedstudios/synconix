@@ -41,3 +41,6 @@ dots:
   home: "{{ user.home }}/.dots"
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False
+
+install_jacktrip: True
+install_njconnect: True

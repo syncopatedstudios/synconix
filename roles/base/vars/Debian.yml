@@ -10,20 +10,38 @@ grub_cmd: grub2-mkconfig
 grub_set_default: grub2-set-default
 
 base:
+  - a2jmidid
   - autoconf
   - automake
   - build-essential
   - cmake
   - cmake-curses-gui
+  - compton
+  - fancontrol
+  - fonts-font-awesome
+  - fonts-hack-ttf
+  - fonts-lmodern
+  - fonts-stix
   - g++
   - git
+  - guake
+  - ladspa-sdk
+  - libasound2-dev
+  - libcanberra0
+  - libdb-dev
   - libgit2-dev
   - libgraphicsmagick++-dev
   - libjack-jackd2-dev
+  - libncurses-dev
+  - libnotify-dev
+  - libopusfile-dev
+  - libreadline-dev
   - librtaudio-dev
+  - libspeexdsp-dev
   - libsqlite3-dev
   - libssl-dev
   - libswscale-dev
+  - libsystemd-dev
   - libtag1-dev
   - libtool
   - libturbojpeg-dev
@@ -34,9 +52,25 @@ base:
   - libxkbcommon-dev
   - libxkbcommon-x11-dev
   - libzip4
+  - libzita-alsa-pcmi-dev
+  - libzita-resampler-dev
+  - lilv-utils
+  - linux-cpupower
+  - lm-sensors
   - make
-  - qt5-default
+  - neovim
+  - nitrogen
+  - opus-tools
+  - perl-tk
+  - picom
+  - qt5-qmake
+  - ranger
   - ruby-dev
+  - screen
+  - terminator
+  - xfonts-cyrillic
+  - xinit
+  - xterm
 tuned:
   - tuna
   - tuned

@@ -11,6 +11,7 @@
   vars:
     pkg_state: present
   tags: ['packages']
+
 #TODO: vars for template
 # - name: install timeshift config from template
 #   template:

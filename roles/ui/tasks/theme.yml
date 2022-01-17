@@ -30,6 +30,7 @@
     owner: root
     group: root
     mode: '644'
+  tags: ['icons']
 
 - name: Update the icon cache
   command: bash -lc "gtk-update-icon-cache"
