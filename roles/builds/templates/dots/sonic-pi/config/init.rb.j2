@@ -3,9 +3,14 @@
 
 SONIC = File.join(ENV['HOME'], ".sonic-pi")
 
-SOUNDS = File.join(ENV['HOME'], "Library", "Sounds", "Collections/**")
+LIBRARY = File.join(ENV['HOME'], "Library")
 
-SAMPLES = File.join(ENV['HOME'], "Studio", "sessions/**")
+SOUNDS = File.join(LIBRARY, "Sounds/**")
+
+SAMPLES = File.join(SOUNDS, "samples/**")
+COLLECTIONS = File.join(SOUNDS, "collections/**")
+DRUMKITS = File.join(SOUNDS, "drumkits/**")
+LOOPS = File.join(SOUNDS, "loops/**")
 
 load_snippets SONIC + "/snippets", true
 
