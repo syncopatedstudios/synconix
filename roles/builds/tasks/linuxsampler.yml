@@ -69,23 +69,7 @@
 
     - name: run ldconfig
       shell: |
-        ldconfig
-
-    # - name: build liblscp
-    #   shell: |
-    #     cd linuxsampler/liblscp/
-    #     libtoolize
-    #     aclocal
-    #     autoheader
-    #     autoconf
-    #     automake --add-missing
-    #     ./configure
-    #     make
-    #     sudo make install
-    #   args:
-    #     chdir: "{{ local_src }}"
-    #   register: liblscp_build
-    #   failed_when: liblscp_build.failed
+        sudo ldconfig
 
     - name: build liblscp
       shell: |
@@ -100,7 +84,7 @@
 
     - name: run ldconfig
       shell: |
-        ldconfig
+        sudo ldconfig
 
     - name: build linuxsampler
       shell: |
@@ -133,7 +117,7 @@
 
     - name: run ldconfig
       shell: |
-        ldconfig
+        sudo ldconfig
 
     - name: build jlscp
       shell: |
