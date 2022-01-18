@@ -27,6 +27,17 @@
         perms: no
         rsync_opts: "--update"
 
+    - name: install kitty config
+      copy:
+        src: "dots/config/kitty/kitty.conf"
+        dest: "{{ user.home }}/.config/kitty/kitty.conf"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: yes
+        directory_mode: no
+      tags: ['kitty']
+
   become: True
   become_user: "{{ user.name }}"
   tags: ['ui']

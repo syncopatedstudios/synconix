@@ -91,6 +91,9 @@
 - include: ranger.yml
   tags: ['ranger']
 
+- include: nnn.yml
+  tags: ['nnn']
+
 - include: shell.yml
   tags: ['shell']
 
