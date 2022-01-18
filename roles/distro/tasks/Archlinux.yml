@@ -33,12 +33,16 @@
     backup: yes
   tags: ['pacmanconf']
 
-# - name: Update system package cache
-#   pacman:
-#     update_cache: yes
-#     upgrade: yes
-#   register: update_result
-#   tags: ['update']
+- name: install makepkg config
+  copy:
+    src: "etc/makepkg.conf"
+    dest: "/etc/makepkg.conf"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+  tags: ['makepkg']
 
 - name: Check if a yay already exists
   stat: path="/usr/bin/yay"
