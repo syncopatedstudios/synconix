@@ -10,6 +10,7 @@ grub_set_default: grub-set-default
 
 base:
   # - ripgrep-all
+  - aria2
   - autofs
   - barrier
   - base-devel
@@ -53,6 +54,7 @@ base:
   - mdadm
   - mlocate
   - ncurses
+  - nemo
   - neofetch
   - neovim
   - neovim-symlinks
