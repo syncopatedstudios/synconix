@@ -18,6 +18,7 @@ audio:
   - osc2midi
   - gst-plugins-bad
   - gst-libav
+  - moc
   - sox
   - timidity++
   - tmux
