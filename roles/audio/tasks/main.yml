@@ -118,3 +118,6 @@
 
   when: install_audio_plugins|bool
   tags: ['audio', 'plugins']
+
+- include: players.yml
+  tags: ['players']

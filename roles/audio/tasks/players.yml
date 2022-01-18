@@ -1,0 +1,12 @@
+---
+
+- name: install mocp config
+  copy:
+    src: "dots/moc/config"
+    dest: "{{ user.home }}/.moc/config"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+  tags: ['mocp']
