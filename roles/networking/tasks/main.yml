@@ -4,10 +4,17 @@
   include_vars: "{{ ansible_os_family }}.yml"
   tags: ['networking']
 
+- include: udev-rules.yml
+  tags: ['network', 'udev']
+
 - include: networkmanager.yml
   when: use_networkmanager|bool
   tags: ['networking']
 
 - include: systemd-networkd.yml
-  tags: ['networking']
   when: use_systemdnetwork|bool
+  tags: ['networking']
+
+- include: wpa_supplicant.yml
+  when: systemd_networkd_network or systemd_networkd_link or systemd_networkd_netdev
+  tags: ['networking']

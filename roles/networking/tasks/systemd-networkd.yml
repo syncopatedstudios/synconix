@@ -45,9 +45,9 @@
     force: yes
   when: systemd_networkd_symlink_resolv_conf
 
-- name: remove networkmanager packages
-  pacman:
-    name: "{{ networkmanager }}"
-    state: absent
-    force: yes
-    extra_args: --noconfirm
+# - name: remove networkmanager packages
+#   pacman:
+#     name: "{{ networkmanager }}"
+#     state: absent
+#     force: yes
+#     extra_args: --noconfirm

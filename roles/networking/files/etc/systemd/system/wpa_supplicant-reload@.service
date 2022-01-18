@@ -1,0 +1,7 @@
+[Unit]
+Description=WPA supplicant daemon (interface- and nl80211 driver-specific version) configuration file reloader
+After=wpa_supplicant-nl80211@%i.service
+Requires=wpa_supplicant-nl80211@%i.service
+
+[Service]
+ExecStart=/usr/bin/wpa_cli -i %I reconfigure
