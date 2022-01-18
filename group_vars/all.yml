@@ -47,4 +47,4 @@ install_njconnect: True
 
 intranet_ssid: soundbot
 # run `wpa_passphrase soundbot`
-wireless_pw: ****
+wireless_pw: passphrase

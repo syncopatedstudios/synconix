@@ -33,12 +33,12 @@
     backup: yes
   tags: ['pacmanconf']
 
-- name: Update system package cache
-  pacman:
-    update_cache: yes
-    upgrade: yes
-  register: update_result
-  tags: ['update']
+# - name: Update system package cache
+#   pacman:
+#     update_cache: yes
+#     upgrade: yes
+#   register: update_result
+#   tags: ['update']
 
 - name: Check if a yay already exists
   stat: path="/usr/bin/yay"
@@ -64,9 +64,15 @@
   when: not haziyay.stat.exists
   tags: ['yay']
 
-- name: update aur packages
-  shell: |
-    yay -Syyuu --noconfirm --needed
+- block:
+    - name: clean package cache
+      shell: |
+        yay -Sc --noconfirm
+
+    - name: update aur packages
+      shell: |
+        yay -Syyuu --noconfirm --needed
+
   become: True
   become_user: "{{ user.name }}"
   tags: ['yay']
