@@ -43,7 +43,7 @@ set $rofi-surfraw "/usr/local/bin/rofi-surfraw"
 
 set $ranger "kitty -e ranger"
 
-set $nnn "kitty -e nnn -a"
+set $nnn "NNN_PLUG='f:finder;p:preview-tui;t:boom;s:spectrogram' kitty -e nnn -a"
 
 ######################################
 # ---{ autostart }---
@@ -56,7 +56,7 @@ $exec_always bash -c '~/.fehbg'
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
-$exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 0.75 1.0
+$exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 1.0 0.5
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
@@ -106,11 +106,11 @@ bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym $mod+Return $exec "terminator -b"
 
 # pull down a kitty terminal
-bindsym $mod+n nop kitti3
+bindsym $mod+n $exec nop kitti3
 
 # start dmenu (a program launcher)
-bindsym $mod+F13 $exec $rofi
 bindsym $mod+d $exec $rofi
+bindsym Menu $exec $rofi
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod++Shift+Home $exec qutebrowser
@@ -125,7 +125,7 @@ bindsym $mod+g $exec $rofi-surfraw
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-set $help "swallow -d uxterm -hold -T "glow" -e glow $HOME/key_bindings.md"
+set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
 bindsym $mod+slash $exec $help
 
 bindsym $mod+grave scratchpad show
@@ -156,7 +156,7 @@ for_window [class="^.*"] border pixel 1
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^mpv"] floating enable, resize set 640 480
 for_window [title="^Mixer"] floating enable, resize set 640 480
-for_window [title="^glow"] floating enable, resize set 909 954, move to workspace 6
+for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center
 # for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
 
 #############################
