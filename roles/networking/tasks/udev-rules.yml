@@ -1,10 +1,10 @@
 ---
 
 - name: copy udev rules
-  copy: >
-    src=etc/udev/rules.d/90-local.rules
-    dest=/etc/udev/rules.d/90-local.rules
-    mode=0644
-    owner=0
-    group=0
-    backup=yes
+  copy:
+    src: etc/udev/rules.d/90-local.rules
+    dest: /etc/udev/rules.d/90-local.rules
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes

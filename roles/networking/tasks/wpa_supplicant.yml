@@ -1,33 +1,33 @@
 ---
 
 - name: copy wpa_supplicant wireless systemd files
-  copy: >
-    src=etc/systemd/system/
-    dest=/etc/systemd/system/
-    mode=0644
-    owner=0
-    group=0
-    backup=yes
+  copy:
+    src: etc/systemd/system/
+    dest: /etc/systemd/system/
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
 
 - name: check if wpa_supplicant config exists
   stat: path="/etc/wpa_supplicant/wpa_supplicant-nl80211.conf"
   register: wpa_conf
 
 - name: push wpa_supplicant wireless config file
-  template: >
-    src=etc/wpa_supplicant/wpa_supplicant-nl80211.conf.j2
-    dest=/etc/wpa_supplicant/wpa_supplicant-nl80211.conf
-    mode=0644
-    owner=0
-    group=0
-    backup=yes
+  template:
+    src: etc/wpa_supplicant/wpa_supplicant-nl80211.conf.j2
+    dest: /etc/wpa_supplicant/wpa_supplicant-nl80211.conf
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
   when: not wpa_conf.stat.exists
 
-- name: copy wpa_supplicant wired config file
-  copy: >
-    src=etc/wpa_supplicant/wpa_supplicant-wired.conf
-    dest=/etc/wpa_supplicant/wpa_supplicant-wired.conf
-    mode=0644
-    owner=0
-    group=0
-    backup=yes
+# - name: copy wpa_supplicant wired config file
+#   copy: >
+#     src=etc/wpa_supplicant/wpa_supplicant-wired.conf
+#     dest=/etc/wpa_supplicant/wpa_supplicant-wired.conf
+#     mode=0644
+#     owner=0
+#     group=0
+#     backup=yes
