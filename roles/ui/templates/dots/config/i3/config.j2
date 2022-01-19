@@ -43,7 +43,7 @@ set $rofi-surfraw "/usr/local/bin/rofi-surfraw"
 
 set $ranger "kitty -e ranger"
 
-set $nnn "nnn -a"
+set $nnn "kitty -e nnn -a"
 
 ######################################
 # ---{ autostart }---
@@ -56,7 +56,7 @@ $exec_always bash -c '~/.fehbg'
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
-$exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 1.0 0.5
+$exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 0.75 1.0
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
