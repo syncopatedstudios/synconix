@@ -1,5 +1,9 @@
 ---
 
+- name: ensure mocp config directory exists
+  shell: "mkdir -pv {{ user.home }}/.moc"
+  tags: ['mocp']
+
 - name: install mocp config
   copy:
     src: "dots/moc/config"
