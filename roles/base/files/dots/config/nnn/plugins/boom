@@ -10,7 +10,7 @@
 # Author: Arun Prakash Jana
 
 GUIPLAYER="${GUIPLAYER}"
-NUMTRACKS="${NUMTRACKS:-100}"
+NUMTRACKS="${NUMTRACKS:-200}"
 
 if [ -n "$GUIPLAYER" ]; then
     find . -type f \( -iname "*.mp3" -o -iname "*.flac" -o -iname "*.m4a" -o -iname "*.webm" -o -iname "*.wma" \) | shuf -n "$NUMTRACKS" | xargs -d "\n" "$GUIPLAYER" > /dev/null 2>&1 &
