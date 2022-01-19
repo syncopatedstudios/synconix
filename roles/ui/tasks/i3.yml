@@ -93,6 +93,16 @@
         - "rofi/gruvbox-dark.rasi"
       tags: ['rofi']
 
+    - name: Copy rofi-surfraw
+      copy:
+        src: usr/local/bin/rofi-surfraw
+        dest: /usr/local/bin/rofi-surfraw
+        directory_mode: no
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        mode: '0775'
+      tags: ['rofi', 'surfraw']
+
     - name: Copy picom.conf
       copy:
         src: dots/config/picom/picom.conf
@@ -113,7 +123,6 @@
         mode: '0644'
       notify: enable redshift
       tags: ['redshift']
-
 
   become: True
   become_user: "{{ user.name }}"

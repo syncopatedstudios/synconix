@@ -1,5 +1,14 @@
 ---
 
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - block:
     - name: Push zshell templates
       template:
@@ -27,15 +36,23 @@
         perms: no
         rsync_opts: "--update"
 
-    - name: install kitty config
-      copy:
-        src: "dots/config/kitty/kitty.conf"
-        dest: "{{ user.home }}/.config/kitty/kitty.conf"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: '0644'
-        backup: yes
-        directory_mode: no
+    - name: Install kitti3
+      pip:
+        name: kitti3
+        extra_args: --user
+      tags: ['kitty']
+
+
+    - name: Push kitty configs
+      synchronize:
+        src: "dots/config/kitty/"
+        dest: "{{ user.home }}/.config/kitty/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts: "--update"
       tags: ['kitty']
 
   become: True

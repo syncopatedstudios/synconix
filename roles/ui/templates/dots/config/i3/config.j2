@@ -39,7 +39,11 @@ set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 set $googler "guake --show -n '$PWD' -e googler"
 
+set $rofi-surfraw "/usr/local/bin/rofi-surfraw"
+
 set $ranger "kitty -e ranger"
+
+set $nnn "nnn -a"
 
 ######################################
 # ---{ autostart }---
@@ -51,6 +55,8 @@ $exec_always $picom_start
 $exec_always bash -c '~/.fehbg'
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
+
+$exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 1.0 0.5
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
@@ -99,6 +105,9 @@ bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 # start a terminal
 bindsym $mod+Return $exec "terminator -b"
 
+# pull down a kitty terminal
+bindsym $mod+n nop kitti3
+
 # start dmenu (a program launcher)
 bindsym $mod+F13 $exec $rofi
 bindsym $mod+d $exec $rofi
@@ -106,16 +115,18 @@ bindsym $mod+d $exec $rofi
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod++Shift+Home $exec qutebrowser
 
-bindcode $mod+Mod2+$KP_Enter $exec $ranger
+#bindcode $mod+Mod2+$KP_Enter $exec $ranger
+bindcode $mod+Mod2+$KP_Enter $exec $nnn
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec nemo
 
-bindsym XF86Search $exec $googler
-bindsym $mod+g $exec $googler
+bindsym XF86Search $exec $rofi-surfraw
+bindsym $mod+g $exec $rofi-surfraw
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-bindsym $mod+slash $exec "kitty -e glow ~/.config/help.md"
+set $help "swallow -d uxterm -hold -T "glow" -e glow $HOME/key_bindings.md"
+bindsym $mod+slash $exec $help
 
 bindsym $mod+grave scratchpad show
 
@@ -179,7 +190,7 @@ for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad sh
 ######################################
 # ---{ reaper stuff }---
 ######################################
-for_window [title="^Mixer"] floating disable, border pixel 1
+#for_window [title="^Mixer"] floating disable, border pixel 1
 for_window [title="^Docker"] floating disable, border pixel 1
 for_window [title="^Toolbar"] floating disable, border pixel 1
 

@@ -26,10 +26,10 @@
   when: install_desktop|bool
   tags: ['packages']
 
-- name: copy help file to ~/.config/conky_help
+- name: copy help file to user home dir
   copy:
-    src: conky_help
-    dest: "{{ user.home }}/.config/conky_help"
+    src: key_bindings.md
+    dest: "{{ user.home }}/key_bindings.md"
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     mode: '0644'

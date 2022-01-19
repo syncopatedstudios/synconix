@@ -192,7 +192,7 @@ ALSAMixer2 = Master
 # Values of the TERM environment variable which are deemed to be xterms.  If
 # you are using MOC within screen(1) under an xterm, then add screen(1)'s
 # TERM setting here as well to cause MOC to update the xterm's title.
-XTerms = kitty
+#XTerms = xterm-kitty
 #XTerms += xterm-colour:xterm-color
 #XTerms += xterm-256colour:xterm-256color
 #XTerms += rxvt:rxvt-unicode
