@@ -31,6 +31,9 @@ install_i3: False
 
 install_desktop: False
 
+wallpaper:
+  screen1: /usr/share/backgrounds/010.png
+
 background: #282828
 background-alt: #2828282
 foreground: #282828

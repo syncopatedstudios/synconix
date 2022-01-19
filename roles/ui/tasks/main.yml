@@ -85,3 +85,13 @@
     pkg_state: present
   when: install_desktop|bool
   tags: ['packages']
+
+- name: generate fehbg from template
+  template:
+    src: "dots/fehbg.j2"
+    dest: "{{ user.home }}/.fehbg"
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: "0775"
+    backup: yes
+  tags: ['wallpaper']

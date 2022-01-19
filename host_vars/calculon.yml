@@ -34,6 +34,10 @@ soundcard:
   allowed-rates: "32000,44100,48000,96000"
   position: "FL,FR,RL,RR,FC,LFE"
 
+wallpaper:
+  screen1: "{{ user.home }}/Library/Visuals/backgrounds/001.png"
+  screen2: "{{ user.home }}/Library/Visuals/backgrounds/002.png"
+
 autofs_client:
   host: bender
   shares:
