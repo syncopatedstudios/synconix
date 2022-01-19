@@ -42,7 +42,6 @@
         extra_args: --user
       tags: ['kitty']
 
-
     - name: Push kitty configs
       synchronize:
         src: "dots/config/kitty/"
