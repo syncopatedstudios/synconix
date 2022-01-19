@@ -38,6 +38,9 @@ base:
   - iotop
   - jansson
   - jq
+  - kitty
+  - kitty-shell-integration
+  - kitty-terminfo
   - libbluray
   - libev
   - libev
