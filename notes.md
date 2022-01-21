@@ -12,7 +12,18 @@ The above works because the man 8 grub-set-default page says this about MENU_ENT
 
 MENU_ENTRY is a number, a menu item title or a menu item identifier.
 
+# pipewire
+soundcard:
+  alsa_out: alsa_output.pci-0000_00_1b.0.playback.0.0
+  resample_quality: 10
+  channels: 6
+  format: "S32LE"
+  rate: 48000
+  allowed-rates: "32000,44100,48000,96000"
+  position: "FL,FR,RL,RR,FC,LFE"
 
+
+# xresources
 --------
 
 
