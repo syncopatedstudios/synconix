@@ -56,7 +56,7 @@ $exec_always bash -c '~/.fehbg'
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
-$exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 1.0 0.5
+# $exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 1.0 0.5
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
@@ -106,7 +106,7 @@ bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym $mod+Return $exec "terminator -b"
 
 # pull down a kitty terminal
-bindsym $mod+n $exec nop kitti3
+# bindsym $mod+n $exec nop kitti3
 
 # start dmenu (a program launcher)
 bindsym $mod+d $exec $rofi

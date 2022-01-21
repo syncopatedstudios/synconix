@@ -39,7 +39,7 @@ base:
   - jansson
   - jq
   - kitty
-  - kitty-shell-integration
+#  - kitty-shell-integration
   - kitty-terminfo
   - libbluray
   - libev
