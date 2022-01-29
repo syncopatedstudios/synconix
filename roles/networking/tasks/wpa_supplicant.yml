@@ -13,6 +13,12 @@
   stat: path="/etc/wpa_supplicant/wpa_supplicant-nl80211.conf"
   register: wpa_conf
 
+- name: ensure /etc/wpa_supplicant directory exists
+  file:
+    path: /etc/wpa_supplicant
+    state: directory
+    mode: 0755
+
 - name: push wpa_supplicant wireless config file
   template:
     src: etc/wpa_supplicant/wpa_supplicant-nl80211.conf.j2

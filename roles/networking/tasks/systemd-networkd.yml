@@ -1,12 +1,5 @@
 ---
 
-- name: stop NetworkManager service
-  systemd:
-    name: NetworkManager
-    enabled: no
-    state: stopped
-  ignore_errors: True
-
 - import_tasks: cleanup.yml
   when: systemd_networkd_cleanup | bool
 
@@ -26,6 +19,9 @@
   service:
     name: systemd-networkd
     enabled: yes
+  with_items:
+    - systemd-networkd
+    - systemd-networkd-wait-online
   when: systemd_networkd_network or systemd_networkd_link or systemd_networkd_netdev
 
 - name: start and enable systemd-resolved

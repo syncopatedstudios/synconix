@@ -3,12 +3,14 @@
 use_networkmanager: False
 use_systemdnetwork: False
 
+wireless: False
+
 dns:
   nameserver: 192.168.41.1
   search: syncopated.net
 
 conn_check:
-  interval: 0
+  interval: 30
 
 systemd_networkd_link: {}
 systemd_networkd_netdev: {}

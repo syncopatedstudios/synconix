@@ -2,6 +2,13 @@
 # This has been adapted from code in OpenStack Ansible's systemd_networkd role.
 # https://github.com/openstack/ansible-role-systemd_networkd/blob/master/tasks/main.yml
 
+- name: stop NetworkManager service
+  systemd:
+    name: NetworkManager
+    enabled: no
+    state: stopped
+  ignore_errors: True
+
 - name: Find unexpected systemd-networkd configuration files
   become: true
   find:
