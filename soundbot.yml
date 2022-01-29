@@ -1,6 +1,6 @@
 ---
 
-- hosts: soundbots
+- hosts: all
   strategy: linear
   # tags: ['base']
   gather_facts: no
@@ -45,47 +45,3 @@
      - { role: distro, tags: ['distro'] }
      - { role: networking, tags: ['networking'] }
      - { role: base, tags: ['base'] }
-
-- hosts: desktops
-  strategy: linear
-  # tags: ['desktop']
-  gather_facts: yes
-  vars:
-    env_vars:
-      ZSH: "{{ user.zsh }}"
-      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-
-  pre_tasks:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'networking', 'pkg_manager', 'soundbot', 'ui']
-
-  roles:
-     - { role: audio, tags: ['audio'] }
-     - { role: ui, tags: ['ui', 'theme'] }
-     - { role: builds, tags: ['builds'] }
-
-- hosts: nodes
-  strategy: linear
-  # tags: ['desktop']
-  gather_facts: yes
-  vars:
-    env_vars:
-      ZSH: "{{ user.zsh }}"
-      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-
-  pre_tasks:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'networking', 'pkg_manager', 'soundbot', 'ui']
-
-  roles:
-     - { role: distro, tags: ['distro'] }
-     - { role: base, tags: ['base'] }
-     - { role: audio, tags: ['audio'] }

@@ -5,10 +5,15 @@ use_kernel: rt
 use_systemdnetwork: True
 use_networkmanager: False
 
+wireless: True
+
 systemd_networkd_network:
-  wlan0:
+  wlan1:
     - Match:
-      - Name: "wlan0"
+      - Name: "wlan1"
+      - MACAddress: "c0:25:e9:74:cd:96"
+    - Link:
+      - MACAddress: "58:8A:5A:38:FB:22"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
