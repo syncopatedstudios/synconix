@@ -59,7 +59,6 @@ base:
   - mdadm
   - mlocate
   - ncurses
-  - nemo
   - neofetch
   - neovim
   - neovim-symlinks
@@ -77,6 +76,7 @@ base:
   - ranger
   - rsync
   - rtirq
+  - rtkit
   - ruby-bundler
   - rubygems
   - screen

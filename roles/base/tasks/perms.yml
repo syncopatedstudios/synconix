@@ -11,6 +11,7 @@
 
 - name: updatedb
   command: "updatedb"
+  ignore_errors: True
 
 - name: Ensure /usr/local and /opt directories are writeable
   file:

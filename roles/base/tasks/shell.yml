@@ -56,4 +56,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  tags: ['ui']
+  tags: ['ui', 'shell']

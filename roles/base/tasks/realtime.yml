@@ -75,6 +75,10 @@
 - name: enable rtirq service
   systemd: name=rtirq state=started enabled=yes
 
+# rtkit package should be installed before this happens
+# otherwise, if it sees this systemd file, it'll report
+# being already installed and error out
+
 - name: Copy rtkit conf to etc
   copy:
     src: etc/rtkit.conf
@@ -96,4 +100,9 @@
   tags: ['rtkit']
 
 - name: restart rtkit-daemon service
-  systemd: name=rtkit-daemon state=restarted enabled=yes daemon_reload=yes
+  systemd:
+    name: rtkit-daemon
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  tags: ['rtkit']
