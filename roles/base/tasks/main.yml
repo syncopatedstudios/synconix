@@ -102,3 +102,8 @@
 
 - include: firewalld.yml
   tags: ['firewall']
+
+- name: configure audio system
+  import_role:
+    name: audio
+  when: inventory_hostname in groups['desktops']
