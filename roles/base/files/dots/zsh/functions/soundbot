@@ -1,13 +1,4 @@
 #!/usr/bin/env zsh
-export SOXTEMP="/tmp/soundbot/soxtemp"
-
-if [ -d $SOXTEMP ];
-then
-  echo "already existing, thank you."
-else
-  echo "creating $SOXTEMP"
-  mkdir -pv $SOXTEMP
-fi
 
 fetch_gits() {
   cd $SOUNDBOT && git fetch && git pull
@@ -16,10 +7,9 @@ fetch_gits() {
 
 waveform() {
   timestamp=$(date +%s)
-  mktempdir
 
   INPUT=$1
-  OUTPUT="$SOXTEMP/wavform_$timestamp.png"
+  OUTPUT="$TEMP/wavform_$timestamp.png"
 
   zoom_level = ""
   dimensions = ""
@@ -39,7 +29,7 @@ hamming() {
   timestamp=$(date +%s)
 
   INPUT=$1
-  OUTPUT="$SOXTEMP/hamming_$timestamp.png"
+  OUTPUT="$TEMP/hamming_$timestamp.png"
   LABEL="-c hamming -t $2"
 
   sox -V2 "$INPUT" \
@@ -52,7 +42,7 @@ kaiser() {
   timestamp=$(date +%s)
 
   INPUT=$1
-  OUTPUT="$SOXTEMP/kaiser_$timestamp.png"
+  OUTPUT="$TEMP/kaiser_$timestamp.png"
   LABEL="-c kaiser -t $2"
 
   sox -V2 "$INPUT" \
@@ -65,7 +55,7 @@ dolph() {
   timestamp=$(date +%s)
 
   INPUT=$1
-  OUTPUT="$SOXTEMP/dolph_$timestamp.png"
+  OUTPUT="$TEMP/dolph_$timestamp.png"
   LABEL="-c dolph -t $2"
 
   sox -V2 "$INPUT" \
