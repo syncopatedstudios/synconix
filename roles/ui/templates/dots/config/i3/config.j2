@@ -91,16 +91,16 @@ bindsym XF86MonBrightnessUp $exec brightnessctl s 5%+
 {% else %}
 {% endif %}
 
-bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
 
 bindsym XF86AudioNext $exec mocp -f
 bindsym XF86AudioPrev $exec mocp -r
 bindsym XF86AudioPlay $exec mocp -G
 
-bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 # start a terminal
 bindsym $mod+Return $exec "terminator -b"
