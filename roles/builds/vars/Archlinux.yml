@@ -44,14 +44,14 @@ development:
     - glib2
     - gtk2
     - harfbuzz
-    - jack2
+      #    - jack2
     - pango
     - waf
   ecasound:
     - alsa-lib
     - audiofile
     - bash
-    - jack
+      #    - jack
     - lame
     - libfaac
     - libfaad2
@@ -110,7 +110,7 @@ development:
     - gcc-libs
     - glibc
     - hicolor-icon-theme
-    - jack2
+      #   - jack2
     - ladspa
     - liblo
     - liblrdf

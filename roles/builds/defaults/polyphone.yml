@@ -12,7 +12,7 @@ application:
       - gcc-libs
       - glibc
       - hicolor-icon-theme
-      - jack2
+        #      - jack2
       - libogg
       - libvorbis
       - openssl
