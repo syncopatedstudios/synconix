@@ -85,8 +85,8 @@
 - include: nvim.yml
   tags: ['nvim']
 
-- include: ripgrep.yml
-  tags: ['ripgrep']
+- include: indexer.yml
+  tags: ['indexer']
 
 - include: ranger.yml
   tags: ['ranger']
