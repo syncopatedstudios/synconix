@@ -31,6 +31,8 @@ ui:
     - kvantum-qt5
     - kvantum-theme-materia
     - numix-circle-icon-theme-git
+    - yaru-icon-theme
+    - arc-gtk-theme
   fonts:
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-jp-fonts
