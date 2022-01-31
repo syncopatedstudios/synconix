@@ -1,5 +1,20 @@
 ---
 
+- name: Install updatedb conf from template
+  template:
+    src: etc/updatedb.conf.j2
+    dest: /etc/updatedb.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  tags: ['updatedb']
+
+- name: updatedb
+  command: "updatedb"
+  ignore_errors: True
+  tags: ['updatedb']
+
 - name: check if ripgrep-all is already installed from source
   stat: path="/usr/local/bin/rga"
   register: hazirga_source
