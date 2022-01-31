@@ -9,14 +9,14 @@ systemd_networkd_network:
   eth0:
     - Match:
       - Name: "eth0"
+      - MACAddress: "d8:d3:85:b2:dd:c5"
     - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.41.1
-      - Domains: "syncopated.net"
-
-      - Address: "192.168.41.8/24"
-      - Gateway: "192.168.4.1"
+      - DHCP: "yes"
+      # - IPv6AcceptRouterAdvertisements: "no"
+      # - DNS: "{{dns['nameserver'] }}"
+      # - Domains: "{{ dns['search'] }}"
+      # - Address: "192.168.41.3/24"
+      # - Gateway: "192.168.41.1"
 
 nfs_host: True
 kvm_host: False

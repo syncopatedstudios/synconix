@@ -2,25 +2,25 @@
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_kernel: rt
 
-use_systemdnetwork: True
-use_networkmanager: False
+use_systemdnetwork: False
+use_networkmanager: True
 
 wireless: True
 
-systemd_networkd_network:
-  wlan1:
-    - Match:
-      - Name: "wlan1"
-      - MACAddress: "c0:25:e9:74:cd:96"
-    - Link:
-      - MACAddress: "58:8A:5A:38:FB:22"
-    - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.41.1
-      - Domains: "syncopated.net"
-      - Address: "192.168.41.5/24"
-      - Gateway: "192.168.41.1"
+# systemd_networkd_network:
+#   wlan1:
+#     - Match:
+#       - Name: "wlan1"
+#       - MACAddress: "c0:25:e9:74:cd:96"
+#     - Link:
+#       - MACAddress: "58:8A:5A:38:FB:22"
+#     - Network:
+#       - DHCP: "no"
+#       - IPv6AcceptRouterAdvertisements: "no"
+#       - DNS: "{{dns['nameserver'] }}"
+#       - Domains: "{{ dns['search'] }}"
+#       - Address: "192.168.41.5/24"
+#       - Gateway: "192.168.41.1"
 
 autofs_client:
   host: bender

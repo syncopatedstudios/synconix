@@ -1,14 +1,15 @@
 ---
 
-soundbot: "/opt/soundbot"
-ansible_home: "/opt/soundbot/ansible"
-
 local_src: "/usr/local/src"
 local_bin: "/usr/local/bin"
 
-# user_groups:
-#   - name: home
-#     gid: 1041
+dns:
+  nameserver: 192.168.41.1
+  search: syncopated.net
+
+user_groups:
+  - name: home
+    gid: 1041
 
 user:
   name: b08x
