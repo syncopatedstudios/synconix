@@ -18,14 +18,19 @@
       dest: /etc/NetworkManager/conf.d/20-connectivity.conf
   when: conn_check is defined
 
+- name: Push connectivity check config
+  template:
+      src: etc/resolv.conf.j2
+      dest: /etc/resolv.conf
+
 - name: Enable and start NetworkManager
   systemd:
     name: NetworkManager.service
     enabled: yes
     state: started
 
-- name: Enable and start NetworkManager dispatcher
-  systemd:
-    name: NetworkManager-dispatcher.service
-    enabled: yes
-    state: started
+# - name: Enable and start NetworkManager dispatcher
+#   systemd:
+#     name: NetworkManager-dispatcher.service
+#     enabled: yes
+#     state: started

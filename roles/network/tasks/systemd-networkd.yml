@@ -1,8 +1,5 @@
 ---
 
-- import_tasks: cleanup.yml
-  when: systemd_networkd_cleanup | bool
-
 - import_tasks: config.yml
 
 - name: push systemd-resolved.conf

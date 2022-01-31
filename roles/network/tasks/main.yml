@@ -11,6 +11,9 @@
   include_vars: "{{ ansible_os_family }}.yml"
   tags: ['network']
 
+- import_tasks: cleanup.yml
+  when: systemd_networkd_cleanup|bool and wireless == False
+
 - include: networkmanager.yml
   when: use_networkmanager|bool
   tags: ['network']

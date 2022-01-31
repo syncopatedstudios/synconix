@@ -2,13 +2,6 @@
 # This has been adapted from code in OpenStack Ansible's systemd_networkd role.
 # https://github.com/openstack/ansible-role-systemd_networkd/blob/master/tasks/main.yml
 
-- name: stop NetworkManager service
-  systemd:
-    name: NetworkManager
-    enabled: no
-    state: stopped
-  ignore_errors: True
-
 - name: Find unexpected systemd-networkd configuration files
   become: true
   find:
@@ -30,3 +23,23 @@
   loop: "{{ networkd_files.files | map(attribute='path') | map('basename') | difference(expected_files | flatten) | list }}"
   notify:
     - restart systemd-networkd
+
+- name: remove wpa_supplicant configs
+  file:
+    path: "/etc/wpa_supplicant/{{ item }}"
+    state: absent
+  with_items:
+    - wpa_supplicant-nl80211.conf
+    - wpa_supplicant-wired.conf
+  ignore_errors: True
+
+- name: stop systemd-networkd service
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - systemd-networkd
+    - systemd-resolved
+    - wpa_supplicant
+  ignore_errors: True
