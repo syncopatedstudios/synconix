@@ -107,3 +107,9 @@
   import_role:
     name: audio
   when: inventory_hostname in groups['desktops']
+
+- name: configure ui
+  import_role:
+    name: ui
+  when: inventory_hostname in groups['desktops']
+  tags: ['ui']
