@@ -84,7 +84,7 @@ alsa_monitor.rules = {
     matches = {
       {
         -- Matches all sources.
-        { "node.name", "matches", "alsa_input.*" },
+        { "node.name", "matches", "{{ soundcard['alsa_in'] }}" },
       },
       {
         -- Matches all sinks.
