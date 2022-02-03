@@ -155,7 +155,8 @@ for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^mpv"] floating enable, resize set 640 480
-for_window [title="^Mixer"] floating enable, resize set 640 480
+# for_window [title="^Mixer"] floating enable, resize set 640 480
+# for_window [class="^Non-Mixer$" title="(?i)Mixer*$"] floating disable
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center
 # for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
 
@@ -191,6 +192,7 @@ for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad sh
 # ---{ reaper stuff }---
 ######################################
 #for_window [title="^Mixer"] floating disable, border pixel 1
+for_window [class="REAPER" title="^Mixer"] floating disable, border pixel 1
 for_window [title="^Docker"] floating disable, border pixel 1
 for_window [title="^Toolbar"] floating disable, border pixel 1
 
@@ -244,7 +246,7 @@ workspace $ws10 output HDMI2
 {% else %}
 {% endif %}
 
-assign [class="^patchage$"] → 1
+assign [class="^Patchage$"] → 1
 
 ######################################
 # ---{ navigation bindings }---
