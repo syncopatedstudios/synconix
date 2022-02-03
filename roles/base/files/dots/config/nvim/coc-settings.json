@@ -9,6 +9,6 @@
     }
 
   },
-  "solargraph.commandPath": "/usr/bin/solargraph",
+  "solargraph.commandPath": "$HOME/.rvm/rubies/ruby-3.0.0/bin",
   "codeLens.enable" :True
 }

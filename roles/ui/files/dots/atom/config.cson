@@ -70,9 +70,9 @@
     siteImagesDir: "assets/images/"
     siteLocalDir: "/home/b08x/Workspace/syncopated-linux/website"
   "open-terminal-here":
-    command: "terminator -b"
+    command: "guake --show -n $PWD"
   "ruby-solargraph":
-    commandPath: "/usr/bin/solargraph"
+    commandPath: "$HOME/.rvm/rubies/ruby-3.0.0/bin/solargraph"
   "sb-atom-sonic-pi":
     sendOSCMessagesToGUI: true
   "spell-check":

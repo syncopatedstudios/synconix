@@ -32,6 +32,7 @@ path:
   - "{{ user.home }}/.local/bin"
   - "{{ user.home }}/.cargo/bin"
   - "{{ user.home }}/.gem/ruby/3.0.0/bin"
+  - "{{ user.home }}/.rvm/rubies/ruby-3.0.0/bin"
   - "/var/lib/gems/2.7.0/bin"
   - "/usr/lib/jvm/default/bin"
   - "/opt/soundbot/bin"
