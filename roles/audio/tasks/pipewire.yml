@@ -55,4 +55,5 @@
     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become: True
   become_user: "{{ user.name }}"
+  when: pipe.changed or wireplumb.changed
   tags: ['pipewire', 'wireplumber']
