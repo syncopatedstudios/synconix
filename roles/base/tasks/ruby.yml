@@ -10,7 +10,7 @@
     mode: '0644'
     backup: yes
 
-- name: Get list of installed items gems
+- name: Get list of installed gems
   shell: |
     gem list | awk '{ print $1 }'
   register: gemlist
@@ -19,7 +19,7 @@
 - set_fact:
     installed_gems: "{{ gemlist.stdout }}"
 
-- name: set packages to install
+- name: determine gems that need to be installed
   set_fact:
     _gems: "{{ gems|difference(installed_gems) }}"
 

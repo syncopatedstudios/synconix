@@ -87,21 +87,6 @@
   when: inventory_hostname in groups['desktops']
   tags: ['audio','daw']
 
-- block:
-    - name: set graphical audio utility packages to
-      set_fact:
-        _packages: "{{ utilities }}"
-      tags: ['packages']
-
-    - name: Install audio utilities
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
-  when: inventory_hostname in groups['desktops']
-  tags: ['audio']
 
 - block:
     - name: set audio plugins packages to
