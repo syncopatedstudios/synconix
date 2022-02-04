@@ -1,5 +1,13 @@
 ---
 
+- name: permit traffic for sshd service
+  firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
 - name: permit traffic to these ports
   firewalld:
     port: "{{ item }}"

@@ -2,32 +2,32 @@
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_kernel: lts
 
-use_networkmanager: True
-use_systemdnetwork: False
+use_networkmanager: False
+use_systemdnetwork: True
 
-# systemd_networkd_network:
-#   eth0:
-#     - Match:
-#       - Name: "eth0"
-#     - Network:
-#       - DHCP: "no"
-#       - IPv6AcceptRouterAdvertisements: "no"
-#       - DNS: "{{dns['nameserver'] }}"
-#       - Domains: "{{ dns['search'] }}"
-#       - Address: "192.168.41.7/24"
-#       - Gateway: "192.168.41.1"
-#
-#   eth1:
-#     - Match:
-#       - Name: "eth1"
-#     - Network:
-#       - DHCP: "no"
-#       - IPv6AcceptRouterAdvertisements: "no"
-#       - Address: "192.168.40.1/24"
+systemd_networkd_network:
+  eth0:
+    - Match:
+      - Name: "eth0"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.3/24"
+      - Gateway: "192.168.41.1"
+
+  # eth1:
+  #   - Match:
+  #     - Name: "eth1"
+  #   - Network:
+  #     - DHCP: "no"
+  #     - IPv6AcceptRouterAdvertisements: "no"
+  #     - Address: "192.168.40.1/24"
 
 soundcard:
-  alsa_out: alsa_output.pci-0000_00_1b.0.playback.0.0
   alsa_in: alsa_input.pci-0000_00_1b.0.capture.0.0
+  alsa_out: alsa_output.pci-0000_00_1b.0.playback.0.0  
   resample_quality: 10
   channels: 2
   format: "S32LE"

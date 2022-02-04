@@ -6,4 +6,5 @@
   service:
     name: systemd-networkd
     state: restarted
+    enabled: yes
   when: systemd_networkd_apply_config

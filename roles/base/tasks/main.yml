@@ -30,13 +30,20 @@
     state: started
     enabled: yes
 
-- name: permit traffic for sshd service
-  firewalld:
-    service: ssh
-    permanent: yes
-    state: enabled
-  notify:
-    - "reload firewalld"
+- include: firewalld.yml
+  tags: ['firewall']
+
+- include: sudoers.yml
+  tags: ['sudoers']
+
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: shell.yml
+  tags: ['shell']
+
+- include: dots.yml
+  tags: ['dots']
 
 - include: filesystem.yml
   tags: ['filesystem']
@@ -48,27 +55,8 @@
 - include: grub.yml
   tags: ['grub']
 
-- include: sudoers.yml
-  tags: ['sudoers']
-
 - include: realtime.yml
   tags: ['realtime']
-
-- name: Ensure /usr/local and /opt directories are writeable
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-    mode: '2775'
-  with_items:
-    - "/usr/local/bin"
-    - "/usr/local/lib"
-    - "/usr/local/lib/soundbot"
-    - "/usr/local/share"
-    - "/usr/local/share/applications"
-    - "{{ local_src }}"
-    - "/opt"
 
 - include: ruby.yml
   tags: ['ruby']
@@ -92,15 +80,6 @@
 - include: backups.yml
   tags: ['backups']
 
-- include: zsh.yml
-  tags: ['zsh']
-
-- include: shell.yml
-  tags: ['shell']
-
-- include: dots.yml
-  tags: ['dots']
-
 - include: nvim.yml
   tags: ['nvim']
 
@@ -112,9 +91,6 @@
 #
 # - include: nnn.yml
 #   tags: ['nnn']
-
-- include: firewalld.yml
-  tags: ['firewall']
 
 - name: configure audio system
   import_role:

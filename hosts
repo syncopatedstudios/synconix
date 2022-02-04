@@ -1,6 +1,6 @@
 [desktops]
 calculon ansible_connection=local
-crambot ansible_connection=local
+crambot
 lapbot
 
 [nodes]

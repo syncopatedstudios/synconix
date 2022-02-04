@@ -11,12 +11,12 @@ systemd_networkd_network:
       - Name: "eth0"
       - MACAddress: "d8:d3:85:b2:dd:c5"
     - Network:
-      - DHCP: "yes"
-      # - IPv6AcceptRouterAdvertisements: "no"
-      # - DNS: "{{dns['nameserver'] }}"
-      # - Domains: "{{ dns['search'] }}"
-      # - Address: "192.168.41.3/24"
-      # - Gateway: "192.168.41.1"
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.2/24"
+      - Gateway: "192.168.41.1"
 
 nfs_host: True
 kvm_host: False

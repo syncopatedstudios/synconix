@@ -32,6 +32,7 @@ base:
   - git-lfs
   - glibc
   - glow
+  - graphicsmagick
   - htop
   - iftop
   - imlib2
@@ -70,6 +71,8 @@ base:
   - numlockx
   - openssl
   - opusfile
+  - pandoc
+  - poppler
   - python-pip
   - qscintilla-qt5
   - r
@@ -86,11 +89,13 @@ base:
   - sudo
   - taglib
   - terminator
+  - tesseract
   - w3m
   - wavpack
   - wol
   - xf86-video-intel
   - xterm
+  - xz
   - zlib
   - zsh
   - zsh-autosuggestions
