@@ -28,6 +28,3 @@ repos:
   node: False
   atom: False
   docker: False
-
-install_audio_utils: False
-install_audio_plugins: False

@@ -44,9 +44,6 @@ dots:
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False
 
-install_jacktrip: True
-install_njconnect: True
-
 intranet_ssid: soundbot
 # run `wpa_passphrase soundbot`
 wireless_pw: passphrase

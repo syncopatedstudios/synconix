@@ -5,18 +5,18 @@ install_x11: True
 install_i3: True
 autologin: True
 
-install_baudline: True
-install_deadbeef: True
-install_jalvselect: True
-install_linuxsampler: False
-install_non: True
-install_patchage: True
-install_polyphone: True
-install_protokol: True
+build_baudline: True
+build_deadbeef: True
+build_jalvselect: True
+build_linuxsampler: False
+build_njconnect: True
+build_non: True
+build_patchage: True
+build_polyphone: True
+build_protokol: True
 
-install_raysession: True
-install_reaper: True
-install_soniclineup: True
-install_sonicpi: True
-install_tony: True
-install_touchosc: True
+build_reaper: True
+build_soniclineup: True
+build_sonicpi: True
+build_tony: True
+build_touchosc: True

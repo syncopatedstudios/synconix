@@ -27,7 +27,7 @@ systemd_networkd_network:
 
 soundcard:
   alsa_in: alsa_input.pci-0000_00_1b.0.capture.0.0
-  alsa_out: alsa_output.pci-0000_00_1b.0.playback.0.0  
+  alsa_out: alsa_output.pci-0000_00_1b.0.playback.0.0
   resample_quality: 10
   channels: 2
   format: "S32LE"
@@ -48,11 +48,3 @@ autofs_client:
 kvm_host: False
 docker_host: True
 docker_storage: /storage/docker
-
-install_rga: True
-install_googler: True
-install_atom: True
-
-install_audio_utils: True
-install_audio_plugins: True
-install_daw: True
