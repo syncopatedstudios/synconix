@@ -6,7 +6,7 @@
 
 - name: set non dependencies to install
   set_fact:
-    _packages: "{{ development.non }}"
+    _packages: "{{ builds.non }}"
   tags: ['packages']
 
 - name: Install non dependencies

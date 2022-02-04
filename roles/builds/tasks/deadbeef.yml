@@ -7,7 +7,7 @@
 
 - name: set Deadbeef dependencies to install
   set_fact:
-    _packages: "{{ development.deadbeef }}"
+    _packages: "{{ builds.deadbeef }}"
   tags: ['packages']
 
 - name: Install Deadbeef dependencies
