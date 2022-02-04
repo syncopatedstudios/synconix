@@ -82,6 +82,7 @@ base:
   - rtkit
   - ruby-bundler
   - rubygems
+  - samba
   - screen
   - sndio
   - sox
