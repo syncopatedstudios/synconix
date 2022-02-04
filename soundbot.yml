@@ -8,6 +8,9 @@
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+  vars_files:
+    - "vars/common.yml"
+    - "{{ ansible_os_family }}.yml"
 
   pre_tasks:
     - name: gather facts
@@ -27,6 +30,10 @@
 
     - name: print os_family
       debug: msg="{{ansible_os_family}}"
+      tags: ['inventory']
+
+    - name: print random var from vars/Archlinux
+      debug: msg="{{ apm }}"
       tags: ['inventory']
 
   tasks:
