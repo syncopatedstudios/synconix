@@ -160,9 +160,11 @@ development:
     - aubio
     - boost
     - cmake
+    - elixir
     - erlang
     - gcc-libs
     - gendesk
+    - glfw-x11
     - glibc
     - lua
     - osmid
