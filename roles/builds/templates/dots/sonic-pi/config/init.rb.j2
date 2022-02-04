@@ -7,10 +7,11 @@ LIBRARY = File.join(ENV['HOME'], "Library")
 
 SOUNDS = File.join(LIBRARY, "Sounds/**")
 
-SAMPLES = File.join(SOUNDS, "samples/**")
-COLLECTIONS = File.join(SOUNDS, "collections/**")
-DRUMKITS = File.join(SOUNDS, "drumkits/**")
-LOOPS = File.join(SOUNDS, "loops/**")
+SAMPLES = File.join(LIBRARY, "Sounds", "samples/**")
+COLLECTIONS = File.join(LIBRARY, "Sounds", "collections/**")
+DRUMKITS = File.join(LIBRARY, "Sounds", "drumkits/**")
+LOOPS = File.join(LIBRARY, "Sounds", "loops/**")
+FX = File.join(LIBRARY, "Sounds", "fx/**")
 
 load_snippets SONIC + "/snippets", true
 
