@@ -17,6 +17,18 @@
           - pkg_mgr
       tags: ['audio', 'base', 'builds', 'distro', 'network', 'pkg_manager', 'ui']
 
+    - name: print hostname
+      debug: msg="inventory_hostname={{inventory_hostname}}"
+      tags: ['inventory']
+
+    - name: print package_manager
+      debug: msg="{{ansible_pkg_mgr}}"
+      tags: ['inventory']
+
+    - name: print os_family
+      debug: msg="{{ansible_os_family}}"
+      tags: ['inventory']
+
   tasks:
     - name: Check whether this is an initial install or not.
       stat:
