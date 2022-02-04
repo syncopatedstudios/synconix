@@ -15,7 +15,7 @@
         gather_subset:
           - os_family
           - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'network', 'pkg_manager', 'soundbot', 'ui']
+      tags: ['audio', 'base', 'builds', 'distro', 'network', 'pkg_manager', 'ui']
 
   tasks:
     - name: Check whether this is an initial install or not.

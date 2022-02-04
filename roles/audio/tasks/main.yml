@@ -84,7 +84,7 @@
       vars:
         pkg_state: present
 
-  when: install_daw|bool
+  when: inventory_hostname in groups['desktops']
   tags: ['audio','daw']
 
 - block:
@@ -100,7 +100,7 @@
         pkg_state: present
       tags: ['packages']
 
-  when: install_audio_utils|bool
+  when: inventory_hostname in groups['desktops']
   tags: ['audio']
 
 - block:
@@ -116,7 +116,6 @@
         pkg_state: present
       tags: ['packages']
 
-  when: install_audio_plugins|bool
   tags: ['audio', 'plugins']
 
 - include: players.yml

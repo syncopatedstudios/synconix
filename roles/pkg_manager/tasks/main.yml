@@ -1,5 +1,9 @@
 ---
 
+- name: "Install Archlinux packages"
+  include_tasks: pkg_archlinux.yml
+  when: "ansible_os_family == 'Archlinux'"
+
 - name: "Install Debian packages"
   include_tasks: pkg_apt.yml
   when: "ansible_os_family == 'Debian'"
@@ -8,18 +12,14 @@
   include_tasks: pkg_dnf.yml
   when: "ansible_os_family == 'RedHat'"
 
-- name: "Install Archlinux packages"
-  include_tasks: pkg_archlinux.yml
-  when: "ansible_os_family == 'Archlinux'"
-
-- name: "Install pip packages"
-  include_tasks: pkg_pip.yml
-  when: pkg['pip'] is defined
+- name: "Download and unpack archives"
+  include_tasks: pkg_archive.yml
+  when: pkg['source'] is defined
 
 - name: "Install gems"
   include_tasks: pkg_gem.yml
   when: pkg['gem'] is defined
 
-- name: "Download and unpack archives"
-  include_tasks: pkg_archive.yml
-  when: pkg['source'] is defined
+- name: "Install pip packages"
+  include_tasks: pkg_pip.yml
+  when: pkg['pip'] is defined
