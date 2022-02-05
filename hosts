@@ -2,10 +2,10 @@
 calculon ansible_connection=local
 crambot
 lapbot
+soundbot01
 
 [nodes]
 bender
-soundbot01
 
 [soundbots:children]
 desktops
