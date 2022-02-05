@@ -15,7 +15,7 @@
    file: defaults/audiowaveform.yml
   tags: ['audiowaveform']
 
-- name: check whether this is an initial install
+- name: check if this installed
   stat:
     path: "{{ application.source.folder }}/.installed"
   register: check_installed

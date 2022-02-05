@@ -44,7 +44,7 @@ class sox_base(Command):
 
         infile = Path(filename)
 
-        if newsuffix is "":
+        if newsuffix == "":
             suf = infile.suffix
         else:
             suf = newsuffix

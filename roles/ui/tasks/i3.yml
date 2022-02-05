@@ -127,7 +127,7 @@
         owner: "{{ user.name }}"
         group: "{{ user.name }}"
         mode: '0644'
-      notify: enable redshift
+      notify: enable and restart redshift service
       tags: ['redshift']
 
   become: True

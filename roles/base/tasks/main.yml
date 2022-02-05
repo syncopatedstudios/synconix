@@ -24,12 +24,6 @@
   vars:
     pkg_state: present
 
-- name: enable and start firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: yes
-
 - include: firewalld.yml
   tags: ['firewall']
 
@@ -49,7 +43,7 @@
   tags: ['filesystem']
 
 - include: kernel.yml
-  when: kernel is defined
+  when: use_kernel is defined
   tags: ['kernel']
 
 - include: grub.yml
@@ -61,9 +55,9 @@
 - include: ruby.yml
   tags: ['ruby']
 
-# - include: nfs.yml
-#   when: nfs_host|bool
-#   tags: ['nfs']
+- include: nfs.yml
+  when: nfs_host is defined
+  tags: ['nfs']
 
 - include: autofs.yml
   when: autofs_client is defined
@@ -83,14 +77,14 @@
 - include: nvim.yml
   tags: ['nvim']
 
-# - include: indexer.yml
-#   tags: ['indexer']
-#
-# - include: ranger.yml
-#   tags: ['ranger']
-#
-# - include: nnn.yml
-#   tags: ['nnn']
+- include: indexer.yml
+  tags: ['indexer']
+
+- include: ranger.yml
+  tags: ['ranger']
+
+- include: nnn.yml
+  tags: ['nnn']
 
 - name: configure audio system
   import_role:
