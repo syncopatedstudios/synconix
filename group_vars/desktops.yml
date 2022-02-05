@@ -8,13 +8,10 @@ autologin: True
 build_baudline: True
 build_deadbeef: True
 build_jalvselect: True
-build_linuxsampler: False
-build_njconnect: True
 build_non: True
 build_patchage: True
 build_polyphone: True
 build_protokol: True
-
 build_reaper: True
 build_soniclineup: True
 build_sonicpi: True
