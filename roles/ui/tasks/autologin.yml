@@ -29,3 +29,8 @@
     owner: root
     group: root
     backup: yes
+
+- name: enable lightdm service
+  systemd:
+    name: lightdm
+    enabled: yes
