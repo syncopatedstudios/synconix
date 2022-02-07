@@ -36,8 +36,11 @@
 - include: shell.yml
   tags: ['shell']
 
-- include: dots.yml
-  tags: ['dots']
+# - include: dots.yml
+#   tags: ['dots']
+
+- include: ruby.yml
+  tags: ['ruby']
 
 - include: filesystem.yml
   tags: ['filesystem']
@@ -51,9 +54,6 @@
 
 - include: realtime.yml
   tags: ['realtime']
-
-- include: ruby.yml
-  tags: ['ruby']
 
 - include: nfs.yml
   when: nfs_host is defined
@@ -85,6 +85,21 @@
 
 - include: nnn.yml
   tags: ['nnn']
+
+- block:
+    - name: Set desktop packages
+      set_fact:
+        _packages: "{{ (desktop['utilities'] + desktop['applications']) }}"
+      tags: ['packages']
+
+    - name: Install desktop packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
+  when: inventory_hostname in groups['desktops']
+  tags: ['packages', 'desktop']
 
 - name: configure audio system
   import_role:
