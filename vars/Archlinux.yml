@@ -383,6 +383,7 @@ networkmanager:
   - libnm
   - libnma
   - networkmanager
+  - network-manager-applet
   - networkmanager-openconnect
   - networkmanager-openvpn
   - networkmanager-pptp
@@ -424,6 +425,7 @@ ui:
   i3:
     - arandr
     - conky
+    - i3-gaps
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
@@ -442,12 +444,12 @@ ui:
     - qt6-tools
     - qt6-declarative
   themes:
+    - arc-gtk-theme
     - gtk-engine-murrine
     - kvantum-qt5
     - kvantum-theme-materia
     - numix-circle-icon-theme-git
     - yaru-icon-theme
-    - arc-gtk-theme
   fonts:
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-jp-fonts
@@ -478,6 +480,7 @@ ui:
     - xorg-fonts-alias-misc
     - xorg-mkfontscale
     - xorg-xlsfonts
+desktop:
   utilities:
     - actdiag
     - aspell-en
@@ -493,7 +496,7 @@ ui:
     - wordnet-cli
     - xdot
     - xzgv
-  desktop:
+  applications:
     - atom
     - celluloid
     - darktable

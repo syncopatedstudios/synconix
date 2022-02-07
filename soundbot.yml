@@ -2,7 +2,6 @@
 
 - hosts: all
   strategy: linear
-  # tags: ['base']
   gather_facts: no
   vars:
     env_vars:
