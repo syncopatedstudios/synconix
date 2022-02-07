@@ -52,6 +52,7 @@ gems:
   - net-ssh
   - nokogiri
   - parallel
+  - pastel
   - pry
   - pry-doc
   - pycall
