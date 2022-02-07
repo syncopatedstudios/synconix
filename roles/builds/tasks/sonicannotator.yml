@@ -7,7 +7,7 @@
 
 - name: Extract vamp plugins
   unarchive:
-    src: vamp.tar.gz
+    src: dots/vamp.tar.gz
     dest: "{{ user.home }}/"
   when: not hazivamp.stat.exists
   tags: ['vamp']
