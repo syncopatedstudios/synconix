@@ -25,14 +25,14 @@ systemd_networkd_network:
       - Address: "192.168.41.4/24"
       - Gateway: "192.168.41.1"
 
-  # eth2:
-  #   - Match:
-  #     - Name: "eth2"
-  #     - MACAddress: "00:1b:21:87:e8:bb"
-  #   - Network:
-  #     - DHCP: "no"
-  #     - IPv6AcceptRouterAdvertisements: "no"
-  #     - Address: "192.168.40.2/24"
+  eth2:
+    - Match:
+      - Name: "eth2"
+      - MACAddress: "00:1b:21:87:e8:bb"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - Address: "192.168.36.1/24"
 
 soundcard:
   alsa_in: alsa_input.pci-0000_00_1b.0.capture.0.0
