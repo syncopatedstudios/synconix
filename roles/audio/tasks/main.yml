@@ -24,7 +24,19 @@
 
 - name: set alsa & pipewire packages to install
   set_fact:
-    _packages: "{{ (alsa + pipewire) }}"
+    _packages:
+      - alsa-lib
+      - alsa-plugins
+      - alsa-tools
+      - alsa-utils
+      - helvum
+      - pipewire
+      - pipewire-alsa
+      - pipewire-jack
+      - pipewire-pulse
+      - pipewire-v4l2
+      - pipewire-zeroconf
+      - wireplumber
   tags: ['packages', 'alsa', 'pipewire']
 
 - name: install alsa & pipewire packages
