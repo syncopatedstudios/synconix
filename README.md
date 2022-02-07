@@ -8,9 +8,9 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 
 
-- [Fedora](vars/RedHat/Fedora.yml)
-- [Arch](vars/Archlinux/Archlinux.yml)
-- [Ruby, Python and Atom packages](vars/common.yml)
+
+
+
 
 #### Packages
 
