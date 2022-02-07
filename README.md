@@ -4,38 +4,32 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 ## > This is what I'll do for Five dollars
 
-### Linux!
+Let's say all the things necessary to make this work are in place*, and yer itchin'. Ask yourself: "Where have I been putting my hands lately?"
 
-
-
-- [Fedora](vars/RedHat/Fedora.yml)
-- [Arch](vars/Archlinux/Archlinux.yml)
-- [Ruby, Python and Atom packages](vars/common.yml)
-
-#### Packages
-
-######Resources
-
-Software that needs compilin' can be found in
-
-[audio](roles/audio/defaults/main.yml)
-
-- [repology](https://repology.org/) | database of distro package names
-
-- [pkgs.org](https://pkgs.org/) | same
-
-- [command-not-found](https://command-not-found.com/) | find out what packages contains a command
-
-- [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
-
-- [fpm](https://github.com/jordansissel/fpm) | making all the packages
+For convience, this has been designed so that linux distrobution can be used. I ended up going with Arch because of their wiki. Performance wise, the difference between the popular distrobutions is negliibel.
 
 To add a distro...
-* create a task file in the distro role.
-* add packages to install in vars/distro/distro.yml
-* edit distro/tasks/main.yml to include the task file for the newly added distro
+* Obtain the os_family variable
 
-To add an application...
+```sh
+ansible -i hosts all -m ansible.builtin.setup -a 'filter=ansible_os_family'
+```
+
+
+* create a task file within the package manager role; named after th os_family you are using
+
+```markdown
+Archlinux
+Debian
+RedHat
++Zorin.yml
+```
+
+Define things like additional repos, package manager configuations. Do things like, update package cache, system updates
+
+* add packages you wish to install in $ANSIBLE_HOME/vars/{{ ansible_os_family }}.yml
+
+To add an application you need built from source...
 * add the applications git repo or download location in audio/defaults/main.yml
 * create a task file in audio/tasks/<appname>.yml
 * add the task to the main task list in audio/tasks/main.yml
@@ -70,14 +64,14 @@ path:
   - "/opt/sonic-pi/bin"
 ```
 
-If you have multiple hosts with a need for different aliases, put those in hosts_vars and they will be appended to ~/.aliases
+If you want, you can have multiple hosts with a need for different aliases, put those in hosts_vars and they will be appended to ~/.aliases
 
 ```yaml
 aliases:
   - h="history 1"
 ```
 
-After you're finished with that, you might want to add some environment variables for ansible to work with. Open [soundbot.yml](soundbot.yml) Add anything you would export in your shell enviornment.
+After you're finished with that, you might want to add some environment variables for ansible to work with. Open [soundbot.yml](soundbot.yml) to set the environment path Ansible will use.
 
 ```yaml
 - hosts: all
@@ -90,7 +84,7 @@ After you're finished with that, you might want to add some environment variable
 
 ## Desktop Environment
 
-set which window manager and subsequent packages to install
+set which window manager and other ui related thigns...
 
 ```yaml
 install_x11: True
@@ -101,7 +95,7 @@ you can set this per host in host_vars, in the distro defaults and in a few
 other places if the need calls for it. You can find the default settings in
 [ui defaults](roles/ui/defaults/main.yml)
 
-Right now there are package lists for x11 and i3 only. If you'd like to add packages for any other desktop enviornment, add the packages you want in distro defaults, create a task for it, then add a boolean to this list.
+i3 is currently the default. If you'd like to add packages for any other desktop enviornment, add the packages you want in distro defaults, create a task for it, then add a boolean to this list.
 
 
 ## theme
@@ -159,3 +153,21 @@ In ansible there are 22 areas where you can set variables. Here we use 8 of them
 6. playbook host_vars/*
 7. playbook group_vars/all
 8. role defaults (defined in role/defaults/main.yml)
+
+
+
+######Resources
+
+Software that needs compilin' can be found in
+
+[audio](roles/audio/defaults/main.yml)
+
+- [repology](https://repology.org/) | database of distro package names
+
+- [pkgs.org](https://pkgs.org/) | same
+
+- [command-not-found](https://command-not-found.com/) | find out what packages contains a command
+
+- [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
+
+- [fpm](https://github.com/jordansissel/fpm) | making all the packages

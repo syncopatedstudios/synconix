@@ -6,7 +6,7 @@
 
 - name: set patchage dependencies to install
   set_fact:
-    _packages: "{{ development.drobilla }}"
+    _packages: "{{ builds.drobilla }}"
   tags: ['packages']
 
 - name: Install patchage dependencies

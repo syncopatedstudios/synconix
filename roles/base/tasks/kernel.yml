@@ -22,6 +22,3 @@
   when:
     - use_kernel == 'lts'
     - package_results.changed
-  notify:
-    - remake grub
-    - reboot

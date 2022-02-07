@@ -7,7 +7,7 @@
 
 - name: set swami dependencies to install
   set_fact:
-    _packages: "{{ development.swami }}"
+    _packages: "{{ builds.swami }}"
   tags: ['packages']
 
 - name: Install swami dependencies

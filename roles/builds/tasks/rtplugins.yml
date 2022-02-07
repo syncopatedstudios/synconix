@@ -6,7 +6,7 @@
 
 - name: set rtplugin dependencies to install
   set_fact:
-    _packages: "{{ development.rtplugins }}"
+    _packages: "{{ builds.rtplugins }}"
   tags: ['packages']
 
 - name: Install rtplugin dependencies

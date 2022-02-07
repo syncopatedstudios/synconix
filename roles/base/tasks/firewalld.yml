@@ -1,5 +1,11 @@
 ---
 
+- name: enable and start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
 - name: permit traffic for sshd service
   firewalld:
     service: ssh

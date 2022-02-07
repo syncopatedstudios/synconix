@@ -24,12 +24,6 @@
   vars:
     pkg_state: present
 
-- name: enable and start firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: yes
-
 - include: firewalld.yml
   tags: ['firewall']
 
@@ -42,14 +36,17 @@
 - include: shell.yml
   tags: ['shell']
 
-- include: dots.yml
-  tags: ['dots']
+# - include: dots.yml
+#   tags: ['dots']
+
+- include: ruby.yml
+  tags: ['ruby']
 
 - include: filesystem.yml
   tags: ['filesystem']
 
 - include: kernel.yml
-  when: kernel is defined
+  when: use_kernel is defined
   tags: ['kernel']
 
 - include: grub.yml
@@ -58,12 +55,9 @@
 - include: realtime.yml
   tags: ['realtime']
 
-- include: ruby.yml
-  tags: ['ruby']
-
-# - include: nfs.yml
-#   when: nfs_host|bool
-#   tags: ['nfs']
+- include: nfs.yml
+  when: nfs_host is defined
+  tags: ['nfs']
 
 - include: autofs.yml
   when: autofs_client is defined
@@ -83,14 +77,29 @@
 - include: nvim.yml
   tags: ['nvim']
 
-# - include: indexer.yml
-#   tags: ['indexer']
-#
-# - include: ranger.yml
-#   tags: ['ranger']
-#
-# - include: nnn.yml
-#   tags: ['nnn']
+- include: indexer.yml
+  tags: ['indexer']
+
+- include: ranger.yml
+  tags: ['ranger']
+
+- include: nnn.yml
+  tags: ['nnn']
+
+- block:
+    - name: Set desktop packages
+      set_fact:
+        _packages: "{{ (desktop['utilities'] + desktop['applications']) }}"
+      tags: ['packages']
+
+    - name: Install desktop packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
+  when: inventory_hostname in groups['desktops']
+  tags: ['packages', 'desktop']
 
 - name: configure audio system
   import_role:

@@ -29,8 +29,12 @@
     enabled: yes
     state: started
 
-# - name: Enable and start NetworkManager dispatcher
-#   systemd:
-#     name: NetworkManager-dispatcher.service
-#     enabled: yes
-#     state: started
+- name: disable systemd-networkd service
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - systemd-networkd
+    - systemd-resolved
+  ignore_errors: True

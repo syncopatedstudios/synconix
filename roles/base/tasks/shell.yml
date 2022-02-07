@@ -42,17 +42,21 @@
         extra_args: --user
       tags: ['kitty']
 
-    - name: Push kitty configs
+
+    - name: Push terminal emulator configs
       synchronize:
-        src: "dots/config/kitty/"
-        dest: "{{ user.home }}/.config/kitty/"
+        src: "dots/config/{{ item }}"
+        dest: "{{ user.home }}/.config/{{ item }}"
         recursive: yes
         mode: push
         delete: no
         checksum: yes
         perms: no
         rsync_opts: "--update"
-      tags: ['kitty']
+      with_items:
+        - kitty
+        - terminator
+      tags: ['terminator', 'kitty']
 
   become: True
   become_user: "{{ user.name }}"

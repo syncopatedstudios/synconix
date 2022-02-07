@@ -1,5 +1,18 @@
 ---
 
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+      - pkg_mgr
+
+- name: using package manager
+  debug:
+    msg: "using {{ ansible_pkg_mgr }} to install..."
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - name: "Install Archlinux packages"
   include_tasks: pkg_archlinux.yml
   when: "ansible_os_family == 'Archlinux'"

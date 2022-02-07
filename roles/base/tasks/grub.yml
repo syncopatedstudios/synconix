@@ -34,6 +34,6 @@
     group: root
     mode: '644'
     backup: yes
-  notify:
-    - remake grub
-    - reboot
+
+- name: remake grub
+  shell: "{{ grub_cmd }} -o {{ grub_config }}"

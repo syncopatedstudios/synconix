@@ -5,6 +5,11 @@
   register: hazidots
   tags: ['dots']
 
+- name: use shell to do stuff
+  shell: |
+    gem install tty-command
+  tags: ['dots']
+
 - block:
     - name: push dots installer
       template:

@@ -16,38 +16,69 @@
 - include: pulseaudio.yml
   tags: ['pulseaudio']
 
-- name: set alsa packages to install
-  set_fact:
-    _packages: "{{ alsa }}"
-  tags: ['packages']
+- name: remove pipewire-media-session
+  shell: |
+    pacman -Rdd pipewire-media-session --noconfirm
+  tags: ['pipewire']
+  ignore_errors: true
 
-- name: install alsa packages
+- name: set alsa & pipewire packages to install
+  set_fact:
+    _packages:
+      - alsa-lib
+      - alsa-plugins
+      - alsa-tools
+      - alsa-utils
+      - helvum
+      - pipewire
+      - pipewire-alsa
+      - pipewire-jack
+      - pipewire-pulse
+      - pipewire-v4l2
+      - pipewire-zeroconf
+      - wireplumber
+  tags: ['packages', 'alsa', 'pipewire']
+
+- name: install alsa & pipewire packages
   import_role:
     name: pkg_manager
   vars:
     pkg_state: present
-  tags: ['packages']
+  tags: ['packages', 'alsa', 'pipewire']
 
 - include: alsa.yml
   tags: ['alsa']
-
-- name: set pipewire packages to install
-  set_fact:
-    _packages: "{{ pipewire }}"
-  tags: ['packages']
-
-- name: install pipewire packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  when: "ansible_os_family == 'Archlinux'"
-  tags: ['packages']
 
 - include: pipewire.yml
   tags: ['pipewire']
 
 #-------------------------------------#
+
+- block:
+    - name: Set audio packages to install
+      set_fact:
+        _packages: "{{ (audio + plugins) }}"
+
+    - name: Install audio packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+  tags: ['packages', 'audio']
+
+- block:
+    - name: Set daw packages to install
+      set_fact:
+        _packages: "{{ daw }}"
+
+    - name: Install daw packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
+  when: inventory_hostname in groups['desktops']
+  tags: ['packages', 'audio', 'daw']
 
 - name: makesfz and makeh2drumkit
   copy:
@@ -60,63 +91,6 @@
     - makeh2kit
     - makesfz
   tags: ['audio', 'utils']
-
-- name: Set audio packages to install
-  set_fact:
-    _packages: "{{ audio }}"
-  tags: ['packages']
-
-- name: Install audio packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-
-- block:
-    - name: Set daw packages to install
-      set_fact:
-        _packages: "{{ daw }}"
-      tags: ['packages']
-
-    - name: Install daw packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-
-  when: inventory_hostname in groups['desktops']
-  tags: ['audio','daw']
-
-- block:
-    - name: set graphical audio utility packages to
-      set_fact:
-        _packages: "{{ utilities }}"
-      tags: ['packages']
-
-    - name: Install audio utilities
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
-  when: inventory_hostname in groups['desktops']
-  tags: ['audio']
-
-- block:
-    - name: set audio plugins packages to
-      set_fact:
-        _packages: "{{ plugins }}"
-      tags: ['packages']
-
-    - name: Install audio plugins
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
-  tags: ['audio', 'plugins']
 
 - include: players.yml
   tags: ['players']

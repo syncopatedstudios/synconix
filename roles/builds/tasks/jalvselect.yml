@@ -7,7 +7,7 @@
 
 - name: set jalv_select dependencies to install
   set_fact:
-    _packages: "{{ development.jalvselect }}"
+    _packages: "{{ builds.jalvselect }}"
   tags: ['packages']
 
 - name: Install jalv_select dependencies
