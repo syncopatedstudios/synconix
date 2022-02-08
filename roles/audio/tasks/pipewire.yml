@@ -4,7 +4,7 @@
   shell: "mkdir -pv /usr/share/{pipewire,wireplumber}"
   tags: ['pipewire', 'wireplumber']
 
-- name: Push pipewire configs
+- name: Sync pipewire configs
   synchronize:
     src: "usr/share/pipewire/"
     dest: "/usr/share/pipewire/"
@@ -17,7 +17,7 @@
   register: pipe
   tags: ['pipewire']
 
-- name: Push wireplumber configs
+- name: Sync wireplumber configs
   synchronize:
     src: "usr/share/wireplumber/"
     dest: "/usr/share/wireplumber/"
@@ -30,7 +30,17 @@
   register: wireplumb
   tags: ['pipewire', 'wireplumber']
 
-- name: Push wireplumber template for main sound card
+- name: Sync wireplumber template for main sound card
+  template:
+    src: "usr/share/pipewire/pipewire.conf.j2"
+    dest: "/usr/share/pipewire/pipewire.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+  tags: ['pipewire']
+
+- name: Sync wireplumber template for main sound card
   template:
     src: "usr/share/wireplumber/main.lua.d/50-alsa-config.lua.j2"
     dest: "/usr/share/wireplumber/main.lua.d/50-alsa-config.lua"
