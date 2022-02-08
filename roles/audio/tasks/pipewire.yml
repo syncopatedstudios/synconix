@@ -1,6 +1,6 @@
 ---
 
-- name: ensure pipewire config directory exists
+- name: Ensure pipewire config directory exists
   shell: "mkdir -pv /usr/share/{pipewire,wireplumber}"
   tags: ['pipewire', 'wireplumber']
 
@@ -50,7 +50,7 @@
     backup: yes
   tags: ['wireplumber']
 
-- name: restart pipewire services
+- name: Restart pipewire services
   systemd:
     name: "{{ item }}"
     state: restarted

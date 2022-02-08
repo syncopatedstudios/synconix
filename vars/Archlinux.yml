@@ -402,6 +402,7 @@ plugins:
   - ams-lv2
   - calf
   - caps-lv2-git
+  - cmt
   - distrho-ports
   - dragonfly-reverb
   - intersect.lv2-git
