@@ -19,6 +19,7 @@
     port: "{{ item }}"
     permanent: yes
     state: enabled
+    zone: docker
   notify:
     - "reload firewalld"
   with_items: ["{{ firewalld }}"]

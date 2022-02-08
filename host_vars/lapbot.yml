@@ -20,6 +20,9 @@ wireless: True
 #       - Address: "192.168.41.5/24"
 #       - Gateway: "192.168.41.1"
 
+firewalld:
+  - 4464/udp
+
 autofs_client:
   host: bender
   shares:
