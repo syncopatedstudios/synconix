@@ -116,6 +116,10 @@
   when: build_swami is defined
   tags: ['swami']
 
+- include: timemachine.yml
+  when: build_timemachine is defined
+  tags: ['timemachine']
+
 - include: tony.yml
   when: build_tony is defined
   tags: ['tony']

@@ -87,6 +87,9 @@ swami:
 libinstpatch:
   git: "https://github.com/swami/libinstpatch.git"
 
+timemachine:
+  git: "https://github.com/swh/timemachine.git"
+
 tony:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2617/"
   file: "Tony-2.1.1-x86_64.AppImage"

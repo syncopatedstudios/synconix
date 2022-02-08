@@ -1,0 +1,27 @@
+- name: check if timemachine is already installed
+  stat: path="/usr/local/bin/timemachine"
+  register: hazitimemachine
+  tags: ['timemachine']
+
+- block:
+  - name: clone timemachine
+    git:
+      repo: "{{ timemachine['git'] }}"
+      dest: "{{ local_src }}/timemachine"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: build timemachine
+    shell: |
+      ./autogen.sh
+      make
+      sudo make install
+    args:
+      chdir: "{{ local_src }}/timemachine"
+    register: timemachine_build
+    failed_when: timemachine.failed
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not hazitimemachine.stat.exists
