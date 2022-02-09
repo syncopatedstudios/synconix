@@ -2,7 +2,7 @@
 
 - hosts: all
   strategy: linear
-  gather_facts: no
+  gather_facts: yes
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"
@@ -12,13 +12,6 @@
     - "{{ ansible_os_family }}.yml"
 
   pre_tasks:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'network', 'pkg_manager', 'ui']
-
     - name: print hostname
       debug: msg="inventory_hostname={{inventory_hostname}}"
       tags: ['inventory']

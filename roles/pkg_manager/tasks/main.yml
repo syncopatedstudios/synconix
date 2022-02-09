@@ -1,11 +1,5 @@
 ---
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-
 - name: using package manager
   debug:
     msg: "using {{ ansible_pkg_mgr }} to install..."

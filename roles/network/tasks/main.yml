@@ -4,13 +4,6 @@
   debug:
     msg: "starting network role"
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-  tags: ['network']
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
   tags: ['network']

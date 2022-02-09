@@ -4,12 +4,6 @@
   debug:
     msg: "starting builds role"
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 

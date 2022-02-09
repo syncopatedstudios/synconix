@@ -4,14 +4,9 @@
   debug:
     msg: "starting ui role"
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
+  tags: ['i3', 'x11', 'theme', 'fonts']
 
 - name: copy help file to user home dir
   copy:

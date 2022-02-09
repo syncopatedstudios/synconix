@@ -1,16 +1,5 @@
 ---
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-  tags: ['i3', 'polybar', 'rofi', 'jgmenu']
-
-- name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
-  tags: ['i3', 'polybar', 'rofi', 'jgmenu']
-
 - name: set packages to install
   set_fact:
     _packages: "{{ ui.i3 }}"
