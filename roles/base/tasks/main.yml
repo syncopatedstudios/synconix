@@ -81,13 +81,18 @@
     - name: Set desktop packages
       set_fact:
         _packages: "{{ (desktop['utilities'] + desktop['applications']) }}"
-      tags: ['packages']
 
     - name: Install desktop packages
       import_role:
         name: pkg_manager
       vars:
         pkg_state: present
+
+    - include: atom.yml
+      tags: ['atom']
+
+    - include: chrome.yml
+      tags: ['chrome']
 
   when: inventory_hostname in groups['desktops']
   tags: ['packages', 'desktop']

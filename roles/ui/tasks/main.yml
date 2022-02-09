@@ -36,9 +36,6 @@
 - include: theme.yml
   tags: ['theme']
 
-- include: atom.yml
-  when: inventory_hostname in groups['desktops']
-
 - name: set graphical-target as default
   shell: |
     systemctl set-default graphical.target
