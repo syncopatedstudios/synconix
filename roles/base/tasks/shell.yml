@@ -42,6 +42,11 @@
     #     extra_args: --user
     #   tags: ['kitty']
 
+    - name: check if termpdf.py is already installed
+      stat: path="/usr/local/bin/termpdf.py"
+      register: hazitermpdf
+      tags: ['kitty']
+
     - name: install termpdf
       shell: |
         git clone https://github.com/dsanson/termpdf.py
@@ -50,6 +55,7 @@
         sudo cp termpdf.py /usr/local/bin/termpdf.py
       args:
         chdir: "{{ local_src }}"
+      when: not hazitermpdf.stat.exists
       tags: ['kitty']
 
     - name: Push terminal emulator configs
