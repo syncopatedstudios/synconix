@@ -71,24 +71,37 @@ fg:      #cbb907;
 ac:      #42A5F5ff;
 yellowish: #ffb52aff;
 
-greys:
-  - "#282828"
-  - "#282828"
-  - "#1d2021"
-  - "#1d2021"
-  - "#928374"
-  - "#282828"
-  - "#32302f"
-  - "#32302f"
-  - "#928374"
-  - "#282828"
-  - "#ebdbb2"
-  - "#282828"
-  - "#000000"
-  - "#0C0C0C"
-  - "#FFFFFF"
-  - "#000000"
-  - "#0C0C0C"
+colors:
+  active_border_color: "#b0ae06"
+  inactive_border_color: "#cccccc"
+  foreground: "#8F350A"
+  background: "#0F1110"
+  selection_foreground: "#000000"
+  selection_background: "#fffacd"
+  #: black
+  color0: "#2f3d42"
+  color8: "#585858"
+  #: red
+  color1: "#ab4642"
+  color9: "#ab4642"
+  #: green
+  color2:  "#7E807E"
+  color10: "#8D8F8D"
+  #: yellow
+  color3:  "#f7ca88"
+  color11: "#f7ca88"
+  #: blue
+  color4:  "#7cafc2"
+  color12: "#7cafc2"
+  #: magenta
+  color5:  "#ba8baf"
+  color13: "#ba8baf"
+  #: cyan
+  color6:  "#1ABB9B"
+  color14: "#1ABB9B"
+  #: white
+  color7:  "#d8d8d8"
+  color15: "#f8f8f8"
 
 polybar:
   fonts:
