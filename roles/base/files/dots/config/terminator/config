@@ -18,6 +18,7 @@
     palette = "#000000:#b50047:#97e023:#fa8419:#838d6e:#ff4f04:#06989a:#ffffff:#ffa896:#b7c0e8:#97e023:#c3b624:#e74343:#be004a:#1e9696:#000000"
     use_system_font = False
     bold_is_bright = True
+    login_shell = True
   [[New Profile]]
     cursor_color = "#aaaaaa"
 [layouts]

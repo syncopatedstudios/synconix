@@ -36,17 +36,26 @@
         perms: no
         rsync_opts: "--update"
 
-    - name: Install kitti3
-      pip:
-        name: kitti3
-        extra_args: --user
-      tags: ['kitty']
+    # - name: Install kitti3
+    #   pip:
+    #     name: kitti3
+    #     extra_args: --user
+    #   tags: ['kitty']
 
+    - name: install termpdf
+      shell: |
+        git clone https://github.com/dsanson/termpdf.py
+        cd termpdf.py
+        pip install -r requirements.txt
+        sudo cp termpdf.py /usr/local/bin/termpdf.py
+      args:
+        chdir: "{{ local_src }}"
+      tags: ['kitty']
 
     - name: Push terminal emulator configs
       synchronize:
         src: "dots/config/{{ item }}"
-        dest: "{{ user.home }}/.config/{{ item }}"
+        dest: "{{ user.home }}/.config/"
         recursive: yes
         mode: push
         delete: no

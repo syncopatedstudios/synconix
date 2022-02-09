@@ -43,8 +43,6 @@ set $rofi-surfraw "/usr/local/bin/rofi-surfraw"
 
 set $ranger "kitty -e ranger"
 
-set $nnn "NNN_PLUG='f:finder;p:preview-tui;t:boom;s:spectrogram' kitty -e nnn -a"
-
 ######################################
 # ---{ autostart }---
 ######################################
@@ -103,7 +101,7 @@ bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 # start a terminal
-bindsym $mod+Return $exec "terminator -b"
+bindsym $mod+Return $exec kitty
 
 # pull down a kitty terminal
 # bindsym $mod+n $exec nop kitti3
@@ -115,8 +113,7 @@ bindsym Menu $exec $rofi
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod++Shift+Home $exec qutebrowser
 
-#bindcode $mod+Mod2+$KP_Enter $exec $ranger
-bindcode $mod+Mod2+$KP_Enter $exec $nnn
+bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec pcmanfm
 
@@ -157,7 +154,7 @@ for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^mpv"] floating enable, resize set 640 480
 # for_window [title="^Mixer"] floating enable, resize set 640 480
 # for_window [class="^Non-Mixer$" title="(?i)Mixer*$"] floating disable
-for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center
+for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
 # for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
 
 #############################
