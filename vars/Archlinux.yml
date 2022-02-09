@@ -426,6 +426,7 @@ ui:
     - xorg-xmodmap
     - xorg-xrandr
     - xorg-xrdb
+    - jgmenu
   i3:
     - arandr
     - conky

@@ -78,7 +78,7 @@ module-margin-right = 0
 font-0 = "Feather:size=10;2"
 font-1 = "Hack Nerd Font:pixelsize=11;2"
 
-modules-left = menu i3
+modules-left = jgmenu i3
 modules-center =
 {% if ansible_facts['hostname'] == 'lapbot' %}
 modules-right = battery date
@@ -170,6 +170,12 @@ enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/jgmenu]
+type = custom/
+content = "   "
+click-left = jgmenu
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
