@@ -20,7 +20,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     mode: '0644'
-    backup: yes
+    backup: no
     directory_mode: no
   tags: ['help']
 
@@ -37,16 +37,6 @@
 - include: i3.yml
   when: install_i3|bool
   tags: ['i3']
-
-- name: Copy terminator config
-  copy:
-    src: dots/config/terminator/config
-    dest: "{{ user.home }}/.config/terminator/config"
-    directory_mode: no
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: '0644'
-  tags: ['terminator']
 
 - include: autologin.yml
   when: autologin|bool

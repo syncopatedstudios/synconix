@@ -40,6 +40,7 @@ base:
   - base-devel
   - bash-language-server
   - bat
+  - bibtool
   - bind
   - boost
   - brightnessctl
@@ -58,7 +59,9 @@ base:
   - glibc
   - glow
   - graphicsmagick
+  - help2man
   - htop
+  - hunspell
   - iftop
   - imlib2
   - iotop
@@ -97,6 +100,7 @@ base:
   - pandoc
   - poppler
   - python-pip
+  - python-pymupdf
   - qscintilla-qt5
   - r
   - ranger
