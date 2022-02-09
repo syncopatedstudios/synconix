@@ -43,6 +43,8 @@ set $rofi-surfraw "/usr/local/bin/rofi-surfraw"
 
 set $ranger "kitty -e ranger"
 
+set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
+
 ######################################
 # ---{ autostart }---
 ######################################
@@ -108,7 +110,7 @@ bindsym $mod+Return $exec kitty
 
 # start dmenu (a program launcher)
 bindsym $mod+d $exec $rofi
-bindsym Menu $exec $rofi
+bindsym Menu $exec $jgmenu
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod++Shift+Home $exec qutebrowser
