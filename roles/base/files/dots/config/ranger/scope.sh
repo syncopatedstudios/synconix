@@ -112,9 +112,10 @@ case "$mimetype" in
     image/*)
         img2txt --gamma=0.6 --width="$width" "$path" && exit 4 || exit 1;;
     audio/*)
-        #mpv "$path" && exit 5;;
+        # kitty @ launch mpv --keep-open "$path" && exit 5;;
         #soxi "$path" && exit 5;;
-        mediainfo -f "$path" && exit 5;;
+        #mediainfo -f "$path" && exit 5;;
+        ffmpeg -i "$path" -filter_complex "scale=iw*min(1\,min(${width}/iw\,ih)):-1" -o "$cached" && exit 7;;
     # Display information about media files:
     video/*)
         mediainfo "$path" && exit 5
