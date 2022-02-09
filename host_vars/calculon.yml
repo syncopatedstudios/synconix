@@ -14,14 +14,13 @@ systemd_networkd_network:
       - Domains: "{{ dns['search'] }}"
       - Address: "192.168.41.3/24"
       - Gateway: "192.168.41.1"
-
-  # eth1:
-  #   - Match:
-  #     - Name: "eth1"
-  #   - Network:
-  #     - DHCP: "no"
-  #     - IPv6AcceptRouterAdvertisements: "no"
-  #     - Address: "192.168.40.1/24"
+  eth1:
+    - Match:
+      - Name: "eth1"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - Address: "192.168.40.1/24"
 
 firewalld:
   zone: docker

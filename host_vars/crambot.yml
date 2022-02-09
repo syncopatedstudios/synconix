@@ -4,19 +4,10 @@ use_networkmanager: False
 use_systemdnetwork: True
 
 systemd_networkd_network:
-  # eth0:
-  #   - Match:
-  #     - Name: "eth0"
-  #     - MACAddress: "b8:ca:3a:94:51:ca"
-  #   - Network:
-  #     - DHCP: "no"
-  #     - IPv6AcceptRouterAdvertisements: "no"
-  #     - Address: "192.168.36.1/24"
-
-  eth1:
+  eth0:
     - Match:
-      - Name: "eth1"
-      - MACAddress: "00:1b:21:87:e8:ba"
+      - Name: "eth0"
+      - MACAddress: "b8:ca:3a:94:51:ca"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
@@ -24,7 +15,14 @@ systemd_networkd_network:
       - Domains: "{{ dns['search'] }}"
       - Address: "192.168.41.4/24"
       - Gateway: "192.168.41.1"
-
+  eth1:
+    - Match:
+      - Name: "eth1"
+      - MACAddress: "00:1b:21:87:e8:ba"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - Address: "192.168.40.2/24"
   eth2:
     - Match:
       - Name: "eth2"
