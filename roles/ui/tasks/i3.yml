@@ -1,17 +1,5 @@
 ---
 
-- name: set packages to install
-  set_fact:
-    _packages: "{{ ui.i3 }}"
-  tags: ['packages']
-
-- name: Install ui packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - name: check if swallow is already installed
   stat: path="/usr/local/bin/swallow"
   register: haziswallow

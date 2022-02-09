@@ -24,12 +24,8 @@ kvantum_theme: MateriaDark
 hintstyle: hintmedium
 
 graphical_target: False
+
 autologin: False
-
-install_x11: False
-install_i3: False
-
-install_desktop: False
 
 wallpaper:
   screen1: /usr/share/backgrounds/010.png
@@ -102,12 +98,3 @@ colors:
   #: white
   color7:  "#d8d8d8"
   color15: "#f8f8f8"
-
-polybar:
-  fonts:
-    - "Feather:size=10;2"
-    - "Hack Nerd Font:pixelsize=11;2"
-  monitors:
-  modules-left:
-  modules-center:
-  modules-right:

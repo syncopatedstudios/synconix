@@ -1,17 +1,5 @@
 ---
 
-- name: Set font packages to install
-  set_fact:
-    _packages: "{{ ui.fonts }}"
-  tags: ['packages']
-
-- name: Install font packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - name: check if locat fonts exists
   stat: path="/usr/local/share/fonts/Feather.ttf"
   register: hazilocalfonts
