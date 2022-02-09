@@ -80,11 +80,8 @@
 - include: indexer.yml
   tags: ['indexer']
 
-- include: ranger.yml
-  tags: ['ranger']
-
-- include: nnn.yml
-  tags: ['nnn']
+- include: filemanager.yml
+  tags: ['filemanager', 'ranger' ,'pcmanfm']
 
 - block:
     - name: Set desktop packages

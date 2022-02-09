@@ -1,4 +1,4 @@
 ---
 
 - include: ranger.yml
-- include: pcmanfm.yml
+# - include: pcmanfm.yml
