@@ -172,8 +172,11 @@ inherit = bar/HDMI1
 [module/jgmenu]
 type = custom/text
 content-padding = 2
-content = "   "
+#content = "   "
+content = "  "
 click-left = "jgmenu_run >/dev/null 2>&1 &"
+content-background = {{ colors.background }}
+content-foreground = {{ colors.foreground }}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 

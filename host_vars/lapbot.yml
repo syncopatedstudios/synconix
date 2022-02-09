@@ -43,3 +43,6 @@ soundcard:
   rate: 48000
   allowed-rates: "32000,44100,48000,96000"
   position: "FL,FR"
+
+wallpaper:
+  screen1: /usr/share/backgrounds/010.png

@@ -8,7 +8,7 @@
     mode: push
     delete: no
     rsync_opts: "--update"
-  tags: ['backgrounds']
+  tags: ['wallpaper']
 
 - name: Copy icons to /usr/share/pixmaps
   copy:
