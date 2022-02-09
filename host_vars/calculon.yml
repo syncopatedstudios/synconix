@@ -39,7 +39,7 @@ soundcard:
 
 wallpaper:
   screen1: "{{ user.home }}/Library/Visuals/backgrounds/001.png"
-  screen2: "{{ user.home }}/Library/Visuals/backgrounds/002.png"
+  # screen2: "{{ user.home }}/Library/Visuals/backgrounds/002.png"
 
 autofs_client:
   host: bender

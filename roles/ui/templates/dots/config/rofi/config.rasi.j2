@@ -147,17 +147,17 @@ display-filebrowser: "**";
 
 * {
     active-background: #2c6eda;
+		normal-background: @background;
     active-foreground: @foreground;
-    normal-background: @background;
     normal-foreground: @foreground;
     urgent-background: #d23425;
     urgent-foreground: @foreground;
+		alternate-active-background: @background;
 
-    alternate-active-background: @background;
+		alternate-normal-background: @background;
     alternate-active-foreground: @foreground;
-    alternate-normal-background: @background;
+		alternate-urgent-background: @background;
     alternate-normal-foreground: @foreground;
-    alternate-urgent-background: @background;
     alternate-urgent-foreground: @foreground;
 
     selected-active-background: #286e03;
@@ -167,10 +167,10 @@ display-filebrowser: "**";
     selected-urgent-background: #253049;
     selected-urgent-foreground: @foreground;
 
-    background-color: @background;
-    background: #3c3c3c;
-    foreground: #f716f5;
-    border-color: @background;
+    background-color: {{ colors.background }};
+    background: {{ colors.background }};
+    foreground: {{ colors.foreground }};
+    border-color: {{ colors.background }};
     spacing: 2;
 }
 
