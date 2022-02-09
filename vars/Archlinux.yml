@@ -91,7 +91,6 @@ base:
   - neovim-symlinks
   - net-tools
   - nfs-utils
-  - nnn-nerd
   - nodejs
   - npm
   - numlockx

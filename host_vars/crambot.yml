@@ -35,7 +35,9 @@ systemd_networkd_network:
       - Address: "192.168.36.1/24"
 
 firewalld:
-  - 4464/udp
+  zone: docker
+  ports:
+    - 4464/udp
 
 soundcard:
   alsa_in: alsa_input.pci-0000_00_1b.0.capture.0.0

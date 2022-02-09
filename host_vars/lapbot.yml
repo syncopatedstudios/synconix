@@ -21,7 +21,9 @@ wireless: True
 #       - Gateway: "192.168.41.1"
 
 firewalld:
-  - 4464/udp
+  zone: public
+  ports:
+    - 4464/udp
 
 autofs_client:
   host: bender

@@ -19,8 +19,8 @@
     port: "{{ item }}"
     permanent: yes
     state: enabled
-    zone: docker
+    zone: "{{ firewalld['zone']}}"
   notify:
     - "reload firewalld"
-  with_items: ["{{ firewalld }}"]
+  with_items: ["{{ firewalld['ports'] }}"]
   when: firewalld is defined
