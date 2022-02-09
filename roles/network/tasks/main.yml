@@ -1,5 +1,9 @@
 ---
 
+- name: starting network role
+  debug:
+    msg: "starting network role"
+
 - name: gather facts
   setup:
     gather_subset:
