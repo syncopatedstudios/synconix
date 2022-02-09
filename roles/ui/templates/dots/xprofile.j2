@@ -14,7 +14,6 @@ numlockx on
 
 guake &
 {% if use_networkmanager == 'True' %}
-if test -f "/etc/NetworkManager/NetworkManager.conf"; then
-  nm-applet &
-fi
+nm-applet &
 {% endif %}
+kitty
