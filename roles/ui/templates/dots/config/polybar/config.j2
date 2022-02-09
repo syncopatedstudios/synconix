@@ -173,9 +173,10 @@ cursor-scroll = ns-resize
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/jgmenu]
-type = custom/
+type = custom/text
+content-padding = 2
 content = "   "
-click-left = jgmenu
+click-left = "jgmenu_run >/dev/null 2>&1 &"
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
