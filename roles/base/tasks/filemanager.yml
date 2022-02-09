@@ -1,5 +1,4 @@
 ---
 
-- include: nnn.yml
 - include: ranger.yml
 - include: pcmanfm.yml
