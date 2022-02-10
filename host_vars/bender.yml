@@ -1,5 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_kernel: lts
+
 use_networkmanager: False
 use_systemdnetwork: True
 
@@ -35,7 +37,3 @@ firewalld:
 
 graphical_target: False
 autologin: False
-install_x11: False
-install_i3: False
-
-install_desktop: False

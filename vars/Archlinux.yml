@@ -375,6 +375,9 @@ kernel:
     - linux510-rt-acpi_call
     - linux510-rt-headers
     - linux510-rt-r8168
+  zen:
+    - linux-zen
+    - linux-zen-headers
 libvirt:
   - libguestfs
   - libvirt
@@ -490,6 +493,7 @@ desktop:
     - actdiag
     - aspell-en
     - blockdiag
+    - googler-git
     - gnuplot
     - gtksourceview3
     - gtkspell3
