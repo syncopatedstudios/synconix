@@ -2,10 +2,18 @@
 calculon ansible_connection=local
 crambot
 lapbot
-soundbot01
+
+[desktops:vars]
+admin_user=wheel
+autofs_configs=/etc/autofs
+rtirq_dir=/etc/rtirq.conf
+grub_config=/boot/grub/grub.cfg
+grub_cmd=grub-mkconfig
+grub_set_default=grub-set-default
 
 [nodes]
 bender
+soundbot01
 
 [soundbots:children]
 desktops

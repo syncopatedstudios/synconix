@@ -43,9 +43,6 @@
   when: use_kernel is defined
   tags: ['kernel']
 
-- include: grub.yml
-  tags: ['grub']
-
 - include: realtime.yml
   tags: ['realtime']
 
