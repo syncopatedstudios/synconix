@@ -1,0 +1,47 @@
+---
+
+- name: check if ingen is already installed
+  stat: path="/usr/local/bin/ingen"
+  register: haziingen
+
+- name: set ingen dependencies to install
+  set_fact:
+    _packages: "{{ builds.drobilla }}"
+  tags: ['packages']
+
+- name: Install ingen dependencies
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- block:
+    - name: clone ingen
+      git:
+        repo: "{{ ingen['git'] }}"
+        dest: "{{ local_src }}/ingen"
+        accept_hostkey: yes
+        update: no
+        force: no
+        recursive: yes
+
+    - name: configure ingen
+      command: bash -lc "./waf configure --docs --no-webkit && ./waf"
+      args:
+        chdir: "{{ local_src }}/ingen"
+
+    - name: install ingen
+      command: bash -lc "sudo ./waf install && ./waf clean"
+      args:
+        chdir: "{{ local_src }}/ingen"
+
+    - name: archive the source folder
+      archive:
+        path: "{{ local_src }}/ingen"
+        dest: "{{ local_src }}/ingen.tar.gz"
+        format: gz
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziingen

@@ -15,6 +15,9 @@ ecasound:
   url: "http://nosignal.fi/download/"
   file: "ecasound-2.9.3.tar.gz"
 
+ingen:
+  git: "https://gitlab.com/drobilla/ingen.git"
+
 jacktrip:
   git: "https://github.com/jacktrip/jacktrip.git"
 
