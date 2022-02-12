@@ -38,6 +38,10 @@
   when: build_ecasound is defined
   tags: ['ecasound']
 
+- include: ingen.yml
+  when: build_ingen is defined
+  tags: ['ingen']
+
 - include: jacktrip.yml
   when: build_jacktrip is defined
   tags: ['jacktrip']
