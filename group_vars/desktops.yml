@@ -15,6 +15,7 @@ build_patchage: True
 build_protokol: True
 build_reaper: True
 build_soniclineup: True
+build_sonicpi: True
 build_timemachine: True
 build_tony: True
 build_touchosc: True
