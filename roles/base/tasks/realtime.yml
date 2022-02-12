@@ -87,6 +87,7 @@
     owner: root
     group: root
     mode: '0644'
+  register: rtkit_conf
   tags: ['rtkit']
 
 - name: Copy rtkit systemd file
@@ -97,6 +98,7 @@
     owner: root
     group: root
     mode: '0644'
+  register: rtkit_systemd
   tags: ['rtkit']
 
 - name: restart rtkit-daemon service
@@ -105,4 +107,5 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+  when: rtkit_systemd.changed or rtkit_conf.changed
   tags: ['rtkit']

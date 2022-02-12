@@ -64,23 +64,23 @@ $exec /usr/libexec/notification-daemon &
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'lapbot' %}
-# $exec "sleep 0.5; nm-applet &"
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [calculon]:24800 &"
-$exec touchpad-indicator &
+{% if ansible_facts['hostname'] == 'calculon' %}
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [lapbot]:24800 &"
 {% else %}
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'crambot' %}
-# $exec "sleep 0.5; nm-applet &"
-$exec /usr/bin/barrierc -f --debug INFO --name crambot --disable-crypto [calculon]:24800 &
+$exec /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [lapbot]:24800 &
 {% else %}
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'calculon' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
+{% if ansible_facts['hostname'] == 'lapbot' %}
+$exec /usr/bin/barriers -f --no-tray --debug INFO --name lapbot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
+# $exec touchpad-indicator &
 {% else %}
 {% endif %}
+
+$exec "sleep 0.3; kitty &"
 
 ######################################
 # ---{ app bindings }---

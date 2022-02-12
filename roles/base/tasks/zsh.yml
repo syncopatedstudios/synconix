@@ -59,7 +59,8 @@
     name: root
     shell: /bin/zsh
     state: present
-  tags: ['system', 'root']
+  tags: ['dots', 'root']
 
 - name: set perms for root home
   shell: "chown -R root:root /root"
+  tags: ['dots']
