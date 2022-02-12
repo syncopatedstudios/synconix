@@ -34,8 +34,6 @@ background: #282828
 background-alt: #2828282
 foreground: #282828
 foreground-alt: #EBDBB2
-primary: #ffb52a
-secondary: #e60053
 alert: #bd2c40
 
 white: #FFFFFF
@@ -68,6 +66,8 @@ ac:      #42A5F5ff;
 yellowish: #ffb52aff;
 
 colors:
+  primary: "#ffb52a"
+  secondary: "#e60053"
   active_border_color: "#b0ae06"
   inactive_border_color: "#cccccc"
   foreground: "#8F350A"

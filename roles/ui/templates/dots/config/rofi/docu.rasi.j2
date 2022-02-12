@@ -67,7 +67,7 @@ mode-switcher {
  */
 button {
     background-color: {{ colors.background }};
-    border-color: darkgrey;
+    border-color: {{ colors.color3 }};
     /** inherit font setting from parent */
     font: inherit;
     cursor: pointer;
@@ -137,11 +137,11 @@ mainbox {
  */
 listview {
     /** 4 rows. */
-    lines: 6;
+    lines: 4;
     /** 6 columns */
     columns: 4;
     /** add 1 em spacing between items */
-    spacing: 1em;
+    spacing: 0.5em;
     /** Don't reduce columns if less items are available. */
     fixed-columns: true;
 }
@@ -159,20 +159,20 @@ element {
     background-color: grey;
     /** 4 px padding on the inside of border */
     cursor: pointer;
-    padding:          4px;
+    padding:          1px;
 }
 
 /** selected element */
 element selected {
     /** highlighted colors */
-    background-color: lightgrey;
+    background-color: {{ colors.foreground }};
     text-color:       black;
 }
 
 /** Entry icon */
 element-icon {
     /** change size to 128 pixels. */
-    size: 128px;
+    size: 96px;
     cursor: inherit;
 }
 
