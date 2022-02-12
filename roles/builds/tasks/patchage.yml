@@ -42,11 +42,6 @@
         dest: "{{ local_src }}/patchage.tar.gz"
         format: gz
 
-    - name: remove the build directory
-      file:
-        path: "{{ local_src }}/patchage"
-        state: absent
-
   become: True
   become_user: "{{ user.name }}"
   when: not hazipatchage.stat.exists
