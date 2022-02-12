@@ -13,7 +13,8 @@ xset -dpms
 numlockx on
 
 guake &
-{% if use_networkmanager == 'True' %}
+{% if ansible_facts['hostname'] == 'lapbot' %}
 nm-applet &
+{% else %}
 {% endif %}
 kitty &
