@@ -86,5 +86,17 @@
     - makesfz
   tags: ['audio', 'utils']
 
+- name: Sync .desktop files to /usr/local
+  synchronize:
+    src: "usr/local/share/applications/"
+    dest: "/usr/local/share/applications/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts: "--update"
+  tags: ['audio', 'xdg']
+
 - include: players.yml
   tags: ['players']
