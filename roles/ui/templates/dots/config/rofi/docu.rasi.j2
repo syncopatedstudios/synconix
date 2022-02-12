@@ -7,9 +7,9 @@
 /** Default settings, every widget inherits from this. */
 * {
     /** Default background color is transparent. */
-    background-color: transparent;
+    background-color: {{ colors.background }};
     /** Default text is white */
-    text-color:       white;
+    text-color:       {{ colors.foreground }};
 }
 
 /**
@@ -154,7 +154,7 @@ element {
     /** 2 px border */
     border:           2px;
     /** with 4px radius on corners. */
-    border-radius:    4px ;
+    border-radius:    1px ;
     border-color:     darkgrey;
     background-color: grey;
     /** 4 px padding on the inside of border */
@@ -172,7 +172,7 @@ element selected {
 /** Entry icon */
 element-icon {
     /** change size to 128 pixels. */
-    size: 64px;
+    size: 128px;
     cursor: inherit;
 }
 

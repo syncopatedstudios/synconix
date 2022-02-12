@@ -176,6 +176,7 @@ builds:
     - gtk2
     - harfbuzz
     - pango
+    - raul-git
     - waf
   ecasound:
     - alsa-lib
@@ -363,6 +364,7 @@ daw:
   - stochas
   - tonespace
   - vital-synth
+  - vmpk
 docker:
   - docker
   - docker-compose
