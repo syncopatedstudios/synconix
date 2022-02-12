@@ -162,11 +162,16 @@ cursor-scroll = ns-resize
 
 [bar/eDP1]
 inherit = bar/HDMI1
+monitor = ${env:MONITOR:eDP1}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 [bar/VGA1]
 inherit = bar/HDMI1
+monitor = ${env:MONITOR:VGA1}
 
+[bar/DP1]
+inherit = bar/HDMI2
+monitor = ${env:MONITOR:DP1}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [module/jgmenu]

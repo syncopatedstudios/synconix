@@ -5,6 +5,7 @@
   stat: path="/usr/bin/atom"
   register: haziatom
   check_mode: no
+  tags: ['dots']
 
 - block:
     - name: gather list of installed apm packages
@@ -33,6 +34,7 @@
         checksum: yes
         perms: no
         rsync_opts: "--update"
+      tags: ['dots']
 
   become: True
   become_user: "{{ user.name }}"

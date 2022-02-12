@@ -26,4 +26,4 @@
         - "xprofile"
   become: True
   become_user: "{{ user.name }}"
-  tags: ['shell']
+  tags: ['dots']

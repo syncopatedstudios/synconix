@@ -1,6 +1,24 @@
 ---
 
 - block:
+    - name: check if termpdf.py is already installed
+      stat: path="/usr/local/bin/termpdf.py"
+      register: hazitermpdf
+
+    - name: install termpdf
+      shell: |
+        git clone https://github.com/dsanson/termpdf.py
+        cd termpdf.py
+        pip install -r requirements.txt
+        sudo cp termpdf.py /usr/local/bin/termpdf.py
+      args:
+        chdir: "{{ local_src }}"
+      when: not hazitermpdf.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['kitty']
+
+- block:
     - name: Push zshell templates
       template:
         src: "dots/{{ item }}.j2"
@@ -33,22 +51,6 @@
     #     extra_args: --user
     #   tags: ['kitty']
 
-    - name: check if termpdf.py is already installed
-      stat: path="/usr/local/bin/termpdf.py"
-      register: hazitermpdf
-      tags: ['kitty']
-
-    - name: install termpdf
-      shell: |
-        git clone https://github.com/dsanson/termpdf.py
-        cd termpdf.py
-        pip install -r requirements.txt
-        sudo cp termpdf.py /usr/local/bin/termpdf.py
-      args:
-        chdir: "{{ local_src }}"
-      when: not hazitermpdf.stat.exists
-      tags: ['kitty']
-
     - name: Push terminal emulator configs
       synchronize:
         src: "dots/config/{{ item }}"
@@ -66,4 +68,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  tags: ['ui', 'shell']
+  tags: ['ui', 'dots']

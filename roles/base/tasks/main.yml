@@ -33,8 +33,8 @@
 # - include: dots.yml
 #   tags: ['dots']
 
-- include: ruby.yml
-  tags: ['ruby']
+# - include: ruby.yml
+#   tags: ['ruby']
 
 - include: filesystem.yml
   tags: ['filesystem']

@@ -21,8 +21,12 @@
     pkg_state: present
   tags: ['packages']
 
-- name: add user to dockergroup
-  command: bash -lc "usermod -a -G docker {{ user.name }}"
+- name: Add user to docker group
+  user:
+    name: "{{ user.name }}"
+    groups: "docker"
+    append: yes
+  tags: ['docker']
 
 - name: push docker service config
   template:
@@ -32,12 +36,13 @@
     group: root
     mode: '644'
     backup: yes
+  register: docker_service
   tags: ['docker']
-  register: dockerservice
 
 - name: reload systemd
   shell: |
     systemctl daemon-reload
+  when: docker_service.changed
   tags: ['docker']
 
 - name: enable docker service
