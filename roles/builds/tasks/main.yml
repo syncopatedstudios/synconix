@@ -104,7 +104,7 @@
 
 - include: sonicpitool.yml
   when: build_sonicpi is defined
-  tags: ['sonicpitool']
+  tags: ['sonicpi']
 
 - include: sonicvisualiser.yml
   when: build_sonicvisualiser is defined
