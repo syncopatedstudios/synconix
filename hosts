@@ -1,7 +1,7 @@
 [desktops]
 calculon ansible_connection=local
 crambot
-lapbot
+lapbot ansible_connection=local
 
 [desktops:vars]
 admin_user=wheel
