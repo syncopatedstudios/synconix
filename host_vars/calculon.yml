@@ -26,6 +26,7 @@ firewalld:
   zone: docker
   ports:
     - 4464/udp
+    - 24800/tcp
 
 soundcard:
   alsa_in: alsa_input.pci-0000_00_1b.0.capture.0.0
