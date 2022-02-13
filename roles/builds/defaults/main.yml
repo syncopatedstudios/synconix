@@ -50,7 +50,7 @@ raysession:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper646_linux_x86_64.tar.xz
+  file: reaper647_linux_x86_64.tar.xz
 
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"

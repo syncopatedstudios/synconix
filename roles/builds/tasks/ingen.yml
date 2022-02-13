@@ -44,4 +44,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: not haziingen
+  when: not haziingen.stat.exists
