@@ -25,31 +25,6 @@
   register: pipewire_config
   tags: ['pipewire']
 
-# - name: Sync media-session config templates
-#   template:
-#     src: "usr/share/pipewire/media-session.d/{{ item }}.j2"
-#     dest: "/usr/share/pipewire/media-session.d/{{ item }}"
-#     owner: root
-#     group: root
-#     mode: "0644"
-#     backup: yes
-#   with_items:
-#     - alsa-monitor.conf
-#     - bluez-monitor.conf
-#     - media-session.conf
-#     - v4l2-monitor.conf
-#   tags: ['pipewire']
-
-# - name: Sync wireplumber template for main sound card
-#   template:
-#     src: "usr/share/wireplumber/main.lua.d/50-alsa-config.lua.j2"
-#     dest: "/usr/share/wireplumber/main.lua.d/50-alsa-config.lua"
-#     owner: root
-#     group: root
-#     mode: "0644"
-#     backup: yes
-#   tags: ['wireplumber']
-
 - name: Restart pipewire services
   systemd:
     name: "{{ item }}"
