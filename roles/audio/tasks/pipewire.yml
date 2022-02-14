@@ -1,54 +1,54 @@
 ---
 
 - name: Ensure pipewire config directory exists
-  shell: "mkdir -pv /usr/share/{pipewire,wireplumber}"
-  tags: ['pipewire', 'wireplumber']
-
-- name: Sync pipewire configs
-  synchronize:
-    src: "usr/share/pipewire/"
-    dest: "/usr/share/pipewire/"
-    recursive: yes
-    mode: push
-    delete: no
-    checksum: yes
-    perms: no
-    rsync_opts: "--update"
-  register: pipe
+  shell: "mkdir -pv /usr/share/pipewire/{media-session.d,filter-chain}"
   tags: ['pipewire']
 
-- name: Sync wireplumber configs
-  synchronize:
-    src: "usr/share/wireplumber/"
-    dest: "/usr/share/wireplumber/"
-    recursive: yes
-    mode: push
-    delete: no
-    checksum: yes
-    perms: no
-    rsync_opts: "--update"
-  register: wireplumb
-  tags: ['pipewire', 'wireplumber']
-
-- name: Sync wireplumber template for main sound card
+- name: Sync pipewire config templates
   template:
-    src: "usr/share/pipewire/pipewire.conf.j2"
-    dest: "/usr/share/pipewire/pipewire.conf"
-    owner: root
-    group: root
+    src: "usr/share/pipewire/{{ item }}.j2"
+    dest: "/usr/share/pipewire/{{ item }}"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
     mode: "0644"
     backup: yes
+  with_items:
+    - "pipewire.conf"
+    - "pipewire-pulse.conf"
+    - "jack.conf"
+    - "client.conf"
+    - "client-rt.conf"
+    - "media-session.d/alsa-monitor.conf"
+    - "media-session.d/bluez-monitor.conf"
+    - "media-session.d/media-session.conf"
+    - "media-session.d/v4l2-monitor.conf"
+  register: pipewire_config
   tags: ['pipewire']
 
-- name: Sync wireplumber template for main sound card
-  template:
-    src: "usr/share/wireplumber/main.lua.d/50-alsa-config.lua.j2"
-    dest: "/usr/share/wireplumber/main.lua.d/50-alsa-config.lua"
-    owner: root
-    group: root
-    mode: "0644"
-    backup: yes
-  tags: ['wireplumber']
+# - name: Sync media-session config templates
+#   template:
+#     src: "usr/share/pipewire/media-session.d/{{ item }}.j2"
+#     dest: "/usr/share/pipewire/media-session.d/{{ item }}"
+#     owner: root
+#     group: root
+#     mode: "0644"
+#     backup: yes
+#   with_items:
+#     - alsa-monitor.conf
+#     - bluez-monitor.conf
+#     - media-session.conf
+#     - v4l2-monitor.conf
+#   tags: ['pipewire']
+
+# - name: Sync wireplumber template for main sound card
+#   template:
+#     src: "usr/share/wireplumber/main.lua.d/50-alsa-config.lua.j2"
+#     dest: "/usr/share/wireplumber/main.lua.d/50-alsa-config.lua"
+#     owner: root
+#     group: root
+#     mode: "0644"
+#     backup: yes
+#   tags: ['wireplumber']
 
 - name: Restart pipewire services
   systemd:
@@ -57,13 +57,14 @@
     daemon_reload: yes
     scope: user
   with_items:
+    - pipewire-pulse.socket
+    - pipewire.socket
     - pipewire
     - pipewire-pulse
-    - pipewire.socket
-    - wireplumber
+    - pipewire-media-session
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become: True
   become_user: "{{ user.name }}"
-  when: pipe.changed or wireplumb.changed
-  tags: ['pipewire', 'wireplumber']
+  when: pipewire_config.changed
+  tags: ['pipewire']

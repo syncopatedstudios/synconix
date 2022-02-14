@@ -116,7 +116,7 @@ bindsym $mod++Shift+Home $exec qutebrowser
 
 bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
-bindcode $mod+Shift+Mod2+$KP_Enter $exec pcmanfm
+bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
 bindsym XF86Search $exec $rofi-surfraw
 bindsym $mod+g $exec $rofi-surfraw
@@ -208,23 +208,24 @@ set $color4 #8F350A
 set $color5 #9F511F
 set $color6 #A06A38
 set $color7 #e0aa7c
-set $color8 #9c7656
+set $color8 #d4a52b
 set $color9 #113846
 set $color10 #0E454B
 set $color11 #454340r
 set $color12 #8F350A
 set $color13 #9F511F
 set $color14 #A06A38
-set $color15 #e0aa7c
+set $color15 #f22a0f
+set $color16 #f22a0f
 
 # class                 border  bground text    indicat child_border
-client.focused          #689d6a #d4a52b #282828 #282828 #000000
-client.focused_inactive #1d2021 #1d2021 #928374 #282828 #000000
-client.unfocused        #32302f #32302f #928374 #282828 #000000
-client.urgent           #cc241d #cc241d #ebdbb2 #282828 #000000
-client.placeholder      #000000 #0C0C0C #FFFFFF #000000 #0C0C0C
+client.focused          $color16 $color8 $color11 $color2 $color0
+client.focused_inactive $color3 $color3 #928374 $color2 $color0
+client.unfocused        $color11 $color3 #928374 $color2 $color0
+client.urgent           $color15 $color7 #282828 $color2
+client.placeholder      $color0 $color0 #FFFFFF $color2 $color0
 
-client.background       #0F1110
+client.background       $color0
 
 ######################################
 # ---{ workspace assignments }---

@@ -8,7 +8,7 @@ context.properties = {
     #mem.warn-mlock  = false
     #mem.allow-mlock = true
     #mem.mlock-all   = false
-    log.level        = 0
+    log.level        = {{ log_level }}
 }
 
 context.spa-libs = {
@@ -58,7 +58,7 @@ context.modules = [
 
 # global properties for all jack clients
 jack.properties = {
-     node.latency       = 1024/48000
+     node.latency       = {{ clock['period'] }}/{{ clock['rate'] }}
      #node.lock-quantum  = false
      jack.show-monitor  = true
      jack.merge-monitor = true

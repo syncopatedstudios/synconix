@@ -86,34 +86,35 @@ rules = [
             {
                 # Matches all sources. These are regular expressions
                 # so "." matches one character and ".*" matches many.
-                node.name = "~alsa_input.*"
+                node.name = "{{ soundcard['alsa_in'] }}"
             }
             {
                 # Matches all sinks.
-                node.name = "~alsa_output.*"
+                node.name = "{{ soundcard['alsa_out'] }}"
             }
         ]
         actions = {
             update-props = {
-                #node.nick                       = "My Node"
-                #node.nick                       = null
+                node.nick                       = "{{ soundcard['nick'] }}"
+                node.description                = "{{ soundcard['description'] }}"
                 #priority.driver                 = 100
                 #priority.session                = 100
-                node.pause-on-idle               = false
-                resample.quality                = 10
-                channelmix.normalize            = false
-                channelmix.mix-lfe              = false
-                #audio.channels                  = 2
-                #audio.format                    = "S16LE"
-                audio.rate                      = 48000
-                #audio.position                  = "FL,FR"
-                #session.suspend-timeout-seconds = 5            # 0 disables suspend
-                #monitor.channel-volumes         = false
+                node.pause-on-idle              = false
+                resample.quality                = {{ resample['quality'] }}
+                channelmix.normalize            = {{ channelmix['normalize'] }}
+                channelmix.mix-lfe              = {{ channelmix['mix-lfe'] }}
+                channelmix.lfe-cutoff           = {{ channelmix['lfe-cutoff'] }}
+                audio.channels                  = {{ soundcard['channels'] }}
+                audio.format                    = "{{ soundcard['format'] }}"
+                audio.rate                      = {{ soundcard['rate'] }}
+                audio.position                  = "{{ soundcard['speaker-layout'] }}"
+                session.suspend-timeout-seconds = 0            # 0 disables suspend
+                monitor.channel-volumes         = true
 
                 #latency.internal.rate = 0            # internal latency in samples
                 #latency.internal.ns   = 0            # internal latency in nanoseconds
 
-                api.alsa.period-size   = 1024
+                api.alsa.period-size   = {{ clock['period'] }}
                 #api.alsa.headroom      = 0
                 api.alsa.start-delay   = 0
                 #api.alsa.disable-mmap  = false

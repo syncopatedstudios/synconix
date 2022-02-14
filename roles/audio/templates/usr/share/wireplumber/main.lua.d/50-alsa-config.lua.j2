@@ -49,7 +49,7 @@ alsa_monitor.rules = {
 
       -- Use UCM instead of profile when available. Can be
       -- disabled to skip trying to use the UCM profile.
-      ["api.alsa.use-ucm"] = true,
+      --["api.alsa.use-ucm"] = true,
 
       -- Don't use the hardware mixer for volume control. It
       -- will only use software volume. The mixer is still used
@@ -71,45 +71,45 @@ alsa_monitor.rules = {
       -- highest priority available profile. This is disabled
       -- here and instead implemented in the session manager
       -- where it can save and load previous preferences.
-      ["api.acp.auto-profile"] = false,
+      --["api.acp.auto-profile"] = false,
 
       -- Automatically switch to the highest priority available port.
       -- This is disabled here and implemented in the session manager instead.
-      ["api.acp.auto-port"] = false,
+      --["api.acp.auto-port"] = false,
 
       -- Other properties can be set here.
       --["device.nick"] = "My Device",
     },
   },
-  {
-    matches = {
-      {
-        -- Matches all sources.
-        { "node.name", "matches", "{{ soundcard['alsa_in'] }}" },
-      },
-      {
-        -- Matches all sinks.
-        { "node.name", "matches", "{{ soundcard['alsa_out'] }}" },
-      },
-    },
-    apply_properties = {
-      ["node.nick"]              = "main_output",
-      --["priority.driver"]        = 100,
-      --["priority.session"]       = 100,
-      --["node.pause-on-idle"]     = false,
-      ["resample.quality"]       = {{ soundcard['resample_quality'] }},
-      --["channelmix.normalize"]   = true,
-      --["channelmix.mix-lfe"]     = true,
-      ["audio.channels"]         = {{ soundcard['channels'] }},
-      ["audio.format"]           = "{{ soundcard['format'] }}",
-      ["audio.rate"]             = {{ soundcard['rate'] }},
-      ["audio.allowed-rates"]    = "{{ soundcard['allowed-rates'] }}",
-      ["audio.position"]         = "{{ soundcard['position'] }}",
-      --["api.alsa.period-size"]   = 1024,
-      ["api.alsa.headroom"]      = 0
-      --["api.alsa.disable-mmap"]  = false,
-      --["api.alsa.disable-batch"] = false,
-      --["session.suspend-timeout-seconds"] = 5,  -- 0 disables suspend
-    },
-  },
+--  {
+--    matches = {
+--      {
+--        -- Matches all sources.
+--        { "node.name", "matches", "{{ soundcard['alsa_in'] }}" },
+--      },
+--      {
+--        -- Matches all sinks.
+--        { "node.name", "matches", "{{ soundcard['alsa_out'] }}" },
+--      },
+--    },
+--    apply_properties = {
+--      ["node.nick"]              = "main_output",
+--      --["priority.driver"]        = 100,
+--      --["priority.session"]       = 100,
+--      --["node.pause-on-idle"]     = false,
+--      ["resample.quality"]       = {{ soundcard['resample_quality'] }},
+--      --["channelmix.normalize"]   = true,
+--      --["channelmix.mix-lfe"]     = true,
+--      ["audio.channels"]         = {{ soundcard['channels'] }},
+--      ["audio.format"]           = "{{ soundcard['format'] }}",
+--      ["audio.rate"]             = {{ soundcard['rate'] }},
+--      ["audio.allowed-rates"]    = "{{ soundcard['allowed-rates'] }}",
+--      ["audio.position"]         = "{{ soundcard['position'] }}",
+--      --["api.alsa.period-size"]   = 1024,
+--      ["api.alsa.headroom"]      = 0
+--      --["api.alsa.disable-mmap"]  = false,
+--      --["api.alsa.disable-batch"] = false,
+--      --["session.suspend-timeout-seconds"] = 5,  -- 0 disables suspend
+--    },
+--  },
 }

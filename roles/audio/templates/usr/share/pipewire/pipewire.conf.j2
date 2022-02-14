@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 # Daemon config file for PipeWire version "0.3.42" #
 #
 # Copy and edit this file in /etc/pipewire for system-wide changes
@@ -14,18 +15,18 @@ context.properties = {
     #mem.allow-mlock                       = true
     #mem.mlock-all                         = false
     #clock.power-of-two-quantum            = true
-    #log.level                             = 2
+    log.level                              = {{ log_level }}
     #cpu.zero.denormals                    = true
 
     core.daemon = true              # listening for socket connections
     core.name   = pipewire-0        # core name and socket name
 
     ## Properties for the DSP configuration.
-    default.clock.rate          = 48000
-    default.clock.allowed-rates = [ 48000 44100 96000]
+    default.clock.rate          = {{ clock['rate'] }}
+    default.clock.allowed-rates = {{ clock['allowed-rates'] }}
     #default.clock.quantum       = 1024
-    #default.clock.min-quantum   = 32
-    #default.clock.max-quantum   = 8192
+    default.clock.min-quantum   = {{ clock['min-quantum'] }}
+    default.clock.max-quantum   = {{ clock['max-quantum'] }}
     #default.video.width         = 640
     #default.video.height        = 480
     #default.video.rate.num      = 25
@@ -131,9 +132,9 @@ context.modules = [
         args = {
             # access.allowed to list an array of paths of allowed
             # apps.
-            #access.allowed = [
-            #    /usr/bin/pipewire-media-session
-            #]
+            access.allowed = [
+               /usr/bin/pipewire-media-session /usr/lib/xdg-desktop-portal-gtk
+            ]
 
             # An array of rejected paths.
             #access.rejected = [ ]
@@ -219,44 +220,44 @@ context.objects = [
     # This creates a single PCM source device for the given
     # alsa device path hw:0. You can change source to sink
     # to make a sink in the same way.
-    { factory = adapter
-       args = {
-           factory.name           = api.alsa.pcm.source
-           node.name              = "alsa-source"
-           node.description       = "PCM Source"
-           media.class            = "Audio/Source"
-           api.alsa.path          = "hw:0"
-           api.alsa.period-size   = 1024
-           api.alsa.headroom      = 0
-           api.alsa.disable-mmap  = false
-           api.alsa.disable-batch = false
-           audio.format           = "S16LE"
-           audio.rate             = 48000
-           audio.channels         = 2
-           audio.position         = "FL,FR"
-       }
-    }
+    # { factory = adapter
+    #    args = {
+    #        factory.name           = api.alsa.pcm.source
+    #        node.name              = "alsa-source"
+    #        node.description       = "PCM Source"
+    #        media.class            = "Audio/Source"
+    #        api.alsa.path          = "hw:0"
+    #        api.alsa.period-size   = 1024
+    #        api.alsa.headroom      = 0
+    #        api.alsa.disable-mmap  = false
+    #        api.alsa.disable-batch = false
+    #        audio.format           = "S16LE"
+    #        audio.rate             = 48000
+    #        audio.channels         = 2
+    #        #audio.position         = "FL,FR"
+    #    }
+    # }
 
-    { factory = adapter
-       args = {
-           factory.name           = api.alsa.pcm.sink
-           node.name              = "alsa-sink"
-           node.description       = "PCM Sink"
-           media.class            = "Audio/Sink"
-           api.alsa.path          = "hw:0"
-           api.alsa.period-size   = 1024
-           api.alsa.headroom      = 0
-           api.alsa.disable-mmap  = false
-           api.alsa.disable-batch = false
-           audio.format           = "S16LE"
-           audio.rate             = 48000
-           audio.channels         = 2
-           audio.position         = "FL,FR"
-           node.suspend-on-idle   = false
-           resample.disable       = true
-           channelmix.disable     = true
-       }
-    }
+    # { factory = adapter
+    #    args = {
+    #        factory.name           = api.alsa.pcm.sink
+    #        node.name              = "alsa-sink"
+    #        node.description       = "PCM Sink"
+    #        media.class            = "Audio/Sink"
+    #        api.alsa.path          = "hw:0"
+    #        api.alsa.period-size   = 1024
+    #        api.alsa.headroom      = 0
+    #        api.alsa.disable-mmap  = false
+    #        api.alsa.disable-batch = false
+    #        audio.format           = "S32"
+    #        audio.rate             = 48000
+    #        audio.channels         = 2
+    #        audio.position         = "FL,FR"
+    #        node.suspend-on-idle   = false
+    #        resample.disable       = false
+    #        channelmix.disable     = true
+    #    }
+    # }
 ]
 
 context.exec = [

@@ -10,12 +10,6 @@
 - include: pulseaudio.yml
   tags: ['pulseaudio']
 
-- name: remove pipewire-media-session
-  shell: |
-    pacman -Rdd pipewire-media-session --noconfirm
-  tags: ['pipewire']
-  ignore_errors: true
-
 - name: set alsa & pipewire packages to install
   set_fact:
     _packages:
@@ -30,7 +24,7 @@
       - pipewire-pulse
       - pipewire-v4l2
       - pipewire-zeroconf
-      - wireplumber
+      - pipewire-media-session
   tags: ['packages', 'alsa', 'pipewire']
 
 - name: install alsa & pipewire packages

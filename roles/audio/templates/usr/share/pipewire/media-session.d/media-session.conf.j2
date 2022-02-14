@@ -9,8 +9,8 @@ context.properties = {
     # modules.
     #mem.mlock-all                     = false
     #support.dbus                      = true
-    #log.level                         = 2
-    #alsa.seq.name                     = Midi-Bridge
+    log.level                         = {{ log_level }}
+    alsa.seq.name                     = Midi-Bridge
     #default-profile.restore-bluetooth = false
 }
 
@@ -79,7 +79,7 @@ session.modules = {
         #libcamera              # libcamera udev detection
         suspend-node            # suspend inactive nodes
         policy-node             # configure and link nodes
-        #metadata               # export metadata API
+        metadata               # export metadata API
         #default-nodes          # restore default nodes
         #default-profile        # restore default profiles
         #default-routes         # restore default route
