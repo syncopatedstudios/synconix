@@ -18,6 +18,7 @@
     - "jack.conf"
     - "client.conf"
     - "client-rt.conf"
+    - "minimal.conf"
     - "media-session.d/alsa-monitor.conf"
     - "media-session.d/bluez-monitor.conf"
     - "media-session.d/media-session.conf"
