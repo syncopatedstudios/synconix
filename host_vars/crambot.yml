@@ -1,5 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+use_kernel: zen
+
 use_networkmanager: False
 use_systemdnetwork: True
 
@@ -39,14 +41,16 @@ firewalld:
     - 24800/tcp
 
 soundcard:
-  alsa_in: alsa_input.pci-0000_00_1b.0.capture.0.0
-  alsa_out: alsa_output.pci-0000_00_1b.0.playback.0.0
-  resample_quality: 10
+  nick: "analog_stereo_out"
+  description: "default audio route"
+  alsa_in: "alsa_input.pci-0000_00_1b.0.capture.0.0"
+  alsa_out: "alsa_output.pci-0000_00_1b.0.playback.0.0"
+  resample_quality: 9
   channels: 2
   format: "S32LE"
   rate: 48000
   allowed-rates: "32000,44100,48000,96000"
-  position: "FL,FR"
+  speaker-layout: "FL,FR"
 
 wallpaper:
   screen1: /usr/share/backgrounds/010.png
@@ -65,3 +69,4 @@ install_desktop: True
 install_audio_plugins: True
 install_audio_utils: True
 install_daw: True
+build_linuxsampler: True
