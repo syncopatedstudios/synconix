@@ -11,6 +11,7 @@
         cd termpdf.py
         pip install -r requirements.txt
         sudo cp termpdf.py /usr/local/bin/termpdf.py
+        pip install --user pillow
       args:
         chdir: "{{ local_src }}"
       when: not hazitermpdf.stat.exists
