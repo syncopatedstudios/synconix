@@ -48,7 +48,7 @@ blue-gray = #6D8895
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [bar/HDMI1]
-monitor = ${env:MONITOR:HDMI1}
+;monitor = ${env:MONITOR:HDMI1}
 width = 100%
 height = 24
 
@@ -111,7 +111,7 @@ cursor-scroll = ns-resize
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 [bar/HDMI2]
-monitor = ${env:MONITOR:HDMI2}
+; monitor = ${env:MONITOR:HDMI2}
 width = 100%
 height = 24
 
@@ -166,11 +166,11 @@ monitor = ${env:MONITOR:eDP1}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 [bar/VGA1]
-inherit = bar/HDMI1
+inherit = bar/HDMI2
 monitor = ${env:MONITOR:VGA1}
 
 [bar/DP1]
-inherit = bar/HDMI2
+inherit = bar/HDMI1
 monitor = ${env:MONITOR:DP1}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
