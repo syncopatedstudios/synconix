@@ -70,10 +70,15 @@
     group: root
     mode: "0644"
     backup: yes
+  register: rtirq_config
   tags: ['realtime']
 
 - name: enable rtirq service
-  systemd: name=rtirq state=started enabled=yes
+  systemd:
+    name: rtirq
+    state: started
+    enabled: yes
+  when: rtirq_config.changed
 
 # rtkit package should be installed before this happens
 # otherwise, if it sees this systemd file, it'll report
