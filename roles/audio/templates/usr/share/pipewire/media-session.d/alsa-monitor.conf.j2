@@ -83,11 +83,11 @@ rules = [
     }
     {
         matches = [
-            {
-                # Matches all sources. These are regular expressions
-                # so "." matches one character and ".*" matches many.
-                node.name = "{{ soundcard['alsa_in'] }}"
-            }
+            # {
+            #     # Matches all sources. These are regular expressions
+            #     # so "." matches one character and ".*" matches many.
+            #     node.name = "{{ soundcard['alsa_in'] }}"
+            # }
             {
                 # Matches all sinks.
                 node.name = "{{ soundcard['alsa_out'] }}"

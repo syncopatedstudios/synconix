@@ -91,19 +91,5 @@ jack.rules = [
             }
         }
     }
-    {
-        matches = [
-            {
-                # all keys must match the value. ~ starts regex.
-                client.name                = "catia"
-                #application.process.binary = "jack_simple_client"
-                #application.name           = "~jack_simple_client.*"
-            }
-        ]
-        actions = {
-            update-props = {
-                jack.merge-monitor = true
-            }
-        }
-    }
+
 ]
