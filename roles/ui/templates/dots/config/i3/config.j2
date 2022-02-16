@@ -155,6 +155,7 @@ for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^mpv"] floating enable, resize set 640 480
 # for_window [title="^Mixer"] floating enable, resize set 640 480
 # for_window [class="^Non-Mixer$" title="(?i)Mixer*$"] floating disable
+for_window [class="^jgmenu"] move position center, focus
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
 # for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
 
@@ -244,6 +245,20 @@ workspace $ws9 output HDMI2
 workspace $ws10 output HDMI2
 {% else %}
 {% endif %}
+{% if ansible_facts['hostname'] == 'crambot' %}
+workspace $ws1 output DP1
+workspace $ws2 output DP1
+workspace $ws3 output DP1
+workspace $ws4 output DP1
+workspace $ws5 output DP1
+workspace $ws6 output VGA1
+workspace $ws7 output VGA1
+workspace $ws8 output VGA1
+workspace $ws9 output VGA1
+workspace $ws10 output VGA1
+{% else %}
+{% endif %}
+
 
 assign [class="^Patchage$"] → 1
 
