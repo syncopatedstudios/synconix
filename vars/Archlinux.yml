@@ -348,6 +348,7 @@ daw:
   - guitarix
   - helm-synth
   - hydrogen
+  - jack_mixer
   - mixxx
   - non-sequencer
   - obs-studio
@@ -421,6 +422,7 @@ plugins:
   - noise-repellent
   - psi-plugins.lv2-git
   - swh-lv2-git
+  - swh-plugins
   - x42-plugins
 tuned:
   - tuned
@@ -466,6 +468,7 @@ ui:
     - adobe-source-han-sans-kr-fonts
     - gnu-free-fonts
     - nerd-fonts-hack
+    - nerd-fonts-mononoki
     - noto-fonts
     - opendesktop-fonts
     - otf-font-awesome
@@ -523,5 +526,8 @@ desktop:
     - qpdfview
     - qutebrowser
     - radiotray-ng
+    - thunar
+    - thunar-archive-plugin
+    - thunar-volman
     - xarchiver
     - zim
