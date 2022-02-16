@@ -82,13 +82,10 @@
       register: liblscp_build
       failed_when: liblscp_build.failed
 
-    - name: run ldconfig
-      shell: |
-        sudo ldconfig
-
     - name: build linuxsampler
       shell: |
         cd linuxsampler/linuxsampler/
+        sudo ldconfig
         libtoolize
         aclocal
         autoheader
@@ -137,4 +134,6 @@
       args:
         chdir: "{{ local_src }}"
 
+  become: true
+  become_user: "{{ user.name }}"
   when: not hazilinuxsampler.stat.exists
