@@ -30,8 +30,8 @@
 - include: shell.yml
   tags: ['shell']
 
-# - include: dots.yml
-#   tags: ['dots']
+- include: dots.yml
+  tags: ['dots']
 
 # - include: ruby.yml
 #   tags: ['ruby']
