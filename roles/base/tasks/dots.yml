@@ -1,32 +1,50 @@
 ---
 
-- name: check if .dots already exists
-  stat: path="{{ user.home }}/.dots"
-  register: hazidots
-  tags: ['dots']
-
-- name: use shell to do stuff
-  shell: |
-    gem install tty-command
-  tags: ['dots']
-
 - block:
-    - name: push dots installer
-      template:
-        src: dots_installer.j2
-        dest: "{{ user.home }}/dots_installer.rb"
-        owner: "{{ user.name}}"
-        group: "{{ user.name}}"
-        mode: '755'
-        backup: yes
-      tags: ['dots']
+    - name: Push zim config
+      synchronize:
+        src: dots/config/zim/
+        dest: "{{ user.home }}/.config/zim/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts: "--update"
+      tags: ['zim']
 
-    - name: run dots installer
-      shell: "ruby dots_installer.rb"
-      args:
-        chdir: "{{ user.home }}"
-
-  become: True
+  become: true
   become_user: "{{ user.name }}"
-  when: not hazidots.stat.exists
   tags: ['dots']
+
+
+# - name: check if .dots already exists
+#   stat: path="{{ user.home }}/.dots"
+#   register: hazidots
+#   tags: ['dots']
+#
+# - name: use shell to do stuff
+#   shell: |
+#     gem install tty-command
+#   tags: ['dots']
+#
+# - block:
+#     - name: push dots installer
+#       template:
+#         src: dots_installer.j2
+#         dest: "{{ user.home }}/dots_installer.rb"
+#         owner: "{{ user.name}}"
+#         group: "{{ user.name}}"
+#         mode: '755'
+#         backup: yes
+#       tags: ['dots']
+#
+#     - name: run dots installer
+#       shell: "ruby dots_installer.rb"
+#       args:
+#         chdir: "{{ user.home }}"
+#
+#   become: True
+#   become_user: "{{ user.name }}"
+#   when: not hazidots.stat.exists
+#   tags: ['dots']
