@@ -1,62 +1,58 @@
 ---
 
-- hosts: all
-  gather_facts: yes
+- name: check if pipewire is already installed
+  stat: path="/usr/bin/pipewire"
+  register: hazipipewire
+
+- name: set pipewire dependencies to install
+  set_fact:
+    _packages: "{{ (builds.pipewire + builds.libcamera) }}"
+  tags: ['packages']
+
+- name: Install pipewire dependencies
+  import_role:
+    name: pkg_manager
   vars:
-    env_vars:
-      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+    pkg_state: present
+  tags: ['packages']
 
-  pre_tasks:
-    - name: Load Distro stuff
-      include_role:
-        name: distro
+- block:
+    - name: clone libcamera
+      git:
+        repo: "{{ libcamera['git'] }}"
+        dest: "/usr/local/src/libcamera"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-  tasks:
+    - name: build libcamera
+      shell: |
+        meson build -Dprefix=/usr
 
-    - name: Load common install vars
-      include_vars: "/opt/soundbot/ansible/roles/distro/vars/{{ ansible_os_family }}.yml"
+        sudo ninja -C build install
+      args:
+        chdir: "/usr/local/src/libcamera"
+      register: libcamera_install
+      failed_when: libcamera_install.failed
 
-    - name: install libcamera dependecies
-      shell: "{{ ansible_pkg_mgr }} -y install {{ deps['libcamera'] | join(' ') }}"
+    - name: clone pipewire
+      git:
+        repo: "{{ pipewire['git'] }}"
+        dest: "/usr/local/src/pipewire"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-    - name: install pipewire deps
-      shell: "{{ ansible_pkg_mgr }} -y install {{ deps['pipewire'] | join(' ') }}"
+    - name: build pipewire
+      shell: |
+        meson setup builddir
 
+        meson configure builddir -Dprefix=/usr
 
-    - block:
-        - name: clone libcamera
-          git:
-            repo: "https://git.libcamera.org/libcamera/libcamera.git"
-            dest: "/usr/local/src/libcamera"
-            accept_hostkey: yes
-            update: no
-            force: no
+        ninja -C builddir
+      args:
+        chdir: "/usr/local/src/pipewire"
 
-        - name: build libcamera
-          shell: |
-            meson build -Dprefix=/usr
-
-            sudo ninja -C build install
-          args:
-            chdir: "/usr/local/src/libcamera"
-
-        - name: clone pipewire
-          git:
-            repo: "https://gitlab.freedesktop.org/pipewire/pipewire.git"
-            dest: "/usr/local/src/pipewire"
-            accept_hostkey: yes
-            update: no
-            force: no
-
-        - name: build pipewire
-          shell: |
-            meson setup builddir
-
-            meson configure builddir -Dprefix=/usr
-
-            ninja -C builddir
-          args:
-            chdir: "/usr/local/src/pipewire"
-      become: True
-      become_user: "{{ user.name }}"
-      tags: ['pipewire']
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['pipewire']

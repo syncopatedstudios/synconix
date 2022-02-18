@@ -24,6 +24,9 @@ jacktrip:
 jalvselect:
   git: "https://github.com/brummer10/jalv_select.git"
 
+libcamera:
+  git: "https://git.libcamera.org/libcamera/libcamera.git"
+
 non:
   git: "https://github.com/falkTX/non.git"
 
@@ -37,6 +40,9 @@ ocenaudio:
 
 patchage:
   git: "https://gitlab.com/drobilla/patchage.git"
+
+pipewire:
+  git: "https://gitlab.freedesktop.org/pipewire/pipewire.git"
 
 protokol:
   url: "https://hexler.net/pub/protokol/"
