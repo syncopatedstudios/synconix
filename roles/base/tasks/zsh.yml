@@ -42,6 +42,13 @@
     backup: yes
     directory_mode: no
 
+- name: set root shell to zsh
+  user:
+    name: root
+    shell: /bin/zsh
+    state: present
+  tags: ['dots', 'root']
+
 - name: Push root shell config
   synchronize:
     src: "root/"
@@ -53,13 +60,6 @@
     perms: no
     rsync_opts: "--update"
   tags: ['dots']
-
-- name: set root shell to zsh
-  user:
-    name: root
-    shell: /bin/zsh
-    state: present
-  tags: ['dots', 'root']
 
 - name: set perms for root home
   shell: "chown -R root:root /root"
