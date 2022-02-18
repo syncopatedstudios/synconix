@@ -34,6 +34,8 @@
         mkdir -pv {{ user.home }}/.config/rofi
         mkdir -pv {{ user.home }}/.config/picom
         mkdir -pv {{ user.home }}/.config/redshift
+      register: i3_config_dir
+      changed_when: i3_config_dir.rc != 0
 
     - name: Install i3 templates
       template:

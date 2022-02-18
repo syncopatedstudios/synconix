@@ -36,7 +36,9 @@
 - name: set graphical-target as default
   shell: |
     systemctl set-default graphical.target
-  when: graphical_target|bool
+  register: graphicaltarget
+  changed_when: graphicaltarget.rc != 0
+  tags: ['test']
 
 - name: copy help file to user home dir
   copy:

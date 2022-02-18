@@ -41,3 +41,5 @@
 
 - name: Update font-cache
   command: fc-cache -r
+  register: font_cache
+  changed_when: font_cache.rc != 0

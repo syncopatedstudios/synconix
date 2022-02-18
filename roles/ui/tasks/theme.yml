@@ -22,6 +22,8 @@
 
 - name: Update the icon cache
   command: bash -lc "gtk-update-icon-cache"
+  register: icon_cache
+  changed_when: icon_cache.rc !=0
 
 - block:
     - name: Ensure these directories exist
@@ -42,16 +44,6 @@
         - "{{ user.home }}/.config/zim"
         - "{{ user.home }}/.themes"
         - "{{ user.home }}/.icons"
-
-    - name: Extract soundbot theme into /home/user/.themes
-      unarchive:
-        src: oomox-soundbotv2.tar.gz
-        dest: "{{ user.home }}/.themes"
-
-    - name: Extract soundbot theme icons into /home/user/.icons
-      unarchive:
-        src: oomox-soundbotv2_icons.tar.gz
-        dest: "{{ user.home }}/.icons"
 
     - name: Update gtk2
       template:
@@ -101,7 +93,7 @@
         mode: '644'
         backup: no
 
-    - name: Push nitrogen configs
+    - name: Push zim style config
       template:
         src: "dots/config/zim/{{ item }}.j2"
         dest: "{{ user.home }}/.config/zim/{{ item }}"
@@ -115,5 +107,21 @@
 
   become: True
   become_user: "{{ user.name }}"
+  tags: ['dots']
+
+- block:
+    - name: Extract soundbot theme into /home/user/.themes
+      unarchive:
+        src: oomox-soundbotv2.tar.gz
+        dest: "{{ user.home }}/.themes"
+
+    - name: Extract soundbot theme icons into /home/user/.icons
+      unarchive:
+        src: oomox-soundbotv2_icons.tar.gz
+        dest: "{{ user.home }}/.icons"
+
+  become: true
+  become_user: "{{ user.name }}"
+  tags: ['theme']
 
 - include: fonts.yml
