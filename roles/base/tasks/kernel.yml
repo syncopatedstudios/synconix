@@ -2,17 +2,17 @@
 
 - name: Set kernel packages to install
   set_fact:
-    _packages: "{{ kernel['lts'] }}"
+    _packages: "{{ base.kernel['lts'] }}"
   when: use_kernel == 'lts'
 
 - name: Set kernel packages to install
   set_fact:
-    _packages: "{{ kernel['rt'] }}"
+    _packages: "{{ base.kernel['rt'] }}"
   when: use_kernel == 'rt'
 
 - name: Set kernel packages to install
   set_fact:
-    _packages: "{{ kernel['zen'] }}"
+    _packages: "{{ base.kernel['zen'] }}"
   when: use_kernel == 'zen'
 
 - name: push mkinitcpio configs

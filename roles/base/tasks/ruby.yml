@@ -10,6 +10,8 @@
     mode: '0644'
     backup: yes
 
+#TODO: account for using RVM
+
 - name: Get list of installed gems
   shell: |
     gem list | awk '{ print $1 }'

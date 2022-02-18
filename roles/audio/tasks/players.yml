@@ -2,6 +2,8 @@
 
 - name: ensure mocp config directory exists
   shell: "mkdir -pv {{ user.home }}/.moc"
+  register: mocp_config_dir
+  changed_when: mocp_config_dir.rc != 0
   tags: ['mocp']
 
 - name: install mocp config

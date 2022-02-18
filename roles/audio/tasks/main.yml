@@ -10,29 +10,17 @@
 - include: pulseaudio.yml
   tags: ['pulseaudio']
 
-- name: set alsa & pipewire packages to install
+- name: set pipewire packages to install
   set_fact:
-    _packages:
-      - alsa-lib
-      - alsa-plugins
-      - alsa-tools
-      - alsa-utils
-      - helvum
-      - pipewire
-      - pipewire-alsa
-      - pipewire-jack
-      - pipewire-pulse
-      - pipewire-v4l2
-      - pipewire-zeroconf
-      - pipewire-media-session
+    _packages: "{{ base.pipewire }}"
   tags: ['packages', 'alsa', 'pipewire']
 
-- name: install alsa & pipewire packages
+- name: install pipewire packages
   import_role:
     name: pkg_manager
   vars:
     pkg_state: present
-  tags: ['packages', 'alsa', 'pipewire']
+  tags: ['packages', 'pipewire']
 
 - include: alsa.yml
   tags: ['alsa']
@@ -45,7 +33,7 @@
 - block:
     - name: Set audio packages to install
       set_fact:
-        _packages: "{{ (audio + plugins) }}"
+        _packages: "{{ (audio.utils + audio.plugins) }}"
 
     - name: Install audio packages
       import_role:
@@ -57,7 +45,7 @@
 - block:
     - name: Set daw packages to install
       set_fact:
-        _packages: "{{ daw }}"
+        _packages: "{{ audio.applications }}"
 
     - name: Install daw packages
       import_role:

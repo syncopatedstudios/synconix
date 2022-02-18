@@ -46,12 +46,6 @@
         perms: no
         rsync_opts: "--update"
 
-    # - name: Install kitti3
-    #   pip:
-    #     name: kitti3
-    #     extra_args: --user
-    #   tags: ['kitty']
-
     - name: Push terminal emulator configs
       synchronize:
         src: "dots/config/{{ item }}"
@@ -69,4 +63,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  tags: ['ui', 'dots']
+  tags: ['dots', 'ui']

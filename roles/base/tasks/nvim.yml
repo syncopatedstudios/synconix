@@ -4,6 +4,11 @@
   stat: path="/usr/local/bin/nvim"
   register: hazinvim
 
+- name: check if nvim already exists
+  stat: path="/usr/bin/nvim"
+  register: hazinvim
+  when: not hazinvim.stat.exists
+
 - block:
     - name: fetch neovim
       get_url:

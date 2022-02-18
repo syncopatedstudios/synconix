@@ -2,6 +2,8 @@
 
 - name: Ensure pipewire config directory exists
   shell: "mkdir -pv /usr/share/pipewire/{media-session.d,filter-chain}"
+  register: pw_config_dir
+  changed_when: pw_config_dir.rc != 0
   tags: ['pipewire']
 
 - name: Sync pipewire config templates
@@ -18,7 +20,6 @@
     - "jack.conf"
     - "client.conf"
     - "client-rt.conf"
-    - "minimal.conf"
     - "media-session.d/alsa-monitor.conf"
     - "media-session.d/bluez-monitor.conf"
     - "media-session.d/media-session.conf"
@@ -33,11 +34,8 @@
     daemon_reload: yes
     scope: user
   with_items:
-    - pipewire-pulse.socket
-    - pipewire.socket
     - pipewire
     - pipewire-pulse
-    - pipewire-media-session
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become: True

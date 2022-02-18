@@ -3,10 +3,12 @@
 - name: remove pulseaudio
   shell: |
     yay -R pulseaudio pulseaudio-jack --noconfirm
-  tags: ['pulseaudio']
   become: True
   become_user: "{{ user.name }}"
-  ignore_errors: True
+  register: remove_pulse
+  failed_when: "'error: target not found' not in remove_pulse.stderr"
+  changed_when: remove_pulse.rc == 0
+  tags: ['pulseaudio']
 
 - name: Remove pulseaudio systemd configs
   file:
