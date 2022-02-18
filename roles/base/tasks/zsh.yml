@@ -32,22 +32,28 @@
 
   when: not haziohymyzsh.stat.exists
 
-- name: Push zsh-maia-prompt
+- name: create zsh custom themes dir
+  file:
+    path: /usr/share/oh-my-zsh/custom/themes
+    state: directory
+    mode: '0775'
+  tags: ['dots']
+
+- name: Push oh-my-zsh-theme
   copy:
-    src: usr/share/zsh/zsh-maia-prompt
-    dest: /usr/share/zsh/zsh-maia-prompt
-    owner: root
-    group: root
+    src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
+    dest: "/usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
     mode: '0644'
     backup: yes
     directory_mode: no
+  tags: ['dots']
 
 - name: set root shell to zsh
   user:
     name: root
     shell: /bin/zsh
     state: present
-  tags: ['dots', 'root']
+  tags: ['dots']
 
 - name: Push root shell config
   synchronize:

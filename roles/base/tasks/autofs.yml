@@ -12,7 +12,7 @@
   file:
     path: /mnt/{{ autofs_client.host }}
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Push autofs configs
   template:

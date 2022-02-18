@@ -14,3 +14,14 @@ kvm_host: False
 
 docker_host: False
 docker_storage: /var/lib/docker
+
+firewalld:
+  zone: docker
+  ports:
+    - 4464/udp
+    - 24800/tcp
+    - 12101/udp
+    - 9658/tcp
+    - 5353/udp
+    - 4560/udp
+    - 3333/udp
