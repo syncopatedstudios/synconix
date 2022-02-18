@@ -13,7 +13,7 @@
     state: directory
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
-    mode: '2775'
+    mode: '755'
   with_items:
     - "/usr/local/bin"
     - "/usr/local/lib"
