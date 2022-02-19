@@ -12,33 +12,49 @@
 
 # color vars
 eval col_gray='$FG[240]'
+eval col_yellow='$FG[214]'
 eval col_primary='$FG[032]'
 eval col_diff='$FG[214]'
 eval col_diff='$FG[214]'
 eval col_same='$FG[034]'
+eval col_red='$FG[124]'
+eval col_purple='$FG[093]'
 
+HOSTNAME=$( cat /etc/hostname )
 
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
+case $HOSTNAME in
+	crambot)
+		eval col_host='$FG[222]'
+		;;
+	lapbot)
+		eval col_host='$FG[022]'
+		;;
+esac
+
+if [ $UID -eq 0 ];
+then
+	PROMPT='$col_red%n@%m%{$reset_color%} [$col_gray%~%{$reset_color%}]%'
+else
 # primary prompt
-PROMPT='$col_gray% ┌┄┈------------------------------------------------------
-$col_gray% ├%{$reset_color%}$col_primary%~\
-$(git_prompt_info) \
-$col_primary%(?.%{$col_primary%}.%{$col_diff%})
+PROMPT='$col_purple% ├
+$col_purple% │%{$reset_color%}$col_gray%~\
+$(git_prompt_info) %{$reset_color%}[@%{$col_host%}%m%{$reset_color%}] \
+$col_gray%(?.%{$col_purple%}.%{$col_diff%})
 └─▶%{$reset_color%} '
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
-
-
-
 # right prompt
-if type "virtualenv_prompt_info" > /dev/null
-then
-	RPROMPT='$(virtualenv_prompt_info)$col_gray%n@%m%{$reset_color%} [$(date +%H:%M)]%'
-else
-	RPROMPT='$col_gray%n@%m%{$reset_color%} [$(date +%H:%M)]%%'
+	if type "virtualenv_prompt_info" > /dev/null
+	then
+		RPROMPT='$(virtualenv_prompt_info)$col_gray%n@%m%{$reset_color%} [$(date +%H:%M)]%'
+	else
+		RPROMPT='$col_gray%n@%m%{$reset_color%} [$(date +%H:%M)]%%'
+	fi
 fi
+
+
 
 
 # git settings
