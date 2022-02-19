@@ -92,11 +92,6 @@ setopt nobeep
 # automatically find new executables in path
 zstyle ':completion:*' rehash true
 
-# Theming section
-autoload -U compinit colors zcalc
-compinit -d
-colors
-
 # Color man pages
 export LESS_TERMCAP_mb=$'\E[01;32m'
 export LESS_TERMCAP_md=$'\E[01;32m'
@@ -110,10 +105,3 @@ export LESS=-R
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases
-
-#neofetch
-
-# {% if ansible_facts['hostname'] != 'lapbot' %}
-# (cat ~/.cache/wal/sequences &)
-# {% else %}
-# {% endif %}

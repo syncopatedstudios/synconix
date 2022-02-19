@@ -70,7 +70,7 @@ $exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-cryp
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'crambot' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [calculon]:24800 &"
+# $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [calculon]:24800 &"
 {% else %}
 {% endif %}
 
@@ -152,7 +152,7 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
-for_window [title="^mpv"] floating enable, resize set 640 480
+#for_window [title="^mpv"] floating enable, resize set 640 480
 # for_window [title="^Mixer"] floating enable, resize set 640 480
 # for_window [class="^Non-Mixer$" title="(?i)Mixer*$"] floating disable
 for_window [class="^jgmenu"] move position center, focus

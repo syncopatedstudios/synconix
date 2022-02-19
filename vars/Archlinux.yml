@@ -285,6 +285,7 @@ workstation:
     - darktable
     - epson-inkjet-printer-escpr2
     - feh
+    - ffmpegthumbnailer
     - gnuplot
     - google-chrome
     - googler-git
