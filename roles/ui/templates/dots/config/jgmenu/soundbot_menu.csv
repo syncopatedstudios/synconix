@@ -12,127 +12,75 @@ Accessories,^checkout(Accessories),applications-accessories
 iempluginsuite,^checkout(iempluginsuite),iempluginsuite
 x42,^checkout(x42),x42
 dragonfly,^checkout(dragonfly),dragonfly
+synths,^checkout(synths),synths
+sequencers,^checkout(sequencers),sequencers
+plugins,^checkout(plugins),plugins
+players,^checkout(players),players
+editors,^checkout(editors),editors
 
+# /usr/share/applications/baudline.desktop
+baudline,baudline,baudline
+# /usr/share/applications/baudline_jack.desktop
+baudline_jack,baudline_jack,baudline_jack
+^sep()
+# /usr/share/applications/jack-keyboard.desktop
+JACK Keyboard,jack-keyboard,jack-keyboard
+# /usr/share/applications/net.sourceforge.VMPK.desktop
+VMPK,vmpk,vmpk
+^sep()
+# /usr/local/share/applications/tony.desktop
+Tony,"/usr/local/bin/tony" ,/usr/share/m17n/icons/dv-phonetic.png
+# /usr/local/share/applications/sonic-lineup.desktop
+Sonic-Lineup,"/usr/local/bin/sonic-lineup" ,/usr/share/m17n/icons/dv-phonetic.png
+^sep()
+# /usr/local/share/applications/patchage.desktop
+Patchage,/usr/local/bin/patchage,patchage
+# /usr/share/applications/org.pipewire.Helvum.desktop
+Helvum,helvum,org.pipewire.Helvum
+# /usr/share/applications/org.freedesktop.rncbc.qpwgraph.desktop
+qpwgraph,qpwgraph,qpwgraph
+^sep()
+# /usr/share/applications/jack_mixer.desktop
+Jack Mixer,jack_mixer,jack_mixer
+# /usr/local/share/applications/non-mixer.desktop
+Non Mixer,env LADSPA_PATH=/usr/lib/ladspa LADSPA_RDF_PATH=/usr/share/ladspa/rdf /usr/local/bin/non-mixer,non-mixer
+# /home/b08x/.local/share/applications/cockos-reaper.desktop
+REAPER,"/opt/REAPER/reaper" ,cockos-reaper
+^sep()
 # /usr/local/share/applications/org.jacktrip.JackTrip.desktop
 JackTrip,jacktrip,org.jacktrip.JackTrip
-# /usr/share/applications/BespokeSynth.desktop
-BespokeSynth,BespokeSynth,bespoke_icon
-# /usr/share/applications/calf.desktop
-Calf Plugin Pack for JACK,calfjackhost,calf
-# /usr/share/applications/carla.desktop
-Carla,carla ,carla
-# /usr/share/applications/carla-control.desktop
-Carla Control,carla-control ,carla-control
-# /usr/share/applications/io.github.celluloid_player.Celluloid.desktop
-Celluloid,celluloid ,io.github.celluloid_player.Celluloid
-# /usr/local/share/applications/deadbeef.desktop
-DeaDBeeF,deadbeef ,deadbeef
+# /usr/share/applications/org.rncbc.qmidinet.desktop
+QmidiNet,qmidinet,qmidinet
+^sep()
 # /usr/share/applications/fmit.desktop
 FMIT,fmit,fmit
 # /usr/share/applications/hdajackretask.desktop
 HDAJackRetask,hdajackretask,application-x-executable
-# /usr/share/applications/helm-synth.desktop
-Helm,helm-synth,helm-synth
-# /usr/share/applications/org.pipewire.Helvum.desktop
-Helvum,helvum,org.pipewire.Helvum
-# /usr/share/applications/org.hydrogenmusic.Hydrogen.desktop
-Hydrogen,hydrogen ,org.hydrogenmusic.Hydrogen
-# /usr/local/share/applications/ingen.desktop
-Ingen,ingen -eg,ingen
-# /usr/share/applications/jack-keyboard.desktop
-JACK Keyboard,jack-keyboard,jack-keyboard
-# /usr/share/applications/jack-rack.desktop
-JACK Rack,jack-rack,jack-rack-icon.png
-# /usr/share/applications/jack_mixer.desktop
-Jack Mixer,jack_mixer,jack_mixer
-# /usr/share/applications/org.mixxx.Mixxx.desktop
-Mixxx,sh -c "pasuspender -- mixxx -platform xcb || mixxx -platform xcb",mixxx
-# /usr/local/share/applications/non-mixer.desktop
-Non Mixer,env LADSPA_PATH=/usr/lib/ladspa LADSPA_RDF_PATH=/usr/share/ladspa/rdf /usr/local/bin/non-mixer,non-mixer
-# /usr/share/applications/non-sequencer.desktop
-Non Sequencer,/usr/bin/non-sequencer,non-sequencer
 # /usr/share/applications/com.obsproject.Studio.desktop
 OBS Studio,obs,com.obsproject.Studio
-# /usr/share/applications/org.openshot.OpenShot.desktop
-OpenShot Video Editor,openshot-qt ,openshot-qt
-# /usr/local/share/applications/patchage.desktop
-Patchage,/usr/local/bin/patchage,patchage
-# /usr/local/share/applications/com.polyphone_soundfonts.polyphone.desktop
-Polyphone,polyphone ,polyphone
 # /usr/local/share/applications/Protokol.desktop
 Protokol,"/usr/local/bin/Protokol" ,/usr/share/m17n/icons/dv-phonetic.png
 # /usr/share/applications/pavucontrol.desktop
 PulseAudio Volume Control,pavucontrol,multimedia-volume-control
-# /usr/share/applications/qmidiarp.desktop
-QMidiArp,qmidiarp ,qmidiarp
-# /usr/share/applications/org.rncbc.qmidinet.desktop
-QmidiNet,qmidinet,qmidinet
 # /usr/local/share/applications/org.rncbc.qsampler.desktop
 Qsampler,qsampler ,qsampler
-# /home/b08x/.local/share/applications/cockos-reaper.desktop
-REAPER,"/opt/REAPER/reaper" ,cockos-reaper
-# /usr/share/applications/com.rosegardenmusic.rosegarden.desktop
-Rosegarden,rosegarden ,rosegarden
 # /usr/share/applications/Scala.desktop
 Scala,scala-music,Scala
-# /usr/local/share/applications/sonic-lineup.desktop
-Sonic-Lineup,"/usr/local/bin/sonic-lineup" ,/usr/share/m17n/icons/dv-phonetic.png
 # /usr/share/applications/net.essej.sooperlooper.desktop
 SooperLooper,slgui,net.essej.sooperlooper
 # /usr/share/applications/org.surge-synth-team.Stochas.desktop
 Stochas,Stochas,org.surge-synth-team.Stochas
 # /usr/share/applications/SuperColliderIDE.desktop
 SuperCollider IDE,scide ,sc_ide
-# /usr/local/share/applications/tony.desktop
-Tony,"/usr/local/bin/tony" ,/usr/share/m17n/icons/dv-phonetic.png
 # /usr/local/share/applications/TouchOSC.desktop
 TouchOSC,"/usr/local/bin/TouchOSC" ,/usr/share/m17n/icons/dv-phonetic.png
-# /usr/share/applications/vlc.desktop
-VLC media player,/usr/bin/vlc --started-from-file ,vlc
-# /usr/share/applications/net.sourceforge.VMPK.desktop
-VMPK,vmpk,vmpk
-# /usr/share/applications/vital.desktop
-Vital,vital,vital
-# /usr/share/applications/ams.desktop
-ams,ams,ams_32.xpm
-# /usr/share/applications/baudline.desktop
-baudline,baudline,baudline
-# /usr/share/applications/baudline_jack.desktop
-baudline_jack,baudline_jack,baudline_jack
 # /usr/share/applications/guitarix.desktop
 guitarix,guitarix,gx_head
-# /usr/share/applications/jalv.select.desktop
-jalv.select,jalv.select,lv2
-# /usr/share/applications/mpv.desktop
-mpv Media Player,mpv --player-operation-mode=pseudo-gui -- ,mpv
-# /usr/share/applications/ocenaudio.desktop
-ocenaudio,/usr/bin/ocenaudio ,ocenaudio
 # /usr/share/applications/qstopmotion.desktop
 qStopMotion,qstopmotion ,qstopmotion
-# /usr/share/applications/org.freedesktop.rncbc.qpwgraph.desktop
-qpwgraph,qpwgraph,qpwgraph
-# /usr/share/applications/seq192.desktop
-seq192,seq192,seq192
-# /usr/share/applications/edu.stanford.ccrma.snd.desktop
-snd,snd,edu.stanford.ccrma.snd
-# /usr/share/applications/edu.stanford.ccrma.snd-ruby.desktop
-snd (ruby),snd-ruby,edu.stanford.ccrma.snd-ruby
-# /usr/share/applications/edu.stanford.ccrma.snd-s7.desktop
-snd (s7),snd-s7,edu.stanford.ccrma.snd-s7
 # /usr/share/applications/zita-rev1.desktop
 zita-rev1,zita-rev1,zita-rev1
-# /usr/share/applications/thunar.desktop
-Thunar File Manager,thunar ,org.xfce.thunar
-# /usr/share/applications/timeshift-gtk.desktop
-Timeshift,timeshift-launcher,timeshift
-# /usr/share/applications/uxterm.desktop
-UXTerm,uxterm,xterm-color_48x48
-# /usr/share/applications/xterm.desktop
-XTerm,xterm,xterm-color_48x48
-# /usr/share/applications/ranger.desktop
-ranger,^term(ranger),utilities-terminal
-# /usr/share/applications/xkill-shortcut.desktop
-xKill,xkill,application-exit
+
 
 ^sep()
 Lock,i3lock -c 000000,system-lock-screen
@@ -165,6 +113,87 @@ Xarchiver,xarchiver ,xarchiver
 Zim Desktop Wiki,zim ,zim
 # /usr/share/applications/nitrogen.desktop
 nitrogen,nitrogen,nitrogen
+# /usr/share/applications/Thunar.desktop
+Thunar File Manager,thunar ,org.xfce.thunar
+# /usr/share/applications/timeshift-gtk.desktop
+Timeshift,timeshift-launcher,timeshift
+# /usr/share/applications/uxterm.desktop
+UXTerm,uxterm,xterm-color_48x48
+# /usr/share/applications/xterm.desktop
+XTerm,xterm,xterm-color_48x48
+# /usr/share/applications/ranger.desktop
+ranger,^term(ranger),utilities-terminal
+# /usr/share/applications/xkill-shortcut.desktop
+xKill,xkill,application-exit
+
+##################################################################################################
+
+submenu,^tag(plugins)
+Back,^back(,go-previous)
+# /usr/share/applications/calf.desktop
+Calf Plugin Pack for JACK,calfjackhost,calf
+# /usr/share/applications/carla.desktop
+Carla,carla ,carla
+# /usr/share/applications/carla-control.desktop
+Carla Control,carla-control ,carla-control
+# /usr/share/applications/jack-rack.desktop
+JACK Rack,jack-rack,jack-rack-icon.png
+# /usr/local/share/applications/ingen.desktop
+Ingen,ingen -eg,ingen
+# /usr/share/applications/jalv.select.desktop
+jalv.select,jalv.select,lv2
+
+submenu,^tag(synths)
+Back,^back(,go-previous)
+# /usr/share/applications/helm-synth.desktop
+Helm,helm-synth,helm-synth
+# /usr/share/applications/vital.desktop
+Vital,vital,vital
+# /usr/share/applications/ams.desktop
+ams,ams,ams_32.xpm
+# /usr/share/applications/BespokeSynth.desktop
+BespokeSynth,BespokeSynth,bespoke_icon
+
+submenu,^tag(sequencers)
+Back,^back(,go-previous)
+# /usr/share/applications/non-sequencer.desktop
+Non Sequencer,/usr/bin/non-sequencer,non-sequencer
+# /usr/share/applications/org.hydrogenmusic.Hydrogen.desktop
+Hydrogen,hydrogen ,org.hydrogenmusic.Hydrogen
+# /usr/share/applications/seq192.desktop
+seq192,seq192,seq192
+# /usr/share/applications/qmidiarp.desktop
+QMidiArp,qmidiarp ,qmidiarp
+
+submenu,^tag(players)
+Back,^back(,go-previous)
+# /usr/local/share/applications/deadbeef.desktop
+DeaDBeeF,deadbeef ,deadbeef
+# /usr/share/applications/io.github.celluloid_player.Celluloid.desktop
+Celluloid,celluloid ,io.github.celluloid_player.Celluloid
+# /usr/share/applications/mpv.desktop
+mpv Media Player,mpv --player-operation-mode=pseudo-gui -- ,mpv
+# /usr/share/applications/vlc.desktop
+VLC media player,/usr/bin/vlc --started-from-file ,vlc
+# /usr/share/applications/org.mixxx.Mixxx.desktop
+Mixxx,sh -c "pasuspender -- mixxx -platform xcb || mixxx -platform xcb",mixxx
+
+submenu,^tag(editors)
+Back,^back(,go-previous)
+# /usr/local/share/applications/com.polyphone_soundfonts.polyphone.desktop
+Polyphone,polyphone ,polyphone
+# /usr/share/applications/com.rosegardenmusic.rosegarden.desktop
+Rosegarden,rosegarden ,rosegarden
+# /usr/share/applications/org.openshot.OpenShot.desktop
+OpenShot Video Editor,openshot-qt ,openshot-qt
+# /usr/share/applications/ocenaudio.desktop
+ocenaudio,/usr/bin/ocenaudio ,ocenaudio
+# /usr/share/applications/edu.stanford.ccrma.snd.desktop
+snd,snd,edu.stanford.ccrma.snd
+# /usr/share/applications/edu.stanford.ccrma.snd-ruby.desktop
+snd (ruby),snd-ruby,edu.stanford.ccrma.snd-ruby
+# /usr/share/applications/edu.stanford.ccrma.snd-s7.desktop
+snd (s7),snd-s7,edu.stanford.ccrma.snd-s7
 
 ##################################################################################################
 submenu,^tag(dragonfly)
