@@ -1,6 +1,6 @@
-# Media Session config file for PipeWire version 0.4.1 #
+# Media Session config file for PipeWire version 0.4.0 #
 #
-# Copy and edit this file in /usr/local/etc/pipewire/media-session.d/
+# Copy and edit this file in /etc/pipewire/media-session.d/
 # for system-wide changes or in
 # ~/.config/pipewire/media-session.d/ for local changes.
 
@@ -9,8 +9,8 @@ context.properties = {
     # modules.
     #mem.mlock-all                     = false
     #support.dbus                      = true
-    log.level                         = {{ log_level }}
-    alsa.seq.name                     = Midi-Bridge
+    #log.level                         = 2
+    #alsa.seq.name                     = Midi-Bridge
     #default-profile.restore-bluetooth = false
 }
 
@@ -85,7 +85,7 @@ session.modules = {
         #default-routes         # restore default route
         #streams-follow-default # move streams when default changes
         #alsa-no-dsp            # do not configure audio nodes in DSP mode
-        #alsa-seq               # alsa seq midi support
+        alsa-seq               # alsa seq midi support
         #alsa-monitor           # alsa udev detection
         #bluez5                 # bluetooth support
         #bluez5-autoswitch      # automatic bluetooth HSP/HFP profile switch

@@ -53,7 +53,7 @@
       vars:
         pkg_state: present
 
-  when: inventory_hostname in groups['desktops']
+  when: inventory_hostname in groups['daw']
   tags: ['packages', 'audio', 'daw']
 
 - name: makesfz and makeh2drumkit

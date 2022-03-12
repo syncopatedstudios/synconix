@@ -39,7 +39,7 @@ set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 set $googler "guake --show -n '$PWD' -e googler"
 
-set $rofi-surfraw "/usr/local/bin/rofi-surfraw"
+set $rsurfraw "$HOME/Workspace/robot-stuff/search.rb"
 
 set $ranger "kitty -e ranger"
 
@@ -118,8 +118,8 @@ bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
-bindsym XF86Search $exec $rofi-surfraw
-bindsym $mod+g $exec $rofi-surfraw
+bindsym XF86Search $exec $rsurfraw
+bindsym $mod+g $exec $rsurfraw
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
@@ -261,6 +261,7 @@ workspace $ws10 output VGA1
 
 
 assign [class="^Patchage$"] → 1
+assign [class="^google-chrome$"] → 1
 
 ######################################
 # ---{ navigation bindings }---

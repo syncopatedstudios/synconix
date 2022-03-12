@@ -6,33 +6,7 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 Let's say all the things necessary to make this work are in place*, and yer itchin'. Ask yourself: "Where have I been putting my hands lately?"
 
-For convience, this has been designed so that linux distrobution can be used. I ended up going with Arch because of their wiki. Performance wise, the difference between the popular distrobutions is negliibel.
-
-To add a distro...
-* Obtain the os_family variable
-
-```sh
-ansible -i hosts all -m ansible.builtin.setup -a 'filter=ansible_os_family'
-```
-
-
-* create a task file within the package manager role; named after th os_family you are using
-
-```markdown
-Archlinux
-Debian
-RedHat
-+Zorin.yml
-```
-
-Define things like additional repos, package manager configuations. Do things like, update package cache, system updates
-
-* add packages you wish to install in $ANSIBLE_HOME/vars/{{ ansible_os_family }}.yml
-
-To add an application you need built from source...
-* add the applications git repo or download location in audio/defaults/main.yml
-* create a task file in audio/tasks/<appname>.yml
-* add the task to the main task list in audio/tasks/main.yml
+For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts in audio production environment. This whole thing could probably be refactored down to a single role with a few tasks grouped together.
 
 # Wiki stuff
 
@@ -53,7 +27,7 @@ user:
   terminal: xterm
   secondary_groups: "input,video,audio"
   email: rwpannick@gmail.com
-  password: <sha8092>
+  password: <sha8>
 
 path:
   - "{{ user.home }}/.local/bin"
@@ -139,6 +113,12 @@ If you would like to use git to keep track the files in your home directory then
 ```bash
 ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 ```
+
+# compiling applications from source
+To add an application you want to compile from source...
+* add the applications git repo or download location in builds/defaults/main.yml
+* create a task file in builds/tasks/<appname>.yml
+* add the task to the main task list in builds/tasks/main.yml
 
 # ansible stuff
 

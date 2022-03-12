@@ -1,5 +1,4 @@
-# {{ ansible_managed }}
-# Daemon config file for PipeWire version "0.3.42" #
+# Daemon config file for PipeWire version "0.3.45" #
 #
 # Copy and edit this file in /etc/pipewire for system-wide changes
 # or in ~/.config/pipewire for local changes.
@@ -15,22 +14,26 @@ context.properties = {
     #mem.allow-mlock                       = true
     #mem.mlock-all                         = false
     #clock.power-of-two-quantum            = true
-    log.level                              = {{ log_level }}
+    log.level                             = {{ log_level }}
     #cpu.zero.denormals                    = true
 
     core.daemon = true              # listening for socket connections
     core.name   = pipewire-0        # core name and socket name
 
     ## Properties for the DSP configuration.
-    default.clock.rate          = {{ clock['rate'] }}
-    default.clock.allowed-rates = {{ clock['allowed-rates'] }}
+    default.clock.rate          = 48000
+    default.clock.allowed-rates = [ 44100 48000 ]
     #default.clock.quantum       = 1024
-    default.clock.min-quantum   = {{ clock['min-quantum'] }}
-    default.clock.max-quantum   = {{ clock['max-quantum'] }}
+    #default.clock.min-quantum   = 32
+    #default.clock.max-quantum   = 2048
+    #default.clock.quantum-limit = 8192
     #default.video.width         = 640
     #default.video.height        = 480
     #default.video.rate.num      = 25
     #default.video.rate.denom    = 1
+    #
+    #settings.check-quantum      = false
+    #settings.check-rate         = false
     #
     # These overrides are only applied when running in a vm.
     vm.overrides = {
@@ -68,27 +71,18 @@ context.modules = [
     # If nofail is given, module initialization failures are ignored.
     #
 
-    # Uses RTKit to boost the data thread priority.
-    { name = libpipewire-module-rtkit
+    # Uses realtime scheduling to boost the audio thread priorities. This uses
+    # RTKit if the user doesn't have permission to use regular realtime
+    # scheduling.
+    { name = libpipewire-module-rt
         args = {
-            #nice.level   = -11
+            nice.level    = -11
             #rt.prio      = 88
-            #rt.time.soft = 2000000
-            #rt.time.hard = 2000000
+            #rt.time.soft = -1
+            #rt.time.hard = -1
         }
         flags = [ ifexists nofail ]
     }
-
-    # Set thread priorities without using RTKit.
-    #{ name = libpipewire-module-rt
-    #    args = {
-    #        nice.level   = -11
-    #        rt.prio      = 88
-    #        rt.time.soft = 2000000
-    #        rt.time.hard = 2000000
-    #    }
-    #    flags = [ ifexists nofail ]
-    #}
 
     # The native communication protocol.
     { name = libpipewire-module-protocol-native }
@@ -132,9 +126,9 @@ context.modules = [
         args = {
             # access.allowed to list an array of paths of allowed
             # apps.
-            access.allowed = [
-               /usr/bin/pipewire-media-session /usr/lib/xdg-desktop-portal-gtk
-            ]
+            #access.allowed = [
+            #    /usr/bin/pipewire-media-session
+            #]
 
             # An array of rejected paths.
             #access.rejected = [ ]
@@ -157,6 +151,16 @@ context.modules = [
 
     # Provides factories to make session manager objects.
     { name = libpipewire-module-session-manager }
+
+    # Use libcanberra to play X11 Bell
+    #{ name = libpipewire-module-x11-bell
+    #  args = {
+    #      #sink.name = ""
+    #      #sample.name = "bell-window-system"
+    #      #x11.display = null
+    #      #x11.xauthority = null
+    #  }
+    #}
 ]
 
 context.objects = [
@@ -194,45 +198,38 @@ context.objects = [
             node.freewheel  = true
         }
     }
+    # This creates a new Source node. It will have input ports
+    # that you can link, to provide audio for this source.
+    #{ factory = adapter
+    #    args = {
+    #        factory.name     = support.null-audio-sink
+    #        node.name        = "my-mic"
+    #        node.description = "Microphone"
+    #        media.class      = "Audio/Source/Virtual"
+    #        audio.position   = "FL,FR"
+    #    }
+    #}
+
+    # This creates a single PCM source device for the given
+    # alsa device path hw:0. You can change source to sink
+    # to make a sink in the same way.
     # { factory = adapter
     #    args = {
     #        factory.name           = api.alsa.pcm.source
-    #        node.name              = "alsa-source"
+    #        node.name              = "maudio32"
     #        node.description       = "PCM Source"
     #        media.class            = "Audio/Source"
-    #        api.alsa.path          = "hw:0"
+    #        api.alsa.path          = "hw:1"
     #        api.alsa.period-size   = 1024
     #        api.alsa.headroom      = 0
     #        api.alsa.disable-mmap  = false
     #        api.alsa.disable-batch = false
-    #        audio.format           = "S32LE"
-    #        audio.rate             = 48000
+    #        audio.format           = "S16LE"
+    #        audio.rate             = 32000
     #        audio.channels         = 2
     #        audio.position         = "FL,FR"
     #    }
     # }
-    #
-    # { factory = adapter
-    #    args = {
-    #        factory.name           = api.alsa.pcm.sink
-    #        node.name              = "alsa-sink"
-    #        node.description       = "PCM Sink"
-    #        media.class            = "Audio/Sink"
-    #        api.alsa.path          = "hw:0"
-    #        api.alsa.period-size   = 1024
-    #        api.alsa.headroom      = 0
-    #        api.alsa.disable-mmap  = false
-    #        api.alsa.disable-batch = false
-    #        audio.format           = "S32LE"
-    #        audio.rate             = 48000
-    #        audio.channels         = 2
-    #        audio.position         = "FL,FR"
-    #        node.suspend-on-idle   = false
-    #        resample.disable       = true
-    #        channelmix.disable     = true
-    #    }
-    # }
-
 ]
 
 context.exec = [
@@ -244,7 +241,7 @@ context.exec = [
     # but it is better to start it as a systemd service.
     # Run the session manager with -h for options.
     #
-    # { path = "wireplumber" args = "" }
+    #{ path = "/usr/bin/pipewire-media-session" args = "" }
     #
     # You can optionally start the pulseaudio-server here as well
     # but it is better to start it as a systemd service.

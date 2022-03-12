@@ -39,6 +39,7 @@ firewalld:
   ports:
     - 4464/udp
     - 24800/tcp
+    - 12101/udp
 
 soundcard:
   nick: "analog_stereo_out"

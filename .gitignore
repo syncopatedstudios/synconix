@@ -8,4 +8,4 @@ installed_packages.yml
 vars/test.yml
 wireplumber_new
 pipewire_new
-hosts
+status.yml
