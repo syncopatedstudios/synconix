@@ -29,6 +29,7 @@ base:
     - alsa-plugins
     - alsa-tools
     - alsa-utils
+    - atool
     - aria2
     - autofs
     - barrier

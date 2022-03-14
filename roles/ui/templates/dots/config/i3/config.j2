@@ -75,7 +75,7 @@ $exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-cryp
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'lapbot' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [calculon]:24800 &"
+#$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [calculon]:24800 &"
 {% else %}
 {% endif %}
 

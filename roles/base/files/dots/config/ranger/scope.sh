@@ -326,9 +326,13 @@ handle_mime() {
             exit 1;;
 
         ## Video and audio
-        video/* | audio/*)
+        video/*)
             mediainfo "${FILE_PATH}" && exit 5
             exiftool "${FILE_PATH}" && exit 5
+            exit 1;;
+
+        audio/*)
+            soxi "${FILE_PATH}" && exit 5
             exit 1;;
     esac
 }
