@@ -194,6 +194,11 @@ for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad sh
 for_window [class="REAPER" title="^Mixer"] floating disable, border pixel 1
 for_window [title="^Docker"] floating disable, border pixel 1
 for_window [title="^Toolbar"] floating disable, border pixel 1
+######################################
+# ---{ meters }---
+######################################
+for_window [class="(?i)meterbridge"] floating enable, border pixel 1
+for_window [class="(?i)zita-mu1"] floating enable, border pixel 1
 
 ######################################
 # ---{ theme }---
@@ -259,9 +264,18 @@ workspace $ws10 output VGA1
 {% else %}
 {% endif %}
 
-
-assign [class="^Patchage$"] → 1
-assign [class="^google-chrome$"] → 1
+assign [class="^atom$"] 1
+assign [class="^sonic-pi$"] 1
+for_window [class="^sonic-pi$"] floating disable, border pixel 1, move container to workspace 1
+assign [class="^REAPER$"] 2
+assign [class="^Patchage$"] 5
+assign [class="^qsampler$"] 7
+assign [class="^qmidiarp$"] 7
+assign [class="^jalv.gtkmm$"] 8
+assign [class="^jalv.select$"] 9
+assign [title="^EBU R128 Meter$"] 10
+assign [title="zita-mu1-0.3.3"] 10
+assign [class="^meterbridge$"] 10
 
 ######################################
 # ---{ navigation bindings }---
