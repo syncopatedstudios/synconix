@@ -45,7 +45,8 @@
         group: "{{ user.group }}"
         mode: "0644"
         backup: yes
-      tags: ['i3']
+      notify: restart i3
+      tags: ['i3-config']
 
     - name: Install polybar templates
       template:

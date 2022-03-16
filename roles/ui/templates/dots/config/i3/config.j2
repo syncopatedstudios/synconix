@@ -6,6 +6,8 @@
 # ---{ variables }---
 ######################################
 set $mod Mod4
+set $alt Mod1
+set $ctrl 37
 
 set $KP_1 87
 set $KP_2 88
@@ -112,7 +114,7 @@ bindsym $mod+d $exec $rofi
 bindsym Menu $exec $jgmenu
 
 bindsym $mod+Home $exec google-chrome-stable %U
-bindsym $mod++Shift+Home $exec qutebrowser
+bindsym $mod+Shift+Home $exec qutebrowser
 
 bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
@@ -129,6 +131,8 @@ bindsym $mod+slash $exec $help
 bindsym $mod+grave scratchpad show
 
 bindsym Print $exec teiler
+
+bindcode $alt+Shift+$KP_5 workspace 5; $exec patchage
 
 ######################################
 # ---{ window settings }---
@@ -152,12 +156,9 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
-#for_window [title="^mpv"] floating enable, resize set 640 480
-# for_window [title="^Mixer"] floating enable, resize set 640 480
-# for_window [class="^Non-Mixer$" title="(?i)Mixer*$"] floating disable
 for_window [class="^jgmenu"] move position center, focus
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
-# for_window [class="(?i)xterm"] floating enable, resize set 730 1156, border pixel 1, move to scratchpad, scratchpad show
+
 
 #############################
 ### settings for i3-gaps: ###

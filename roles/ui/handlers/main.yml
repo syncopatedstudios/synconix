@@ -2,3 +2,8 @@
 
 - name: update desktop database
   command: bash -lc "update-desktop-database"
+
+- name: restart i3
+  command: bash -lc "i3-msg restart"
+  become: True
+  become_user: "{{ user.name }}"
