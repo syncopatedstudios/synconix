@@ -24,15 +24,6 @@ HOSTNAME=$( cat /etc/hostname )
 
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
-case $HOSTNAME in
-	crambot)
-		eval col_host='$FG[222]'
-		;;
-	lapbot)
-		eval col_host='$FG[022]'
-		;;
-esac
-
 if [ $UID -eq 0 ];
 then
 PROMPT='$col_red%n@%m%{$reset_color%} [$col_gray%~%{$reset_color%}]%  '

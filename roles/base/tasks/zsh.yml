@@ -7,12 +7,12 @@
   with_items:
     - root
     - "{{ user.name }}"
-  tags: ['zsh']
+  tags: ['dots']
 
 - name: Check if oh-my-zsh is already installed
   stat: path="/usr/share/oh-my-zsh"
   register: haziohymyzsh
-  tags: ['ohmyzsh']
+  tags: ['dots']
 
 - block:
     - name: Clone oh-my-zsh
