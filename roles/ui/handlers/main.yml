@@ -7,3 +7,9 @@
   command: bash -lc "i3-msg restart"
   become: True
   become_user: "{{ user.name }}"
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+  become: True
+  become_user: "{{ user.name }}"
