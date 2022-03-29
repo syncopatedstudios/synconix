@@ -47,6 +47,8 @@ set $ranger "kitty -e ranger"
 
 set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
 
+set $autostart "$HOME/.config/i3/scripts/autostart.sh"
+
 ######################################
 # ---{ autostart }---
 ######################################
@@ -58,8 +60,6 @@ $exec_always nitrogen --restore
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
-# $exec_always --no-startup-id $HOME/.local/bin/kitti3 -p LT -s 1.0 0.5
-
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
 {% else %}
@@ -67,12 +67,12 @@ $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'calculon' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [192.168.40.2]:24800 &"
 {% else %}
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'crambot' %}
-# $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [calculon]:24800 &"
+$exec /usr/bin/barriers -f --no-tray --debug INFO --name crambot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
 {% else %}
 {% endif %}
 
@@ -81,64 +81,11 @@ $exec /usr/bin/barriers -f --no-tray --debug INFO --name calculon --disable-cryp
 {% else %}
 {% endif %}
 
-$exec "sleep 0.3; kitty -1 &"
-
-######################################
-# ---{ app bindings }---
-######################################
-{% if ansible_facts['hostname'] == 'lapbot' %}
-bindsym XF86MonBrightnessDown $exec brightnessctl s 5%-
-bindsym XF86MonBrightnessUp $exec brightnessctl s 5%+
-{% else %}
-{% endif %}
-
-bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
-
-bindsym XF86AudioNext $exec mocp -f
-bindsym XF86AudioPrev $exec mocp -r
-bindsym XF86AudioPlay $exec mocp -G
-
-bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-
-# start a terminal
-bindsym $mod+Return $exec kitty
-
-# pull down a kitty terminal
-# bindsym $mod+n $exec nop kitti3
-
-# start dmenu (a program launcher)
-bindsym $mod+d $exec $rofi
-bindsym Menu $exec $jgmenu
-
-bindsym $mod+Home $exec google-chrome-stable %U
-bindsym $mod+Shift+Home $exec qutebrowser
-
-bindcode $mod+Mod2+$KP_Enter $exec $ranger
-
-bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
-
-bindsym XF86Search $exec $rsurfraw
-bindsym $mod+g $exec $rsurfraw
-
-bindsym $mod+Insert $exec zim --plugin quicknote
-
-set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
-bindsym $mod+slash $exec $help
-
-bindsym $mod+grave scratchpad show
-
-bindsym Print $exec teiler
-
-bindcode $alt+Shift+$KP_5 workspace 5; $exec patchage
-
+$exec $autostart
 ######################################
 # ---{ window settings }---
 ######################################
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
+# Font for window titles. Will also be used by the bar unless a different font is used in the bar {} block below.
 font pango:{{ font.name }} {{ font.size }}
 
 workspace_auto_back_and_forth yes
@@ -149,16 +96,12 @@ default_floating_border normal
 new_window 1pixel
 
 hide_edge_borders none
-# Use Mouse+$mod to drag floating windows to their wanted position
+
+# Use Mouse+$mod to drag floating windows to a position
 floating_modifier $mod
 
 #to disable window title for all windows
 for_window [class="^.*"] border pixel 1
-
-for_window [title="^Sox Stats"] floating enable, resize set 640 480
-for_window [class="^jgmenu"] move position center, focus
-for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
-
 
 #############################
 ### settings for i3-gaps: ###
@@ -179,27 +122,6 @@ smart_gaps on
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
-
-
-######################################
-# ---{ scratchpad }---
-######################################
-for_window [class="(?i)jack-keyboard"] floating enable, move to scratchpad, scratchpad show
-for_window [title="(?i)Mamba"] floating enable, resize set 640 480, move to scratchpad, scratchpad show
-for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad show
-
-######################################
-# ---{ reaper stuff }---
-######################################
-#for_window [title="^Mixer"] floating disable, border pixel 1
-for_window [class="REAPER" title="^Mixer"] floating disable, border pixel 1
-for_window [title="^Docker"] floating disable, border pixel 1
-for_window [title="^Toolbar"] floating disable, border pixel 1
-######################################
-# ---{ meters }---
-######################################
-for_window [class="(?i)meterbridge"] floating enable, border pixel 1
-for_window [class="(?i)zita-mu1"] floating enable, border pixel 1
 
 ######################################
 # ---{ theme }---
@@ -237,7 +159,6 @@ client.background       $color0
 ######################################
 # ---{ workspace assignments }---
 ######################################
-
 {% if ansible_facts['hostname'] == 'calculon' %}
 workspace $ws1 output HDMI1
 workspace $ws2 output HDMI1
@@ -252,31 +173,110 @@ workspace $ws10 output HDMI2
 {% else %}
 {% endif %}
 {% if ansible_facts['hostname'] == 'crambot' %}
-workspace $ws1 output DP1
-workspace $ws2 output DP1
-workspace $ws3 output DP1
-workspace $ws4 output DP1
-workspace $ws5 output DP1
-workspace $ws6 output VGA1
-workspace $ws7 output VGA1
-workspace $ws8 output VGA1
-workspace $ws9 output VGA1
+workspace $ws1 output HDMI1
+workspace $ws2 output HDMI1
+workspace $ws3 output HDMI1
+workspace $ws4 output HDMI1
+workspace $ws5 output HDMI1
+workspace $ws6 output HDMI2
+workspace $ws7 output HDMI2
+workspace $ws8 output HDMI2
+workspace $ws9 output HDMI2
 workspace $ws10 output VGA1
 {% else %}
 {% endif %}
 
+######################################
+#       ---{ scratchpad }---
+######################################
+for_window [class="(?i)jack-keyboard"] floating enable, move to scratchpad, scratchpad show
+for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad show
+for_window [title="(?i)Mamba"] floating enable, resize set 640 480, move to scratchpad, scratchpad show
+######################################
+#       ---{ utils }---
+######################################
+for_window [class="^jgmenu"] move position center, focus
+for_window [title="^Sox Stats"] floating enable, resize set 640 480
+for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
+######################################
+#       ---{ reaper stuff }---
+######################################
+#for_window [title="^Mixer"] floating disable, border pixel 1
+for_window [class="REAPER" title="^Mixer"] floating disable
+for_window [title="JS:\ ATK FOA Decode Stereo"] floating disable
+for_window [title="^Docker"] floating disable
+for_window [title="^Toolbar"] floating disable
+######################################
+#       ---{ meters }---
+######################################
+for_window [class="(?i)meterbridge"] floating enable
+for_window [class="(?i)zita-mu1"] floating enable
+######################################
+#       ---{ audio apps }---
+######################################
+for_window [class="^sonic-pi$"] floating disable
+
 assign [class="^atom$"] 1
 assign [class="^sonic-pi$"] 1
-for_window [class="^sonic-pi$"] floating disable, border pixel 1, move container to workspace 1
 assign [class="^REAPER$"] 2
-assign [class="^Patchage$"] 5
 assign [class="^qsampler$"] 7
 assign [class="^qmidiarp$"] 7
+assign [title="JS:\ ATK FOA Decode Stereo"] 8
 assign [class="^jalv.gtkmm$"] 8
 assign [class="^jalv.select$"] 9
+assign [class="^Patchage$"] 9
 assign [title="^EBU R128 Meter$"] 10
 assign [title="zita-mu1-0.3.3"] 10
 assign [class="^meterbridge$"] 10
+
+######################################
+# ---{ app bindings }---
+######################################
+{% if ansible_facts['hostname'] == 'lapbot' %}
+bindsym XF86MonBrightnessDown $exec brightnessctl s 5%-
+bindsym XF86MonBrightnessUp $exec brightnessctl s 5%+
+{% else %}
+{% endif %}
+
+bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
+
+bindsym XF86AudioNext $exec mocp -f
+bindsym XF86AudioPrev $exec mocp -r
+bindsym XF86AudioPlay $exec mocp -G
+
+bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+# start a terminal
+bindsym $mod+Return $exec kitty
+
+# start dmenu (a program launcher)
+bindsym $mod+d $exec $rofi
+bindsym Menu $exec $jgmenu
+
+bindsym $mod+Home $exec google-chrome-stable %U
+bindsym $mod+Shift+Home $exec qutebrowser
+
+bindcode $mod+Mod2+$KP_Enter $exec $ranger
+
+bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
+
+bindsym XF86Search $exec $rsurfraw
+bindsym $mod+g $exec $rsurfraw
+
+bindsym $mod+Insert $exec zim --plugin quicknote
+
+set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
+bindsym $mod+slash $exec $help
+
+bindsym $mod+grave scratchpad show
+
+bindsym Print $exec teiler
+
+bindcode $alt+Shift+$KP_1 $exec atom
+bindcode $alt+Shift+$KP_9 $exec patchage
 
 ######################################
 # ---{ navigation bindings }---
@@ -310,9 +310,11 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
+bindsym $mod+Shift+h layout splitv
 bindsym $mod+h split v
 
 # split in vertical orientation
+bindsym $mod+Shift+v layout splith
 bindsym $mod+v split h
 
 # enter fullscreen mode for the focused container
