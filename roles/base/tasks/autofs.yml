@@ -1,12 +1,23 @@
 ---
 
-- name: Install autofs
-  import_role:
-    name: pkg_manager
-  vars:
-    _packages: autofs
-    pkg_state: present
-  tags: ['packages']
+# - name: check if atom is already installed
+#   stat: path="/usr/bin/autofs"
+#   register: haziautofs
+#   check_mode: no
+#
+# - block:
+#     - name: Set base packages to install
+#       set_fact:
+#         _packages: autofs
+#       tags: ['packages']
+#
+#     - name: Install autofs
+#       import_role:
+#         name: pkg_manager
+#       vars:
+#         pkg_state: present
+#
+#   when: not haziautofs.stat.exists
 
 - name: Create mount directory folder if it doesn't already exist
   file:
