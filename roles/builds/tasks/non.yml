@@ -4,19 +4,19 @@
   stat: path="/usr/local/bin/non-mixer"
   register: hazinonmixer
 
-- name: set non dependencies to install
-  set_fact:
-    _packages: "{{ builds.non }}"
-  tags: ['packages']
-
-- name: Install non dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - block:
+    - name: set non dependencies to install
+      set_fact:
+        _packages: "{{ builds.non }}"
+      tags: ['packages']
+
+    - name: Install non dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
     - name: clone non
       git:
         repo: "{{ non['git'] }}"

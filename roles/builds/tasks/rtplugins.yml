@@ -4,19 +4,19 @@
   stat: path="/usr/lib/ladspa/RTallpass1.so"
   register: hazirtplugins
 
-- name: set rtplugin dependencies to install
-  set_fact:
-    _packages: "{{ builds.rtplugins }}"
-  tags: ['packages']
-
-- name: Install rtplugin dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - block:
+    - name: set rtplugin dependencies to install
+      set_fact:
+        _packages: "{{ builds.rtplugins }}"
+      tags: ['packages']
+
+    - name: Install rtplugin dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
     - block:
         - name: Fetch rtplugins
           get_url:

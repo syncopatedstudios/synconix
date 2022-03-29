@@ -8,19 +8,19 @@
   register: check_installed
   tags: ['polyphone']
 
-- name: "Set {{ application.name }} dependencies to install"
-  set_fact:
-    _packages: "{{ application.dependencies.Archlinux }}"
-  tags: ['polyphone']
-
-- name: "Install {{ application.dependencies.Archlinux }}"
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['polyphone']
-
 - block:
+    - name: "Set {{ application.name }} dependencies to install"
+      set_fact:
+        _packages: "{{ application.dependencies.Archlinux }}"
+      tags: ['polyphone']
+
+    - name: "Install {{ application.dependencies.Archlinux }}"
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['polyphone']
+
     - name: "clone {{ application.source }}"
       git:
         repo: "{{ application.source.git }}"

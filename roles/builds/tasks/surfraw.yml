@@ -10,19 +10,19 @@
   register: check_installed
   tags: ['surfraw']
 
-- name: "Set {{ application.name }} dependencies to install"
-  set_fact:
-    _packages: "{{ application.dependencies }}"
-  tags: ['surfraw']
-
-- name: "Install {{ application.dependencies }}"
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['surfraw']
-
 - block:
+    - name: "Set {{ application.name }} dependencies to install"
+      set_fact:
+        _packages: "{{ application.dependencies }}"
+      tags: ['surfraw']
+
+    - name: "Install {{ application.dependencies }}"
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['surfraw']
+
     - name: "fetch {{ application.name }} from {{ application.source.url }}"
       get_url:
         url: "{{ application.source.url }}{{ application.source.file }}"

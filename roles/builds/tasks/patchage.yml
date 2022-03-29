@@ -4,19 +4,19 @@
   stat: path="/usr/local/bin/patchage"
   register: hazipatchage
 
-- name: set patchage dependencies to install
-  set_fact:
-    _packages: "{{ builds.drobilla }}"
-  tags: ['packages']
-
-- name: Install patchage dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - block:
+    - name: set patchage dependencies to install
+      set_fact:
+        _packages: "{{ builds.drobilla }}"
+      tags: ['packages']
+
+    - name: Install patchage dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
     - name: clone patchage
       git:
         repo: "{{ patchage['git'] }}"
