@@ -12,13 +12,10 @@
 
 # color vars
 eval col_gray='$FG[240]'
-eval col_primary='$FG[093]'
-eval col_diff='$FG[201]'
-eval col_red='$FG[124]'
-eval col_purple='$FG[093]'
 eval col_orange='$FG[202]'
-
-
+eval col_pink='$FG[201]'
+eval col_purple='$FG[093]'
+eval col_red='$FG[124]'
 
 HOSTNAME=$( cat /etc/hostname )
 
@@ -29,12 +26,12 @@ then
 PROMPT='$col_red%n@%m%{$reset_color%} [$col_gray%~%{$reset_color%}]%  '
 else
 {% if ansible_facts['hostname'] == 'crambot' %}
-PROMPT='%{$col_purple%}[$col_gray%~%{$col_purple%}]$(git_prompt_info)$col_gray%(?.%{$col_purple%}.%{$col_diff%})%{$reset_color%} '
+PROMPT='%{$col_purple%}[$col_gray%~%{$col_purple%}]$(git_prompt_info)$col_gray%(?.%{$col_purple%}.%{$col_pink%})%{$reset_color%} '
 {% else %}
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'lapbot' %}
-PROMPT='%{$col_purple%}[$col_gray%~%{$col_purple%}]$(git_prompt_info)$col_gray%(?.%{$col_purple%}.%{$col_diff%})%{$reset_color%} '
+PROMPT='%{$col_orange%}[$col_gray%~%{$col_orange%}]$(git_prompt_info)$col_gray%(?.%{$col_orange%}.%{$col_pink%})%{$reset_color%} '
 {% else %}
 {% endif %}
 
@@ -53,7 +50,7 @@ RPS1='${return_code}'
 # fi
 
 # git settings
-ZSH_THEME_GIT_PROMPT_PREFIX="$col_primary($col_gray"
+ZSH_THEME_GIT_PROMPT_PREFIX="$col_purple($col_gray"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="$col_diff+%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="$col_primary)%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="$col_pink+%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="$col_purple)%{$reset_color%}"
