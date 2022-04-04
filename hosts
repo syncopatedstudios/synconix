@@ -2,8 +2,8 @@
 bender
 
 [daw]
-crambot ansible_connection=local
-calculon
+crambot 
+calculon ansible_connection=local
 lapbot
 
 [node]

@@ -3,6 +3,8 @@ GRUB_TIMEOUT_STYLE=menu
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
 GRUB_DEFAULT=saved
 GRUB_SAVEDEFAULT=false
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 info"
+GRUB_CMDLINE_LINUX="rootfstype=btrfs"
 {% if inventory_hostname == 'lapbot' %}
 GRUB_CMDLINE_LINUX="crashkernel=auto threadirqs rhgb net.ifnames=0 biosdevname=0 audit=0 delayacct systemd.restore_state=0"
 {% else %}

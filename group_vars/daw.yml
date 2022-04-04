@@ -1,19 +1,19 @@
 ---
 
-use_kernel: zen
+use_kernel: lts
 
 graphical_target: True
 autologin: True
 
 build_baudline: True
-build_deadbeef: True
-build_ingen: True
 build_jacktrip: True
 build_jalv_select: True
 build_non: True
 build_patchage: True
 build_protokol: True
+build_raysession: True
 build_reaper: True
+build_seq192: True
 build_soniclineup: True
 build_sonicpi: True
 build_timemachine: True

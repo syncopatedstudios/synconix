@@ -1,6 +1,6 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
-use_kernel: zen
+use_kernel: lts
 
 use_networkmanager: False
 use_systemdnetwork: True
@@ -35,7 +35,7 @@ systemd_networkd_network:
       - Address: "192.168.36.1/24"
 
 firewalld:
-  zone: docker
+  zone: public
   ports:
     - 4464/udp
     - 24800/tcp
@@ -56,7 +56,7 @@ soundcard:
 wallpaper:
   screen1: /usr/share/backgrounds/010.png
 
-sync_host: lapbot
+#sync_host: lapbot
 
 autofs_client:
   host: bender

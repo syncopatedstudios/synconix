@@ -94,6 +94,10 @@
   when: build_rtplugins is defined
   tags: ['rtplugins']
 
+- include: seq192.yml
+  when: build_seq192 is defined
+  tags: ['seq192']
+
 - include: soniclineup.yml
   when: build_soniclineup is defined
   tags: ['soniclineup']
