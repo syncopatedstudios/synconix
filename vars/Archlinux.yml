@@ -481,6 +481,8 @@ builds:
     - qt5-tools
     - python-pyliblo
     - python-pyqt5
+  seq192:
+    - nlohmann-json
   sonicpi:
     - aubio
     - boost
