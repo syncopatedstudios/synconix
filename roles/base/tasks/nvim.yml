@@ -3,11 +3,13 @@
 - name: check if nvim already exists
   stat: path="/usr/local/bin/nvim"
   register: hazinvim
+  tags: ['dots']
 
 - name: check if nvim already exists
   stat: path="/usr/bin/nvim"
   register: hazinvim
   when: not hazinvim.stat.exists
+  tags: ['dots']
 
 - block:
     - name: fetch neovim

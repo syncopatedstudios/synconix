@@ -39,7 +39,7 @@
     mode: '0775'
   tags: ['dots']
 
-- name: Push oh-my-zsh-theme
+- name: Push oh-my-zsh-theme template
   template:
     src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme.j2"
     dest: "/usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
@@ -47,7 +47,7 @@
     group: root
     mode: '0644'
   tags: ['dots']
-  
+
 - name: set root shell to zsh
   user:
     name: root
