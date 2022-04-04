@@ -7,6 +7,13 @@ fi
 /usr/bin/xmodmap -e "clear Lock"
 /usr/bin/xmodmap -e "keysym Caps_Lock = F13"
 
+xmodmap -e "keycode 107 = XF86AudioMute NoSymbol XF86AudioMute"
+
+xmodmap -e "keycode 78 = XF86AudioLowerVolume NoSymbol XF86AudioLowerVolume"
+
+xmodmap -e "keycode 127 = XF86AudioRaiseVolume NoSymbol XF86AudioRaiseVolume"
+
+
 xset s off
 xset -dpms
 

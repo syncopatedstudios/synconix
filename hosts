@@ -2,7 +2,7 @@
 bender
 
 [daw]
-crambot 
+crambot
 calculon
 lapbot ansible_connection=local
 

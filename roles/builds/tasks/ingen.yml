@@ -3,6 +3,7 @@
 - name: check if ingen is already installed
   stat: path="/usr/local/bin/ingen"
   register: haziingen
+  tags: ['ingen']
 
 - block:
     - name: set ingen dependencies to install

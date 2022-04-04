@@ -66,6 +66,9 @@ scala:
   url: "http://www.huygens-fokker.org/software/"
   file: "scala-22-pc64-linux.tar.bz2"
 
+seq192:
+  git: "https://github.com/jean-emmanuel/seq192.git"
+
 sonicannotator:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2708/"
   file: "sonic-annotator-1.6-linux64-static.tar.gz"
