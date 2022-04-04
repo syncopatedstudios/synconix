@@ -39,13 +39,15 @@
     mode: '0775'
   tags: ['dots']
 
-- name: Push oh-my-zsh-theme
-  copy:
-    src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
+ - name: Install i3 templates
+  template:
+    src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme.j2"
     dest: "/usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
-    mode: '0644'
-    backup: yes
-    directory_mode: no
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
+    mode: "0644"
+    backup: no
+  notify: restart i3
   tags: ['dots']
 
 - name: set root shell to zsh
