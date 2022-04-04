@@ -106,6 +106,7 @@ base:
     - rtkit
     - ruby-bundler
     - rubygems
+    - s
     - samba
     - screen
     - sndio

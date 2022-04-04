@@ -39,6 +39,11 @@ then
   i3-msg "exec --no-startup-id kitty -1 --name 'kitty_init'";sleep 1
 fi
 
+if ! pgrep -x "s" > /dev/null
+then
+  i3-msg "exec --no-startup-id 's -s -v'";sleep 1
+fi
+
 xdotool search --onlyvisible --name "Patchage" key ctrl+g
 
 i3-msg [class="^kitty_init$"], move container to workspace 9
