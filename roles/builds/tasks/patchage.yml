@@ -1,7 +1,9 @@
 ---
+# fmt 8.0.1-2 works
+# fmt 8.1.1-2 does not
 
 - name: check if patchage is already installed
-  stat: path="/usr/local/bin/patchage"
+  stat: path="/usr/bin/patchage"
   register: hazipatchage
 
 - block:
@@ -27,7 +29,7 @@
         recursive: yes
 
     - name: configure patchage
-      command: bash -lc "./waf configure && ./waf"
+      command: bash -lc "./waf configure --prefix=/usr && ./waf"
       args:
         chdir: "{{ local_src }}/patchage"
 
