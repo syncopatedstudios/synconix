@@ -54,21 +54,21 @@
         dest: "{{ user.home }}/.local/share/nvim/site/autoload/plug.vim"
       when: not hazinvimplugged.stat.exists
 
-    - name: install nvim settings
-      synchronize:
-        src: "dots/config/nvim"
-        dest: "{{ user.home }}/.config/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        times: no
+    # - name: install nvim settings
+    #   synchronize:
+    #     src: "dots/config/nvim"
+    #     dest: "{{ user.home }}/.config/"
+    #     recursive: yes
+    #     mode: push
+    #     delete: no
+    #     checksum: yes
+    #     perms: no
+    #     times: no
 
   become: True
   become_user: "{{ user.name }}"
   when: "not hazinvim.stat.exists"
-  tags: ['dots']
+  tags: ['nvim']
 
 - name: check if bash-language-server is already installed
   stat: path="/usr/bin/bash-language-server"

@@ -1,0 +1,34 @@
+customProviders [
+  {
+    name: academictorrents
+    url: "https://academictorrents.com/browse.php?search=%s"
+    tags: [torrentss]
+  },
+  {
+    name: archwiki
+    url: "https://wiki.archlinux.org/index.php?search=%s"
+    tags: [linux]
+  },
+  {
+    name: gist
+    url: "https://gist.github.com/search?q=%s"
+    tags: [linux]
+  },
+  {
+    name: github
+    url: "https://github.com/search?utf8=✓&q=%s"
+    tags: [linux]
+  },
+  {
+    name: google
+    url: "https://www.google.com/search?q=%s"
+    tags: [linux]
+  },
+  {
+    name: stackoverflow
+    url: "https://stackoverflow.com/search?q=%s"
+    tags: [linux]
+  }
+]
+whitelist: [ archwiki, aur, gist, github, google, rubygems, stackoverflow ]
+provider: google

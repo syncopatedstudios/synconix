@@ -1,9 +1,0 @@
-customProviders [
-  {
-    name: academictorrents
-    url: "https://academictorrents.com/browse.php?search=%s"
-    tags: [torrentss]
-  }
-]
-whitelist: [ archwiki, aur, gist, github, google, rubygems, stackoverflow ]
-provider: google

@@ -37,8 +37,8 @@
 - include: dots.yml
   tags: ['dots']
 
-# - include: ruby.yml
-#   tags: ['ruby']
+- include: ruby.yml
+  tags: ['ruby']
 
 - include: filesystem.yml
   tags: ['filesystem']
@@ -71,9 +71,6 @@
 
 - include: indexer.yml
   tags: ['indexer']
-
-- include: filemanager.yml
-  tags: ['filemanager', 'ranger' ,'pcmanfm']
 
 - block:
     - name: Set desktop packages
@@ -110,4 +107,5 @@
   import_role:
     name: builds
   when: inventory_hostname in groups['daw']
+  check_mode: no
   tags: ['builds']

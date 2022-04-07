@@ -1,14 +1,14 @@
 ---
 
-- name: install system gemrc
-  copy:
-    src: etc/gemrc
-    dest: /etc/gemrc
-    directory_mode: no
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
+# - name: install system gemrc
+#   copy:
+#     src: etc/gemrc
+#     dest: /etc/gemrc
+#     directory_mode: no
+#     owner: root
+#     group: root
+#     mode: '0644'
+#     backup: yes
 
 #TODO: account for using RVM
 
@@ -27,7 +27,7 @@
 
 - name: install ruby gems
   shell: |
-    sudo gem install {{ item }} --no-user-install
+    gem install {{ item }}
   with_items:
     - "{{ _gems }}"
   when: _gems | length > 0

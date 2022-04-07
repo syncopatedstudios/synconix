@@ -48,16 +48,6 @@
       notify: restart i3
       tags: ['i3-config']
 
-    - name: Install autostart script
-      copy:
-        src: dots/config/i3/scripts/autostart.sh
-        dest: "{{ user.home }}/.config/i3/scripts/autostart.sh"
-        directory_mode: no
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0755'
-      tags: ['i3-config', 'autostart']
-
     - name: Install polybar templates
       template:
         src: "dots/config/polybar/config.j2"

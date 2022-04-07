@@ -1,25 +1,6 @@
 ---
 
 - block:
-    - name: check if termpdf.py is already installed
-      stat: path="/usr/local/bin/termpdf.py"
-      register: hazitermpdf
-
-    - name: install termpdf
-      shell: |
-        git clone https://github.com/dsanson/termpdf.py
-        cd termpdf.py
-        pip install -r requirements.txt
-        sudo cp termpdf.py /usr/local/bin/termpdf.py
-        pip install --user pillow
-      args:
-        chdir: "{{ local_src }}"
-      when: not hazitermpdf.stat.exists
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['kitty']
-
-- block:
     - name: Push zshell templates
       template:
         src: "dots/{{ item }}.j2"
@@ -34,32 +15,6 @@
         - "zlogin"
         - "zshenv"
         - "zshrc"
-
-    - name: Push zshell function folder
-      synchronize:
-        src: dots/zsh/
-        dest: "{{ user.home }}/.zsh/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        rsync_opts: "--update"
-
-    - name: Push terminal emulator configs
-      synchronize:
-        src: "dots/config/{{ item }}"
-        dest: "{{ user.home }}/.config/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        rsync_opts: "--update"
-      with_items:
-        - kitty
-        - terminator
-      tags: ['terminator', 'kitty']
 
   become: True
   become_user: "{{ user.name }}"

@@ -7,7 +7,7 @@ PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:/opt/sonic-pi/bin"
 #PATH="$PATH:$HOME/.local/pipx/venvs/unsilence/bin"
 
-PATH="$PATH:$HOME/.gem/ruby/3.0.0/bin"
+PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
 PATH="$PATH:$JAVA_HOME/bin"
 PATH="$PATH:$SOUNDBOT/bin"
 PATH="$PATH:/usr/lib/surfraw"

@@ -1,0 +1,20 @@
+---
+
+- block:
+    - name: check if termpdf.py is already installed
+      stat: path="/usr/local/bin/termpdf.py"
+      register: hazitermpdf
+
+    - name: install termpdf
+      shell: |
+        git clone https://github.com/dsanson/termpdf.py
+        cd termpdf.py
+        pip install -r requirements.txt
+        sudo cp termpdf.py /usr/local/bin/termpdf.py
+        pip install --user pillow
+      args:
+        chdir: "{{ local_src }}"
+      when: not hazitermpdf.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['termpdf','kitty']

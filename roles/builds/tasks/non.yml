@@ -50,3 +50,4 @@
   become: True
   become_user: "{{ user.name }}"
   when: not hazinonmixer.stat.exists
+  check_mode: no

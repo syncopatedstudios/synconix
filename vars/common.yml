@@ -33,6 +33,7 @@ gems:
   - activesupport
   - awesome_print
   - bcrypt_pbkdf
+  - coltrane
   - childprocess
   - drydock
   - ed25519

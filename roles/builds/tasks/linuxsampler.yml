@@ -5,6 +5,16 @@
   stat: path="/usr/local/bin/linuxsampler"
   register: hazilinuxsampler
 
+- name: copy ld config file
+  copy:
+    src: etc/ld.so.conf
+    dest: /etc/ld.so.conf
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
+    backup: yes
+
 - block:
     - name: gather facts
       setup:
@@ -56,16 +66,6 @@
         chdir: "{{ local_src }}"
       register: libgig_build
       failed_when: libgig_build.failed
-
-    - name: copy ld config file
-      copy:
-        src: etc/ld.so.conf
-        dest: /etc/ld.so.conf
-        owner: root
-        group: root
-        mode: '0644'
-        directory_mode: no
-        backup: yes
 
     - name: run ldconfig
       shell: |
