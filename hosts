@@ -2,9 +2,9 @@
 bender
 
 [daw]
-crambot
+crambot ansible_connection=local
 calculon
-lapbot ansible_connection=local
+lapbot
 
 [node]
 soundbot01

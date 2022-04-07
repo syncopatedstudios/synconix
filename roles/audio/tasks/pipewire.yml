@@ -1,32 +1,5 @@
 ---
 
-# - name: Ensure pipewire config directory exists
-#   shell: "mkdir -pv /usr/share/pipewire/{media-session.d,filter-chain}"
-#   register: pw_config_dir
-#   changed_when: pw_config_dir.rc != 0
-#   tags: ['pipewire']
-#
-# - name: Sync pipewire config templates
-#   template:
-#     src: "usr/share/pipewire/{{ item }}.j2"
-#     dest: "/usr/share/pipewire/{{ item }}"
-#     owner: "{{ user.name }}"
-#     group: "{{ user.name }}"
-#     mode: "0644"
-#     backup: yes
-#   with_items:
-#     - "pipewire.conf"
-#     - "pipewire-pulse.conf"
-#     - "jack.conf"
-#     - "client.conf"
-#     - "client-rt.conf"
-#     - "media-session.d/alsa-monitor.conf"
-#     - "media-session.d/bluez-monitor.conf"
-#     - "media-session.d/media-session.conf"
-#     - "media-session.d/v4l2-monitor.conf"
-#   register: pipewire_config
-#   tags: ['pipewire']
-
 - name: sync pipewire configs
   synchronize:
     src: "usr/share/pipewire"

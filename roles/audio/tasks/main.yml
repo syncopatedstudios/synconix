@@ -7,8 +7,8 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include: pulseaudio.yml
-  tags: ['pulseaudio']
+# - include: pulseaudio.yml
+#   tags: ['pulseaudio']
 
 - name: set pipewire packages to install
   set_fact:

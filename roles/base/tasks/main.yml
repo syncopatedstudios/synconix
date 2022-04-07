@@ -59,7 +59,7 @@
   tags: ['docker']
 
 - include: libvirt.yml
-  when: kvm_host|bool and libvirt is defined
+  when: kvm_host|bool
   tags: ['libvirt']
 
 # - include: backups.yml

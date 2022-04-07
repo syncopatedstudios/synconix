@@ -64,7 +64,7 @@ autofs_client:
     - storage
     - backup
 
-kvm_host: False
+kvm_host: True
 docker_host: True
 docker_storage: /storage/docker
 
