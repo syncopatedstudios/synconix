@@ -9,7 +9,7 @@
     - name: set raysession dependencies to install
       set_fact:
         _packages: "{{ builds.raysession }}"
-      when: development.raysession is defined
+      when: builds.raysession is defined
       tags: ['packages']
 
     - name: Install raysession dependencies

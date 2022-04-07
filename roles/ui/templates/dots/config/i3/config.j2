@@ -72,12 +72,12 @@ $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'crambot' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name crambot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name crambot --disable-crypto [lapbot]:24800 &"
 {% else %}
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'lapbot' %}
-#$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [calculon]:24800 &"
+$exec /usr/bin/barriers -f --no-tray --debug INFO --name lapbot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
 {% else %}
 {% endif %}
 

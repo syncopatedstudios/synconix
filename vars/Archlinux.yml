@@ -323,7 +323,7 @@ builds:
     - docker-compose
   libvirt:
     - dmidecode
-    - dnsmsaq
+    - dnsmasq
     - edk2-ovmf
     - libguestfs
     - libvirt
