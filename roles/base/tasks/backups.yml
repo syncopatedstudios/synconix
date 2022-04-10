@@ -1,40 +1,51 @@
 ---
 
-- block:
-    - name: ensure lsyncd config dir exists
-      shell: |
-        mkdir -pv lsyncd
-      args:
-        chdir: "{{ user.home }}/.config"
-
-    - name: install lsyncd config
-      template:
-        src: dots/config/lsyncd/lsyncd.conf.lua.j2
-        dest: "{{ user.home }}/.config/lsyncd/lsyncd.conf.lua"
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-      become: True
-      become_user: "{{ user.name }}"
-
-    - name: install lsyncd systemd config
-      template:
-        src: usr/lib/systemd/user/lsyncd.service.j2
-        dest: /usr/lib/systemd/user/lsyncd.service
-        owner: root
-        group: root
-      register: lsyncd_service
-
-    - name: reload systemd
-      shell: |
-        systemctl daemon-reload
-      when: lsyncd_service.changed
-
-    - name: enable lsyncd service
-      systemd:
-        name: lsyncd
-        state: started
-        enabled: yes
-        scope: user
-      become: True
-      become_user: "{{ user.name }}"
-  tags: ['lsyncd']
+- name: install osync configs
+  copy:
+    src: "etc/osync/{{ item }}"
+    dest: "/etc/osync/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - exclude.list
+    - sync.conf
+#
+# - block:
+#     - name: ensure lsyncd config dir exists
+#       shell: |
+#         mkdir -pv lsyncd
+#       args:
+#         chdir: "{{ user.home }}/.config"
+#
+#     - name: install lsyncd config
+#       template:
+#         src: dots/config/lsyncd/lsyncd.conf.lua.j2
+#         dest: "{{ user.home }}/.config/lsyncd/lsyncd.conf.lua"
+#         owner: "{{ user.name }}"
+#         group: "{{ user.name }}"
+#       become: True
+#       become_user: "{{ user.name }}"
+#
+#     - name: install lsyncd systemd config
+#       template:
+#         src: usr/lib/systemd/user/lsyncd.service.j2
+#         dest: /usr/lib/systemd/user/lsyncd.service
+#         owner: root
+#         group: root
+#       register: lsyncd_service
+#
+#     - name: reload systemd
+#       shell: |
+#         systemctl daemon-reload
+#       when: lsyncd_service.changed
+#
+#     - name: enable lsyncd service
+#       systemd:
+#         name: lsyncd
+#         state: started
+#         enabled: yes
+#         scope: user
+#       become: True
+#       become_user: "{{ user.name }}"
+#   tags: ['lsyncd']

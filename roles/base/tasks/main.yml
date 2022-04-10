@@ -59,9 +59,9 @@
   when: kvm_host|bool
   tags: ['libvirt']
 
-# - include: backups.yml
-#   when: sync_host is defined
-#   tags: ['backups']
+- include: backups.yml
+  when: sync_host is defined
+  tags: ['backups']
 
 - include: nvim.yml
   tags: ['nvim']
