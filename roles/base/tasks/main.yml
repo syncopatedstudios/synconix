@@ -25,6 +25,9 @@
 - include: firewalld.yml
   tags: ['firewall']
 
+- include: ssh.yml
+  tags: ['ssh']
+
 - include: sudoers.yml
   tags: ['sudoers']
 
@@ -47,9 +50,9 @@
   when: nfs_host is defined
   tags: ['nfs']
 
-- include: autofs.yml
-  when: autofs_client is defined
-  tags: ['autofs']
+# - include: autofs.yml
+#   when: autofs_client is defined
+#   tags: ['autofs']
 
 - include: docker.yml
   when: docker_host|bool and docker is defined

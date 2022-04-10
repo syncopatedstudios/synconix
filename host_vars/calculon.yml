@@ -50,7 +50,7 @@ autofs_client:
   host: bender
   shares:
     - storage
-    - backup
+    - home/backups
 
 kvm_host: False
 docker_host: True
