@@ -312,6 +312,7 @@ workstation:
     - thunar-archive-plugin
     - thunar-volman
     - timeshift
+    - wmctrl
     - wordnet-cli
     - xarchiver
     - xdot

@@ -34,10 +34,10 @@ then
   i3-msg "exec --no-startup-id /usr/local/bin/patchage";sleep 1
 fi
 
-if ! pgrep -x "kitty" > /dev/null
-then
-  i3-msg "exec --no-startup-id kitty -1 --name 'kitty_init'";sleep 1
-fi
+# if ! pgrep -x "kitty" > /dev/null
+# then
+#   i3-msg "exec --no-startup-id kitty -1 --name 'kitty_init'";sleep 1
+# fi
 
 if ! pgrep -x "s" > /dev/null
 then
@@ -46,8 +46,8 @@ fi
 
 xdotool search --onlyvisible --name "Patchage" key ctrl+g
 
-i3-msg [class="^kitty_init$"], move container to workspace 9
-i3-msg [class="^kitty_init$"], resize shrink height 400px
+# i3-msg [class="^kitty_init$"], move container to workspace 9
+# i3-msg [class="^kitty_init$"], resize shrink height 400px
 
 i3-msg [class="^Zim$"], move container to workspace 10
 
