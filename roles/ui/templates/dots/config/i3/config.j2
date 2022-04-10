@@ -41,7 +41,7 @@ set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 set $googler "guake --show -n '$PWD' -e googler"
 
-set $rsurfraw "$HOME/Workspace/robot-stuff/search.rb"
+set $search "/usr/local/bin/search.sh"
 
 set $ranger "kitty -e ranger"
 
@@ -262,8 +262,8 @@ bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
-bindsym XF86Search $exec $rsurfraw
-bindsym $mod+g $exec $rsurfraw
+bindsym XF86Search $exec $search
+bindsym $mod+g $exec $search
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 

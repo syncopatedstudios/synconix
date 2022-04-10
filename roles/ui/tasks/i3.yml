@@ -95,15 +95,16 @@
         - "jgmenu/prepend.csv"
       tags: ['jgmenu']
 
-    - name: Install rofi-surfraw
+    - name: Install search script
       copy:
-        src: usr/local/bin/rofi-surfraw
-        dest: /usr/local/bin/rofi-surfraw
+        src: usr/local/bin/search.sh
+        dest: /usr/local/bin/search.sh
         directory_mode: no
         owner: "{{ user.name }}"
         group: "{{ user.name }}"
         mode: '0775'
-      tags: ['rofi', 'surfraw']
+        backup: no
+      tags: ['search']
 
     - name: Install picom config
       copy:
