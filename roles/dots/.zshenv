@@ -1,1 +1,0 @@
-../base/files/root/.zshenv
