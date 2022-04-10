@@ -2,14 +2,19 @@
 
 - name: sync pipewire configs
   synchronize:
-    src: "usr/share/pipewire"
-    dest: "/usr/share/"
+    src: "usr/share/pipewire/"
+    dest: "/usr/share/pipewire/"
     recursive: yes
     mode: push
     delete: no
     checksum: yes
     perms: no
-    rsync_opts: "--update"
+    rsync_opts:
+      - "--delete-before"
+      - "--backup-dir='.backup'"
+      - "--suffix='_bak'"
+      - "--update"
+      - "--exclude='.backup'"
   register: pipewire_config
   tags: ['pipewire']
 
