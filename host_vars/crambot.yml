@@ -56,7 +56,7 @@ soundcard:
 wallpaper:
   screen1: /usr/share/backgrounds/010.png
 
-sync_host: lapbot
+sync_host: bender
 
 autofs_client:
   host: bender

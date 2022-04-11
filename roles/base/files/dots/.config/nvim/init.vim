@@ -8,11 +8,18 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lilyinstarlight/vim-sonic-pi'
-Plug 'https://github.com/Lokaltog/neoranger.git'
+Plug 'preservim/nerdtree'
 Plug 'https://github.com/jalvesaq/vimcmdline.git'
 Plug 'ryanoasis/vim-devicons'
 Plug 'https://github.com/chrisbra/unicode.vim.git'
 Plug 'https://github.com/tpope/vim-surround.git'
+Plug 'rktjmp/lush.nvim'
+Plug 'https://github.com/nanotech/jellybeans.vim.git'
+Plug 'tomasr/molokai'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'liuchengxu/space-vim-dark'
+
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -37,15 +44,18 @@ endif
 let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
-let g:airline_theme = 'minimalist'
+let g:airline_theme = 'powerlineish'
 
 " Configure hexokinase colorizer
 :set termguicolors
 let g:Hexokinase_highlighters = [ 'virtual' ]
 
 " Set colorscheme
-let g:SnazzyTransparent = 1
-colorscheme industry
+" let g:SnazzyTransparent = 1
+
+colorscheme molokai
+
+
 
 " Default term cursor
 set guicursor=
@@ -69,14 +79,18 @@ nnoremap <A-Left> <C-w>h
 nnoremap <A-Up> <C-w>k
 nnoremap <A-Down> <C-w>j
 
+"" NERDTree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTree<CR>
+noremap <F3> :NERDTreeToggle<CR>
 
-map <F2> :Ranger<cr>
-
-" for setting ranger viewmode values
-let g:neoranger_viewmode='multipane' " supported values are ['multipane', 'miller']
-
-" for setting any extra option passed to ranger params
-let g:neoranger_opts='--cmd="set show_hidden true"' " this line makes ranger show hidden files by default
 
 " tab completion, select on enter
 inoremap <silent><expr> <TAB>
