@@ -1,8 +1,8 @@
 ---
 
 - name: install osync configs
-  copy:
-    src: "etc/osync/{{ item }}"
+  template:
+    src: "etc/osync/{{ item }}.j2"
     dest: "/etc/osync/{{ item }}"
     owner: root
     group: root
