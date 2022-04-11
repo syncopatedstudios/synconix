@@ -263,6 +263,7 @@ audio:
     - hydrogen
     - jack_mixer
     - japa
+    - jkmeter
     - mixxx
     - non-sequencer
     - ocenaudio-bin
