@@ -42,6 +42,6 @@
     - name: enable lsyncd service
       systemd:
         name: lsyncd
-        state: started
-        enabled: yes
+        state: stopped
+        enabled: no
   tags: ['lsyncd']
