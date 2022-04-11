@@ -4,12 +4,14 @@
   stat: path="/usr/local/bin/nvim"
   register: hazinvim
   tags: ['dots']
+  check_mode: no
 
 - name: check if nvim already exists
   stat: path="/usr/bin/nvim"
   register: hazinvim
   when: not hazinvim.stat.exists
   tags: ['dots']
+  check_mode: no
 
 - block:
     - name: fetch neovim
@@ -47,6 +49,7 @@
         state: directory
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
+      check_mode: no
 
     - name: fetch plug.vim
       get_url:

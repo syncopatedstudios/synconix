@@ -38,6 +38,7 @@
     state: directory
     mode: '0775'
   tags: ['dots']
+  check_mode: no
 
 - name: Push oh-my-zsh-theme template
   template:
