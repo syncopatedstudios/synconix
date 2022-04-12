@@ -75,6 +75,7 @@ base:
     - libopusenc
     - libsamplerate
     - libvdpau-va-gl
+    - libxcrypt-compat
     - libxml2
     - libzip
     - lnav
