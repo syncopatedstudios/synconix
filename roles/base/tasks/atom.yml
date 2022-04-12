@@ -1,11 +1,13 @@
 ---
 
 # https://github.com/atom/atom/releases
+
 - name: check if atom is already installed
-  stat: path="/usr/bin/atom"
-  register: haziatom
-  check_mode: no
-  tags: ['dots']
+  shell: |
+    command -v atom && command -v apm
+  args:
+    warn: no
+  register: atom_check
 
 - block:
     - name: gather list of installed apm packages
@@ -26,4 +28,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: haziatom.stat.exists
+  when: atom_check.rc != 0

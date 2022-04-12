@@ -6,7 +6,7 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 Let's say all the things necessary to make this work are in place*, and yer itchin'. Ask yourself: "Where have I been putting my hands lately?"
 
-For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts for an audio production environment. This whole thing could probably be refactored to a single role depending on the level of detailed control desired.
+For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts for an audio production environment.
 
 # Wiki stuff
 

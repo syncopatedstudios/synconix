@@ -49,23 +49,3 @@
 #     - "fstrim_supported.stdout != 0"
 #   register: fstab
 #   tags: ['filesystem']
-
-# - block:
-#     - name: Reboot if a different kernel was installed
-#       shell: "shutdown -r now"
-#       async: 1
-#       poll: 0
-#       ignore_errors: True
-#       register: reboot
-#
-#     - name: wait for reboot complete before moving on
-#       local_action:
-#         module: wait_for
-#         host: "{{ inventory_hostname }}"
-#         state: started
-#         delay: 10
-#         timeout: 60
-#       when: reboot.changed
-#
-#   when: fstab is changed
-#   tags: ['filesystem']
