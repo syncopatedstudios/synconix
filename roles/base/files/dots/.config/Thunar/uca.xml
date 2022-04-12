@@ -212,7 +212,7 @@
 	<name>genereate spectrogram</name>
 	<submenu></submenu>
 	<unique-id>1642197296022568-2</unique-id>
-	<command>xterm -T &quot;generate spectrogram&quot; -e /home/b08x/Workspace/robot-stuff/spectrogram.rb %F</command>
+	<command>xterm -T &quot;generate spectrogram&quot; -e /home/b08x/.local/bin/spectrogram.rb %F</command>
 	<description></description>
 	<range>*</range>
 	<patterns>*.flac;*.mp3</patterns>
