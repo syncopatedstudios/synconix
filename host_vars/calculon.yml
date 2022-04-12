@@ -9,6 +9,7 @@ systemd_networkd_network:
   eth0:
     - Match:
       - Name: "eth0"
+      - MACAddress: "bc:5f:f4:0e:bb:b5"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
@@ -19,10 +20,11 @@ systemd_networkd_network:
   eth1:
     - Match:
       - Name: "eth1"
+      - MACAddress: "bc:5f:f4:0e:bb:b3"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - Address: "192.168.40.1/24"
+      - Address: "192.168.40.2/24"
 
 firewalld:
   zone: docker
