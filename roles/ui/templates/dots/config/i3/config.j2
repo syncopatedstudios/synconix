@@ -198,7 +198,7 @@ for_window [title="(?i)Mamba"] floating enable, resize set 640 480, move to scra
 for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
-for_window [title="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
+for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
 ######################################
 #       ---{ reaper stuff }---
 ######################################
@@ -274,7 +274,9 @@ bindsym $mod+g $exec $search
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
+# set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
+set $help "kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
+
 bindsym $mod+slash $exec $help
 
 bindsym $mod+grave scratchpad show
