@@ -60,9 +60,9 @@ sync_host: bender
 
 autofs_client:
   host: bender
-  shares:
-    - storage
-    - backup
+  exports:
+    storage: /storage
+    backups: /home/backups
 
 kvm_host: True
 docker_host: True
