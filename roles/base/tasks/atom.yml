@@ -8,6 +8,7 @@
   args:
     warn: no
   register: atom_check
+  changed_when: atom_check.rc != 0
 
 - block:
     - name: gather list of installed apm packages
