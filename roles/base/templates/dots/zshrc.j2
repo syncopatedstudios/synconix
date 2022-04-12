@@ -102,6 +102,8 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;36m'
 export LESS=-R
 
+# to use kitty's hyperlinked_grep with completion
+compdef _rg hg
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases

@@ -67,7 +67,7 @@ $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'calculon' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [192.168.40.2]:24800 &"
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [crambot]:24800 &"
 {% else %}
 {% endif %}
 
@@ -198,6 +198,7 @@ for_window [title="(?i)Mamba"] floating enable, resize set 640 480, move to scra
 for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
+for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
 ######################################
 #       ---{ reaper stuff }---
 ######################################
@@ -219,6 +220,7 @@ for_window [class="(?i)zita-mu1"] floating enable
 for_window [class="^sonic-pi$"] floating disable
 
 assign [class="^atom$"] 1
+assign [class="^kitty_init$"] 1
 assign [class="^sonic-pi$"] 1
 assign [class="^REAPER$"] 2
 assign [class="^mixxx$"] 3
@@ -272,7 +274,9 @@ bindsym $mod+g $exec $search
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
+# set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
+set $help "kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
+
 bindsym $mod+slash $exec $help
 
 bindsym $mod+grave scratchpad show

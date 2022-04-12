@@ -16,8 +16,9 @@
   when: build_audiowaveform is defined
   tags: ['audiowaveform']
 
-- include_tasks: surfraw.yml
-  tags: ['surfraw']
+#TODO: refactor task
+# - include_tasks: surfraw.yml
+#   tags: ['surfraw']
 
   ###################################
 
