@@ -1,0 +1,8 @@
+[Unit]
+Description=WPA supplicant daemon (interface- and wired driver-specific version) configuration file watcher
+After=wpa_supplicant-wired@%i.service
+BindsTo=wpa_supplicant-wired@%i.service
+
+[Path]
+PathModified=/etc/wpa_supplicant/wpa_supplicant-wired-%I.conf
+Unit=wpa_supplicant-reload@%i.service

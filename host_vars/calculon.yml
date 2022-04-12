@@ -12,11 +12,10 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.41.1
-      - Domains: "syncopated.net"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
       - Address: "192.168.41.3/24"
       - Gateway: "192.168.41.1"
-
   eth1:
     - Match:
       - Name: "eth1"
@@ -25,21 +24,34 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - Address: "192.168.40.1/24"
 
+firewalld:
+  zone: docker
+  ports:
+    - 4464/udp
+    - 24800/tcp
+
+soundcard:
+  nick: "analog_stereo_out"
+  description: "default audio route"
+  alsa_in: "alsa_input.pci-0000_00_1b.0.capture.0.0"
+  alsa_out: "alsa_output.pci-0000_00_1b.0.playback.0.0"
+  resample_quality: 9
+  channels: 2
+  format: "S32LE"
+  rate: 48000
+  allowed-rates: "32000,44100,48000,96000"
+  speaker-layout: "FL,FR"
+
+wallpaper:
+  screen1: "{{ user.home }}/Library/Visuals/backgrounds/001.png"
+  # screen2: "{{ user.home }}/Library/Visuals/backgrounds/002.png"
 
 autofs_client:
   host: bender
   shares:
     - storage
-    - backup
+    - home/backups
 
 kvm_host: False
 docker_host: True
 docker_storage: /storage/docker
-
-install_rga: True
-install_googler: True
-install_atom: True
-
-install_audio_utils: True
-install_audio_plugins: True
-install_daw: True

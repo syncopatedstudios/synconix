@@ -1,0 +1,101 @@
+---
+
+- name: gather facts
+  setup:
+    gather_subset:
+      - os_family
+  tags: ['audiowaveform']
+
+- name: print msg
+  debug:
+    msg: "{{ ansible_facts }}"
+  tags: ['audiowaveform']
+
+- include_vars:
+   file: defaults/audiowaveform.yml
+  tags: ['audiowaveform']
+
+- name: check if this installed
+  stat:
+    path: "{{ application.source.folder }}/.installed"
+  register: check_installed
+  tags: ['audiowaveform']
+
+- name: "Set {{ application.name }} dependencies to install"
+  set_fact:
+    _packages: "{{ application.dependencies.Archlinux }}"
+  when: "ansible_os_family == 'Archlinux'"
+  tags: ['audiowaveform']
+
+- name: "Set {{ application.name }} dependencies to install"
+  set_fact:
+    _packages: "{{ application.dependencies.RedHat }}"
+  when: "ansible_os_family == 'RedHat'"
+  tags: ['audiowaveform']
+
+- name: "Install {{ _packages }}"
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['audiowaveform']
+
+- block:
+    - name: "clone {{ application.source }}"
+      git:
+        repo: "{{ application.source.git }}"
+        dest: "{{ application.source.folder }}"
+        accept_hostkey: yes
+        update: no
+        force: yes
+
+    - name: download googletest
+      get_url:
+        url: "{{ googletest.url }}{{ googletest.file }}"
+        dest: "{{ application.source.folder }}"
+        validate_certs: no
+
+    - name: "extract googletest"
+      unarchive:
+        src: "{{ application.source.folder }}/googletest-release-1.11.0.tar.gz"
+        dest: "{{ application.source.folder }}"
+
+    - name: "configure {{ application.name }}"
+      shell: |
+        ln -s googletest-release-1.11.0 googletest
+        mkdir -pv build && cd build
+        cmake {{ application.config.opts | join(' ') }} ..
+      args:
+        chdir: "{{ application.source.folder }}"
+      register: cmake_status
+      failed_when: cmake_status.failed
+
+    - name: "make {{ application.name }}"
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ application.source.folder }}/build"
+      register: make_status
+      failed_when: make_status.failed
+      when: cmake_status.rc == 0
+
+    - name: "install {{ application.name }}"
+      shell: "sudo make install"
+      args:
+        chdir: "{{ application.source.folder }}/build"
+      register: make_install_status
+      when: make_status.rc == 0
+
+    - name: run ldconfig
+      command: bash -lc "sudo ldconfig"
+      when: make_install_status.rc == 0
+
+    - name: touch .installed in user home directory
+      file:
+        path: "{{ application.source.folder }}/.installed"
+        state: touch
+      when: make_install_status.rc == 0
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not check_installed.stat.exists
+  tags: ['audiowaveform']

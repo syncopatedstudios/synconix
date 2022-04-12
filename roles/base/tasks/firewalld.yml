@@ -1,11 +1,26 @@
 ---
 
+- name: enable and start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: permit traffic for sshd service
+  firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
 - name: permit traffic to these ports
   firewalld:
     port: "{{ item }}"
     permanent: yes
     state: enabled
+    zone: "{{ firewalld['zone']}}"
   notify:
     - "reload firewalld"
-  with_items: ["{{ firewalld }}"]
+  with_items: ["{{ firewalld['ports'] }}"]
   when: firewalld is defined

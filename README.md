@@ -4,47 +4,15 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 ## > This is what I'll do for Five dollars
 
-### Linux!
+Let's say all the things necessary to make this work are in place*, and yer itchin'. Ask yourself: "Where have I been putting my hands lately?"
 
-
-
-- [Fedora](vars/RedHat/Fedora.yml)
-- [Arch](vars/Archlinux/Archlinux.yml)
-- [Ruby, Python and Atom packages](vars/common.yml)
-
-#### Packages
-
-######Resources
-
-Software that needs compilin' can be found in
-
-[audio](roles/audio/defaults/main.yml)
-
-- [repology](https://repology.org/) | database of distro package names
-
-- [pkgs.org](https://pkgs.org/) | same
-
-- [command-not-found](https://command-not-found.com/) | find out what packages contains a command
-
-- [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
-
-- [fpm](https://github.com/jordansissel/fpm) | making all the packages
-
-To add a distro...
-* create a task file in the distro role.
-* add packages to install in vars/distro/distro.yml
-* edit distro/tasks/main.yml to include the task file for the newly added distro
-
-To add an application...
-* add the applications git repo or download location in audio/defaults/main.yml
-* create a task file in audio/tasks/<appname>.yml
-* add the task to the main task list in audio/tasks/main.yml
+For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts for an audio production environment.
 
 # Wiki stuff
 
 Now...take your pants off then open [group_vars/all.yml](group_vars/all.yml)
 
-Change these values to reflect your Linux lifestyle.
+Change these values to reflect how you see yourself.
 
 ```yaml
 user:
@@ -59,7 +27,7 @@ user:
   terminal: xterm
   secondary_groups: "input,video,audio"
   email: rwpannick@gmail.com
-  password: <sha8092>
+  password: <sha5billion>
 
 path:
   - "{{ user.home }}/.local/bin"
@@ -70,14 +38,14 @@ path:
   - "/opt/sonic-pi/bin"
 ```
 
-If you have multiple hosts with a need for different aliases, put those in hosts_vars and they will be appended to ~/.aliases
+If you want, if you have multiple hosts with a need for different aliases on each one, put those in hosts_vars and set a task to append them to ~/.aliases
 
 ```yaml
 aliases:
   - h="history 1"
 ```
 
-After you're finished with that, you might want to add some environment variables for ansible to work with. Open [soundbot.yml](soundbot.yml) Add anything you would export in your shell enviornment.
+After you're finished with that, ask yourself "Did I turn off the oven?" Then think about what environment variables you might want to set for ansible to work with. Open [soundbot.yml](soundbot.yml) to set the environment path Ansible will use. For this you will need to know how [playbook filters](https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html) work.
 
 ```yaml
 - hosts: all
@@ -90,18 +58,15 @@ After you're finished with that, you might want to add some environment variable
 
 ## Desktop Environment
 
-set which window manager and subsequent packages to install
+you set which window manager and other ui related thigns...
 
 ```yaml
 install_x11: True
 install_i3: True
 ```
-set i3 as the window manager by adding a boolean variable
-you can set this per host in host_vars, in the distro defaults and in a few
-other places if the need calls for it. You can find the default settings in
-[ui defaults](roles/ui/defaults/main.yml)
+Set whether or not to install i3 window manager by adding a boolean variable in a group or host_vars file. You can find the default settings in [ui defaults](roles/ui/defaults/main.yml)
 
-Right now there are package lists for x11 and i3 only. If you'd like to add packages for any other desktop enviornment, add the packages you want in distro defaults, create a task for it, then add a boolean to this list.
+i3 is currently the default. If you'd like to add packages for any other desktop enviornment, add the packages you want in the primary vars file, create a task for it, then add a boolean to this list.
 
 
 ## theme
@@ -146,6 +111,12 @@ If you would like to use git to keep track the files in your home directory then
 ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 ```
 
+# compiling applications from source
+To add an application you want to compile from source...
+* add the applications git repo or download location in [builds](roles/builds/defaults/main.yml)
+* create a task file in builds/tasks/<appname>.yml
+* add the task to the main task list in builds/tasks/main.yml
+
 # ansible stuff
 
 ## variable precdence
@@ -159,3 +130,16 @@ In ansible there are 22 areas where you can set variables. Here we use 8 of them
 6. playbook host_vars/*
 7. playbook group_vars/all
 8. role defaults (defined in role/defaults/main.yml)
+
+
+
+###### Some Resources
+
+
+- [repology](https://repology.org/) | database of distro package names
+
+- [pkgs.org](https://pkgs.org/) | same
+
+- [command-not-found](https://command-not-found.com/) | find out what packages contains a command
+
+- [whohas](https://github.com/whohas/whohas) | cli tool to query package databases

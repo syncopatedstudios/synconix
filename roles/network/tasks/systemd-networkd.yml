@@ -1,0 +1,46 @@
+---
+
+- import_tasks: config.yml
+
+- name: push systemd-resolved.conf
+  template:
+    src: "etc/systemd/resolved.conf.j2"
+    dest: /etc/systemd/resolved.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+
+- name: enable systemd-networkd
+  become: true
+  service:
+    name: systemd-networkd
+    enabled: yes
+  with_items:
+    - systemd-networkd
+    - systemd-networkd-wait-online
+  when: systemd_networkd_network or systemd_networkd_link or systemd_networkd_netdev
+
+- name: start and enable systemd-resolved
+  become: true
+  service:
+    name: systemd-resolved
+    enabled: yes
+    state: started
+  when: systemd_networkd_enable_resolved
+
+- name: replace /etc/resolv.conf with a symlink to the systemd-resolved stub
+  become: true
+  file:
+    path: /etc/resolv.conf
+    src: /run/systemd/resolve/stub-resolv.conf
+    state: link
+    force: yes
+  when: systemd_networkd_symlink_resolv_conf
+
+# - name: remove networkmanager packages
+#   pacman:
+#     name: "{{ networkmanager }}"
+#     state: absent
+#     force: yes
+#     extra_args: --noconfirm

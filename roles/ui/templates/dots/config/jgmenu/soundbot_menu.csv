@@ -1,0 +1,319 @@
+Set Powersave Profile,echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+Set Performance Profile,echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+^sep()
+Terminal,kitty,kitty
+Browser,google-chrome-stable %U,google-chrome
+File manager,pcmanfm,soundbot
+Accessories,^checkout(Accessories),applications-accessories
+^sep()
+@search,,3,3,150,20,2,left,top,auto,#000000 0,Type to Search
+
+
+iempluginsuite,^checkout(iempluginsuite),iempluginsuite
+x42,^checkout(x42),x42
+dragonfly,^checkout(dragonfly),dragonfly
+synths,^checkout(synths),synths
+sequencers,^checkout(sequencers),sequencers
+plugins,^checkout(plugins),plugins
+players,^checkout(players),players
+editors,^checkout(editors),editors
+
+# /usr/share/applications/baudline.desktop
+baudline,baudline,baudline
+# /usr/share/applications/baudline_jack.desktop
+baudline_jack,baudline_jack,baudline_jack
+^sep()
+# /usr/share/applications/jack-keyboard.desktop
+JACK Keyboard,jack-keyboard,jack-keyboard
+# /usr/share/applications/net.sourceforge.VMPK.desktop
+VMPK,vmpk,vmpk
+^sep()
+# /usr/local/share/applications/tony.desktop
+Tony,"/usr/local/bin/tony" ,/usr/share/m17n/icons/dv-phonetic.png
+# /usr/local/share/applications/sonic-lineup.desktop
+Sonic-Lineup,"/usr/local/bin/sonic-lineup" ,/usr/share/m17n/icons/dv-phonetic.png
+^sep()
+# /usr/local/share/applications/patchage.desktop
+Patchage,/usr/local/bin/patchage,patchage
+# /usr/share/applications/org.pipewire.Helvum.desktop
+Helvum,helvum,org.pipewire.Helvum
+# /usr/share/applications/org.freedesktop.rncbc.qpwgraph.desktop
+qpwgraph,qpwgraph,qpwgraph
+^sep()
+# /usr/share/applications/jack_mixer.desktop
+Jack Mixer,jack_mixer,jack_mixer
+# /usr/local/share/applications/non-mixer.desktop
+Non Mixer,env LADSPA_PATH=/usr/lib/ladspa LADSPA_RDF_PATH=/usr/share/ladspa/rdf /usr/local/bin/non-mixer,non-mixer
+# /home/b08x/.local/share/applications/cockos-reaper.desktop
+REAPER,"/opt/REAPER/reaper" ,cockos-reaper
+^sep()
+# /usr/local/share/applications/org.jacktrip.JackTrip.desktop
+JackTrip,jacktrip,org.jacktrip.JackTrip
+# /usr/share/applications/org.rncbc.qmidinet.desktop
+QmidiNet,qmidinet,qmidinet
+^sep()
+# /usr/share/applications/fmit.desktop
+FMIT,fmit,fmit
+# /usr/share/applications/hdajackretask.desktop
+HDAJackRetask,hdajackretask,application-x-executable
+# /usr/share/applications/com.obsproject.Studio.desktop
+OBS Studio,obs,com.obsproject.Studio
+# /usr/local/share/applications/Protokol.desktop
+Protokol,"/usr/local/bin/Protokol" ,/usr/share/m17n/icons/dv-phonetic.png
+# /usr/share/applications/pavucontrol.desktop
+PulseAudio Volume Control,pavucontrol,multimedia-volume-control
+# /usr/local/share/applications/org.rncbc.qsampler.desktop
+Qsampler,qsampler ,qsampler
+# /usr/share/applications/Scala.desktop
+Scala,scala-music,Scala
+# /usr/share/applications/net.essej.sooperlooper.desktop
+SooperLooper,slgui,net.essej.sooperlooper
+# /usr/share/applications/org.surge-synth-team.Stochas.desktop
+Stochas,Stochas,org.surge-synth-team.Stochas
+# /usr/share/applications/SuperColliderIDE.desktop
+SuperCollider IDE,scide ,sc_ide
+# /usr/local/share/applications/TouchOSC.desktop
+TouchOSC,"/usr/local/bin/TouchOSC" ,/usr/share/m17n/icons/dv-phonetic.png
+# /usr/share/applications/guitarix.desktop
+guitarix,guitarix,gx_head
+# /usr/share/applications/qstopmotion.desktop
+qStopMotion,qstopmotion ,qstopmotion
+# /usr/share/applications/zita-rev1.desktop
+zita-rev1,zita-rev1,zita-rev1
+
+
+^sep()
+Lock,i3lock -c 000000,system-lock-screen
+Exit,^checkout(exit),system-shutdown
+^tag(exit)
+Suspend,systemctl -i suspend,system-log-out
+Reboot,systemctl -i reboot,system-reboot
+Poweroff,systemctl -i poweroff,system-shutdown
+
+# /usr/share/desktop-directories/lxde-utility.directory
+submenu,^tag(Accessories)
+Back,^back(),go-previous
+# /usr/share/applications/atom.desktop
+Atom,env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom ,atom
+# /usr/share/applications/barrier.desktop
+Barrier,barrier,barrier
+# /usr/share/applications/clamtk.desktop
+ClamTk,clamtk ,clamtk
+# /usr/share/applications/kvantummanager.desktop
+Neovim,^term(nvim),nvim
+# /usr/share/applications/QXmlEdit.desktop
+QXmlEdit,qxmledit ,qxmledit
+# /usr/share/applications/com.github.marinm.songrec.desktop
+SongRec,songrec gui ,com.github.marinm.songrec
+# /usr/share/applications/terminator.desktop
+Terminator,terminator,terminator
+# /usr/share/applications/xarchiver.desktop
+Xarchiver,xarchiver ,xarchiver
+# /usr/share/applications/zim.desktop
+Zim Desktop Wiki,zim ,zim
+# /usr/share/applications/nitrogen.desktop
+nitrogen,nitrogen,nitrogen
+# /usr/share/applications/Thunar.desktop
+Thunar File Manager,thunar ,org.xfce.thunar
+# /usr/share/applications/timeshift-gtk.desktop
+Timeshift,timeshift-launcher,timeshift
+# /usr/share/applications/uxterm.desktop
+UXTerm,uxterm,xterm-color_48x48
+# /usr/share/applications/xterm.desktop
+XTerm,xterm,xterm-color_48x48
+# /usr/share/applications/ranger.desktop
+ranger,^term(ranger),utilities-terminal
+# /usr/share/applications/xkill-shortcut.desktop
+xKill,xkill,application-exit
+
+##################################################################################################
+
+submenu,^tag(plugins)
+Back,^back(,go-previous)
+# /usr/share/applications/calf.desktop
+Calf Plugin Pack for JACK,calfjackhost,calf
+# /usr/share/applications/carla.desktop
+Carla,carla ,carla
+# /usr/share/applications/carla-control.desktop
+Carla Control,carla-control ,carla-control
+# /usr/share/applications/jack-rack.desktop
+JACK Rack,jack-rack,jack-rack-icon.png
+# /usr/local/share/applications/ingen.desktop
+Ingen,ingen -eg,ingen
+# /usr/share/applications/jalv.select.desktop
+jalv.select,jalv.select,lv2
+
+submenu,^tag(synths)
+Back,^back(,go-previous)
+# /usr/share/applications/helm-synth.desktop
+Helm,helm-synth,helm-synth
+# /usr/share/applications/vital.desktop
+Vital,vital,vital
+# /usr/share/applications/ams.desktop
+ams,ams,ams_32.xpm
+# /usr/share/applications/BespokeSynth.desktop
+BespokeSynth,BespokeSynth,bespoke_icon
+
+submenu,^tag(sequencers)
+Back,^back(,go-previous)
+# /usr/share/applications/non-sequencer.desktop
+Non Sequencer,/usr/bin/non-sequencer,non-sequencer
+# /usr/share/applications/org.hydrogenmusic.Hydrogen.desktop
+Hydrogen,hydrogen ,org.hydrogenmusic.Hydrogen
+# /usr/share/applications/seq192.desktop
+seq192,seq192,seq192
+# /usr/share/applications/qmidiarp.desktop
+QMidiArp,qmidiarp ,qmidiarp
+
+submenu,^tag(players)
+Back,^back(,go-previous)
+# /usr/local/share/applications/deadbeef.desktop
+DeaDBeeF,deadbeef ,deadbeef
+# /usr/share/applications/io.github.celluloid_player.Celluloid.desktop
+Celluloid,celluloid ,io.github.celluloid_player.Celluloid
+# /usr/share/applications/mpv.desktop
+mpv Media Player,mpv --player-operation-mode=pseudo-gui -- ,mpv
+# /usr/share/applications/vlc.desktop
+VLC media player,/usr/bin/vlc --started-from-file ,vlc
+# /usr/share/applications/org.mixxx.Mixxx.desktop
+Mixxx,sh -c "pasuspender -- mixxx -platform xcb || mixxx -platform xcb",mixxx
+
+submenu,^tag(editors)
+Back,^back(,go-previous)
+# /usr/local/share/applications/com.polyphone_soundfonts.polyphone.desktop
+Polyphone,polyphone ,polyphone
+# /usr/share/applications/com.rosegardenmusic.rosegarden.desktop
+Rosegarden,rosegarden ,rosegarden
+# /usr/share/applications/org.openshot.OpenShot.desktop
+OpenShot Video Editor,openshot-qt ,openshot-qt
+# /usr/share/applications/ocenaudio.desktop
+ocenaudio,/usr/bin/ocenaudio ,ocenaudio
+# /usr/share/applications/edu.stanford.ccrma.snd.desktop
+snd,snd,edu.stanford.ccrma.snd
+# /usr/share/applications/edu.stanford.ccrma.snd-ruby.desktop
+snd (ruby),snd-ruby,edu.stanford.ccrma.snd-ruby
+# /usr/share/applications/edu.stanford.ccrma.snd-s7.desktop
+snd (s7),snd-s7,edu.stanford.ccrma.snd-s7
+
+##################################################################################################
+submenu,^tag(dragonfly)
+Back,^back(,go-previous)
+# /usr/share/applications/io.github.michaelwillis.DragonflyEarlyReflections.desktop
+DragonflyEarlyReflections,DragonflyEarlyReflections,io.github.michaelwillis.DragonflyEarlyReflections
+# /usr/share/applications/io.github.michaelwillis.DragonflyHallReverb.desktop
+DragonflyHallReverb,DragonflyHallReverb,io.github.michaelwillis.DragonflyHallReverb
+# /usr/share/applications/io.github.michaelwillis.DragonflyPlateReverb.desktop
+DragonflyPlateReverb,DragonflyPlateReverb,io.github.michaelwillis.DragonflyPlateReverb
+# /usr/share/applications/io.github.michaelwillis.DragonflyRoomReverb.desktop
+DragonflyRoomReverb,DragonflyRoomReverb,io.github.michaelwillis.DragonflyRoomReverb
+
+submenu,^tag(x42)
+Back,^back(),go-previous
+# /usr/share/applications/com.x42_plugins.x42_darc.desktop
+x42-darc,x42-darc,x42-darc
+# /usr/share/applications/com.x42_plugins.x42_dpl.desktop
+x42-dpl,x42-dpl,x42-dpl
+# /usr/share/applications/com.x42_plugins.x42_fat1.desktop
+x42-fat1,x42-fat1,x42-fat1
+# /usr/share/applications/com.x42_plugins.x42_fil4.desktop
+x42-fil4,x42-fil4,x42-fil4
+# /usr/share/applications/com.x42_plugins.x42_matrixmixer8x8.desktop
+x42-matrixmixer8x8,x42-matrixmixer8x8,x42-matrixmixer8x8
+# /usr/share/applications/com.x42_plugins.x42_meter_15.desktop
+x42-meter 1/3 Octave Spectrum Analyzer,x42-meter 15,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_5.desktop
+x42-meter BBC M-6,x42-meter 5,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_4.desktop
+x42-meter BBC Meter (Stereo),x42-meter 4,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_18.desktop
+x42-meter Bit Meter,x42-meter 18,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_6.desktop
+x42-meter DIN Meter (Stereo),x42-meter 6,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_11.desktop
+x42-meter DR-14 - Crest Factor Loudness Range Meter,x42-meter 11,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_7.desktop
+x42-meter EBU Meter (Stereo),x42-meter 7,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_0.desktop
+x42-meter EBU R128 Meter,x42-meter 0,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_13.desktop
+x42-meter Goniometer,x42-meter 13,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_3.desktop
+x42-meter K12/RMS Meter (Stereo),x42-meter 3,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_2.desktop
+x42-meter K14/RMS Meter (Stereo),x42-meter 2,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_1.desktop
+x42-meter K20/RMS Meter (Stereo),x42-meter 1,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_8.desktop
+x42-meter Nordic Meter (Stereo),x42-meter 8,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_14.desktop
+x42-meter Phase/Frequency Wheel,x42-meter 14,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_17.desktop
+x42-meter Signal Distribution Histogram,x42-meter 17,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_12.desktop
+x42-meter Stereo Phase-Correlation Meter,x42-meter 12,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_16.desktop
+x42-meter Stereo/Frequency Scope,x42-meter 16,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_19.desktop
+x42-meter Surround Level 8,x42-meter 19,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_10.desktop
+x42-meter True-Peak and RMS Meter (Stereo),x42-meter 10,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_meter_9.desktop
+x42-meter VU Meter (Stereo),x42-meter 9,x42-meter
+# /usr/share/applications/com.x42_plugins.x42_mixtri.desktop
+x42-mixtri,x42-mixtri,x42-mixtri
+# /usr/share/applications/com.x42_plugins.x42_scope.desktop
+x42-scope,x42-scope,x42-scope
+# /usr/share/applications/com.x42_plugins.x42_spectr.desktop
+x42-spectr,x42-spectr,x42-spectr
+# /usr/share/applications/com.x42_plugins.x42_stepseq.desktop
+x42-stepseq,x42-stepseq,x42-stepseq
+# /usr/share/applications/com.x42_plugins.x42_tuna_0.desktop
+x42-tuna Instrument Tuner,x42-tuna 0,x42-tuna
+# /usr/share/applications/com.x42_plugins.x42_tuna_1.desktop
+x42-tuna Instrument Tuner (Spectrum),x42-tuna 1,x42-tuna
+
+# /usr/share/desktop-directories/iempluginsuite.directory
+submenu,^tag(iempluginsuite)
+Back,^back(),go-previous
+# /usr/share/applications/at.iem.plugins.AllRADecoder.desktop
+AllRADecoder,AllRADecoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.BinauralDecoder.desktop
+BinauralDecoder,BinauralDecoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.CoordinateConverter.desktop
+CoordinateConverter,CoordinateConverter,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DirectionalCompressor.desktop
+DirectionalCompressor,DirectionalCompressor,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DirectivityShaper.desktop
+DirectivityShaper,DirectivityShaper,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DistanceCompensator.desktop
+DistanceCompensator,DistanceCompensator,iempluginsuite
+# /usr/share/applications/at.iem.plugins.DualDelay.desktop
+DualDelay,DualDelay,iempluginsuite
+# /usr/share/applications/at.iem.plugins.EnergyVisualizer.desktop
+EnergyVisualizer,EnergyVisualizer,iempluginsuite
+# /usr/share/applications/at.iem.plugins.FdnReverb.desktop
+FdnReverb,FdnReverb,iempluginsuite
+# /usr/share/applications/at.iem.plugins.MatrixMultiplier.desktop
+MatrixMultiplier,MatrixMultiplier,iempluginsuite
+# /usr/share/applications/at.iem.plugins.MultiBandCompressor.desktop
+MultiBandCompressor,MultiBandCompressor,iempluginsuite
+# /usr/share/applications/at.iem.plugins.MultiEQ.desktop
+MultiEQ,MultiEQ,iempluginsuite
+# /usr/share/applications/at.iem.plugins.MultiEncoder.desktop
+MultiEncoder,MultiEncoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.OmniCompressor.desktop
+OmniCompressor,OmniCompressor,iempluginsuite
+# /usr/share/applications/at.iem.plugins.PluginTemplate.desktop
+PluginTemplate,PluginTemplate,iempluginsuite
+# /usr/share/applications/at.iem.plugins.ProbeDecoder.desktop
+ProbeDecoder,ProbeDecoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.RoomEncoder.desktop
+RoomEncoder,RoomEncoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.SceneRotator.desktop
+SceneRotator,SceneRotator,iempluginsuite
+# /usr/share/applications/at.iem.plugins.SimpleDecoder.desktop
+SimpleDecoder,SimpleDecoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.StereoEncoder.desktop
+StereoEncoder,StereoEncoder,iempluginsuite
+# /usr/share/applications/at.iem.plugins.ToolBox.desktop
+ToolBox,ToolBox,iempluginsuite

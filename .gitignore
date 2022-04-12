@@ -5,3 +5,7 @@ ltmain.sh
 notes.md
 sonicvisualiser.yml
 installed_packages.yml
+vars/test.yml
+wireplumber_new
+pipewire_new
+status.yml

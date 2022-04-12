@@ -1,0 +1,8 @@
+---
+
+beets:
+  confdir: "{{ user.home }}/.config/beets"
+  duplicates: "{{ user.home }}/Library/Sounds/duplicates"
+  library: "{{ user.home }}/Library/Sounds"
+  logdir: "{{ user.home }}/.log/beets"
+  tmpdir: "/tmp/soundbot/beets"

@@ -1,0 +1,41 @@
+settings {
+    logfile = "/root/.config/lsyncd/lsyncd.log",
+    statusFile = "/root/.config/lsyncd/lsyncd.status",
+    insist = true
+}
+
+sync {
+    default.rsyncssh,
+    source = "{{ user.home }}",
+    host = "{{ sync_host }}",
+    targetdir = "{{ user.home }}",
+    excludeFrom = "{{ user.home }}/exclude_home.list",
+    delay = 5,
+    rsync = {
+            verbose = true,
+            inplace = true,
+            _extra = {
+                    "--stats",
+                    "--delete-before",
+                    "--backup-dir=.backup",
+                    "--suffix=_bak",
+                    "--info=progress2",
+                    "--group",
+                    "--owner"
+            }
+    },
+    ssh = {
+            identityFile = "/root/.ssh/id_rsa",
+            options = {
+                    User = "root",
+                    StrictHostKeyChecking = "no",
+                    Compression = "no",
+                    Cipher = "aes256-gcm@openssh.com"
+            },
+            _extra = {
+                    "-T",
+                    "-c",
+                    "aes256-gcm@openssh.com"
+            }
+    }
+}

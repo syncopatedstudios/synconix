@@ -4,18 +4,16 @@
   debug:
     msg: "starting base role"
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- include: kernel.yml
+  when: use_kernel is defined
+  tags: ['kernel']
+
 - name: Set base packages to install
   set_fact:
-    _packages: "{{ base }}"
+    _packages: "{{ base.system }}"
   tags: ['packages']
 
 - name: Install base packages
@@ -24,78 +22,90 @@
   vars:
     pkg_state: present
 
-- name: enable and start firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: yes
+- include: firewalld.yml
+  tags: ['firewall']
 
-- name: permit traffic for sshd service
-  firewalld:
-    service: ssh
-    permanent: yes
-    state: enabled
-  notify:
-    - "reload firewalld"
-
-- include: filesystem.yml
-  tags: ['filesystem']
-
-- include: kernel.yml
-  when: kernel is defined
-  tags: ['kernel']
-
-- include: grub.yml
-  tags: ['grub']
+- include: ssh.yml
+  tags: ['ssh']
 
 - include: sudoers.yml
   tags: ['sudoers']
 
-- include: realtime.yml
-  tags: ['realtime']
+- include: zsh.yml
+  tags: ['zsh']
 
-- include: perms.yml
-  tags: ['perms']
+- include: dots.yml
+  tags: ['dots']
 
-- include: ruby.yml
-  tags: ['ruby']
+# - include: ruby.yml
+#   tags: ['ruby']
+
+- include: filesystem.yml
+  tags: ['filesystem']
+
+- include: tuning.yml
+  tags: ['tuning']
 
 - include: nfs.yml
-  when: nfs_host|bool
+  when: nfs_host is defined
   tags: ['nfs']
 
-- include: autofs.yml
-  when: autofs_client is defined
-  tags: ['autofs']
+# - include: autofs.yml
+#   when: autofs_client is defined
+#   tags: ['autofs']
 
 - include: docker.yml
   when: docker_host|bool and docker is defined
   tags: ['docker']
 
 - include: libvirt.yml
-  when: kvm_host|bool and libvirt is defined
+  when: kvm_host|bool
   tags: ['libvirt']
 
-- include: timeshift.yml
-  tags: ['timeshift']
-
-- include: zsh.yml
-  tags: ['zsh']
+- include: backups.yml
+  when: sync_host is defined
+  tags: ['backups']
 
 - include: nvim.yml
   tags: ['nvim']
 
-- include: ripgrep.yml
-  tags: ['ripgrep']
+- include: indexer.yml
+  tags: ['indexer']
 
-- include: ranger.yml
-  tags: ['ranger']
+- block:
+    - name: Set desktop packages
+      set_fact:
+        _packages: "{{ workstation }}"
 
-- include: shell.yml
-  tags: ['shell']
+    - name: Install desktop packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
 
-- include: dots.yml
-  tags: ['dots']
+    - include: atom.yml
+      tags: ['atom']
 
-- include: firewalld.yml
-  tags: ['firewall']
+    - include: chrome.yml
+      tags: ['chrome']
+
+  when: inventory_hostname in groups['daw']
+  tags: ['packages', 'desktop']
+
+- name: configure audio system
+  import_role:
+    name: audio
+  when: inventory_hostname in groups['daw']
+
+- name: configure ui
+  import_role:
+    name: ui
+  when: inventory_hostname in groups['daw']
+  tags: ['ui']
+
+- name: build apps
+  import_role:
+    name: builds
+  when: inventory_hostname in groups['daw']
+  check_mode: yes
+  tags: ['builds']

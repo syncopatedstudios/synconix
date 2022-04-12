@@ -1,0 +1,6 @@
+SUBSYSTEM=="net", ENV{ID_NET_NAME}=="lo", GOTO="90_local_net_end"
+SUBSYSTEM=="net", ENV{ID_NET_NAME}!="", ENV{DEVTYPE}=="wlan", ACTION=="add", \
+	ENV{SYSTEMD_WANTS}+="wpa_supplicant-nl80211@$env{ID_NET_NAME}.service"
+SUBSYSTEM=="net", ENV{ID_NET_NAME}!="", ENV{DEVTYPE}=="", ACTION=="add", \
+	ENV{SYSTEMD_WANTS}+="wpa_supplicant-wired@$env{ID_NET_NAME}.service"
+LABEL="90_local_net_end"

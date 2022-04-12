@@ -5,19 +5,19 @@
   register: haziswami
   tags: ['swami']
 
-- name: set swami dependencies to install
-  set_fact:
-    _packages: "{{ development.swami }}"
-  tags: ['packages']
-
-- name: Install swami dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - block:
+    - name: set swami dependencies to install
+      set_fact:
+        _packages: "{{ builds.swami }}"
+      tags: ['packages']
+
+    - name: Install swami dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
     - name: Clone libinstpatch
       git:
         repo: "{{ libinstpatch['git'] }}"

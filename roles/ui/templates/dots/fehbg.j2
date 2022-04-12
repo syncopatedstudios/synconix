@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '{{ wallpaper['screen1'] }}' {% if wallpaper['screen2'] is defined %} '{{ wallpaper['screen2'] }}' {% else %} {% endif %}

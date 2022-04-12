@@ -1,0 +1,10 @@
+---
+
+# smbpasswd -a b08x
+# groupadd -r home
+# usermod -a -G home b08x
+# gpasswd home -a b08x
+# mkdir -pv /var/lib/samba/usershares
+# chmod 1770 /var/lib/samba/usershares
+# chown -R root:home /var/lib/samba/usershares
+# enable and start smb/nmb

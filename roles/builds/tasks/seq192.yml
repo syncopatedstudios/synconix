@@ -1,0 +1,41 @@
+---
+
+- name: check if seq192 is already installed
+  stat: path="/usr/local/bin/seq192"
+  register: haziseq192
+  tags: ['seq192']
+
+- block:
+    - block:
+      - name: set seq192 deps to install
+        set_fact:
+          _packages: "{{ builds.seq192 }}"
+        tags: ['packages']
+
+      - name: Install seq192 dependencies
+        import_role:
+          name: pkg_manager
+        vars:
+          pkg_state: present
+        tags: ['packages']
+
+      - name: Clone seq192
+        git:
+          repo: "{{ seq192.git }}"
+          dest: "{{ local_src }}/seq192"
+          accept_hostkey: yes
+          update: no
+          force: no
+
+      - name: Make and install
+        command: bash -lc "make && sudo make install"
+        args:
+          chdir: "{{ local_src }}/seq192"
+        register: seq192_build
+        failed_when: seq192_build.failed
+
+      become: True
+      become_user: "{{ user.name }}"
+
+
+  when: "not haziseq192.stat.exists"

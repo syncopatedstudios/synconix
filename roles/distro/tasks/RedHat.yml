@@ -74,6 +74,7 @@
 
   when: "'rpmfusion-free' not in repolist.stdout"
   tags: ['dnf']
+  check_mode: no
 
 - block:
     - name: Fetch ccrma repo rpm
@@ -89,6 +90,7 @@
 
   when: "'planetccrma' not in repolist.stdout"
   tags: ['dnf']
+  check_mode: no
 
 - name: Enable some copr repos
   shell: "dnf -y copr enable {{ item }}"

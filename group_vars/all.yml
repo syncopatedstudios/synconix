@@ -1,14 +1,15 @@
 ---
 
-soundbot: "/opt/soundbot"
-ansible_home: "/opt/soundbot/ansible"
-
 local_src: "/usr/local/src"
 local_bin: "/usr/local/bin"
 
-# user_groups:
-#   - name: home
-#     gid: 1041
+dns:
+  nameserver: 192.168.41.1
+  search: syncopated.net
+
+user_groups:
+  - name: home
+    gid: 1041
 
 user:
   name: b08x
@@ -19,18 +20,20 @@ user:
   group: b08x
   secondary_groups: "input,video,audio"
   shell: zsh
-  terminal: xterm-256color
+  terminal: kitty
   zsh: /usr/share/oh-my-zsh
   email: rwpannick@gmail.com
   password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.
 
 zsh:
-  theme: re5et
+  configs: "{{ user.home }}/.zsh"
+  theme: minimal-terminal-prompt
 
 path:
   - "{{ user.home }}/.local/bin"
   - "{{ user.home }}/.cargo/bin"
   - "{{ user.home }}/.gem/ruby/3.0.0/bin"
+  - "{{ user.home }}/.rvm/rubies/ruby-3.0.0/bin"
   - "/var/lib/gems/2.7.0/bin"
   - "/usr/lib/jvm/default/bin"
   - "/opt/soundbot/bin"
@@ -42,5 +45,6 @@ dots:
   backup: "{{ user.home }}/.dotsbackup"
   untracked: False
 
-install_jacktrip: True
-install_njconnect: True
+intranet_ssid: soundbot
+# run `wpa_passphrase soundbot`
+wireless_pw: passphrase

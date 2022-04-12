@@ -4,107 +4,128 @@
   debug:
     msg: "starting builds role"
 
-- name: gather facts
-  setup:
-    gather_subset:
-      - os_family
-      - pkg_mgr
-
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+###################################
+
+- include: sonicannotator.yml
+  tags: ['sonicannotator']
+
+- include_tasks: audiowaveform.yml
+  when: build_audiowaveform is defined
+  tags: ['audiowaveform']
+
+- include_tasks: surfraw.yml
+  tags: ['surfraw']
+
+  ###################################
+
+
 - include: ardour.yml
   tags: ['ardour']
-  when: install_ardour|bool
+  when: build_ardour is defined
 
 - include: baudline.yml
-  when: install_baudline|bool
+  when: build_baudline is defined
   tags: ['baudline']
 
 - include: deadbeef.yml
-  when: install_deadbeef|bool
+  when: build_deadbeef is defined
   tags: ['deadbeef']
 
 - include: ecasound.yml
-  when: install_ecasound|bool
+  when: build_ecasound is defined
   tags: ['ecasound']
 
+- include: ingen.yml
+  when: build_ingen is defined
+  tags: ['ingen']
+
 - include: jacktrip.yml
-  when: install_jacktrip|bool
+  when: build_jacktrip is defined
   tags: ['jacktrip']
 
 - include: jalvselect.yml
-  when: install_jalvselect|bool
+  when: build_jalvselect is defined
   tags: ['jalvselect']
 
 - include: linuxsampler.yml
-  when: install_linuxsampler|bool
+  when: build_linuxsampler is defined
   tags: ['linuxsampler']
 
 - include: njconnect.yml
-  when: install_njconnect|bool
+  when: build_njconnect is defined
   tags: ['njconnect']
 
 - include: non.yml
-  when: install_non|bool
+  when: build_non is defined
   tags: ['non']
 
 - include: obs.yml
-  when: install_obs|bool
+  when: build_obs is defined
   tags: ['obs']
 
 - include: ocenaudio.yml
-  when: install_ocenaudio|bool
+  when: build_ocenaudio is defined
   tags: ['ocenaudio']
 
 - include: patchage.yml
-  when: install_patchage|bool
+  when: build_patchage is defined
   tags: ['patchage']
 
 - include: polyphone.yml
-  when: install_polyphone|bool
+  when: build_polyphone is defined
   tags: ['polyphone']
 
 - include: qmidinet.yml
-  when: install_qmidinet|bool
+  when: build_qmidinet is defined
   tags: ['qmidinet']
 
 - include: raysession.yml
-  when: install_raysession|bool
+  when: build_raysession is defined
   tags: ['raysession']
 
 - include: reaper.yml
-  when: install_reaper|bool
+  when: build_reaper is defined
   tags: ['reaper']
 
 - include: rtplugins.yml
-  when: install_rtplugins|bool
+  when: build_rtplugins is defined
   tags: ['rtplugins']
 
+- include: seq192.yml
+  when: build_seq192 is defined
+  tags: ['seq192']
+
 - include: soniclineup.yml
-  when: install_soniclineup|bool
+  when: build_soniclineup is defined
   tags: ['soniclineup']
 
 - include: sonicpi.yml
-  when: install_sonicpi|bool
+  when: build_sonicpi is defined
   tags: ['sonicpi']
 
 - include: sonicpitool.yml
-  when: install_sonicpi|bool
-  tags: ['sonicpitool']
+  when: build_sonicpi is defined
+  tags: ['sonicpi']
 
 - include: sonicvisualiser.yml
-  when: install_sonicvisualiser|bool
+  when: build_sonicvisualiser is defined
   tags: ['sonicvisualiser']
 
 - include: swami.yml
-  when: install_swami|bool
+  when: build_swami is defined
   tags: ['swami']
 
+- include: timemachine.yml
+  when: build_timemachine is defined
+  tags: ['timemachine']
+
 - include: tony.yml
-  when: install_tony|bool
+  when: build_tony is defined
   tags: ['tony']
 
 - include: touchosc.yml
-  when: install_touchosc|bool
+  when: build_touchosc is defined
   tags: ['touchosc']

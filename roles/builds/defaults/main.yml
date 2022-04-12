@@ -1,34 +1,6 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
 
-install_ardour: False
-install_audiowaveform: False
-install_baudline: False
-install_deadbeef: False
-install_ecasound: False
-install_jacktrip: False
-install_jalvselect: False
-install_linuxsampler: False
-install_njconnect: False
-install_non: False
-install_obs: False
-install_ocenaudio: False
-install_patchage: False
-install_polyphone: False
-install_protokol: False
-install_qmidinet: False
-install_raysession: False
-install_reaper: False
-install_rtplugins: False
-install_sonicannotator: False
-install_soniclineup: False
-install_sonicpi: False
-install_sonicvisualiser: False
-install_swami: False
-install_tony: False
-install_touchosc: False
-install_vampplugins: False
-
 ardour:
   url: "git://git.ardour.org/ardour/ardour.git"
 
@@ -43,11 +15,17 @@ ecasound:
   url: "http://nosignal.fi/download/"
   file: "ecasound-2.9.3.tar.gz"
 
+ingen:
+  git: "https://gitlab.com/drobilla/ingen.git"
+
 jacktrip:
   git: "https://github.com/jacktrip/jacktrip.git"
 
 jalvselect:
   git: "https://github.com/brummer10/jalv_select.git"
+
+libcamera:
+  git: "https://git.libcamera.org/libcamera/libcamera.git"
 
 non:
   git: "https://github.com/falkTX/non.git"
@@ -63,6 +41,9 @@ ocenaudio:
 patchage:
   git: "https://gitlab.com/drobilla/patchage.git"
 
+pipewire:
+  git: "https://gitlab.freedesktop.org/pipewire/pipewire.git"
+
 protokol:
   url: "https://hexler.net/pub/protokol/"
   file: "protokol-0.4.2.84-linux-x86_64.zip"
@@ -75,7 +56,7 @@ raysession:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper645_linux_x86_64.tar.xz
+  file: reaper653_linux_x86_64.tar.xz
 
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
@@ -84,6 +65,9 @@ rtplugins:
 scala:
   url: "http://www.huygens-fokker.org/software/"
   file: "scala-22-pc64-linux.tar.bz2"
+
+seq192:
+  git: "https://github.com/jean-emmanuel/seq192.git"
 
 sonicannotator:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2708/"
@@ -102,7 +86,7 @@ sonicpitool:
 
 sonicpi:
   git: "https://gitlab.com/syncopated-linux/applications/sonic-pi.git"
-  branch: "v3.3-release"
+  branch: "v3.3.1-MinSizeRel"
   path: /opt/sonic-pi
   prebuild: "./linux-prebuild.sh --build-aubio"
   compile: "./linux-config.sh --config Release"
@@ -114,6 +98,9 @@ swami:
   git: "https://github.com/swami/swami.git"
 libinstpatch:
   git: "https://github.com/swami/libinstpatch.git"
+
+timemachine:
+  git: "https://github.com/swh/timemachine.git"
 
 tony:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2617/"

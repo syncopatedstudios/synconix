@@ -10,7 +10,9 @@
     mode: '0644'
     backup: yes
 
-- name: Get list of installed items gems
+#TODO: account for using RVM
+
+- name: Get list of installed gems
   shell: |
     gem list | awk '{ print $1 }'
   register: gemlist
@@ -19,13 +21,13 @@
 - set_fact:
     installed_gems: "{{ gemlist.stdout }}"
 
-- name: set packages to install
+- name: determine gems that need to be installed
   set_fact:
     _gems: "{{ gems|difference(installed_gems) }}"
 
 - name: install ruby gems
   shell: |
-    sudo gem install {{ item }} --no-user-install
+    sudo gem install {{ item }}
   with_items:
     - "{{ _gems }}"
   when: _gems | length > 0

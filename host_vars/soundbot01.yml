@@ -1,7 +1,7 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_systemdnetwork: False
-use_networkmanager: False
+use_networkmanager: True
 
 systemd_networkd_network:
   eth0:
@@ -10,24 +10,23 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.41.1
-      - Domains: "syncopated.net"
-      - Address: "192.168.41.15/24"
-      - Gateway: "192.168.41.1"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.122.13"
+      - Gateway: "192.168.122.1"
+
+soundcard:
+  alsa_in: alsa_input.pci-0000_08_01.0.analog-stereo
+  alsa_out: alsa_output.pci-0000_08_01.0.analog-stereo
+  resample_quality: 10
+  channels: 2
+  format: "S32LE"
+  rate: 48000
+  allowed-rates: "32000,44100,48000,96000"
+  position: "FL,FR"
 
 autofs_client:
   host: bender
   shares:
     - storage
     - backup
-
-repos:
-  liquorix: False
-  kx_repo: True
-  mongodb: False
-  node: False
-  atom: False
-  docker: False
-
-install_audio_utils: False
-install_audio_plugins: False

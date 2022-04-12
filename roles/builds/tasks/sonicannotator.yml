@@ -1,0 +1,43 @@
+---
+
+- name: check if vamp plugins exist
+  stat: path="{{ user.home }}/.vamp"
+  register: hazivamp
+  tags: ['vamp']
+
+- name: Extract vamp plugins
+  unarchive:
+    src: dots/vamp.tar.gz
+    dest: "{{ user.home }}/"
+  when: not hazivamp.stat.exists
+  tags: ['vamp']
+
+- name: check if sonicannotator is already installed
+  stat: path="/usr/local/bin/sonic-annotator"
+  register: haziannotator
+  tags: ['sonicannotator']
+
+- block:
+    - name: fetch sonic-annotator
+      get_url:
+        url: "{{ sonicannotator.url }}{{ sonicannotator.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
+      tags: ['sonicannotator']
+
+    - name: extract sonic-annotator
+      shell: |
+        tar -xvf {{ sonicannotator.file }}
+
+        cd sonic-annotator-1.6-linux64-static/
+
+        mv -v sonic-annotator /usr/local/bin/sonic-annotator
+
+        chmod +x /usr/local/bin/sonic-annotator
+      args:
+        chdir: "{{ local_src }}"
+      tags: ['sonicannotator']
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not haziannotator.stat.exists

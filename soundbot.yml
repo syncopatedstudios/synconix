@@ -2,20 +2,31 @@
 
 - hosts: soundbots
   strategy: linear
-  # tags: ['base']
-  gather_facts: no
+  gather_facts: yes
   vars:
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+  vars_files:
+    - "vars/common.yml"
+    - "{{ ansible_os_family }}.yml"
 
   pre_tasks:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'networking', 'pkg_manager', 'soundbot', 'ui']
+    - name: print hostname
+      debug: msg="inventory_hostname={{inventory_hostname}}"
+      tags: ['inventory']
+
+    - name: print package_manager
+      debug: msg="{{ansible_pkg_mgr}}"
+      tags: ['inventory']
+
+    - name: print os_family
+      debug: msg="{{ansible_os_family}}"
+      tags: ['inventory']
+
+    - name: print random var from vars/Archlinux
+      debug: msg="{{ apm }}"
+      tags: ['inventory']
 
   tasks:
     - name: Check whether this is an initial install or not.
@@ -37,55 +48,7 @@
       when: not check_installed.stat.exists
       ignore_errors: True
 
-    - name: print hostname
-      debug: msg="inventory_hostname={{inventory_hostname}}"
-      tags: ['inventory']
-
   roles:
      - { role: distro, tags: ['distro'] }
-     - { role: networking, tags: ['networking'] }
+     - { role: network, tags: ['network'] }
      - { role: base, tags: ['base'] }
-
-- hosts: desktops
-  strategy: linear
-  # tags: ['desktop']
-  gather_facts: yes
-  vars:
-    env_vars:
-      ZSH: "{{ user.zsh }}"
-      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-
-  pre_tasks:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'networking', 'pkg_manager', 'soundbot', 'ui']
-
-  roles:
-     - { role: audio, tags: ['audio'] }
-     - { role: ui, tags: ['ui', 'theme'] }
-     - { role: builds, tags: ['builds'] }
-
-- hosts: nodes
-  strategy: linear
-  # tags: ['desktop']
-  gather_facts: yes
-  vars:
-    env_vars:
-      ZSH: "{{ user.zsh }}"
-      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-
-  pre_tasks:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-      tags: ['audio', 'base', 'builds', 'distro', 'networking', 'pkg_manager', 'soundbot', 'ui']
-
-  roles:
-     - { role: distro, tags: ['distro'] }
-     - { role: base, tags: ['base'] }
-     - { role: audio, tags: ['audio'] }

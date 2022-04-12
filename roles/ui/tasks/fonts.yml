@@ -1,17 +1,5 @@
 ---
 
-- name: Set font packages to install
-  set_fact:
-    _packages: "{{ ui.fonts }}"
-  tags: ['packages']
-
-- name: Install font packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - name: check if locat fonts exists
   stat: path="/usr/local/share/fonts/Feather.ttf"
   register: hazilocalfonts
@@ -48,16 +36,10 @@
         xset +fp /usr/share/fonts/100dpi
       ignore_errors: yes
 
-
   become: True
   become_user: "{{ user.name }}"
 
-#TODO: xset:  unable to open display
-#- name: add x11 fonts to font paths
-#  shell: |
-#    xset +fp /usr/share/fonts/75dpi
-#    xset +fp /usr/share/fonts/100dpi
-#  tags: ['fonts']
-
 - name: Update font-cache
   command: fc-cache -r
+  register: font_cache
+  changed_when: font_cache.rc != 0

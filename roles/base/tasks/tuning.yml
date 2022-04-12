@@ -1,0 +1,99 @@
+---
+
+- name: Add user to audio groups
+  user:
+    name: "{{ user.name }}"
+    groups: "audio"
+    append: yes
+  tags: ['tuning']
+
+- name: ensure /etc/security/limits.d exists
+  file:
+    path: /etc/security/limits.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0744'
+  check_mode: no
+
+- name: push jack limits file
+  copy:
+    src: etc/security/limits.d/41-realtime.conf
+    dest: /etc/security/limits.d/41-realtime.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: push timer permissions file
+  copy:
+    src: etc/udev/rules.d/40-timer-permissions.rules
+    dest: /etc/udev/rules.d/40-timer-permissions.rules
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: set vm.swappiness to 10
+  sysctl: name=vm.swappiness value=10 state=present reload=yes
+
+- name: set vm.dirty_background_bytes to 100000000
+  sysctl: name=vm.dirty_background_bytes value=100000000 state=present reload=yes
+
+- name: set fs.inotify.max_user_watches
+  sysctl: name=fs.inotify.max_user_watches value=524288 state=present reload=yes
+
+- name: dev.hpet.max-user-freq=3072
+  sysctl: name=dev.hpet.max-user-freq value=3072 state=present reload=yes
+
+# To use real time scheduling, you will either need to boot Linux with the “threadirqs”
+# parameter or use a kernel with the realtime patch set. To always boot with the “threadirqs”
+# kernel argument, add it to your grub.cfg by editing /etc/default/grub as root, adding “threadirqs”
+# to the line for GRUB_CMDLINE_LINUX, then generate a new grub.cfg file.
+- name: Copy over rtirq template
+  template:
+    src: etc/sysconfig/rtirq.j2
+    dest: "{{ rtirq_dir }}"
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+  register: rtirq_config
+
+- name: enable rtirq service
+  systemd:
+    name: rtirq
+    state: started
+    enabled: yes
+  when: rtirq_config.changed
+
+# rtkit package should be installed before this happens
+# otherwise, if it sees this systemd file, it'll report
+# being already installed and error out
+
+- name: Copy rtkit conf to etc
+  copy:
+    src: etc/rtkit.conf
+    dest: /etc/rtkit.conf
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '0644'
+  register: rtkit_conf
+
+- name: Copy rtkit systemd file
+  copy:
+    src: usr/lib/systemd/system/rtkit-daemon.service
+    dest: /usr/lib/systemd/system/rtkit-daemon.service
+    directory_mode: no
+    owner: root
+    group: root
+    mode: '0644'
+  register: rtkit_systemd
+
+- name: restart rtkit-daemon service
+  systemd:
+    name: rtkit-daemon
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: rtkit_systemd.changed or rtkit_conf.changed

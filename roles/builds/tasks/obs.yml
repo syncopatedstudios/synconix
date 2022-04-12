@@ -5,18 +5,6 @@
 
 # sudo checkinstall --default --pkgname=obs-studio --fstrans=no --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
 
-- name: set obs dependencies to install
-  set_fact:
-    _packages: "{{ development.obs }}"
-  tags: ['packages']
-
-- name: Install obs dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 #######################################################
 # -----------sndio
 #######################################################
@@ -26,6 +14,18 @@
   register: hazisndio
 
 - block:
+    - name: set obs dependencies to install
+      set_fact:
+        _packages: "{{ builds.obs }}"
+      tags: ['packages']
+
+    - name: Install obs dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
     - name: fetch sndio
       get_url:
         url: "{{ sndio.url }}{{ sndio.file }}"

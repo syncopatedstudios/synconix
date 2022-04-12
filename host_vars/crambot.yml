@@ -9,40 +9,67 @@ systemd_networkd_network:
   eth0:
     - Match:
       - Name: "eth0"
+      - MACAddress: "b8:ca:3a:94:51:ca"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: 192.168.41.1
-      - Domains: "syncopated.net"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
       - Address: "192.168.41.4/24"
       - Gateway: "192.168.41.1"
-
   eth1:
     - Match:
       - Name: "eth1"
+      - MACAddress: "00:1b:21:87:e8:ba"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - Address: "192.168.40.2/24"
+  eth2:
+    - Match:
+      - Name: "eth2"
+      - MACAddress: "00:1b:21:87:e8:bb"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
       - Address: "192.168.36.1/24"
 
-  eth2:
-    - Match:
-      - Name: "eth2"
-    - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - Address: "192.168.40.2/24"
+firewalld:
+  zone: public
+  ports:
+    - 4464/udp
+    - 24800/tcp
+    - 12101/udp
+
+soundcard:
+  nick: "analog_stereo_out"
+  description: "default audio route"
+  alsa_in: "alsa_input.pci-0000_00_1b.0.capture.0.0"
+  alsa_out: "alsa_output.pci-0000_00_1b.0.playback.0.0"
+  resample_quality: 9
+  channels: 2
+  format: "S32LE"
+  rate: 48000
+  allowed-rates: "32000,44100,48000,96000"
+  speaker-layout: "FL,FR"
+
+wallpaper:
+  screen1: /usr/share/backgrounds/010.png
+
+sync_host: bender
 
 autofs_client:
   host: bender
-  shares:
-    - storage
-    - backup
+  exports:
+    storage: /storage
+    backups: /home/backups
 
-kvm_host: False
+kvm_host: True
 docker_host: True
 docker_storage: /storage/docker
 
+install_desktop: True
 install_audio_plugins: True
 install_audio_utils: True
 install_daw: True
+build_linuxsampler: True

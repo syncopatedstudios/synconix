@@ -1,0 +1,40 @@
+---
+
+- name: Set networkmanager packages to install
+  set_fact:
+    _packages: "{{ base.networkmanager  }}"
+  tags: ['packages']
+
+- name: Install networkmanager packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- name: Push connectivity check config
+  template:
+      src: etc/NetworkManager/conf.d/connectivity.conf.j2
+      dest: /etc/NetworkManager/conf.d/20-connectivity.conf
+  when: conn_check is defined
+
+- name: Push resolv.conf
+  template:
+      src: etc/resolv.conf.j2
+      dest: /etc/resolv.conf
+
+- name: Enable and start NetworkManager
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    state: started
+
+- name: disable systemd-networkd service
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - systemd-networkd
+    - systemd-resolved
+  ignore_errors: True

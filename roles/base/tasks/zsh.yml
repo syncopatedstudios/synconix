@@ -7,12 +7,12 @@
   with_items:
     - root
     - "{{ user.name }}"
-  tags: ['zsh']
+  tags: ['dots']
 
 - name: Check if oh-my-zsh is already installed
   stat: path="/usr/share/oh-my-zsh"
   register: haziohymyzsh
-  tags: ['ohmyzsh']
+  tags: ['dots']
 
 - block:
     - name: Clone oh-my-zsh
@@ -32,17 +32,24 @@
 
   when: not haziohymyzsh.stat.exists
 
-- name: Push zsh-maia-prompt
-  copy:
-    src: usr/share/zsh/zsh-maia-prompt
-    dest: /usr/share/zsh/zsh-maia-prompt
+- name: create zsh custom themes dir
+  file:
+    path: /usr/share/oh-my-zsh/custom/themes
+    state: directory
+    mode: '0775'
+  tags: ['dots']
+  check_mode: no
+
+- name: Push oh-my-zsh-theme template
+  template:
+    src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme.j2"
+    dest: "/usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
     owner: root
     group: root
     mode: '0644'
-    backup: yes
-    directory_mode: no
+  tags: ['dots']
 
-- name: Push root shell config
+- name: Push root zshell config
   synchronize:
     src: "root/"
     dest: "/root/"
@@ -54,12 +61,26 @@
     rsync_opts: "--update"
   tags: ['dots']
 
-- name: set root shell to zsh
-  user:
-    name: root
-    shell: /bin/zsh
-    state: present
-  tags: ['system', 'root']
-
 - name: set perms for root home
   shell: "chown -R root:root /root"
+  tags: ['dots']
+
+- block:
+    - name: Push user zshell templates
+      template:
+        src: "dots/{{ item }}.j2"
+        dest: "{{ user.home }}/.{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: no
+      with_items:
+        - "aliases"
+        - "gitconfig"
+        - "zlogin"
+        - "zshenv"
+        - "zshrc"
+
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['zsh', 'dots']

@@ -1,67 +1,40 @@
 ---
 
-- name: check if nvim already exists
-  stat: path="/usr/local/bin/nvim"
-  register: hazinvim
+- name: Set nvim release url
+  set_fact:
+    _nvim: "https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage"
 
-- block:
-    - name: fetch neovim
-      get_url:
-        url: "https://github.com/neovim/neovim/releases/download/v0.5.0/nvim.appimage"
-        dest: "{{ local_src }}"
-        # validate_certs: no
+- name: Set nvim-plug release url
+  set_fact:
+    _nvimplug: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    - name: set neovim appimage executable
-      shell: |
-        chmod +x nvim.appimage
-      args:
-        chdir: "{{ local_src }}"
+- name: ensure nvim plugged directory exists
+  file:
+    path: "{{ user.home }}/.local/share/nvim/site/autoload"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.group }}"
 
-    - name: create links to nvim
-      file:
-        src: "{{ local_src }}/nvim.appimage"
-        dest: "/usr/local/bin/{{ item }}"
-        owner: root
-        group: "{{ user.group }}"
-        state: link
-      with_items:
-        - nvim
-        - vim
-  when: "not hazinvim.stat.exists and ansible_os_family != 'Archlinux'"
+- name: install nvim appimage and nvim plug
+  shell: |
+    if ! [ -x "$(command -v nvim)" ]; then
+      wget -q {{ _nvim }} -O /usr/local/bin/nvim
+      chmod +x /usr/local/bin/nvim
+      ln -s /usr/local/bin/nvim vim
+    fi
 
-- block:
-    - name: ensure nvim plugged directory exists
-      file:
-        path: "{{ user.home }}/.local/share/nvim/site/autoload"
-        state: directory
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-
-    - name: fetch plug.vim
-      get_url:
-        url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-        dest: "{{ user.home }}/.local/share/nvim/site/autoload/plug.vim"
-
-    - name: install nvim settings
-      synchronize:
-        src: "dots/config/nvim"
-        dest: "{{ user.home }}/.config/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        times: no
-
-  become: True
-  become_user: "{{ user.name }}"
-
-- name: check if bash-language-server is already installed
-  stat: path="/usr/bin/bash-language-server"
-  register: hazibls
-  tags: ['repl']
+    if ! [ -e {{ user.home }}/.local/share/nvim/site/autoload ]; then
+      wge -q {{ _nvimplug }} -0 {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
+    fi
+  args:
+    chdir: /usr/local/bin
+  register: nvim_install
+  changed_when: nvim_install.rc != 0
 
 - name: install bash-language-server
-  shell: npm -g install bash-language-server
-  tags: ['repl']
-  when: "not hazibls.stat.exists and ansible_os_family != 'Archlinux'"
+  shell: |
+    if ! [ -x "$(command -v bash-language-server)" ]; then
+      npm -g install bash-language-server
+    fi
+  register: bls_install
+  changed_when: bls_install.rc != 0

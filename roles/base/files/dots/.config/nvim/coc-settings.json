@@ -1,0 +1,13 @@
+{
+
+  "languageserver": {
+    "bash": {
+      "command": "/usr/bin/bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+
+  },
+  "solargraph.commandPath": "/home/b08x/.rvm/rubies/ruby-3.0.0/bin/solargraph"
+}

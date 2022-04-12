@@ -2,9 +2,6 @@
 
 admin_user: root
 
-use_kernel: lts
-
-nfs_host: False
 nfs_ports:
   - 32803/tcp
   - 32769/udp
@@ -18,40 +15,13 @@ kvm_host: False
 docker_host: False
 docker_storage: /var/lib/docker
 
-gems:
-  - activesupport
-  - awesome_print
-  - bcrypt_pbkdf
-  - childprocess
-  - drydock
-  - ed25519
-  - eventmachine
-  - ffi
-  - fractional
-  - geo_coord
-  - highline
-  - i18n
-  - i3ipc
-  - jongleur
-  - kramdown
-  - logging
-  - minitest
-  - mocha
-  - multi_json
-  - net-ssh
-  - nokogiri
-  - parallel
-  - pry
-  - pry-doc
-  - pycall
-  - rdoc
-  - rouge
-  - rugged
-  - sync
-  - sys-proctable
-  - tty-command
-python:
-  - matplotlib
-  - numpy
-  - sounddevice
-  - scipy
+firewalld:
+  zone: docker
+  ports:
+    - 4464/udp
+    - 24800/tcp
+    - 12101/udp
+    - 9658/tcp
+    - 5353/udp
+    - 4560/udp
+    - 3333/udp

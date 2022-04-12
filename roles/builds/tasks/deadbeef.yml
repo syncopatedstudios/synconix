@@ -5,19 +5,20 @@
   register: hazideadbeef
   tags: ['deadbeef']
 
-- name: set Deadbeef dependencies to install
-  set_fact:
-    _packages: "{{ development.deadbeef }}"
-  tags: ['packages']
-
-- name: Install Deadbeef dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
 
 - block:
+    - name: set Deadbeef dependencies to install
+      set_fact:
+        _packages: "{{ builds.deadbeef }}"
+      tags: ['packages']
+
+    - name: Install Deadbeef dependencies
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['packages']
+
     - block:
       - name: Create deadbeef plugin dir
         command: mkdir -pv "{{ user.home }}/.local/lib/deadbeef/"

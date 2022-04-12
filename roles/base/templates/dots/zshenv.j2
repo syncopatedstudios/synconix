@@ -28,8 +28,11 @@ fi
 
 unset _old_path
 
+export TEMP="/tmp"
+
 export TERM="{{ user.terminal }}"
 export TERMINAL="{{ user.terminal }}"
+export TERMINFO="/usr/lib/terminfo"
 export TERMCMD="$TERMINAL"
 
 export BROWSER="google-chrome-stable"
@@ -48,19 +51,28 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
 
 export DISABLE_AUTO_TITLE=true
 
+export HOSTNAME=`hostnamectl --static`
+
 export WORKSPACE="$HOME/Workspace"
 
 export ANSIBLE_HOME="$WORKSPACE/syncopated-linux/tools/ansible"
 export ANSIBLE_CONFIG="$ANSIBLE_HOME/ansible.cfg"
 
-export HOSTNAME=`hostnamectl --static`
-
+export SOUNDS="$HOME/Library/Sounds"
+export SOUNDFONTS="$HOME/Library/Soundfonts"
 export STUDIO="$HOME/Studio"
 export PROJECTS="$STUDIO/projects"
 export SESSIONS="$STUDIO/sessions"
-export WORKSPACE="$HOME/Workspace"
 
 ##################################
 
 export USERSHARES_DIR="/var/lib/samba/usershares"
-export USERSHARES_GROUP="samba"
+export USERSHARES_GROUP="home"
+
+# For the graphical elements
+export QT_SCALE_FACTOR=1.0
+# To make the fonts readable
+export QT_FONT_DPI=96
+export QT_STYLE_OVERRIDE=Fusion
+
+export NODE_PATH=/usr/lib/node_modules

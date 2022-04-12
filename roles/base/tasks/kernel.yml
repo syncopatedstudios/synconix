@@ -2,13 +2,35 @@
 
 - name: Set kernel packages to install
   set_fact:
-    _packages: "{{ kernel['lts'] }}"
+    _packages: "{{ base.kernel['lts'] }}"
   when: use_kernel == 'lts'
 
 - name: Set kernel packages to install
   set_fact:
-    _packages: "{{ kernel['rt'] }}"
+    _packages: "{{ base.kernel['rt'] }}"
   when: use_kernel == 'rt'
+
+- name: Set kernel packages to install
+  set_fact:
+    _packages: "{{ base.kernel['zen'] }}"
+  when: use_kernel == 'zen'
+
+- name: push mkinitcpio configs
+  template:
+    src: "etc/mkinitcpio.conf.j2"
+    dest: "/etc/mkinitcpio.conf"
+    owner: root
+    group: root
+    mode: '644'
+    backup: yes
+  register: mkinit
+  tags: ['initram']
+
+- name: create an initial ramdisk environment.
+  shell: |
+    mkinitcpio -P
+  when: mkinit.changed
+  tags: ['initram']
 
 - name: Install kernel packages
   import_role:
@@ -17,11 +39,24 @@
     pkg_state: present
   register: package_results
 
-- name: Reboot if a different kernel was installed
-  shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
-  when:
-    - use_kernel == 'lts'
-    - package_results.changed
-  notify:
-    - remake grub
-    - reboot
+- block:
+    - name: push default grub file
+      template:
+        src: etc/default/grub.j2
+        dest: /etc/default/grub
+        owner: root
+        group: root
+        mode: '644'
+        backup: yes
+
+    - name: Set linux-lts as the defaule in grub
+      shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
+      when: use_kernel == 'lts'
+
+    - name: Set linux-zen as the defaule in grub
+      shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-zen'"
+      when: use_kernel == 'zen'
+
+    - name: remake grub
+      shell: "{{ grub_cmd }} -o {{ grub_config }}"
+  tags: ['grub']

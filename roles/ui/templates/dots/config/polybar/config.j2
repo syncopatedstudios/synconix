@@ -16,8 +16,8 @@
 
 [colors]
 ;; main colors
-background = #282828
-background-alt = #2828282f
+background = #2828282f
+background-alt = #0E100F1f
 foreground = #282828
 foreground-alt = #EBDBB2
 primary = #ffb52a
@@ -47,7 +47,7 @@ blue-gray = #6D8895
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-[bar/main]
+[bar/HDMI1]
 monitor = ${env:MONITOR:HDMI1}
 width = 100%
 height = 24
@@ -78,7 +78,116 @@ module-margin-right = 0
 font-0 = "Feather:size=10;2"
 font-1 = "Hack Nerd Font:pixelsize=11;2"
 
-modules-left = menu i3
+modules-left = jgmenu i3
+modules-center =
+modules-right = date
+
+tray-position = right
+tray-padding = 2
+;tray-background = #0063ff
+enable-ipc = true
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+; overline-size = 5
+; underline-size = 4
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[bar/HDMI2]
+monitor = ${env:MONITOR:HDMI2}
+width = 100%
+height = 24
+
+offset-x = 0%
+offset-y = 0%
+radius-top = 0.0
+radius-bottom = 0.0
+
+fixed-center = false
+bottom = true
+
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = ${colors.background}
+
+border-size = 1
+border-color = ${colors.background}
+
+padding-left = 0
+padding-right = 1
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = "Feather:size=10;2"
+font-1 = "Hack Nerd Font:pixelsize=11;2"
+
+modules-left = i3
+modules-center =
+modules-right = date
+
+;tray-position = right
+;tray-padding = 2
+;tray-background = #0063ff
+enable-ipc = true
+wm-restack = i3
+;override-redirect = true
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+cursor-click = pointer
+cursor-scroll = ns-resize
+; overline-size = 5
+; underline-size = 4
+
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[bar/eDP1]
+monitor = ${env:MONITOR:eDP1}
+width = 100%
+height = 24
+
+offset-x = 0%
+offset-y = 0%
+radius-top = 0.0
+radius-bottom = 0.0
+
+fixed-center = false
+bottom = true
+
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = ${colors.background}
+
+border-size = 1
+border-color = ${colors.background}
+
+padding-left = 0
+padding-right = 1
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = "Feather:size=10;2"
+font-1 = "Hack Nerd Font:pixelsize=11;2"
+
+modules-left = jgmenu i3
 modules-center =
 {% if ansible_facts['hostname'] == 'lapbot' %}
 modules-right = battery date
@@ -110,66 +219,22 @@ cursor-scroll = ns-resize
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
+[bar/VGA1]
+inherit = bar/HDMI2
 
+[bar/DP1]
+inherit = bar/HDMI1
+monitor = ${env:MONITOR:DP1}
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-[bar/lapbot]
-monitor = ${env:MONITOR:eDP1}
-
-width = 100%
-height = 24
-
-offset-x = 0%
-offset-y = 0%
-
-radius-top = 0.0
-radius-bottom = 0.0
-
-fixed-center = false
-
-bottom = true
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-line-size = 0
-line-color = ${colors.background}
-
-border-size = 1
-border-color = ${colors.background}
-
-padding-left = 0
-padding-right = 1
-
-module-margin-left = 0
-module-margin-right = 0
-
-font-0 = "Feather:size=10;2"
-font-1 = "Hack Nerd Font:pixelsize=11;2"
-
-modules-left = menu i3
-modules-center =
-modules-right = battery date
-
-tray-position = right
-tray-padding = 2
-;tray-background = #0063ff
-enable-ipc = true
-
-;wm-restack = bspwm
-;wm-restack = i3
-
-;override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
+[module/jgmenu]
+type = custom/text
+content-padding = 2
+#content = "   "
+content = ""
+click-left = "jgmenu_run >/dev/null 2>&1 &"
+content-background = {{ colors.background }}
+content-foreground = {{ colors.foreground }}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -321,7 +386,7 @@ label-focused-padding = 1
 
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
-label-unfocused-foreground = ${colors.gray}
+label-unfocused-foreground = ${colors.indigo}
 label-unfocused-padding = 1
 
 ; visible = Active workspace on unfocused monitor
@@ -345,7 +410,7 @@ type = internal/date
 interval = 1
 
 ; Optional time format
-time = "%H:%M"
+time = "%I:%M"
 
 ; if `date-alt` or `time-alt` is defined, clicking
 ; the module will toggle between formats

@@ -1,0 +1,47 @@
+---
+
+- name: install osync configs
+  template:
+    src: "etc/osync/{{ item }}.j2"
+    dest: "/etc/osync/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - exclude.list
+    - sync.conf
+  tags: ['osync']
+
+- block:
+    - name: ensure lsyncd config dir exists
+      shell: |
+        mkdir -pv .config/lsyncd
+      args:
+        chdir: "/root"
+
+    - name: install lsyncd config
+      template:
+        src: dots/config/lsyncd/lsyncd_home.conf.lua.j2
+        dest: /root/.config/lsyncd/lsyncd_home.conf.lua
+        owner: root
+        group: root
+
+    - name: install lsyncd systemd config
+      template:
+        src: usr/lib/systemd/system/lsyncd.service.j2
+        dest: /usr/lib/systemd/system/lsyncd.service
+        owner: root
+        group: root
+      register: lsyncd_service
+
+    - name: reload systemd
+      shell: |
+        systemctl daemon-reload
+      when: lsyncd_service.changed
+
+    - name: enable lsyncd service
+      systemd:
+        name: lsyncd
+        state: stopped
+        enabled: no
+  tags: ['lsyncd']

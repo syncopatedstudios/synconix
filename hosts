@@ -1,16 +1,25 @@
-[desktops]
-calculon ansible_connection=local
-crambot
+[controller]
+bender
+
+[daw]
+crambot ansible_connection=local
+calculon
 lapbot
 
-[nodes]
-bender
+[node]
 soundbot01
 
 [soundbots:children]
-desktops
-nodes
+controller
+daw
+node
 
 [soundbots:vars]
 ansible_user=b08x
 ansible_become=true
+admin_user=wheel
+autofs_configs=/etc/autofs
+rtirq_dir=/etc/rtirq.conf
+grub_config=/boot/grub/grub.cfg
+grub_cmd=grub-mkconfig
+grub_set_default=grub-set-default

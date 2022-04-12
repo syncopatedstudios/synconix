@@ -1,0 +1,104 @@
+---
+
+- include_vars:
+    file: defaults/surfraw.yml
+  tags: ['surfraw']
+
+- name: check whether this is an initial install
+  stat:
+    path: "{{ application.source.folder }}/.installed"
+  register: check_installed
+  tags: ['surfraw']
+
+- block:
+    - name: "Set {{ application.name }} dependencies to install"
+      set_fact:
+        _packages: "{{ application.dependencies }}"
+      tags: ['surfraw']
+
+    - name: "Install {{ application.dependencies }}"
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+      tags: ['surfraw']
+
+    - name: "fetch {{ application.name }} from {{ application.source.url }}"
+      get_url:
+        url: "{{ application.source.url }}{{ application.source.file }}"
+        dest: "{{ application.source.. }}" #TODO: set to /usr/local/src or /usr/local/src/source.file?
+        validate_certs: no
+      when: application.source.url is defined
+
+    - name: "clone {{ application.source }}"
+      git:
+        repo: "{{ application.source.git }}"
+        dest: "{{ application.source.folder }}"
+        accept_hostkey: yes
+        update: no
+        force: no
+      when: application.source.git is defined
+
+    - name: "extract the {{ application.source.file }} if compressed"
+      unarchive:
+        src: "{{ application.source.file }}"
+        dest: "{{ application.source.folder }}"
+      when:
+        - application.source.file is defined
+        - application.source #TODO: extension is an archive
+
+    - name: do make pre stuff
+      command: sh -lc "{{ item }} &> /dev/null"
+      with_items:
+        - 'libtoolize'
+        - 'aclocal'
+        - 'autoconf'
+        - 'automake --add-missing'
+        - 'autoheader'
+      args:
+        chdir: "{{ application.source.folder }}"
+      register: make_pre_stuff
+      failed_when: make_pre_stuff.rc == 2
+
+    - name: sub google-chrome with google-chrome-stable
+      shell: |
+        sed -i s/google-chrome/google-chrome-stable/g configure
+      args:
+        chdir: "{{ application.source.folder }}"
+
+    - name: "configure {{ application.name }}"
+      shell: |
+        ./configure  {{ application.config.opts | join(' ') }}
+      args:
+        chdir: "{{ application.source.folder }}"
+      register: configure_status
+      failed_when: configure_status.failed
+
+    - name: "make {{ application.name }}"
+      shell: "make -j$(nproc)"
+      args:
+        chdir: "{{ application.source.folder }}"
+      register: make_status
+      failed_when: make_status.failed
+
+    - name: "install {{ application.name }}"
+      shell: "sudo make install"
+      args:
+        chdir: "{{ application.source.folder }}"
+      register: make_install_status
+      when: make_status.rc == 0
+
+    - name: run ldconfig
+      command: bash -lc "sudo ldconfig"
+      when: make_install_status.rc == 0
+
+    - name: touch .installed in user home directory
+      file:
+        path: "{{ application.source.folder }}/.installed"
+        state: touch
+      when: make_install_status.rc == 0
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: not check_installed.stat.exists
+  tags: ['surfraw']
