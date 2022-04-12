@@ -29,8 +29,8 @@ base:
     - alsa-plugins
     - alsa-tools
     - alsa-utils
-    - atool
     - aria2
+    - atool
     - autofs
     - barrier
     - base-devel
@@ -42,9 +42,11 @@ base:
     - brightnessctl
     - btrfsmaintenance
     - cmake
+    - dialog
     - exa
     - faad2
     - fd
+    - ffmpegthumbnailer
     - firewalld
     - fzf
     - gcc-libs
@@ -76,11 +78,12 @@ base:
     - libxml2
     - libzip
     - lnav
-    - lua
     - lsyncd
+    - lua
     - man-db
     - man-pages
     - mdadm
+    - mediainfo
     - mlocate
     - ncurses
     - neofetch
@@ -110,9 +113,11 @@ base:
     - s
     - samba
     - screen
+    - smartmontools
     - sndio
     - sox
     - sqlite
+    - ssvnc
     - sudo
     - suil
     - taglib
@@ -124,6 +129,7 @@ base:
     - waf
     - wavpack
     - wol
+    - xdotool
     - xf86-video-intel
     - xterm
     - xz
@@ -230,6 +236,7 @@ audio:
     - njconnect
     - opus
     - osc2midi
+    - sox-noise-git
     - timidity++
     - tmux
     - vamp-plugin-sdk
