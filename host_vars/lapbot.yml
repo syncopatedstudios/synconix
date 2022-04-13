@@ -2,6 +2,9 @@
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_kernel: zen
 
+graphical_target: True
+autologin: True
+
 use_systemdnetwork: False
 use_networkmanager: True
 
