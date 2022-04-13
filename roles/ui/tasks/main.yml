@@ -20,17 +20,6 @@
 
   tags: ['packages', 'i3', 'qt', 'x11', 'fonts', 'theme']
 
-- name: copy help file to user home dir
-  copy:
-    src: key_bindings.md
-    dest: "{{ user.home }}/key_bindings.md"
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-    mode: '0644'
-    backup: no
-    directory_mode: no
-  tags: ['help']
-
 - include: x11.yml
   tags: ['x11']
 
