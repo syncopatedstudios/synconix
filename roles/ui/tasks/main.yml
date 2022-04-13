@@ -47,6 +47,13 @@
 - include: termpdf.yml
   tags: ['utils']
 
+- name: set thunar as default for opening directories
+  shell: |
+    xdg-mime default thunar.desktop inode/directory
+  become: True
+  become_user: "{{ user.name }}"
+  tags: ['thunar']
+
 - name: set graphical-target as default
   shell: |
     systemctl set-default graphical.target
