@@ -4,23 +4,11 @@
   debug:
     msg: "starting audio role"
 
-- name: set pipewire packages to install
-  set_fact:
-    _packages: "{{ base.pipewire }}"
-  tags: ['packages', 'alsa', 'pipewire']
-
-- name: install pipewire packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages', 'pipewire']
+- include: audio/pipewire.yml
+  tags: ['pipewire']
 
 - include: audio/alsa.yml
   tags: ['alsa']
-
-- include: audio/pipewire.yml
-  tags: ['pipewire']
 
 #-------------------------------------#
 
@@ -48,7 +36,7 @@
         pkg_state: present
 
   when: inventory_hostname in groups['daw']
-  tags: ['packages', 'audio', 'daw']
+  tags: ['packages', 'daw']
 
 - name: makesfz and makeh2drumkit
   copy:
@@ -60,7 +48,7 @@
   with_items:
     - makeh2kit
     - makesfz
-  tags: ['audio', 'utils']
+  tags: ['utils']
 
 - name: Sync .desktop files to /usr/local
   synchronize:
@@ -72,7 +60,7 @@
     checksum: yes
     perms: no
     rsync_opts: "--update"
-  tags: ['audio', 'xdg']
+  tags: ['xdg']
 
 - include: audio/moc.yml
   tags: ['moc']

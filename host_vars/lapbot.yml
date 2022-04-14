@@ -66,6 +66,7 @@ build_qmidinet: True
 build_raysession: True
 build_reaper: True
 build_seq192: True
+build_sonicannotator: True
 build_soniclineup: True
 build_sonicpi: True
 build_sonicpitool: True

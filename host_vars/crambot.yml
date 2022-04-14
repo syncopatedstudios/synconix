@@ -69,7 +69,7 @@ autofs_client:
 
 kvm_host: True
 docker_host: True
-docker_storage: /storage/docker
+docker_storage: /var/lib/docker
 
 install_desktop: True
 install_audio_plugins: True
@@ -86,6 +86,7 @@ build_protokol: True
 build_raysession: True
 build_reaper: True
 build_seq192: True
+build_sonicannotator: True
 build_soniclineup: True
 build_sonicpi: True
 build_timemachine: True

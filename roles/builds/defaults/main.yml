@@ -1,5 +1,6 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
+build_audiowaveform: False
 build_ardour: False
 build_baudline: False
 build_bespoke: False
@@ -20,6 +21,7 @@ build_raysession: False
 build_reaper: False
 build_rtplugins: False
 build_seq192: False
+build_sonicannotator: False
 build_soniclineup: False
 build_sonicpi: False
 build_sonicpitool: False
