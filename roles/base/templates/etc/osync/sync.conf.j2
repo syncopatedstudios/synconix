@@ -188,10 +188,10 @@ SMTP_PASSWORD=
 
 ## Commands can will be run before and / or after sync process (remote execution will only happen if REMOTE_OPERATION is set).
 LOCAL_RUN_BEFORE_CMD=""
-LOCAL_RUN_AFTER_CMD=""
+LOCAL_RUN_AFTER_CMD="chown -R {{ user.name }}:{{ user.name }} {{ user.home }}/.osync_workdir"
 
 REMOTE_RUN_BEFORE_CMD=""
-REMOTE_RUN_AFTER_CMD=""
+REMOTE_RUN_AFTER_CMD="chown -R {{ user.name }}:{{ user.name }} {{ user.home }}/.osync_workdir"
 
 ## Max execution time of commands before they get force killed. Leave 0 if you don't wan't this to happen. Time is specified in seconds.
 MAX_EXEC_TIME_PER_CMD_BEFORE=0
