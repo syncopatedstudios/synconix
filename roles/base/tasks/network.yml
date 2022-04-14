@@ -1,0 +1,23 @@
+---
+
+- name: starting network role
+  debug:
+    msg: "starting network role"
+
+- import_tasks: network/cleanup.yml
+
+- include: network/networkmanager.yml
+  when: use_networkmanager|bool
+  tags: ['networkmanager']
+
+- include: network/systemd-networkd.yml
+  when: use_systemdnetwork|bool
+  tags: ['systemdnetwork']
+
+- include: network/udev-rules.yml
+  when: wireless|bool
+  tags: ['wireless']
+
+- include: network/wpa_supplicant.yml
+  when: use_wpa_supplicant|bool
+  tags: ['wireless']

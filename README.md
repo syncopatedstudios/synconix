@@ -64,14 +64,14 @@ you set which window manager and other ui related thigns...
 install_x11: True
 install_i3: True
 ```
-Set whether or not to install i3 window manager by adding a boolean variable in a group or host_vars file. You can find the default settings in [ui defaults](roles/ui/defaults/main.yml)
+Set whether or not to install i3 window manager by adding a boolean variable in a group or host_vars file. You can find the default settings in the [ui section](roles/base/defaults/main.yml)
 
 i3 is currently the default. If you'd like to add packages for any other desktop enviornment, add the packages you want in the primary vars file, create a task for it, then add a boolean to this list.
 
 
 ## theme
 
-set the variables for theme elements in [ui defaults](roles/ui/defaults/main.yml)
+set the variables for theme elements in the [ui section](roles/base/defaults/main.yml)
 
 ```yaml
 gtk_theme: oomox-soundbotv2
@@ -102,7 +102,7 @@ dots:
   untracked: False
 ```
 
-If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point. See [dots](roles/soundbot/README.md) for more detail.
+If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point. {--See [dots](roles/soundbot/README.md) for more detail.--}
 
 
 ## tasks
@@ -120,7 +120,7 @@ To add an application you want to compile from source...
 # ansible stuff
 
 ## variable precdence
-In ansible there are 22 areas where you can set variables. Here we use 8 of them. Here is where you can find them; ranging from highest to lowest in precdence.
+{--In ansible there are 22 areas where you can set variables. Here we use 8 of them. Here is where you can find them; ranging from highest to lowest in precdence.
 
 1. role (and include_role) params
 2. set_facts / registered vars
@@ -129,7 +129,7 @@ In ansible there are 22 areas where you can set variables. Here we use 8 of them
 5. play vars
 6. playbook host_vars/*
 7. playbook group_vars/all
-8. role defaults (defined in role/defaults/main.yml)
+8. role defaults (defined in role/defaults/main.yml)--}
 
 
 

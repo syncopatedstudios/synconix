@@ -5,3 +5,26 @@
 
 - name: restart libvirtd
   action: service name=libvirtd state=restarted
+
+- name: restart systemd-networkd
+  become: true
+  service:
+    name: systemd-networkd
+    state: restarted
+    enabled: yes
+  when: systemd_networkd_apply_config
+
+- name: update desktop database
+  command: bash -lc "update-desktop-database"
+
+- name: restart i3
+  command: bash -lc "i3-msg -s /run/user/{{ user.uid }}/i3/ipc-socket.* restart"
+  become: True
+  become_user: "{{ user.name }}"
+  ignore_errors: True
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+  become: True
+  become_user: "{{ user.name }}"
