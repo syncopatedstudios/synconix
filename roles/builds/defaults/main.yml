@@ -1,5 +1,34 @@
 ---
 # vars set here can been over written by host_vars/<host>.yml
+build_ardour: False
+build_baudline: False
+build_bespoke: False
+build_deadbeef: False
+build_ecasound: False
+build_ingen: False
+build_jacktrip: False
+build_jalvselect: False
+build_linuxsampler: False
+build_njconnect: False
+build_non: False
+build_obs: False
+build_ocenaudio: False
+build_patchage: False
+build_polyphone: False
+build_qmidinet: False
+build_raysession: False
+build_reaper: False
+build_rtplugins: False
+build_seq192: False
+build_soniclineup: False
+build_sonicpi: False
+build_sonicpitool: False
+build_sonicvisualiser: False
+build_swami: False
+build_timemachine: False
+build_tony: False
+build_touchosc: False
+
 
 ardour:
   url: "git://git.ardour.org/ardour/ardour.git"

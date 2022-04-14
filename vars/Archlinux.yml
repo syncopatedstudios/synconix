@@ -118,7 +118,7 @@ base:
     - sndio
     - sox
     - sqlite
-    - ssvnc
+    # - ssvnc
     - sudo
     - suil
     - taglib

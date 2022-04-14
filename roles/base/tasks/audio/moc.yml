@@ -7,7 +7,7 @@
 
     - name: install mocp config
       copy:
-        src: "dots/moc/config"
+        src: "dots/.moc/config"
         dest: "{{ user.home }}/.moc/config"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"

@@ -16,10 +16,10 @@
     pkg_state: present
   tags: ['packages', 'pipewire']
 
-- include: alsa.yml
+- include: audio/alsa.yml
   tags: ['alsa']
 
-- include: pipewire.yml
+- include: audio/pipewire.yml
   tags: ['pipewire']
 
 #-------------------------------------#
@@ -74,5 +74,5 @@
     rsync_opts: "--update"
   tags: ['audio', 'xdg']
 
-- include: moc.yml
+- include: audio/moc.yml
   tags: ['moc']

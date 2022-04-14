@@ -54,3 +54,21 @@ soundcard:
 
 wallpaper:
   screen1: /usr/share/backgrounds/010.png
+
+build_baudline: True
+build_jacktrip: True
+build_jalvselect: True
+build_njconnect: True
+build_non: True
+build_patchage: True
+build_polyphone: True
+build_qmidinet: True
+build_raysession: True
+build_reaper: True
+build_seq192: True
+build_soniclineup: True
+build_sonicpi: True
+build_sonicpitool: True
+build_timemachine: True
+build_tony: True
+build_touchosc: True
