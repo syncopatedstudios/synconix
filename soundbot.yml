@@ -24,10 +24,6 @@
       debug: msg="{{ansible_os_family}}"
       tags: ['inventory']
 
-    - name: print random var from vars/Archlinux
-      debug: msg="{{ apm }}"
-      tags: ['inventory']
-
   tasks:
     - name: Check whether this is an initial install or not.
       stat:
@@ -50,8 +46,6 @@
 
   roles:
      - { role: distro, tags: ['distro'] }
-     - { role: network, tags: ['network'] }
      - { role: base, tags: ['base'] }
-     - { role: audio, tags: ['audio'] }
      - { role: ui, tags: ['ui'] }
      - { role: builds, tags: ['builds'] }

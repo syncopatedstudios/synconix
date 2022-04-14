@@ -34,7 +34,7 @@
         name: pkg_manager
       vars:
         pkg_state: present
-  tags: ['packages', 'audio']
+  tags: ['packages']
 
 - block:
     - name: Set daw packages to install
