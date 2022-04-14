@@ -187,7 +187,12 @@ SMTP_PASSWORD=
 ## ---------- EXECUTION HOOKS
 
 ## Commands can will be run before and / or after sync process (remote execution will only happen if REMOTE_OPERATION is set).
+{% if inventory_hostname == 'crambot' %}
+LOCAL_RUN_BEFORE_CMD="mount {{ user.home }}/Library"
+{% else %}
 LOCAL_RUN_BEFORE_CMD=""
+{% endif %}
+
 LOCAL_RUN_AFTER_CMD="chown -R {{ user.name }}:{{ user.name }} {{ user.home }}/.osync_workdir"
 
 REMOTE_RUN_BEFORE_CMD=""
