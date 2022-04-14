@@ -1,0 +1,33 @@
+---
+
+- name: check if bespoke executable exists
+  command: bash -lc 'command -v BespokeSynth'
+  register: bespoke_check
+  ignore_errors: true
+
+- block:
+  - name: clone bespoke
+    git:
+      repo: "{{ bespoke['git'] }}"
+      dest: "{{ local_src }}/BespokeSynth"
+      accept_hostkey: yes
+      update: no
+      force: no
+
+  - name: build bespoke
+    shell: |
+      cmake -Bignore/build -DCMAKE_BUILD_TYPE=Release -DBESPOKE_VST2_SDK_LOCATION=/usr/local/src/VST2_SDK/
+      cmake --build ignore/build --parallel 4 --config Release
+      sudo cmake --install ignore/build
+    args:
+      chdir: "{{ local_src }}/BespokeSynth"
+    register: bespoke_build
+    failed_when: bespoke.failed
+
+  - name: Show output of bespoke build
+    when: bespoke_build|succeeded
+    debug: msg="{{ bespoke_build.stdout_lines }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: bespoke_check.rc != 0

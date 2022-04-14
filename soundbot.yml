@@ -52,3 +52,6 @@
      - { role: distro, tags: ['distro'] }
      - { role: network, tags: ['network'] }
      - { role: base, tags: ['base'] }
+     - { role: audio, tags: ['audio'] }
+     - { role: ui, tags: ['ui'] }
+     - { role: builds, tags: ['builds'] }

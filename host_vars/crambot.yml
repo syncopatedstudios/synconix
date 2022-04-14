@@ -2,6 +2,9 @@
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_kernel: lts
 
+graphical_target: True
+autologin: True
+
 use_networkmanager: False
 use_systemdnetwork: True
 
@@ -72,4 +75,19 @@ install_desktop: True
 install_audio_plugins: True
 install_audio_utils: True
 install_daw: True
-build_linuxsampler: True
+
+build_baudline: True
+build_bespoke: True
+build_jacktrip: True
+build_jalv_select: True
+build_non: True
+build_patchage: True
+build_protokol: True
+build_raysession: True
+build_reaper: True
+build_seq192: True
+build_soniclineup: True
+build_sonicpi: True
+build_timemachine: True
+build_tony: True
+build_touchosc: True

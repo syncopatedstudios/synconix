@@ -61,7 +61,7 @@
     - name: Install deadbeef plugins
       synchronize:
         src: usr/local/lib/deadbeef/
-        dest: /usr/local/lib/deadbeef/
+        dest: "{{ user.home }}./local/lib/deadbeef/"
         recursive: yes
         mode: push
         delete: no

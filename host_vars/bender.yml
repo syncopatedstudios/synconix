@@ -2,6 +2,9 @@
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
 use_kernel: lts
 
+graphical_target: False
+autologin: False
+
 use_networkmanager: False
 use_systemdnetwork: True
 
@@ -32,10 +35,8 @@ firewalld:
     - 138/udp
     - 139/tcp
     - 445/tcp
+    - 4533/tcp
     - 8080/tcp
     - 36278/udp
     - 44448/tcp
     - 44448/udp
-
-graphical_target: False
-autologin: False

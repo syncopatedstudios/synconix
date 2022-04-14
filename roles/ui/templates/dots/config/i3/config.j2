@@ -82,6 +82,10 @@ $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --di
 {% endif %}
 
 $exec $autostart
+
+set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
+$exec $scratchpad
+
 ######################################
 # ---{ window settings }---
 ######################################
@@ -192,6 +196,7 @@ workspace $ws10 output HDMI2
 for_window [class="(?i)jack-keyboard"] floating enable, move to scratchpad, scratchpad show
 for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad show
 for_window [title="(?i)Mamba"] floating enable, resize set 640 480, move to scratchpad, scratchpad show
+for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
 ######################################
 #       ---{ utils }---
 ######################################
@@ -218,11 +223,13 @@ for_window [class="(?i)zita-mu1"] floating enable
 #       ---{ audio apps }---
 ######################################
 for_window [class="^sonic-pi$"] floating disable
+for_window [class="^Non-Mixer$"] floating disable
 
 assign [class="^atom$"] 1
 assign [class="^kitty_init$"] 1
 assign [class="^sonic-pi$"] 1
 assign [class="^REAPER$"] 2
+assign [class="^Non-Mixer$"] 2
 assign [class="^mixxx$"] 3
 assign [class="^qsampler$"] 7
 assign [class="^qmidiarp$"] 7
@@ -273,10 +280,10 @@ bindsym XF86Search $exec $search
 bindsym $mod+g $exec $search
 
 bindsym $mod+Insert $exec zim --plugin quicknote
+bindsym $mod+Shift+Mod2+Insert $exec $scratchpad
 
 # set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
 set $help "kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
-
 bindsym $mod+slash $exec $help
 
 bindsym $mod+grave scratchpad show

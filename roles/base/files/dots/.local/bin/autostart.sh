@@ -53,6 +53,5 @@ i3-msg [class="^Patchage$"], move container to workspace 10
 i3-msg workspace 10
 xdotool search --onlyvisible --name "Patchage" key ctrl+g
 
-i3-msg "exec --no-startup-id kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
-
+i3-msg workspace 2 splitv
 i3-msg workspace 1

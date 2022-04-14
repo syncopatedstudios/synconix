@@ -7,6 +7,20 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- block:
+    - name: Push vst2 sdk
+      synchronize:
+        src: usr/local/src/VST2_SDK
+        dest: "{{ local_src }}/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+  become: true
+  become_user: "{{ user.name }}"
+  tags: ['vst2']
+
 ###################################
 
 - include: sonicannotator.yml
@@ -30,6 +44,10 @@
 - include: baudline.yml
   when: build_baudline is defined
   tags: ['baudline']
+
+- include: bespoke.yml
+  when: build_bespoke is defined
+  tags: ['bespoke']
 
 - include: deadbeef.yml
   when: build_deadbeef is defined

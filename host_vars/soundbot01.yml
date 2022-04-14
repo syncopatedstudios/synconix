@@ -1,5 +1,9 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
+
+graphical_target: False
+autologin: False
+
 use_systemdnetwork: False
 use_networkmanager: True
 
