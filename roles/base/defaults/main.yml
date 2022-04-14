@@ -25,3 +25,33 @@ firewalld:
     - 5353/udp
     - 4560/udp
     - 3333/udp
+
+soundcard:
+  log_level: 2
+  clock:
+    rate: 48000
+    period: 1024
+    allowed-rates:
+      - 44100
+      - 48000
+      - 96000
+    min-quantum: 512
+    max-quantum: 1024
+  resample:
+    quality: 9
+  channelmix:
+    normalize: true
+    mix-lfe: true
+    upmix: false
+    lfe-cutoff: 0
+  soundcard:
+    nick: "analog_stereo_out"
+    description: "default audio route"
+    alsa_in: "~alsa_input.pci-0000_00_1b*"
+    alsa_out: "~alsa_output.pci-0000_00_1b*"
+    resample_quality: 9
+    channels: 2
+    format: "S32LE"
+    rate: 48000
+    allowed-rates: "32000,44100,48000,96000"
+    speaker-layout: "FL,FR"

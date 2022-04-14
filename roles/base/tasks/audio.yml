@@ -4,12 +4,6 @@
   debug:
     msg: "starting audio role"
 
-- name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
-
-# - include: pulseaudio.yml
-#   tags: ['pulseaudio']
-
 - name: set pipewire packages to install
   set_fact:
     _packages: "{{ base.pipewire }}"
@@ -80,5 +74,5 @@
     rsync_opts: "--update"
   tags: ['audio', 'xdg']
 
-- include: players.yml
-  tags: ['players']
+- include: moc.yml
+  tags: ['moc']

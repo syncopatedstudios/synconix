@@ -92,11 +92,8 @@
   when: inventory_hostname in groups['daw']
   tags: ['packages', 'desktop']
 
-# - name: configure audio system
-#   import_role:
-#     name: audio
-#   when: inventory_hostname in groups['daw']
-#
+- include: audio.yml
+  tags: ['audio']
 # - name: configure ui
 #   import_role:
 #     name: ui
