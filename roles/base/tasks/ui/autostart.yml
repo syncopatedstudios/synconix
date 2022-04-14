@@ -10,15 +10,14 @@
         mode: push
         delete: no
         rsync_opts: "--update"
-      tags: ['autostart']
 
-    - name: add autostart programs to autostart target
-      shell: |
-        systemctl --user add-wants autostart.target {{ item }}.service
-      args:
-        chdir: "{{ user.home }}/.config/systemd/user/"
-      with_items:
-        - 
+    # - name: add autostart programs to autostart target
+    #   shell: |
+    #     systemctl --user add-wants autostart.target {{ item }}.service
+    #   args:
+    #     chdir: "{{ user.home }}/.config/systemd/user/"
+    #   with_items:
+    #     -
 
   become: True
   become_user: "{{ user.name }}"

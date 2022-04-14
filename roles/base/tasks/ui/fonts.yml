@@ -21,7 +21,7 @@
 
     - name: update fontconfig
       template:
-        src: fontconfig/fonts.conf.j2
+        src: dots/config/fontconfig/fonts.conf.j2
         dest: "{{ user.home }}/.config/fontconfig/fonts.conf"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"

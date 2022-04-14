@@ -108,7 +108,7 @@
 
     - name: Install picom config
       copy:
-        src: dots/config/picom/picom.conf
+        src: dots/.config/picom/picom.conf
         dest: "{{ user.home }}/.config/picom/picom.conf"
         directory_mode: no
         owner: "{{ user.name }}"
@@ -118,7 +118,7 @@
 
     - name: Install redshift config
       copy:
-        src: dots/config/redshift/redshift.conf
+        src: dots/.config/redshift/redshift.conf
         dest: "{{ user.home }}/.config/redshift/redshift.conf"
         directory_mode: no
         owner: "{{ user.name }}"

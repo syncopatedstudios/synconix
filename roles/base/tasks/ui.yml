@@ -4,9 +4,6 @@
   debug:
     msg: "starting ui role"
 
-- name: Include OS-specific variables.
-  include_vars: "{{ ansible_os_family }}.yml"
-
 - block:
     - name: set packages to install
       set_fact:
@@ -18,22 +15,22 @@
       vars:
         pkg_state: present
 
-  tags: ['packages', 'i3', 'qt', 'x11', 'fonts', 'theme']
+  tags: ['packages']
 
-- include: x11.yml
+- include: ui/x11.yml
   tags: ['x11']
 
-- include: i3.yml
+- include: ui/i3.yml
   tags: ['i3']
 
-- include: theme.yml
+- include: ui/theme.yml
   tags: ['theme']
 
-- include: autologin.yml
+- include: ui/autologin.yml
   when: autologin|bool
   tags: ['autologin']
 
-- include: termpdf.yml
+- include: ui/termpdf.yml
   tags: ['utils']
 
 - name: set thunar as default for opening directories
