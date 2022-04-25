@@ -57,6 +57,10 @@
 #   when: autofs_client is defined
 #   tags: ['autofs']
 
+- include: rsyncd.yml
+  when: rsyncd_host is defined
+  tags: ['rsyncd']
+
 - include: docker.yml
   when: docker_host|bool and docker is defined
   tags: ['docker']

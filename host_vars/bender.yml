@@ -22,6 +22,8 @@ systemd_networkd_network:
       - Gateway: "192.168.41.1"
 
 nfs_host: True
+rsyncd_host: True
+
 kvm_host: False
 docker_host: True
 docker_storage: /storage/docker

@@ -15,11 +15,11 @@ INITIATOR_SYNC_DIR="{{ user.home }}"
 
 ## Target is the system osync synchronizes to (can be the same system as the initiator in case of local sync tasks). The target directory can be a local or remote path.
 #TARGET_SYNC_DIR="/home/git/osync/dir2"
-TARGET_SYNC_DIR="ssh://root@{{ sync_host }}:22/{{ user.home }}"
-
+#TARGET_SYNC_DIR="ssh://root@{{ sync_host }}:22/{{ user.home }}"
+TARGET_SYNC_DIR="bender::{{ user.name }}"
 ## If the target system is remote, you can specify a RSA key (please use full path). If not defined, the default ~/.ssh/id_rsa will be used. See documentation for further information.
-SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
-
+#SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
+SSH_RSA_PRIVATE_KEY=""
 ## Alternatively, you may specify an SSH password file (less secure). Needs sshpass utility installed.
 SSH_PASSWORD_FILE=""
 
@@ -39,7 +39,7 @@ MINIMUM_SPACE=10240
 BANDWIDTH=0
 
 ## If enabled, synchronization on remote system will be processed as superuser. See documentation for /etc/sudoers file configuration.
-SUDO_EXEC=yes
+SUDO_EXEC=no
 ## Paranoia option. Don't change this unless you read the documentation.
 RSYNC_EXECUTABLE=rsync
 ## Remote rsync executable path. Leave this empty in most cases
@@ -105,10 +105,10 @@ KEEP_DIRLINKS=no
 ## Preserve hard links. Make sure source and target FS can manage hard links or you will lose them.
 PRESERVE_HARDLINKS=no
 ## Do a full checksum on all files that have identical sizes, they are checksummed to see if they actually are identical. This can take a long time.
-CHECKSUM=no
+CHECKSUM=yes
 
 ## Let RSYNC compress file transfers. Do not use this if both initator and target replicas are on local system. Also,  do not use this if you already enabled SSH compression.
-RSYNC_COMPRESS=yes
+RSYNC_COMPRESS=no
 
 ## Maximum execution time (in seconds) for sync process. Set these values zero will disable max execution times.
 ## Soft exec time only generates a warning. Hard exec time will generate a warning and stop sync process.
@@ -187,11 +187,11 @@ SMTP_PASSWORD=
 ## ---------- EXECUTION HOOKS
 
 ## Commands can will be run before and / or after sync process (remote execution will only happen if REMOTE_OPERATION is set).
-{% if inventory_hostname == 'crambot' %}
-LOCAL_RUN_BEFORE_CMD="mount {{ user.home }}/Library"
-{% else %}
+# {% if inventory_hostname == 'crambot' %}
+# LOCAL_RUN_BEFORE_CMD="mount {{ user.home }}/Library"
+# {% else %}
 LOCAL_RUN_BEFORE_CMD=""
-{% endif %}
+# {% endif %}
 
 LOCAL_RUN_AFTER_CMD="chown -R {{ user.name }}:{{ user.name }} {{ user.home }}/.osync_workdir"
 
