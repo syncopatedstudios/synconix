@@ -39,13 +39,17 @@ set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
 set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
-set $googler "guake --show -n '$PWD' -e googler"
+# set $googler "guake --show -n '$PWD' -e googler"
 
 set $search "/usr/local/bin/search.sh"
 
 set $ranger "kitty -e ranger"
 
 set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
+
+set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty --class 'kitty_init' --session $HOME/.config/kitty/start.conf"
+
+set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
 
 set $autostart "$HOME/.local/bin/autostart.sh"
 
@@ -81,9 +85,9 @@ $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --di
 {% else %}
 {% endif %}
 
-$exec $autostart
+# $exec $autostart
 
-set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
+$exec kitty_init
 $exec $scratchpad
 
 ######################################
