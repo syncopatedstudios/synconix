@@ -299,7 +299,6 @@ workstation:
     - ffmpegthumbnailer
     - gnuplot
     - google-chrome
-    - googler-git
     - grsync
     - gtksourceview3
     - gtkspell3

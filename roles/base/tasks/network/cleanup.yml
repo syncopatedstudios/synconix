@@ -32,14 +32,14 @@
     - wpa_supplicant-nl80211.conf
     - wpa_supplicant-wired.conf
   ignore_errors: True
+  register: wpa_cleanup
 
-- name: stop systemd-networkd service
+- name: stop wpa_supplicant service
   systemd:
     name: "{{ item }}"
     enabled: no
     state: stopped
   with_items:
-    - systemd-networkd
-    - systemd-resolved
     - wpa_supplicant
+  when: wpa_cleanup.changed
   ignore_errors: True
