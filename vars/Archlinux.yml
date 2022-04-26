@@ -53,6 +53,8 @@ base:
     - gendesk
     - git
     - git-filter-repo
+    - gitflow-avh
+    - gitflow-zshcompletion-avh
     - git-lfs
     - glibc
     - glow
@@ -151,6 +153,7 @@ base:
     - pipewire-zeroconf
 ui:
   x11:
+    - xorg-xinput
     - xorg-xev
     - xorg-xmodmap
     - xorg-xrandr
