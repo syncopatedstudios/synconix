@@ -4,8 +4,8 @@ Description=synchronization daemon
 
 [Service]
 Type=simple
-PIDFile=/run/lsyncd.pid
-ExecStart=/usr/bin/lsyncd -pidfile /run/lsyncd.pid /root/.config/lsyncd/lsyncd_home.conf.lua
+PIDFile=/run/user/{{ user.uid }}/lsyncd.pid
+ExecStart=/usr/bin/lsyncd -pidfile /run/user/{{ user.uid }}/lsyncd.pid {{ user.home }}/.config/lsyncd/lsyncd_home.conf.lua
 
 [Install]
 WantedBy=multi-user.target

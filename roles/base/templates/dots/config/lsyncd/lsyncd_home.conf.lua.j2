@@ -1,20 +1,24 @@
 settings {
-    logfile = "/root/.config/lsyncd/lsyncd.log",
-    statusFile = "/root/.config/lsyncd/lsyncd.status",
+    logfile = "{{ user.home }}/.config/lsyncd/lsyncd.log",
+    statusFile = "{{ user.home }}/.config/lsyncd/lsyncd.status",
     insist = true
 }
 
+{% if inventory_hostname == 'bender' %}
 sync {
     default.rsyncssh,
     source = "{{ user.home }}",
     host = "{{ sync_host }}",
     targetdir = "{{ user.home }}",
-    excludeFrom = "{{ user.home }}/exclude_home.list",
+    delete = "running",
+    excludeFrom = "{{ user.home }}/.config/lsyncd/exclude.list",
     delay = 5,
     rsync = {
             verbose = true,
             inplace = true,
             _extra = {
+                    "-P",
+                    "--itemize-changes",
                     "--stats",
                     "--delete-before",
                     "--backup-dir=.backup",
@@ -22,13 +26,13 @@ sync {
                     "--info=progress2",
                     "--group",
                     "--owner",
-                    "--omit-dir-times"
+                    "--dry-run"
             }
     },
     ssh = {
-            identityFile = "/root/.ssh/id_rsa",
+            identityFile = "{{ user.home }}/.ssh/id_rsa",
             options = {
-                    User = "root",
+                    User = "{{ user.name }}",
                     StrictHostKeyChecking = "no",
                     Compression = "no",
                     Cipher = "aes256-gcm@openssh.com"
@@ -40,3 +44,30 @@ sync {
             }
     }
 }
+{% else %}
+
+sync {
+    default.rsync,
+    source = "{{ user.home }}",
+    target = "bender::b08x",
+    delete = "running",
+    excludeFrom = "{{ user.home }}/.config/lsyncd/exclude.list",
+    delay = 5,
+    rsync = {
+            verbose = true,
+            inplace = true,
+            _extra = {
+                    "-P",
+                    "--itemize-changes",
+                    "--stats",
+                    "--delete-before",
+                    "--backup-dir=.backup",
+                    "--suffix=_bak",
+                    "--info=progress2",
+                    "--group",
+                    "--owner",
+                    "--dry-run"
+            }
+          }
+}
+{% endif %}

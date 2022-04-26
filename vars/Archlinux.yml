@@ -97,7 +97,6 @@ base:
     - numlockx
     - openssl
     - opusfile
-    - osync
     - pandoc
     - poppler
     - python-pip
