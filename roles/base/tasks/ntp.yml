@@ -1,5 +1,13 @@
 ---
 
+- name: permit traffic for ntp service
+  firewalld:
+    service: ntp
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
 - name: copy timesyncd config
   copy:
     src: etc/systemd/timesyncd.conf
