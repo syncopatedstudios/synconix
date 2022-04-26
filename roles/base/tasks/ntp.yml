@@ -1,0 +1,24 @@
+---
+
+- name: copy timesyncd config
+  copy:
+    src: etc/systemd/timesyncd.conf
+    dest: /etc/systemd/timesyncd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  register: timesync_config
+
+- block:
+
+    - name: reload systemd
+      shell: |
+        systemctl daemon-reload
+
+    - name: restart systemd-timesyncd.service
+      systemd:
+        name: systemd-timesyncd.service
+        state: restarted
+        enabled: yes
+
+  when: timesync_config.changed

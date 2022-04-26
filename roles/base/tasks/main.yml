@@ -31,6 +31,9 @@
 - include: ssh.yml
   tags: ['ssh']
 
+- include: ntp.yml
+  tags: ['ntp']
+
 - include: sudoers.yml
   tags: ['sudoers']
 
@@ -99,7 +102,9 @@
   tags: ['packages', 'desktop']
 
 - include: audio.yml
+  when: inventory_hostname in groups['daw']
   tags: ['audio']
 
 - include: ui.yml
+  when: inventory_hostname in groups['daw']
   tags: ['ui']
