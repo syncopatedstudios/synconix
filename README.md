@@ -143,3 +143,13 @@ To add an application you want to compile from source...
 - [command-not-found](https://command-not-found.com/) | find out what packages contains a command
 
 - [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
+
+## lsyncd
+
+running lsync from crambot --> bender
+
+on bender:
+
+git init .
+git fetch
+git checkout development -f
