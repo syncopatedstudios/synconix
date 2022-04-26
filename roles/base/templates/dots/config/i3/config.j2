@@ -51,6 +51,10 @@ set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
 
 set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
 
+set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 2"
+
+set $raysession "raysession; sleep 2"
+
 set $autostart "$HOME/.local/bin/autostart.sh"
 
 ######################################
@@ -87,9 +91,10 @@ $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --di
 
 # $exec $autostart
 
+$exec $atom
 $exec $kitty_init
 $exec $scratchpad
-
+$exec $raysession
 ######################################
 # ---{ window settings }---
 ######################################
@@ -197,9 +202,9 @@ workspace $ws10 output HDMI2
 ######################################
 #       ---{ scratchpad }---
 ######################################
-for_window [class="(?i)jack-keyboard"] floating enable, move to scratchpad, scratchpad show
-for_window [class="(?i)vmpk"] floating enable, move to scratchpad, scratchpad show
-for_window [title="(?i)Mamba"] floating enable, resize set 640 480, move to scratchpad, scratchpad show
+for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad, scratchpad show
+for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad, scratchpad show
+for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480, move to scratchpad, scratchpad show
 for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
 ######################################
 #       ---{ utils }---
@@ -226,16 +231,17 @@ for_window [class="(?i)zita-mu1"] floating enable
 ######################################
 #       ---{ audio apps }---
 ######################################
-for_window [class="^sonic-pi$"] floating disable
+for_window [class='^Sonic\sPi$'] floating disable
 for_window [class="^Non-Mixer$"] floating disable
 
-assign [class="^Atom$"] 1
 assign [class="^kitty_init$"] 1
-assign [class="^sonic-pi$"] 1
+assign [class="^Atom$"] 1
+assign [class='^Sonic\sPi$'] 1
 assign [class="^REAPER$"] 2
 assign [class="^Non-Mixer$"] 2
 assign [title="Mixxx"] 4
 assign [class="^Patchage$"] 5
+assign [class="^RaySession$"] 6
 assign [class="^Qsampler$"] 7
 assign [class="^qmidiarp$"] 7
 assign [title="JS:\ ATK FOA Decode Stereo"] 8
