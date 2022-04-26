@@ -11,7 +11,7 @@ sync {
     host = "{{ sync_host }}",
     targetdir = "{{ user.home }}",
     delete = "running",
-    excludeFrom = "{{ user.home }}/.config/lsyncd/exclude.list",
+    excludeFrom = "/home/exclude.list",
     delay = 5,
     rsync = {
             verbose = true,
@@ -25,9 +25,7 @@ sync {
                     "--suffix=_bak",
                     "--info=progress2",
                     "--group",
-                    "--owner",
-                    "--dry-run"
-            }
+                    "--owner"            }
     },
     ssh = {
             identityFile = "{{ user.home }}/.ssh/id_rsa",
@@ -51,7 +49,7 @@ sync {
     source = "{{ user.home }}",
     target = "bender::b08x",
     delete = "running",
-    excludeFrom = "{{ user.home }}/.config/lsyncd/exclude.list",
+    excludeFrom = "/home/exclude.list",
     delay = 5,
     rsync = {
             verbose = true,
@@ -66,8 +64,7 @@ sync {
                     "--info=progress2",
                     "--group",
                     "--owner",
-                    "--dry-run"
-            }
+                    "--dry-run"            }
           }
 }
 {% endif %}

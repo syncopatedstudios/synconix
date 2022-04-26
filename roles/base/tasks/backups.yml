@@ -1,5 +1,42 @@
 ---
 
+- name: install exclude list for home dir
+  template:
+    src: "dots/exclude.list.j2"
+    dest: "/home/exclude.list"
+    owner: root
+    group: root
+
+- name: install osync configs
+  template:
+    src: "etc/osync/sync_lapbot_to_bender.conf.j2"
+    dest: "/etc/osync/sync_lapbot_to_bender.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: inventory_hostname == 'lapbot'
+  tags: ['osync']
+
+- name: install osync configs
+  template:
+    src: "etc/osync/sync_crambot_to_bender.conf.j2"
+    dest: "/etc/osync/sync_crambot_to_bender.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: inventory_hostname == 'crambot'
+  tags: ['osync']
+
+- name: install osync configs
+  template:
+    src: "etc/osync/sync_bender_to_laptbot.conf.j2"
+    dest: "/etc/osync/sync_bender_to_laptbot.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: inventory_hostname == 'bender'
+  tags: ['osync']
+
 - block:
     - name: ensure lsyncd config dir exists
       file:
@@ -10,13 +47,10 @@
 
     - name: install lsyncd config
       template:
-        src: "dots/config/lsyncd/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/lsyncd/{{ item }}"
+        src: "dots/config/lsyncd/lsyncd_home.conf.lua.j2"
+        dest: "{{ user.home }}/.config/lsyncd/lsyncd_home.conf.lua"
         owner: "{{ user.name }}"
         group: "{{ user.name }}"
-      with_items:
-        - exclude.list
-        - lsyncd_home.conf.lua
 
     - name: install lsyncd systemd config
       template:
