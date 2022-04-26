@@ -38,7 +38,7 @@ MINIMUM_SPACE=10240
 BANDWIDTH=0
 
 ## If enabled, synchronization on remote system will be processed as superuser. See documentation for /etc/sudoers file configuration.
-SUDO_EXEC=no
+SUDO_EXEC=yes
 ## Paranoia option. Don't change this unless you read the documentation.
 RSYNC_EXECUTABLE=rsync
 ## Remote rsync executable path. Leave this empty in most cases
@@ -189,12 +189,12 @@ SMTP_PASSWORD=
 # {% if inventory_hostname == 'crambot' %}
 # LOCAL_RUN_BEFORE_CMD="mount {{ user.home }}/Library"
 # {% else %}
-LOCAL_RUN_BEFORE_CMD=""
+LOCAL_RUN_BEFORE_CMD="sudo chown -R {{ user.name }}:{{ user.name }} {{ user.home }}"
 # {% endif %}
 
 LOCAL_RUN_AFTER_CMD="sudo chown -R {{ user.name }}:{{ user.name }} {{ user.home }}"
 
-REMOTE_RUN_BEFORE_CMD=""
+REMOTE_RUN_BEFORE_CMD="sudo chown -R {{ user.name }}:{{ user.name }} {{ user.home }}"
 REMOTE_RUN_AFTER_CMD="sudo chown -R {{ user.name }}:{{ user.name }} {{ user.home }}"
 
 ## Max execution time of commands before they get force killed. Leave 0 if you don't wan't this to happen. Time is specified in seconds.
