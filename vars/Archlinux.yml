@@ -25,10 +25,6 @@ base:
     - networkmanager-vpnc
     - nm-connection-editor
   system:
-    - alsa-lib
-    - alsa-plugins
-    - alsa-tools
-    - alsa-utils
     - aria2
     - atool
     - autofs
@@ -94,7 +90,6 @@ base:
     - neovim-symlinks
     - net-tools
     - nfs-utils
-    - nodejs-lts-gallium
     - npm
     - numlockx
     - openssl
@@ -112,7 +107,6 @@ base:
     - rtkit
     - ruby-bundler
     - rubygems
-    - s
     - samba
     - screen
     - smartmontools
@@ -131,7 +125,6 @@ base:
     - waf
     - wavpack
     - wol
-    - xdotool
     - xf86-video-intel
     - xterm
     - xz
@@ -153,6 +146,7 @@ base:
     - pipewire-zeroconf
 ui:
   x11:
+    - xdotool
     - xorg-xinput
     - xorg-xev
     - xorg-xmodmap
@@ -221,6 +215,10 @@ ui:
 audio:
   utils:
     - a2jmidid
+    - alsa-lib
+    - alsa-plugins
+    - alsa-tools
+    - alsa-utils
     - aribb24
     - gst-libav
     - gst-plugins-bad
@@ -307,6 +305,7 @@ workstation:
     - guake
     - mpv
     - mpv-plugin-excerpt-git
+    - nodejs-lts-gallium
     - nomacs
     - nwdiag
     - osync
