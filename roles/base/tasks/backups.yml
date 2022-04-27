@@ -37,37 +37,37 @@
   when: inventory_hostname == 'bender'
   tags: ['osync']
 
-- block:
-    - name: ensure lsyncd config dir exists
-      file:
-        path: "{{ user.home }}/.config/lsyncd"
-        state: directory
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-
-    - name: install lsyncd config
-      template:
-        src: "dots/config/lsyncd/lsyncd_home.conf.lua.j2"
-        dest: "{{ user.home }}/.config/lsyncd/lsyncd_home.conf.lua"
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-
-    - name: install lsyncd systemd config
-      template:
-        src: usr/lib/systemd/system/lsyncd.service.j2
-        dest: /usr/lib/systemd/system/lsyncd.service
-        owner: root
-        group: root
-      register: lsyncd_service
-
-    - name: reload systemd
-      shell: |
-        systemctl daemon-reload
-      when: lsyncd_service.changed
-
-    - name: enable lsyncd service
-      systemd:
-        name: lsyncd
-        state: stopped
-        enabled: no
-  tags: ['lsyncd']
+# - block:
+#     - name: ensure lsyncd config dir exists
+#       file:
+#         path: "{{ user.home }}/.config/lsyncd"
+#         state: directory
+#         owner: "{{ user.name }}"
+#         group: "{{ user.name }}"
+#
+#     - name: install lsyncd config
+#       template:
+#         src: "dots/config/lsyncd/lsyncd_home.conf.lua.j2"
+#         dest: "{{ user.home }}/.config/lsyncd/lsyncd_home.conf.lua"
+#         owner: "{{ user.name }}"
+#         group: "{{ user.name }}"
+#
+#     - name: install lsyncd systemd config
+#       template:
+#         src: usr/lib/systemd/system/lsyncd.service.j2
+#         dest: /usr/lib/systemd/system/lsyncd.service
+#         owner: root
+#         group: root
+#       register: lsyncd_service
+#
+#     - name: reload systemd
+#       shell: |
+#         systemctl daemon-reload
+#       when: lsyncd_service.changed
+#
+#     - name: enable lsyncd service
+#       systemd:
+#         name: lsyncd
+#         state: stopped
+#         enabled: no
+#   tags: ['lsyncd']
