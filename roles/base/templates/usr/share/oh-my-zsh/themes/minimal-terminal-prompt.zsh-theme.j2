@@ -17,6 +17,7 @@ eval col_pink='$FG[201]'
 eval col_purple='$FG[093]'
 eval col_red='$FG[124]'
 eval col_yellow='$FG[011]'
+eval col_hotpink='$FG[013]'
 
 HOSTNAME=$( cat /etc/hostname )
 
@@ -40,6 +41,12 @@ PROMPT='%{$col_orange%}[$col_gray%~%{$col_orange%}]$(git_prompt_info)$col_gray%(
 PROMPT='%{$col_yellow%}[$col_gray%~%{$col_yellow%}]$(git_prompt_info)$col_gray%(?.%{$col_yellow%}.%{$col_pink%})%{$reset_color%} '
 {% else %}
 {% endif %}
+
+{% if ansible_facts['hostname'] == 'calculon' %}
+PROMPT='%{$col_hotpink%}[$col_gray%~%{$col_hotpink%}]$(git_prompt_info)$col_gray%(?.%{$col_hotpink%}.%{$col_pink%})%{$reset_color%} '
+{% else %}
+{% endif %}
+
 
 fi
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
