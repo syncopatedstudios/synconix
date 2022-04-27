@@ -233,7 +233,7 @@ audio:
     - jack_capture
     - jack_utils
     - jconvolver
-    - moccommunity/stunnel
+    - stunnel
     - njconnect
     - opus
     - osc2midi
