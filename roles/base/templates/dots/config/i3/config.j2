@@ -37,7 +37,7 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
-set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b"
+set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
 
 # set $googler "guake --show -n '$PWD' -e googler"
 
@@ -49,7 +49,8 @@ set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
 
 set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty --class 'kitty_init' --session $HOME/.config/kitty/start.conf"
 
-set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
+#set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
+set $zim_todo "zim syncopated-linux"
 
 set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 2"
 
@@ -90,11 +91,12 @@ $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --di
 {% endif %}
 
 # $exec $autostart
-
+$exec pactl set-sink-volume @DEFAULT_SINK@ 0
 $exec $atom
 $exec $kitty_init
-$exec $scratchpad
+$exec $zim_todo
 $exec $raysession
+$exec pactl set-sink-volume @DEFAULT_SINK@ +50%
 ######################################
 # ---{ window settings }---
 ######################################
@@ -167,7 +169,7 @@ client.unfocused        $color11 $color3 #928374 $color2 $color0
 client.urgent           $color15 $color7 #282828 $color2
 client.placeholder      $color0 $color0 #FFFFFF $color2 $color0
 
-client.background       $color0
+client.background       $color12
 
 ######################################
 # ---{ workspace assignments }---
@@ -205,7 +207,8 @@ workspace $ws10 output HDMI2
 for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad, scratchpad show
 for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad, scratchpad show
 for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480, move to scratchpad, scratchpad show
-for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
+#for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
+for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
 ######################################
 #       ---{ utils }---
 ######################################
