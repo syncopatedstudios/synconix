@@ -1,0 +1,19 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2021-11-11T01:42:48-05:00
+
+====== resources ======
+
+==== building the iso ====
+
+[[https://wiki.archlinux.org/title/archiso|Archiso Wiki]]
+
+[[https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/-/tree/master/community/i3|Manjaro i3 profile]]
+[[https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/-/tree/master/shared|Manjaro shared profile]]
+
+[[https://gitlab.com/garuda-linux/tools/iso-profiles/-/tree/slim/garuda/i3|Garuda i3 profile]]
+[[https://gitlab.com/garuda-linux/tools/iso-profiles/-/tree/master/shared|Garuda shared profile]]
+
+==== i3 and x11 configuration ====
+
+[[https://github.com/dylanaraps/pywal/wiki/Customization#window-managers|i3, xresources and color management]]
