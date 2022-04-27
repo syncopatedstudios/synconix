@@ -294,11 +294,13 @@ bindsym XF86Search $exec $search
 bindsym $mod+g $exec $search
 
 bindsym $mod+Insert $exec zim --plugin quicknote
-bindsym $mod+Shift+Mod2+Insert $exec $scratchpad
+
+#bindsym $mod+Shift+Mod2+Insert $exec $scratchpad
 
 # set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
-set $help "kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
-bindsym $mod+slash $exec $help
+# set $help "kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
+
+bindsym $mod+slash $exec i3help
 
 bindsym $mod+grave scratchpad show
 
