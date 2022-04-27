@@ -1,0 +1,25 @@
+---
+
+- name: install rsyncd config
+  template:
+    src: etc/rsyncd.conf.j2
+    dest: /etc/rsyncd.conf
+    owner: root
+    group: root
+    mode: '0644'
+  register: rsyncd_config
+
+- name: ensure rsyncd service is running
+  service:
+    name: rsyncd
+    state: restarted
+    enabled: yes
+  when: rsyncd_config.changed
+
+- name: permit traffic for rsyncd service
+  firewalld:
+    service: rsyncd
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"

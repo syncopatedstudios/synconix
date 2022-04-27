@@ -10,7 +10,9 @@
         delete: no
         checksum: yes
         perms: no
-        rsync_opts: "--update"
+        rsync_opts:
+          - "--update"
+          - "--omit-dir-times"
 
   become: true
   become_user: "{{ user.name }}"

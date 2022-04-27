@@ -1,0 +1,47 @@
+---
+
+- name: set pipewire packages to install
+  set_fact:
+    _packages: "{{ base.pipewire }}"
+  tags: ['packages']
+
+- name: install pipewire packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+- name: sync pipewire configs
+  synchronize:
+    src: "usr/share/pipewire/"
+    dest: "/usr/share/pipewire/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--delete-before"
+      - "--backup-dir='.backup'"
+      - "--suffix='_bak'"
+      - "--update"
+      - "--exclude='.backup'"
+  register: pipewire_config
+  tags: ['pipewire']
+
+- name: Restart pipewire services
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    daemon_reload: yes
+    scope: user
+  with_items:
+    - pipewire
+    - pipewire-pulse
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  become: True
+  become_user: "{{ user.name }}"
+  when: pipewire_config.changed
+  tags: ['pipewire']

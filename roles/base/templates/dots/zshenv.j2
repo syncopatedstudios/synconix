@@ -30,10 +30,15 @@ unset _old_path
 
 export TEMP="/tmp"
 
+{% if inventory_hostname == 'bender' %}
+export TERM=xterm-256color
+export TERMINAL=xterm-256color
+{% else %}
 export TERM="{{ user.terminal }}"
 export TERMINAL="{{ user.terminal }}"
 export TERMINFO="/usr/lib/terminfo"
 export TERMCMD="$TERMINAL"
+{% endif %}
 
 export BROWSER="google-chrome-stable"
 export PAGER=less

@@ -1,0 +1,15 @@
+uid = {{ user.uid }}
+gid = {{ user.gid }}
+use chroot = no
+max connections = 0
+syslog facility = local5
+pid file = /run/rsyncd.pid
+
+[backups]
+  path = /home/backups
+  comment = backups
+  read only = false
+
+[b08x]
+  path = /home/b08x
+  read only = false

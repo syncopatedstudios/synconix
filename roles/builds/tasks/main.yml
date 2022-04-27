@@ -19,15 +19,17 @@
         perms: no
   become: true
   become_user: "{{ user.name }}"
+  when: inventory_hostname in groups['daw']
   tags: ['vst2']
 
 ###################################
 
 - include: sonicannotator.yml
   tags: ['sonicannotator']
+  when: build_sonicannotator|bool
 
 - include_tasks: audiowaveform.yml
-  when: build_audiowaveform is defined
+  when: build_audiowaveform|bool
   tags: ['audiowaveform']
 
 #TODO: refactor task
@@ -39,112 +41,112 @@
 
 - include: ardour.yml
   tags: ['ardour']
-  when: build_ardour is defined
+  when: build_ardour|bool
 
 - include: baudline.yml
-  when: build_baudline is defined
+  when: build_baudline|bool
   tags: ['baudline']
 
 - include: bespoke.yml
-  when: build_bespoke is defined
+  when: build_bespoke|bool
   tags: ['bespoke']
 
 - include: deadbeef.yml
-  when: build_deadbeef is defined
+  when: build_deadbeef|bool
   tags: ['deadbeef']
 
 - include: ecasound.yml
-  when: build_ecasound is defined
+  when: build_ecasound|bool
   tags: ['ecasound']
 
 - include: ingen.yml
-  when: build_ingen is defined
+  when: build_ingen|bool
   tags: ['ingen']
 
 - include: jacktrip.yml
-  when: build_jacktrip is defined
+  when: build_jacktrip|bool
   tags: ['jacktrip']
 
 - include: jalvselect.yml
-  when: build_jalvselect is defined
+  when: build_jalvselect|bool
   tags: ['jalvselect']
 
 - include: linuxsampler.yml
-  when: build_linuxsampler is defined
+  when: build_linuxsampler|bool
   tags: ['linuxsampler']
 
 - include: njconnect.yml
-  when: build_njconnect is defined
+  when: build_njconnect|bool
   tags: ['njconnect']
 
 - include: non.yml
-  when: build_non is defined
+  when: build_non|bool
   tags: ['non']
 
 - include: obs.yml
-  when: build_obs is defined
+  when: build_obs|bool
   tags: ['obs']
 
 - include: ocenaudio.yml
-  when: build_ocenaudio is defined
+  when: build_ocenaudio|bool
   tags: ['ocenaudio']
 
 - include: patchage.yml
-  when: build_patchage is defined
+  when: build_patchage|bool
   tags: ['patchage']
 
 - include: polyphone.yml
-  when: build_polyphone is defined
+  when: build_polyphone|bool
   tags: ['polyphone']
 
 - include: qmidinet.yml
-  when: build_qmidinet is defined
+  when: build_qmidinet|bool
   tags: ['qmidinet']
 
 - include: raysession.yml
-  when: build_raysession is defined
+  when: build_raysession|bool
   tags: ['raysession']
 
 - include: reaper.yml
-  when: build_reaper is defined
+  when: build_reaper|bool
   tags: ['reaper']
 
 - include: rtplugins.yml
-  when: build_rtplugins is defined
+  when: build_rtplugins|bool
   tags: ['rtplugins']
 
 - include: seq192.yml
-  when: build_seq192 is defined
+  when: build_seq192|bool
   tags: ['seq192']
 
 - include: soniclineup.yml
-  when: build_soniclineup is defined
+  when: build_soniclineup|bool
   tags: ['soniclineup']
 
 - include: sonicpi.yml
-  when: build_sonicpi is defined
+  when: build_sonicpi|bool
   tags: ['sonicpi']
 
 - include: sonicpitool.yml
-  when: build_sonicpi is defined
+  when: build_sonicpi|bool
   tags: ['sonicpi']
 
 - include: sonicvisualiser.yml
-  when: build_sonicvisualiser is defined
+  when: build_sonicvisualiser|bool
   tags: ['sonicvisualiser']
 
 - include: swami.yml
-  when: build_swami is defined
+  when: build_swami|bool
   tags: ['swami']
 
 - include: timemachine.yml
-  when: build_timemachine is defined
+  when: build_timemachine|bool
   tags: ['timemachine']
 
 - include: tony.yml
-  when: build_tony is defined
+  when: build_tony|bool
   tags: ['tony']
 
 - include: touchosc.yml
-  when: build_touchosc is defined
+  when: build_touchosc|bool
   tags: ['touchosc']

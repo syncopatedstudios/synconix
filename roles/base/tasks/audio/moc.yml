@@ -1,0 +1,17 @@
+---
+- block:
+    - name: ensure mocp config directory exists
+      shell: "mkdir -pv {{ user.home }}/.moc"
+      register: mocp_config_dir
+      changed_when: mocp_config_dir.rc != 0
+
+    - name: install mocp config
+      copy:
+        src: "dots/.moc/config"
+        dest: "{{ user.home }}/.moc/config"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: yes
+        directory_mode: no
+  tags: ['moc']

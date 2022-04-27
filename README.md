@@ -64,14 +64,14 @@ you set which window manager and other ui related thigns...
 install_x11: True
 install_i3: True
 ```
-Set whether or not to install i3 window manager by adding a boolean variable in a group or host_vars file. You can find the default settings in [ui defaults](roles/ui/defaults/main.yml)
+Set whether or not to install i3 window manager by adding a boolean variable in a group or host_vars file. You can find the default settings in the [ui section](roles/base/defaults/main.yml)
 
 i3 is currently the default. If you'd like to add packages for any other desktop enviornment, add the packages you want in the primary vars file, create a task for it, then add a boolean to this list.
 
 
 ## theme
 
-set the variables for theme elements in [ui defaults](roles/ui/defaults/main.yml)
+set the variables for theme elements in the [ui section](roles/base/defaults/main.yml)
 
 ```yaml
 gtk_theme: oomox-soundbotv2
@@ -102,7 +102,7 @@ dots:
   untracked: False
 ```
 
-If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point. See [dots](roles/soundbot/README.md) for more detail.
+If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point. {--See [dots](roles/soundbot/README.md) for more detail.--}
 
 
 ## tasks
@@ -120,7 +120,7 @@ To add an application you want to compile from source...
 # ansible stuff
 
 ## variable precdence
-In ansible there are 22 areas where you can set variables. Here we use 8 of them. Here is where you can find them; ranging from highest to lowest in precdence.
+{--In ansible there are 22 areas where you can set variables. Here we use 8 of them. Here is where you can find them; ranging from highest to lowest in precdence.
 
 1. role (and include_role) params
 2. set_facts / registered vars
@@ -129,7 +129,7 @@ In ansible there are 22 areas where you can set variables. Here we use 8 of them
 5. play vars
 6. playbook host_vars/*
 7. playbook group_vars/all
-8. role defaults (defined in role/defaults/main.yml)
+8. role defaults (defined in role/defaults/main.yml)--}
 
 
 
@@ -143,3 +143,34 @@ In ansible there are 22 areas where you can set variables. Here we use 8 of them
 - [command-not-found](https://command-not-found.com/) | find out what packages contains a command
 
 - [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
+
+## lsyncd
+
+running lsync from crambot --> bender
+
+on bender or lapbot:
+
+git init .
+git fetch
+git checkout development -f
+
+
+{--* create file on crambot, file is transferred to bender. from bender file is transferred to lapbot.
+  - if file is deleted on crambot, the file is backued up on bender and lapbot in ~/.backups
+
+
+* create file on bender, file is transferred to lapbot.
+  - if file is deleted on lapbot, it is retransferred from bender.
+  - if file is deleted on bender, the file is backed up on lapbot in ~/.backups after lsyncd service is restarted
+
+* create file on lapbot, file is not transferred
+  - file is deleted the next time the lsyncd service is restarted on bender
+
+* create file on lapbot, file is transferred to bender.
+  - if file is deleted on bender, the file is backed up on lapbot to ~/.backups
+  - if file is deleted on lapbot, the file is backup up on bender to ~/.backups--}
+
+* create file on crambot, file is transferred to bender.
+  - run osync on lapbot, file is transferred from bender to lapbot
+  - if file is removed on crambot, file is removed on bender
+    - run osync on lapbot, file is backed up to .osync_workdir/deleted

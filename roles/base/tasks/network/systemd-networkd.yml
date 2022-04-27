@@ -1,0 +1,68 @@
+---
+
+# - import_tasks: config.yml
+
+- name: Ensure systemd-networkd configuration files exist
+  become: true
+  vars:
+    # Profiles to iterate over. Using a single looped task is more performant
+    # than multiple tasks.
+    all_files:
+      - type: link
+        files: "{{ systemd_networkd_link | dict2items }}"
+      - type: netdev
+        files: "{{ systemd_networkd_netdev | dict2items }}"
+      - type: network
+        files: "{{ systemd_networkd_network | dict2items }}"
+  template:
+    src: "etc/systemd/network/systemd_networkd_config.j2"
+    dest: "/etc/systemd/network/{{ item.1.key }}.{{ item.0.type }}"
+    owner: root
+    group: systemd-network
+    mode: 0640
+  loop: "{{ query('subelements', all_files, 'files') }}"
+  loop_control:
+    label:
+      type: "{{ item.0.type }}"
+      name: "{{ item.1.key }}"
+  notify: restart systemd-networkd
+
+- name: push systemd-resolved.conf
+  template:
+    src: "etc/systemd/resolved.conf.j2"
+    dest: /etc/systemd/resolved.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+
+- name: enable systemd-networkd
+  service:
+    name: systemd-networkd
+    enabled: yes
+  with_items:
+    - systemd-networkd
+    - systemd-networkd-wait-online
+  when: systemd_networkd_network or systemd_networkd_link or systemd_networkd_netdev
+
+- name: start and enable systemd-resolved
+  service:
+    name: systemd-resolved
+    enabled: yes
+    state: restarted
+  when: systemd_networkd_enable_resolved
+
+- name: replace /etc/resolv.conf with a symlink to the systemd-resolved stub
+  file:
+    path: /etc/resolv.conf
+    src: /run/systemd/resolve/stub-resolv.conf
+    state: link
+    force: yes
+  when: systemd_networkd_symlink_resolv_conf
+
+# - name: remove networkmanager packages
+#   pacman:
+#     name: "{{ networkmanager }}"
+#     state: absent
+#     force: yes
+#     extra_args: --noconfirm

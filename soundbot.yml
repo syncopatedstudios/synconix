@@ -24,10 +24,6 @@
       debug: msg="{{ansible_os_family}}"
       tags: ['inventory']
 
-    - name: print random var from vars/Archlinux
-      debug: msg="{{ apm }}"
-      tags: ['inventory']
-
   tasks:
     - name: Check whether this is an initial install or not.
       stat:
@@ -44,14 +40,13 @@
       become_user: "{{ user.name }}"
 
     - name: Reboot on initial setup
-      shell: "shutdown -r now"
+      shell: |
+        wall "rebooting in 1 minute"
+        shutdown -r +1
       when: not check_installed.stat.exists
       ignore_errors: True
 
   roles:
      - { role: distro, tags: ['distro'] }
-     - { role: network, tags: ['network'] }
      - { role: base, tags: ['base'] }
-     - { role: audio, tags: ['audio'] }
-     - { role: ui, tags: ['ui'] }
      - { role: builds, tags: ['builds'] }

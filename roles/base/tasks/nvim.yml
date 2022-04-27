@@ -24,7 +24,7 @@
     fi
 
     if ! [ -e {{ user.home }}/.local/share/nvim/site/autoload ]; then
-      wge -q {{ _nvimplug }} -0 {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
+      wget -q {{ _nvimplug }} -0 {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
     fi
   args:
     chdir: /usr/local/bin

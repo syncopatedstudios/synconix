@@ -7,6 +7,9 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- include: network.yml
+  tags: ['network']
+
 - include: kernel.yml
   when: use_kernel is defined
   tags: ['kernel']
@@ -27,6 +30,9 @@
 
 - include: ssh.yml
   tags: ['ssh']
+
+- include: ntp.yml
+  tags: ['ntp']
 
 - include: sudoers.yml
   tags: ['sudoers']
@@ -54,6 +60,10 @@
 #   when: autofs_client is defined
 #   tags: ['autofs']
 
+- include: rsyncd.yml
+  when: rsyncd_host is defined
+  tags: ['rsyncd']
+
 - include: docker.yml
   when: docker_host|bool and docker is defined
   tags: ['docker']
@@ -63,7 +73,6 @@
   tags: ['libvirt']
 
 - include: backups.yml
-  when: sync_host is defined
   tags: ['backups']
 
 - include: nvim.yml
@@ -92,20 +101,10 @@
   when: inventory_hostname in groups['daw']
   tags: ['packages', 'desktop']
 
-# - name: configure audio system
-#   import_role:
-#     name: audio
-#   when: inventory_hostname in groups['daw']
-#
-# - name: configure ui
-#   import_role:
-#     name: ui
-#   when: inventory_hostname in groups['daw']
-#   tags: ['ui']
-#
-# - name: build apps
-#   import_role:
-#     name: builds
-#   when: inventory_hostname in groups['daw']
-#   check_mode: yes
-#   tags: ['builds']
+- include: audio.yml
+  when: inventory_hostname in groups['daw']
+  tags: ['audio']
+
+- include: ui.yml
+  when: inventory_hostname in groups['daw']
+  tags: ['ui']

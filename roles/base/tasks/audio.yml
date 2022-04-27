@@ -1,0 +1,66 @@
+---
+
+- name: starting audio role
+  debug:
+    msg: "starting audio role"
+
+- include: audio/pipewire.yml
+  tags: ['pipewire']
+
+- include: audio/alsa.yml
+  tags: ['alsa']
+
+#-------------------------------------#
+
+- block:
+    - name: Set audio packages to install
+      set_fact:
+        _packages: "{{ (audio.utils + audio.plugins) }}"
+
+    - name: Install audio packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+  tags: ['packages']
+
+- block:
+    - name: Set daw packages to install
+      set_fact:
+        _packages: "{{ audio.applications }}"
+
+    - name: Install daw packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
+  when: inventory_hostname in groups['daw']
+  tags: ['packages', 'daw']
+
+- name: makesfz and makeh2drumkit
+  copy:
+    src: "usr/local/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - makeh2kit
+    - makesfz
+  tags: ['utils']
+
+- name: Sync .desktop files to /usr/local
+  synchronize:
+    src: "usr/local/share/applications/"
+    dest: "/usr/local/share/applications/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts: "--update"
+  tags: ['xdg']
+
+- include: audio/moc.yml
+  tags: ['moc']

@@ -9,7 +9,7 @@
   tags: ['polyphone']
 
 - block:
-    - name: "Set {{ application.name }} dependencies to install"
+    - name: Set "{{ application.name }}" dependencies to install
       set_fact:
         _packages: "{{ application.dependencies.Archlinux }}"
       tags: ['polyphone']
@@ -21,7 +21,7 @@
         pkg_state: present
       tags: ['polyphone']
 
-    - name: "clone {{ application.source }}"
+    - name: clone "{{ application.source }}"
       git:
         repo: "{{ application.source.git }}"
         dest: "{{ application.source.folder }}"
@@ -40,21 +40,21 @@
       register: sed_status
       failed_when: sed_status.failed
 
-    - name: "configure {{ application.name }}"
+    - name: configure "{{ application.name }}"
       shell: qmake-qt5
       args:
         chdir: "{{ application.source.folder }}/sources"
       register: configure_status
       failed_when: configure_status.failed
 
-    - name: "make {{ application.name }}"
+    - name: make "{{ application.name }}"
       shell: "make -j$(nproc)"
       args:
         chdir: "{{ application.source.folder }}/sources"
       register: make_status
       failed_when: make_status.failed
 
-    - name: "install {{ application.name }}"
+    - name: install "{{ application.name }}"
       shell: "sudo make install"
       args:
         chdir: "{{ application.source.folder }}/sources"
