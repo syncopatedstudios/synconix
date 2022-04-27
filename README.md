@@ -6,11 +6,18 @@ Hey Baby. Looking good. Wanna install me? I'm a real good time.
 
 Let's say all the things necessary to make this work are in place*, and yer itchin'. Ask yourself: "Where have I been putting my hands lately?"
 
-For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts for an audio production environment.
+For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts for an audio production environment. ;)
 
 # Wiki stuff
 
 Now...take your pants off then open [group_vars/all.yml](group_vars/all.yml)
+
+group_vars
+if you have different classes of hosts (say one a network, headless node another a full DAW), then you can assign those hosts to different groups within the inventory (hosts) file and set variables to apply to those groups here
+
+host_vars
+if group_vars made sense, then this just applies to individual hosts
+
 
 Change these values to reflect how you see yourself.
 
