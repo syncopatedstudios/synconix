@@ -233,7 +233,7 @@ audio:
     - jack_capture
     - jack_utils
     - jconvolver
-    - moc
+    - moccommunity/stunnel
     - njconnect
     - opus
     - osc2midi
@@ -318,6 +318,7 @@ workstation:
     - radiotray-ng
     - s
     - seqdiag
+    - stunnel
     - thunar
     - thunar-archive-plugin
     - thunar-volman
