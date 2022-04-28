@@ -1,0 +1,22 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2021-11-02T00:22:40-04:00
+
+====== Synconix ======
+A Linux Audio Redistribution
+
+Synconix is an linux based distribution designed for ~~crime~~ audio production.
+
+ Nodes (soundbots) are configured from a management console using Ansible.
+
+Download the Live ISO to get started...
+	[ ] make iso 
+
+The desktop environmnet uses i3 window manager. 
+
+
+[[resources]]
+
+[[software]]
+
+[[../todo.txt|ToDo]]

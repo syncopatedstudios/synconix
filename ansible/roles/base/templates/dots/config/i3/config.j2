@@ -50,7 +50,7 @@ set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
 set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty --class 'kitty_init' --session $HOME/.config/kitty/start.conf"
 
 #set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
-set $zim_todo "zim syncopated-linux"
+set $zim_todo "zim synconix"
 
 set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 2"
 
@@ -97,6 +97,7 @@ $exec $kitty_init
 $exec $zim_todo
 $exec $raysession
 $exec pactl set-sink-volume @DEFAULT_SINK@ +50%
+
 ######################################
 # ---{ window settings }---
 ######################################
