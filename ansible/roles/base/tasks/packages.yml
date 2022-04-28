@@ -1,0 +1,109 @@
+---
+
+- name: Set base packages to install
+  set_fact:
+    base_packages: "{{ base.system }}"
+
+
+- name: add packages for install docker
+  set_fact:
+    docker_packages: "{{ docker }}"
+
+- name: Install packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+
+
+# - block:
+#     - name: Set desktop packages
+#       set_fact:
+#         _packages: "{{ workstation }}"
+#
+#     - name: Install desktop packages
+#       import_role:
+#         name: pkg_manager
+#       vars:
+#         pkg_state: present
+#
+#     - include: atom.yml
+#       tags: ['atom']
+#
+#     - include: chrome.yml
+#       tags: ['chrome']
+#
+#   when: inventory_hostname in groups['daw']
+#   tags: ['packages', 'desktop']
+#
+#
+#
+#
+#
+# - name: set pipewire packages to install
+#   set_fact:
+#     _packages: "{{ base.pipewire }}"
+#
+#
+#
+#     - name: Set audio packages to install
+#       set_fact:
+#         _packages: "{{ (audio.utils + audio.plugins) }}"
+#
+#     - name: Set daw packages to install
+#       set_fact:
+#         _packages: "{{ audio.applications }}"
+#
+#   when: inventory_hostname in groups['daw']
+#   tags: ['packages', 'daw']
+#
+#
+#
+#
+#
+#
+#
+#
+# - name: Install kernel packages
+#   import_role:
+#     name: pkg_manager
+#   vars:
+#     pkg_state: present
+#   register: package_results
+#
+# - name: set packages to install
+#   set_fact:
+#     _packages: "{{ libvirt }}"
+#   tags: ['packages']
+#
+# - name: Ensure all the required packages are installed
+#   import_role:
+#     name: pkg_manager
+#   vars:
+#     pkg_state: present
+#   tags: ['packages']
+#
+# - name: Set networkmanager packages to install
+#   set_fact:
+#     _packages: "{{ base.networkmanager  }}"
+#   tags: ['packages']
+#
+# - name: Install networkmanager packages
+#   import_role:
+#     name: pkg_manager
+#   vars:
+#     pkg_state: present
+#   tags: ['packages']
+#
+# - block:
+#     - name: set packages to install
+#       set_fact:
+#         _packages: "{{ (ui.i3 + ui.qt + ui.x11 + ui.fonts + ui.themes) }}"
+#
+#     - name: Install ui packages
+#       import_role:
+#         name: pkg_manager
+#       vars:
+#         pkg_state: present
+#
+#   tags: ['packages']

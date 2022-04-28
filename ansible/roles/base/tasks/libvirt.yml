@@ -1,17 +1,5 @@
 ---
 
-- name: set packages to install
-  set_fact:
-    _packages: "{{ libvirt }}"
-  tags: ['packages']
-
-- name: Ensure all the required packages are installed
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - name: install libvirtd.conf
   copy:
     src: etc/libvirt/libvirtd.conf

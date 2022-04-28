@@ -7,23 +7,11 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- include: network.yml
-  tags: ['network']
-
-- include: kernel.yml
-  when: use_kernel is defined
-  tags: ['kernel']
-
-- name: Set base packages to install
-  set_fact:
-    _packages: "{{ base.system }}"
+- include: packages.yml
   tags: ['packages']
 
-- name: Install base packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
+- include: network.yml
+  tags: ['network']
 
 - include: firewalld.yml
   tags: ['firewall']
@@ -80,26 +68,6 @@
 
 - include: indexer.yml
   tags: ['indexer']
-
-- block:
-    - name: Set desktop packages
-      set_fact:
-        _packages: "{{ workstation }}"
-
-    - name: Install desktop packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-
-    - include: atom.yml
-      tags: ['atom']
-
-    - include: chrome.yml
-      tags: ['chrome']
-
-  when: inventory_hostname in groups['daw']
-  tags: ['packages', 'desktop']
 
 - include: audio.yml
   when: inventory_hostname in groups['daw']
