@@ -2,8 +2,12 @@ Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.6
 Creation-Date: 2022-04-28T11:14:23-04:00
 
-Workspaces
+====== Workspaces ======
 
 1	2	3	4
 
+TODO: @i3
+[ ] convert from 10 to 4 workspaces
+[ ] assign apps to workspace
+[ ] something evil to ensure balance
 
