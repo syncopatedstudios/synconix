@@ -10,6 +10,6 @@ TODO: @i3
 
 TODO: @artwork
 [ ] rename stuff to "Synconix"
-[ ] logo 
+[ ] ~~logo~~ (shifting focus)
 
 
