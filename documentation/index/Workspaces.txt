@@ -11,3 +11,24 @@ TODO: @i3
 [ ] assign apps to workspace
 [ ] something evil to ensure balance
 
+{{{code: lang="sh" linenumbers="False"
+assign [class="^kitty_init$"] 1
+assign [class="^Atom$"] 1
+assign [class='^Sonic\sPi$'] 1
+assign [class="^REAPER$"] 2
+assign [class="^Non-Mixer$"] 2
+assign [title="Mixxx"] 4
+assign [class="^Patchage$"] 5
+assign [class="^RaySession$"] 6
+assign [class="^Qsampler$"] 7
+assign [class="^qmidiarp$"] 7
+assign [title="JS:\ ATK FOA Decode Stereo"] 8
+assign [title="jalv.gtkmm"] 8
+assign [class="^jalv.select$"] 9
+assign [title="^EBU R128 Meter$"] 10
+assign [title="zita-mu1-0.3.3"] 10
+assign [class="^meterbridge$"] 10
+assign [title="jkmeter"] 10
+assign [title="VU\ Meter\ \(Stereo\)"] 10
+}}}
+
