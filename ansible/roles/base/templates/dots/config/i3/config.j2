@@ -25,12 +25,12 @@ set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+# set $ws5 "5"
+# set $ws6 "6"
+# set $ws7 "7"
+# set $ws8 "8"
+# set $ws9 "9"
+# set $ws10 "10"
 
 set $exec exec --no-startup-id
 set $exec_always exec_always --no-startup-id
@@ -176,29 +176,17 @@ client.background       $color12
 # ---{ workspace assignments }---
 ######################################
 {% if ansible_facts['hostname'] == 'calculon' %}
-workspace $ws1 output HDMI1
-workspace $ws2 output HDMI1
+workspace $ws1 output HDMI2
+workspace $ws2 output HDMI2
 workspace $ws3 output HDMI1
 workspace $ws4 output HDMI1
-workspace $ws5 output HDMI1
-workspace $ws6 output HDMI2
-workspace $ws7 output HDMI2
-workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
-workspace $ws10 output HDMI2
 {% else %}
 {% endif %}
 {% if ansible_facts['hostname'] == 'crambot' %}
-workspace $ws1 output HDMI1
-workspace $ws2 output HDMI1
+workspace $ws1 output HDMI2
+workspace $ws2 output HDMI2
 workspace $ws3 output HDMI1
 workspace $ws4 output HDMI1
-workspace $ws5 output HDMI1
-workspace $ws6 output HDMI2
-workspace $ws7 output HDMI2
-workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
-workspace $ws10 output HDMI2
 {% else %}
 {% endif %}
 
@@ -215,7 +203,7 @@ for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad sh
 ######################################
 for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
-for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
+for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 1, move position center, focus
 for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
 ######################################
 #       ---{ reaper stuff }---
@@ -239,23 +227,23 @@ for_window [class='^Sonic\sPi$'] floating disable
 for_window [class="^Non-Mixer$"] floating disable
 
 assign [class="^kitty_init$"] 1
-assign [class="^Atom$"] 1
-assign [class='^Sonic\sPi$'] 1
-assign [class="^REAPER$"] 2
-assign [class="^Non-Mixer$"] 2
-assign [title="Mixxx"] 4
-assign [class="^Patchage$"] 5
-assign [class="^RaySession$"] 6
-assign [class="^Qsampler$"] 7
-assign [class="^qmidiarp$"] 7
-assign [title="JS:\ ATK FOA Decode Stereo"] 8
-assign [title="jalv.gtkmm"] 8
-assign [class="^jalv.select$"] 9
-assign [title="^EBU R128 Meter$"] 10
-assign [title="zita-mu1-0.3.3"] 10
-assign [class="^meterbridge$"] 10
-assign [title="jkmeter"] 10
-assign [title="VU\ Meter\ \(Stereo\)"] 10
+assign [class="^Atom$"] 3
+assign [class='^Sonic\sPi$'] 2
+assign [class="^REAPER$"] 1
+assign [class="^Non-Mixer$"] 1
+assign [title="Mixxx"] 2
+assign [class="^Patchage$"] 1
+assign [class="^RaySession$"] 1
+assign [class="^Qsampler$"] 1
+assign [class="^qmidiarp$"] 1
+assign [title="JS:\ ATK FOA Decode Stereo"] 1
+assign [title="jalv.gtkmm"] 1
+assign [class="^jalv.select$"] 1
+assign [title="^EBU R128 Meter$"] 2
+assign [title="zita-mu1-0.3.3"] 2
+assign [class="^meterbridge$"] 2
+assign [title="jkmeter"] 2
+assign [title="VU\ Meter\ \(Stereo\)"] 2
 
 ######################################
 # ---{ app bindings }---
