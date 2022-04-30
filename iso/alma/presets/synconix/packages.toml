@@ -1,1 +1,0 @@
-packages = ["net-utils", "xf86-video-amdgpu", "xf86-video-ati", "xf86-video-nouveau", "xorg-server", "xterm"]
