@@ -1,5 +1,10 @@
 script = """
-ls /shared_dirs/copy_file_example/
-cp /shared_dirs/copy_file_example/testfile.txt /root/
+if [ -d /shared_dirs/lightdm ];
+then
+mkdir -pv /etc/lightdm
+cp /shared_dirs/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf
+else
+echo "shared directory does not exist or something"
+fi
 """
-shared_directories = ["files/etc/lightdm"]
+shared_directories = ["lightdm"]

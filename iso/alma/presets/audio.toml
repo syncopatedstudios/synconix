@@ -52,7 +52,6 @@ packages=[
   "zita-lrx"
 ]
 
-
 aur_packages=[
   "caps-lv2-git",
   "fmit",
