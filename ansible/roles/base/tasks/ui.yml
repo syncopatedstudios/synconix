@@ -4,19 +4,6 @@
   debug:
     msg: "starting ui role"
 
-- block:
-    - name: set packages to install
-      set_fact:
-        _packages: "{{ (ui.i3 + ui.qt + ui.x11 + ui.fonts + ui.themes) }}"
-
-    - name: Install ui packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-
-  tags: ['packages']
-
 - include: ui/x11.yml
   tags: ['x11']
 

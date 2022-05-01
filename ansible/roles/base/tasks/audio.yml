@@ -12,32 +12,6 @@
 
 #-------------------------------------#
 
-- block:
-    - name: Set audio packages to install
-      set_fact:
-        _packages: "{{ (audio.utils + audio.plugins) }}"
-
-    - name: Install audio packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-  tags: ['packages']
-
-- block:
-    - name: Set daw packages to install
-      set_fact:
-        _packages: "{{ audio.applications }}"
-
-    - name: Install daw packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-
-  when: inventory_hostname in groups['daw']
-  tags: ['packages', 'daw']
-
 - name: makesfz and makeh2drumkit
   copy:
     src: "usr/local/bin/{{ item }}"
