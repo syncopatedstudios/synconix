@@ -39,7 +39,6 @@
         - "{{ user.home }}/.config/gtk-4.0"
         - "{{ user.home }}/.config/qt5ct"
         - "{{ user.home }}/.config/Kvantum"
-        - "{{ user.home }}/.config/fontconfig"
         - "{{ user.home }}/.config/nitrogen"
         - "{{ user.home }}/.config/zim"
         - "{{ user.home }}/.themes"
