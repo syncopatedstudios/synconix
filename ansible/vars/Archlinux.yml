@@ -43,7 +43,6 @@ base:
     - exa
     - faad2
     - fd
-    - ffmpegthumbnailer
     - firewalld
     - fzf
     - gcc-libs
