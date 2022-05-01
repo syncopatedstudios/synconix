@@ -122,27 +122,6 @@ foreground: #282828
 foreground-alt: #EBDBB2
 alert: #bd2c40
 
-white: #FFFFFF
-black: #000000
-red: #EC7875
-redish: #e22ca9
-pink: #EC6798
-purple: #BE78D1
-blue: #75A4CD
-cyan: #00C7DF
-teal: #00B19F
-green: #61C766
-lime: #B9C244
-highst_green: #689d6a
-yellow: #EBD369
-amber: #EDB83F
-orange: #E57C46
-brown: #AC8476
-gray: #9E9E9E
-gray2: #3f3f3f
-indigo: #6C77BB
-blue-gray: #6D8895
-
 #background
 bg:      #101010ff;
 #foreground
@@ -184,3 +163,23 @@ colors:
   #: white
   color7:  "#d8d8d8"
   color15: "#f8f8f8"
+  white: "#FFFFFF"
+  black: "#000000"
+  red: "#EC7875"
+  redish: "#e22ca9"
+  pink: "#EC6798"
+  purple: "#BE78D1"
+  blue: "#75A4CD"
+  cyan: "#00C7DF"
+  teal: "#00B19F"
+  green: "#61C766"
+  lime: "#B9C244"
+  highst_green: "#689d6a"
+  yellow: "#EBD369"
+  amber: "#EDB83F"
+  orange: "#E57C46"
+  brown: "#AC8476"
+  gray: "#9E9E9E"
+  gray2: "#3f3f3f"
+  indigo: "#6C77BB"
+  blue_gray: "#6D8895"
