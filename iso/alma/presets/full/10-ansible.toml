@@ -10,7 +10,7 @@ export ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
 sudo chmod 2775 /opt
 sudo chgrp ${ALMA_USER} /opt
 
-touch /root/.ansible/ansible.log
+mkdir -pv /root/.ansible && touch /root/.ansible/ansible.log
 
 if [ -d $ANSIBLE_HOME ];
 then
