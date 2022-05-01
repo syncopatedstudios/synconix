@@ -8,7 +8,7 @@ packages = [
   "mlocate",
   "neovim",
   "net-tools",
-  "ntfs-3g"
+  "ntfs-3g",
   "openssl",
   "rsync",
   "sudo",
