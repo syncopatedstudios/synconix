@@ -25,6 +25,7 @@ base:
     - networkmanager-vpnc
     - nm-connection-editor
   system:
+    - abduco
     - aria2
     - atool
     - autofs
@@ -107,8 +108,7 @@ base:
     - rtkit
     - ruby-bundler
     - rubygems
-    - samba
-    - screen
+    # - samba
     - smartmontools
     - sndio
     - sox

@@ -1,4 +1,5 @@
 packages=[
+  "abduco",
   "aribb24",
   "aspell-en",
   "base-devel",
