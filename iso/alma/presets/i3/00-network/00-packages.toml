@@ -1,1 +1,0 @@
-packages = [ "libnm", "libnma","networkmanager", "network-manager-applet", "networkmanager-openconnect", "networkmanager-openvpn", "networkmanager-pptp", "networkmanager-vpnc", "nm-connection-editor", "inetutils" ]

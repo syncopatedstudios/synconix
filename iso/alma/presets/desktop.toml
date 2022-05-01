@@ -1,0 +1,19 @@
+packages=[
+  "atom",
+  "barrier",
+  "grsync",
+  "qutebrowser",
+  "thunar",
+  "thunar-archive-plugin",
+  "thunar-volman",
+  "xarchiver",
+  "zim"
+]
+
+aur_packages=[
+  "google-chrome",
+  "qpdfview",
+  "radiotray-ng",
+  "s",
+  "timeshift"
+]

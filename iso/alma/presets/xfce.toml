@@ -1,6 +1,0 @@
-packages = ["xfce4", "ttf-dejavu", "lightdm-gtk-greeter-settings", "accountsservice"]
-script = """
-set -exu
-
-systemctl enable lightdm
-"""

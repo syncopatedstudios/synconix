@@ -1,2 +1,0 @@
-packages = ["arandr", "conky", "i3-gaps", "lightdm-gtk-greeter", "nitrogen", "notification-daemon", "picom", "qt5ct"]
-aur_packages = ["polybar"]

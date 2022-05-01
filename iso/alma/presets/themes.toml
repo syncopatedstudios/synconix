@@ -1,0 +1,9 @@
+packages = [
+  "arc-gtk-theme",
+  "kvantum-theme-materia"
+]
+
+aur_packages=[
+  "numix-circle-icon-theme-git",
+  "paper-icon-theme-git"
+]

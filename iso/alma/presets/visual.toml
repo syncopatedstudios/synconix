@@ -1,0 +1,7 @@
+packages=[
+  "celluloid",
+  "darktable",
+  "feh",
+  "ffmpegthumbnailer",
+  "nomacs"
+]
