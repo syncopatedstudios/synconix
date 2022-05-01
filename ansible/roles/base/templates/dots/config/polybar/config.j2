@@ -30,7 +30,7 @@ include-file = ~/.config/polybar/user_modules.ini
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor =
+monitor = ${env:MONITOR:HDMI1}
 
 ; Use the specified monitor as a fallback if the main one is not found.
 monitor-fallback =
@@ -132,10 +132,10 @@ font-3 = "FontAwesome:size=10"
 ;   modules-center = xwindow xbacklight
 ;   modules-right = ipc clock
 
-modules-left = jgmenu sep i3 workspaces sep
+modules-left = jgmenu sep screenlayouts sep workspaces sep
 modules-center =
 {% if ansible_facts['hostname'] == 'lapbot' %}
-modules-right = battery network sep volume brightness sep date
+modules-right = battery sep volume brightness sep date
 {% else %}
 modules-right = sep volume sep date
 {% endif %}
