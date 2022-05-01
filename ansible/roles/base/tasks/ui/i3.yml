@@ -68,12 +68,18 @@
 
     - name: Install polybar templates
       template:
-        src: "dots/config/polybar/config.j2"
-        dest: "{{ user.home }}/.config/polybar/config"
+        src: "dots/config/polybar/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/polybar/{{ item }}"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
         mode: "0644"
         backup: yes
+      with_items:
+        - config
+        - bars.ini
+        - colors.ini
+        - modules.ini
+        - user_modules.ini
       tags: ['polybar']
 
     - name: Install i3 polybar script

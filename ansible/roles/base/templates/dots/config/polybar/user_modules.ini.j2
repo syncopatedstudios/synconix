@@ -1,8 +1,5 @@
-;; ┌──────────────────────────────────────────────────────────────────────────────-----┐
-;; │░█▀█░█▀█░█░░░█░█░█▀▄░█▀█░█▀▄░░░░░░░░░█░█░█▀▀░█▀▀░█▀▄░░░█▄█░█▀█░█▀▄░█░█░█░░░█▀▀░█▀▀ │
-;; │░█▀▀░█░█░█░░░░█░░█▀▄░█▀█░█▀▄░░░░▀░░░░█░█░▀▀█░█▀▀░█▀▄░░░█░█░█░█░█░█░█░█░█░░░█▀▀░▀▀█ │
-;; │░▀░░░▀▀▀░▀▀▀░░▀░░▀▀░░▀░▀░▀░▀░░░░▀░░░░▀▀▀░▀▀▀░▀▀▀░▀░▀░░░▀░▀░▀▀▀░▀▀░░▀▀▀░▀▀▀░▀▀▀░▀▀▀ │
-;; │░Created░By░Aditya░Shakya░@adi1090x░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
+;;
+;; │░Created░By░Aditya░Shakya░@adi1090x
 ;; └──────────────────────────────────────────────────────────────────────────────-----┘
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -114,9 +111,9 @@ type = custom/text
 inherit = module/apps
 content = 
 content-foreground = ${color.blue-gray}
-click-left = termite &
-click-middle = urxvt &
-click-right = xfce4-terminal &
+click-left = kitty &
+click-middle = ranger &
+click-right = terminator &
 
 [module/files]
 inherit = module/apps
@@ -129,15 +126,15 @@ click-right = pcmanfm &
 inherit = module/apps
 content = 
 content-foreground = ${color.orange}
-click-left = firefox &
-click-right = chromium &
+click-left = google-chrome-stable &
+click-right = firefox &
 
-[module/settings]
-inherit = module/apps
-content = 
-content-foreground = ${color.teal}
-click-left = xfce4-settings-manager &
-click-right = lxappearance &
+; [module/settings]
+; inherit = module/apps
+; content = 
+; content-foreground = ${color.teal}
+; click-left = xfce4-settings-manager &
+; click-right = lxappearance &
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -181,7 +178,7 @@ format = <label-toggle><menu>
 label-open = 
 label-open-foreground = ${color.cyan}
 label-open-padding = 1
-label-close =  
+label-close = 
 label-close-foreground = ${color.red}
 label-close-padding = 1
 
@@ -233,7 +230,7 @@ format = <label-toggle><menu>
 label-open = 
 label-open-foreground = ${color.yellow}
 label-open-padding = 1
-label-close =  
+label-close = 
 label-close-foreground = ${color.red}
 label-close-padding = 1
 
@@ -242,3 +239,12 @@ label-close-padding = 1
 ;label-separator = " | "
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[module/jgmenu]
+type = custom/text
+content-padding = 2
+#content = "   "
+content = ""
+click-left = "jgmenu_run >/dev/null 2>&1 &"
+content-background = ${color.background}
+content-foreground = ${color.foreground}
