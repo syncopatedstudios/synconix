@@ -20,3 +20,6 @@ TODO: @pipewire
 TODO: @ansible
 [ ] reorder tasks
 	1. package installs
+
+TODO: @deadsampler
+[ ] add script to tag flac with key
