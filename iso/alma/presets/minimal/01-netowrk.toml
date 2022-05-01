@@ -1,17 +1,1 @@
-packages=[
-  "libnm",
-  "libnma",
-  "network-manager-applet",
-  "networkmanager",
-  "networkmanager-openconnect",
-  "networkmanager-openvpn",
-  "networkmanager-pptp",
-  "networkmanager-vpnc",
-  "nm-connection-editor"
-]
-
-script = """
-set -exu
-
-systemctl enable NetworkManager
-"""
+../full/01-netowrk.toml
