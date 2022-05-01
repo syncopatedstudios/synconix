@@ -9,6 +9,7 @@ packages=[
   "networkmanager-vpnc",
   "nm-connection-editor"
 ]
+
 script = """
 set -exu
 

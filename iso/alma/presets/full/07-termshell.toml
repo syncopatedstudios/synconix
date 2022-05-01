@@ -31,9 +31,9 @@ packages=[
 ]
 
 aur_packages=[
-"gitflow-avh",
-"gitflow-zshcompletion-avh",
-"neovim-symlinks",
-"wordnet-cli",
-"xzgv"
+  "gitflow-avh",
+  "gitflow-zshcompletion-avh",
+  "neovim-symlinks",
+  "wordnet-cli",
+  "xzgv"
 ]

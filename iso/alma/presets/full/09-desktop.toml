@@ -1,7 +1,12 @@
 packages=[
   "atom",
   "barrier",
+  "celluloid",
+  "darktable",
+  "feh",
+  "ffmpegthumbnailer",
   "grsync",
+  "nomacs"
   "qutebrowser",
   "thunar",
   "thunar-archive-plugin",
