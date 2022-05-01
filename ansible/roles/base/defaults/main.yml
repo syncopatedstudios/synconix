@@ -1,5 +1,60 @@
 ---
 
+local_src: "/usr/local/src"
+local_bin: "/usr/local/bin"
+
+##################################################################
+##########################  User  ################################
+##################################################################
+# user:
+#   name: b08x
+#   home: /home/b08x
+#   gnupg: /home/b08x/.gnupg
+#   uid: 1000
+#   gid: 1000
+#   group: b08x
+#   secondary_groups: "input,video,audio"
+#   shell: zsh
+#   terminal: kitty
+#   zsh: /usr/share/oh-my-zsh
+#   email: rwpannick@gmail.com
+#   password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.
+
+user_groups:
+  - name: home
+    gid: 1041
+
+zsh:
+  configs: "{{ user.home }}/.zsh"
+  theme: minimal-terminal-prompt
+
+# path:
+#   - "{{ user.home }}/.local/bin"
+#   - "{{ user.home }}/.cargo/bin"
+#   - "{{ user.home }}/.gem/ruby/3.0.0/bin"
+#   - "{{ user.home }}/.rvm/rubies/ruby-3.0.0/bin"
+#   - "/var/lib/gems/2.7.0/bin"
+#   - "/usr/lib/jvm/default/bin"
+#   - "/opt/soundbot/bin"
+#   - "/opt/sonic-pi/bin"
+
+# dots:
+#   repo: https://gitlab.com/b08x/dots.git
+#   home: "{{ user.home }}/.dots"
+#   backup: "{{ user.home }}/.dotsbackup"
+#   untracked: False
+
+##################################################################
+##########################  Virt Stuff   #########################
+##################################################################
+
+kvm_host: False
+docker_host: False
+docker_storage: /var/lib/docker
+
+##################################################################
+##########################  Firewall   ###########################
+##################################################################
 admin_user: root
 
 nfs_ports:
@@ -9,11 +64,6 @@ nfs_ports:
   - 892/udp
   - 662/tcp
   - 662/udp
-
-kvm_host: False
-
-docker_host: False
-docker_storage: /var/lib/docker
 
 firewalld:
   zone: docker
@@ -29,6 +79,14 @@ firewalld:
 ##################################################################
 ##########################  Networking  ##########################
 ##################################################################
+
+intranet_ssid: soundbot
+# run `wpa_passphrase soundbot`
+wireless_pw: passphrase
+
+dns:
+  nameserver: 192.168.41.1
+  search: syncopated.net
 
 use_networkmanager: False
 use_systemdnetwork: False
