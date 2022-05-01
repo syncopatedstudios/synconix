@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 
-if ! pgrep -x "rsync" > /dev/null; then
+if ! pgrep -a "sync" > /dev/null; then
   notify-send -u normal "starting backup"
   osync.sh /etc/osync/sync_crambot_to_bender.conf --silent --summary --verbose --stats
 else

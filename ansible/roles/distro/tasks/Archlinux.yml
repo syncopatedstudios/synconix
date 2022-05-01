@@ -1,9 +1,9 @@
 ---
 
-- name: Create link to os-release
+- name: Copy os-release
   copy:
     src: "etc/os-release"
-    dest: "/etc/system-release"
+    dest: "/etc/os-release"
     owner: root
     group: root
     mode: '0644'
