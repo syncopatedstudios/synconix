@@ -1,7 +1,7 @@
 script = """
 set -eux
 
-HOSTNAME=$( cat /etc/hostname )
+HOSTNAME="archlinux"
 
 export SYNCONIX="/opt/synconix"
 export ANSIBLE_HOME="$SYNCONIX/ansible"
