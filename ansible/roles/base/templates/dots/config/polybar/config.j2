@@ -117,10 +117,10 @@ module-margin-right = 1
 
 ; Fonts are defined using <font-name>;<vertical-offset>
 ; Font names are specified using a fontconfig pattern.
-;   font-0 = NotoSans-Regular:size=8;2
-;   font-1 = MaterialIcons:size=10
-;   font-2 = Termsynu:size=8;-1
-;   font-3 = FontAwesome:size=10
+; font-0 = NotoSans-Regular:size=8;2
+; font-1 = MaterialIcons:size=10
+; font-2 = Termsynu:size=8;-1
+; font-3 = FontAwesome:size=10
 ; See the Fonts wiki page for more details
 
 font-0 = "Hack Nerd Font:pixelsize=11;2"
@@ -132,12 +132,12 @@ font-3 = "FontAwesome:size=10"
 ;   modules-center = xwindow xbacklight
 ;   modules-right = ipc clock
 
-modules-left = jgmenu sep screenlayouts backup sep workspaces sep
+modules-left = jgmenu sep workspaces sep
 modules-center =
 {% if ansible_facts['hostname'] == 'lapbot' %}
 modules-right = battery sep volume brightness sep date
 {% else %}
-modules-right = sep volume sep date
+modules-right = sep screenlayouts backup sep volume sep date
 {% endif %}
 
 
