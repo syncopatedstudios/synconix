@@ -7,9 +7,12 @@ Created Wednesday 27 April 2022
 
 TODO: @i3
 [*] make floating window borders stand out more
+[ ] configure "i3" only keyboard
 
 TODO: @artwork
 [ ] rename stuff to "Synconix"
 [ ] ~~logo~~ (shifting focus)
 
+TODO: @pipewire
+[ ] set chrome to use to compressor-->eq
 
