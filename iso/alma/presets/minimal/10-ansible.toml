@@ -1,14 +1,22 @@
 script = """
 set -eux
 
-HOSTNAME=$( cat /etc/hostname )
-
 export SYNCONIX="/opt/synconix"
 export ANSIBLE_HOME="$SYNCONIX/ansible"
 export ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
 
 sudo chmod 2775 /opt
 sudo chgrp ${ALMA_USER} /opt
+
+hosts () {
+
+  ANSIBLE_INVENTORY="${ANSIBLE_HOME}/hosts"
+
+  ANSIBLE_HOST="${HOSTNAME} ansible_user=${USER} ansible_become=true ansible_connection=local"
+
+  echo ${ANSIBLE_HOST} > $ANSIBLE_INVENTORY
+
+}
 
 if [ -d $ANSIBLE_HOME ];
 then
@@ -21,7 +29,7 @@ else
   fi
   cd /opt && git clone https://github.com/syncopatedstudios/synconix.git synconix
   cd $SYNCONIX && git checkout development
-  cd $ANSIBLE_HOME
+  cd $ANSIBLE_HOME && hosts
 
   if [ "$?" -ne 0 ]; then
     echo "previous thing failed. exiting...:|"
