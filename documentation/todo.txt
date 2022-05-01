@@ -10,8 +10,9 @@ TODO: @i3
 [ ] configure "i3" only keyboard
 
 TODO: @artwork
-[ ] rename stuff to "Synconix"
+[*] rename stuff to "Synconix"
 [ ] logo 
+[ ] icons for workspaces
 
 TODO: @pipewire
 [ ] set chrome to use to compressor-->eq
