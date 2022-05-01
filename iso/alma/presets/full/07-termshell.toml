@@ -1,0 +1,39 @@
+packages=[
+  "aria2",
+  "atool",
+  "bat",
+  "exa",
+  "fd",
+  "fzf",
+  "git",
+  "git-filter-repo",
+  "git-lfs",
+  "glow",
+  "guake",
+  "help2man",
+  "htop",
+  "iftop",
+  "iotop",
+  "kitty",
+  "kitty-terminfo",
+  "lnav",
+  "neovim",
+  "ranger",
+  "ripgrep-all",
+  "terminator",
+  "w3m",
+  "xz",
+  "zsh",
+  "zsh-autosuggestions",
+  "zsh-completions",
+  "zsh-history-substring-search",
+  "zsh-syntax-highlighting"
+]
+
+aur_packages=[
+  "gitflow-avh",
+  "gitflow-zshcompletion-avh",
+  "neovim-symlinks",
+  "wordnet-cli",
+  "xzgv"
+]

@@ -1,0 +1,24 @@
+packages=[
+  "atom",
+  "barrier",
+  "celluloid",
+  "darktable",
+  "feh",
+  "ffmpegthumbnailer",
+  "grsync",
+  "nomacs"
+  "qutebrowser",
+  "thunar",
+  "thunar-archive-plugin",
+  "thunar-volman",
+  "xarchiver",
+  "zim"
+]
+
+aur_packages=[
+  "google-chrome",
+  "qpdfview",
+  "radiotray-ng",
+  "s",
+  "timeshift"
+]

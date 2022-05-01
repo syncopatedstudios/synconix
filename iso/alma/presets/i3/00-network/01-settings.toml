@@ -1,5 +1,0 @@
-script = """
-set -exu
-
-systemctl enable NetworkManager
-"""

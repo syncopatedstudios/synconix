@@ -1,21 +1,11 @@
-[controller]
-bender
-
 [daw]
-crambot ansible_connection=local
-calculon
-lapbot
-
-[node]
-soundbot01
+archlinux
 
 [soundbots:children]
-controller
 daw
-node
 
 [soundbots:vars]
-ansible_user=b08x
+ansible_user=soundbot
 ansible_become=true
 admin_user=wheel
 autofs_configs=/etc/autofs

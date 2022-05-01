@@ -1,0 +1,14 @@
+packages=[
+  "i3-gaps",
+  "jgmenu",
+  "lightdm-gtk-greeter",
+  "nitrogen",
+  "picom",
+  "rofi",
+  "wmctrl"
+]
+
+aur_packages=[
+  "polybar",
+  "quickswitch-i3"
+]
