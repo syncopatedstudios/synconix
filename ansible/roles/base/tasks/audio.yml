@@ -5,7 +5,6 @@
     msg: "starting audio role"
 
 - include: audio/pipewire.yml
-  check_mode: no
   tags: ['pipewire']
 
 - include: audio/alsa.yml
