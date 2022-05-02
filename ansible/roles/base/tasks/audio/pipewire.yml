@@ -31,4 +31,3 @@
   # become: True
   # become_user: "{{ user.name }}"
   when: pipewire_config.changed
-  check_mode: no
