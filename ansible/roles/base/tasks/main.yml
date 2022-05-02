@@ -13,8 +13,16 @@
 - include: network.yml
   tags: ['network']
 
+- name: check if firewalld is presnet
+  shell: command -v firewalld
+  register: hazifirewalld
+  changed_when: hazifirewalld.rc != 0
+  check_mode: no
+  ignore_errors: yes
+
 - include: firewalld.yml
   tags: ['firewall']
+  when: not hazifirewalld.rc != 0
 
 - include: ssh.yml
   tags: ['ssh']
