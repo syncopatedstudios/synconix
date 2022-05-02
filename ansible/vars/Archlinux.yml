@@ -79,6 +79,7 @@ base:
     - lnav
     - lsyncd
     - lua
+    - lzip
     - man-db
     - man-pages
     - mdadm
@@ -124,6 +125,7 @@ base:
     - waf
     - wavpack
     - wol
+    - xarchiver
     - xf86-video-intel
     - xterm
     - xz
