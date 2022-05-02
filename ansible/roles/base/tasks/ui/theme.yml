@@ -109,3 +109,18 @@
   tags: ['dots']
 
 - include: fonts.yml
+
+- block:
+    - name: Extract soundbot theme into /home/user/.themes
+      unarchive:
+        src: oomox-soundbotv2.tar.gz
+        dest: "{{ user.home }}/.themes"
+
+    - name: Extract soundbot theme icons into /home/user/.icons
+      unarchive:
+        src: oomox-soundbotv2_icons.tar.gz
+        dest: "{{ user.home }}/.icons"
+
+  become: true
+  become_user: "{{ user.name }}"
+  tags: ['theme']
