@@ -1,0 +1,10 @@
+script = """
+if [ -d /shared_dirs/fonts ];
+then
+mkdir -pv /usr/local/share/fonts
+rsync -avP /shared_dirs/fonts/ /usr/local/share/fonts/ && fc-cache -r
+else
+echo "shared directory does not exist or something"
+fi
+"""
+shared_directories = ["fonts"]
