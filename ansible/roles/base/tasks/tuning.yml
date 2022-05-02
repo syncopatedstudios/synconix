@@ -58,13 +58,8 @@
     mode: "0644"
     backup: yes
   register: rtirq_config
-
-- name: enable rtirq service
-  systemd:
-    name: rtirq
-    state: started
-    enabled: yes
-  when: rtirq_config.changed
+  notify:
+    - "rtirq service"
 
 # rtkit package should be installed before this happens
 # otherwise, if it sees this systemd file, it'll report
@@ -79,6 +74,8 @@
     group: root
     mode: '0644'
   register: rtkit_conf
+  notify:
+    - "rtirq service"
 
 - name: Copy rtkit systemd file
   copy:
@@ -89,11 +86,5 @@
     group: root
     mode: '0644'
   register: rtkit_systemd
-
-- name: restart rtkit-daemon service
-  systemd:
-    name: rtkit-daemon
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
-  when: rtkit_systemd.changed or rtkit_conf.changed
+  notify:
+    - "rtkit service"

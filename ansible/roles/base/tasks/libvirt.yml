@@ -1,29 +1,25 @@
 ---
+- block:
+    - name: install libvirtd.conf
+      copy:
+        src: etc/libvirt/libvirtd.conf
+        dest: /etc/libvirt/libvirtd.conf
+        owner: root
+        group: root
+        mode: '0644'
 
-- name: install libvirtd.conf
-  copy:
-    src: etc/libvirt/libvirtd.conf
-    dest: /etc/libvirt/libvirtd.conf
-    owner: root
-    group: root
-    mode: '0644'
+    - name: disable lvmetad
+      lineinfile:
+        dest: /etc/lvm/lvm.conf
+        regexp: "^    use_lvmetad = 1"
+        line: "    use_lvmetad = 0"
+        backrefs: yes
+        backup: yes
 
-- name: disable lvmetad
-  lineinfile:
-    dest: /etc/lvm/lvm.conf
-    regexp: "^    use_lvmetad = 1"
-    line: "    use_lvmetad = 0"
-    backrefs: yes
-    backup: yes
-
-- name: add user to libvirt group
-  user:
-    name: "{{ user.name }}"
-    groups: "libvirt,kvm"
-    append: yes
-
-- name: enable libvirtd service
-  service:
-    name: libvirtd
-    enabled: no
-    state: stopped
+    - name: add user to libvirt group
+      user:
+        name: "{{ user.name }}"
+        groups: "libvirt,kvm"
+        append: yes
+  notify:
+    - "libvirtd service"

@@ -16,16 +16,12 @@
     mode: '644'
     backup: yes
   register: docker_service
-  tags: ['docker']
+  notify:
+    - "reload systemd"
+    - "docker service"
 
 - name: reload systemd
   shell: |
     systemctl daemon-reload
   when: docker_service.changed
   tags: ['docker']
-
-- name: enable docker service
-  systemd:
-    name: docker
-    state: started
-    enabled: yes
