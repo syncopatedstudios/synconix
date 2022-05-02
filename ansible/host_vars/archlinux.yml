@@ -1,5 +1,8 @@
 ---
 
+graphical_target: True
+autologin: True
+
 build_baudline: True
 build_bespoke: True
 build_jacktrip: True

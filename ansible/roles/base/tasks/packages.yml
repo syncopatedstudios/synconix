@@ -33,5 +33,5 @@
 
     - include: desktop/atom.yml
 
-  when: inventory_hostname in groups['daw']
+  when: graphical_target|bool
   tags: ['packages', 'desktop']
