@@ -135,7 +135,6 @@ base:
     - zsh-syntax-highlighting
     - zsh-theme-powerlevel10k
   pipewire:
-    - helvum
     - pipewire
     - pipewire-alsa
     - pipewire-jack
@@ -154,29 +153,26 @@ ui:
     - jgmenu
   i3:
     - arandr
-    - conky
+    - gtk-engine-murrine
     - i3-gaps
+    - kvantum-qt5
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
     - picom
     - polybar
+    - qt5-base
+    - qt5-tools
     - qt5ct
-    - quickswitch-i3
+    - qt6-base
+    - qt6-declarative
+    - qt6-multimedia
+    - qt6-tools
     - rofi
     - xbindkeys_config-gtk2
     - xkill-shortcut
-  qt:
-    - qt5-base
-    - qt5-tools
-    - qt6-base
-    - qt6-multimedia
-    - qt6-tools
-    - qt6-declarative
   themes:
     - arc-gtk-theme
-    - gtk-engine-murrine
-    - kvantum-qt5
     - kvantum-theme-materia
     - numix-circle-icon-theme-git
     - paper-icon-theme-git
@@ -276,7 +272,6 @@ audio:
     - ocenaudio-bin
     - qmidiarp
     - qmidinet
-    - qpwgraph
     - scala-music
     - scala-music-scales
     - sfizz

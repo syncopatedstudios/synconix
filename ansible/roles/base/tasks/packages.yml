@@ -1,9 +1,8 @@
 ---
 
-- name: set base packages to installl
+- name: Set base packages to installl
   set_fact:
     _packages: "{{ (base.system + docker) }}"
-
 
 - name: Install base packages
   import_role:
@@ -11,34 +10,28 @@
   vars:
     pkg_state: present
 
+- name: Set audio packages to install
+  set_fact:
+    _packages: "{{ (audio.utils + audio.plugins + audio.applications) }}"
 
-# - block:
-#     - name: Set desktop packages
-#       set_fact:
-#         _packages: "{{ workstation }}"
-#
-#
-#     - include: atom.yml
-#       tags: ['atom']
-#
-#     - include: chrome.yml
-#       tags: ['chrome']
-#
-#   when: inventory_hostname in groups['daw']
-#   tags: ['packages', 'desktop']
-#
-#     - name: Set audio packages to install
-#       set_fact:
-#         _packages: "{{ (audio.utils + audio.plugins) }}"
-#
-#     - name: Set daw packages to install
-#       set_fact:
-#         _packages: "{{ audio.applications }}"
-#
-#   when: inventory_hostname in groups['daw']
-#   tags: ['packages', 'daw']
+- name: Install audio packages
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
 
-#     - name: set packages to install
-#       set_fact:
-#         _packages: "{{ (ui.i3 + ui.x11 + ui.fonts) }}"
-#
+- block:
+    - name: set ui packages to install
+      set_fact:
+        _packages: "{{ (workstation + ui.i3 + ui.x11 + ui.fonts) }}"
+
+    - name: Install ui packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
+    - include: desktop/atom.yml
+
+  when: inventory_hostname in groups['daw']
+  tags: ['packages', 'desktop']
