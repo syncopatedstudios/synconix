@@ -18,7 +18,7 @@
   args:
     chdir: "{{ local_src }}/swallow"
   when: not haziswallow.stat.exists
-  check_mode: no
+  check_mode: yes
 
 - name: Install i3ipc for Python 3
   pip:
