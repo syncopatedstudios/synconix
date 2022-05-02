@@ -295,7 +295,7 @@ audio:
     - tonespace
     - vital-synth
     - vmpk
-workstation:
+desktop:
     - actdiag
     - aspell-en
     - atom

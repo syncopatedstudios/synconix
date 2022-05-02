@@ -31,6 +31,16 @@
       vars:
         pkg_state: present
 
+    - name: set desktop packages to install
+      set_fact:
+        _packages: "{{ desktop }}"
+
+    - name: Install deskop packages
+      import_role:
+        name: pkg_manager
+      vars:
+        pkg_state: present
+
     - include: desktop/atom.yml
 
   when: graphical_target|bool
