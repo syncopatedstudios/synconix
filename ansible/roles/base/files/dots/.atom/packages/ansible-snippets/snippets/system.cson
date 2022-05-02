@@ -19,3 +19,12 @@
       when: "{{ install.$3 }}|bool"
       tags: [$4]
     """
+  "stat":
+    "prefix": "stat"
+    "body": """
+    - name: check if $1 is already installed
+      shell: command -v $2
+      register: hazi$3
+      changed_when: hazi$4.rc != 0
+      check_mode: no
+      ignore_errors: yes
