@@ -31,6 +31,14 @@
       vars:
         pkg_state: present
 
+    - name: remove some packages
+      shell: |
+        yay -Rdd --noconfirm {{ item }}
+      with_items:
+        - nodejs
+      become: True
+      become_user: "{{ user.name }}"
+
     - name: set desktop packages to install
       set_fact:
         _packages: "{{ desktop }}"
