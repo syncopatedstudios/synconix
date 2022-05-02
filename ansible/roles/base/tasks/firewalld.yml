@@ -5,6 +5,8 @@
     name: firewalld
     state: started
     enabled: yes
+  check_mode: yes
+  ignore_errors: True
 
 - name: permit traffic for sshd service
   firewalld:
