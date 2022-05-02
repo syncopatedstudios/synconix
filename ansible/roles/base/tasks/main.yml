@@ -78,9 +78,7 @@
   tags: ['indexer']
 
 - include: audio.yml
-  when: inventory_hostname in groups['daw']
   tags: ['audio']
 
 - include: ui.yml
-  when: inventory_hostname in groups['daw']
   tags: ['ui']
