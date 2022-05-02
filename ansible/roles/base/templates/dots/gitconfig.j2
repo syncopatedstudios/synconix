@@ -2,11 +2,7 @@
 [user]
 # Please adapt and uncomment the following lines:
 	name = {{ user.name }}
-{% if inventory_hostname != 'archlinux' %}
 	email = {{ user.email }}
-{% else %}
-	email = soundbot@synconix.io
-{% endif %}
 [color]
 	ui = auto
 [pull]
