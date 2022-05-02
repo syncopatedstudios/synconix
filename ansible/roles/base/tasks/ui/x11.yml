@@ -1,14 +1,24 @@
 ---
 
-- name: copy x11 intel graphics config
-  copy:
-    src: etc/X11/xorg.conf.d/20-intel.conf
-    dest: /etc/X11/xorg.conf.d/20-intel.conf
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
-    directory_mode: no
+- block:
+    - name: Ensure these directories exist
+      file:
+        path: "/etc/X11/xorg.conf.d/"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: copy x11 intel graphics config
+      copy:
+        src: etc/X11/xorg.conf.d/20-intel.conf
+        dest: /etc/X11/xorg.conf.d/20-intel.conf
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+        directory_mode: no
+  when: tri_monitors|bool
 
 - block:
     - name: Push xprofile templates
