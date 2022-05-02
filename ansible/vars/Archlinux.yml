@@ -217,11 +217,11 @@ audio:
     - aribb24
     - gst-libav
     - gst-plugins-bad
-    - jack-audio-tools-carla
-    - jack-audio-tools-common
-    - jack-audio-tools-dbus
-    - jack-audio-tools-lv2
-    - jack-audio-tools-transport
+    # - jack-audio-tools-carla
+    # - jack-audio-tools-common
+    # - jack-audio-tools-dbus
+    # - jack-audio-tools-lv2
+    # - jack-audio-tools-transport
     - jack-example-tools
     - jack-keyboard
     - jack-rack
