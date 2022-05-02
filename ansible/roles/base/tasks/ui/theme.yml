@@ -108,6 +108,7 @@
   become_user: "{{ user.name }}"
   tags: ['dots']
 
+#TODO: move this to alma
 - block:
     - name: Extract soundbot theme into /home/user/.themes
       unarchive:
