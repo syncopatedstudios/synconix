@@ -27,6 +27,9 @@
   pip:
     name: i3ipc
     executable: pip3
+  with_items:
+    - i3ipc
+    - pillow-simd
 
 - name: Set i3help release url
   set_fact:

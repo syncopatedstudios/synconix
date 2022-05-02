@@ -320,7 +320,6 @@ workstation:
     - pcmanfm
     - pdfjs
     - python-adblock
-    - python-pillow-simd
     - qpdfview
     - qutebrowser
     - radiotray-ng

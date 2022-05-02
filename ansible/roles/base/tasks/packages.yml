@@ -23,7 +23,7 @@
 - block:
     - name: set ui packages to install
       set_fact:
-        _packages: "{{ (workstation + ui.i3 + ui.x11 + ui.fonts) }}"
+        _packages: "{{ (ui.i3 + ui.x11 + ui.fonts) }}"
 
     - name: Install ui packages
       import_role:
