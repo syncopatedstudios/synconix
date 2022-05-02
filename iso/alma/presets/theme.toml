@@ -1,0 +1,10 @@
+script = """
+if [ -d /shared_dirs/theme/oomox-soundbotv2 ];
+then
+mkdir -pv /home/${ALMA_USER}/.themes/oomox-soundbotv2/
+rsync -avP /shared_dirs/theme/oomox-soundbotv2/ /home/${ALMA_USER}/.themes/oomox-soundbotv2/
+else
+echo "shared directory does not exist or something"
+fi
+"""
+shared_directories = ["theme"]

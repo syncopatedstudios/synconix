@@ -147,6 +147,8 @@ soundcard:
 ##########################  UI  ##################################
 ##################################################################
 
+tri_monitors: False
+
 swallow:
   git: "https://github.com/The-Repo-Club/i3-swallow"
 

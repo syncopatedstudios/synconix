@@ -79,6 +79,7 @@ base:
     - lnav
     - lsyncd
     - lua
+    - lzip
     - man-db
     - man-pages
     - mdadm
@@ -124,6 +125,7 @@ base:
     - waf
     - wavpack
     - wol
+    - xarchiver
     - xf86-video-intel
     - xterm
     - xz
@@ -135,7 +137,6 @@ base:
     - zsh-syntax-highlighting
     - zsh-theme-powerlevel10k
   pipewire:
-    - helvum
     - pipewire
     - pipewire-alsa
     - pipewire-jack
@@ -145,38 +146,47 @@ base:
     - pipewire-zeroconf
 ui:
   x11:
+    - jgmenu
+    - xdot
     - xdotool
-    - xorg-xinput
+    - xf86-input-libinput
+    - xf86-video-amdgpu
+    - xf86-video-ati
+    - xf86-video-intel
+    - xf86-video-nouveau
+    - xorg-mkfontscale
+    - xorg-server
     - xorg-xev
+    - xorg-xinit
+    - xorg-xinput
+    - xorg-xlsfonts
     - xorg-xmodmap
     - xorg-xrandr
     - xorg-xrdb
-    - jgmenu
+    - xterm
   i3:
     - arandr
-    - conky
+    - gtk-engine-murrine
     - i3-gaps
+    - kvantum-qt5
+    - lightdm
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
     - picom
     - polybar
+    - qt5-base
+    - qt5-tools
     - qt5ct
-    - quickswitch-i3
+    - qt6-base
+    - qt6-declarative
+    - qt6-multimedia
+    - qt6-tools
     - rofi
     - xbindkeys_config-gtk2
     - xkill-shortcut
-  qt:
-    - qt5-base
-    - qt5-tools
-    - qt6-base
-    - qt6-multimedia
-    - qt6-tools
-    - qt6-declarative
   themes:
     - arc-gtk-theme
-    - gtk-engine-murrine
-    - kvantum-qt5
     - kvantum-theme-materia
     - numix-circle-icon-theme-git
     - paper-icon-theme-git
@@ -221,11 +231,11 @@ audio:
     - aribb24
     - gst-libav
     - gst-plugins-bad
-    - jack-audio-tools-carla
-    - jack-audio-tools-common
-    - jack-audio-tools-dbus
-    - jack-audio-tools-lv2
-    - jack-audio-tools-transport
+    # - jack-audio-tools-carla
+    # - jack-audio-tools-common
+    # - jack-audio-tools-dbus
+    # - jack-audio-tools-lv2
+    # - jack-audio-tools-transport
     - jack-example-tools
     - jack-keyboard
     - jack-rack
@@ -276,7 +286,6 @@ audio:
     - ocenaudio-bin
     - qmidiarp
     - qmidinet
-    - qpwgraph
     - scala-music
     - scala-music-scales
     - sfizz
@@ -286,7 +295,7 @@ audio:
     - tonespace
     - vital-synth
     - vmpk
-workstation:
+desktop:
     - actdiag
     - aspell-en
     - atom
@@ -311,7 +320,6 @@ workstation:
     - pcmanfm
     - pdfjs
     - python-adblock
-    - python-pillow-simd
     - qpdfview
     - qutebrowser
     - radiotray-ng

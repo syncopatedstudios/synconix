@@ -1,0 +1,32 @@
+---
+
+# https://github.com/atom/atom/releases
+
+- name: check if atom is already installed
+  shell: |
+    command -v atom && command -v apm
+  args:
+    warn: no
+  register: atom_check
+  changed_when: atom_check.rc != 0
+
+- block:
+    - name: gather list of installed apm packages
+      shell: |
+        apm list --installed --bare 2>&1 | xargs -0 | awk '{ print $1}'
+      register: apmlist
+      check_mode: no
+      ignore_errors: yes
+
+    - name: install atom plugins
+      shell: |
+        apm install {{ item }}
+      args:
+        warn: no
+      when: item not in apmlist.stdout
+      with_items:
+        - "{{ apm }}"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: atom_check.rc != 0

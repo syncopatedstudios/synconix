@@ -1,16 +1,6 @@
 ---
 #https://gist.github.com/YoEight/d19112db56cd8f93835bf2d009d617f7
 
-- name: check if local fonts exists
-  stat: path="/usr/local/share/fonts/Feather.ttf"
-  register: hazilocalfonts
-
-- name: Extract fonts to /usr/local/share/fonts
-  unarchive:
-    src: usr/local/share/fonts.tar.gz
-    dest: "/usr/local/share/"
-  when: not hazilocalfonts.stat.exists
-
 - name: update fontconfig
   template:
     src: etc/fonts/local.conf.j2

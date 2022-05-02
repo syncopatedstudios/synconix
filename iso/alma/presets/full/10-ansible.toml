@@ -22,7 +22,7 @@ else
     sudo rm -rf $SYNCONIX
   fi
   cd /opt && git clone https://github.com/syncopatedstudios/synconix.git synconix
-  cd $SYNCONIX && git checkout development
+  cd $SYNCONIX && git checkout development && git-lfs fetch
   cd $ANSIBLE_HOME
 
   if [ "$?" -ne 0 ]; then

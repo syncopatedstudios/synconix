@@ -16,7 +16,6 @@
       - "--update"
       - "--exclude='.backup'"
   register: pipewire_config
-  tags: ['pipewire']
 
 - name: Restart pipewire services
   systemd:
@@ -29,7 +28,6 @@
     - pipewire-pulse
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
-  become: True
-  become_user: "{{ user.name }}"
+  # become: True
+  # become_user: "{{ user.name }}"
   when: pipewire_config.changed
-  tags: ['pipewire']

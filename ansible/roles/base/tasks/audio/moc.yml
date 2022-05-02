@@ -14,4 +14,6 @@
         mode: '0644'
         backup: yes
         directory_mode: no
-  tags: ['moc']
+      when: mocp_config_dir.rc != 0
+  become: True
+  become_user: "{{ user.name }}"

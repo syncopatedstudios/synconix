@@ -1,7 +1,6 @@
 packages = [
   "ansible",
   "base-devel",
-  "git",
   "htop",
   "iftop",
   "iotop",
