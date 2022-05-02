@@ -25,23 +25,6 @@
     - rpcbind
 
 #ensure firewalld is allowing access to required ports
-- name: permit traffic for nfs service
-  firewalld:
-    service: nfs
-    permanent: yes
-    state: enabled
-  notify:
-    - "reload firewalld"
-
-- name: permit traffic to rpcbind ports
-  firewalld:
-    port: "{{ item }}"
-    permanent: yes
-    state: enabled
-  notify:
-    - "reload firewalld"
-  with_items: ["{{ nfs_ports }}"]
-
 #ensure selinux is allow nfs stuff to occur
 
 # - name: Allow daemons to use tcp wrapper

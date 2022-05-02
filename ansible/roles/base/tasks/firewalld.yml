@@ -16,6 +16,39 @@
   notify:
     - "reload firewalld"
 
+- name: permit traffic for ntp service
+  firewalld:
+    service: ntp
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- name: permit traffic for nfs service
+  firewalld:
+    service: nfs
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- name: permit traffic to rpcbind ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+  with_items: ["{{ nfs_ports }}"]
+
+- name: permit traffic for rsyncd service
+  firewalld:
+    service: rsyncd
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
 - name: permit traffic to these ports
   firewalld:
     port: "{{ item }}"
