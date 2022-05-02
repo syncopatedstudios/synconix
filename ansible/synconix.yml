@@ -27,6 +27,9 @@
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+      SYNCONIX: "/opt/synconix"
+      ANSIBLE_HOME: "{{ ansible_env.SYNCONIX }}/ansible"
+      ANSIBLE_PLUGINS: "{{ ansible_env.ANSIBLE_HOME }}/plugins/modules"
   vars_files:
     - "vars/common.yml"
     - "{{ ansible_os_family }}.yml"
