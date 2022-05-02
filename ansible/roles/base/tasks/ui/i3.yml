@@ -14,11 +14,11 @@
   when: not haziswallow.stat.exists
 
 - name: move i3-swallow to bin dir
-  shell: cp swallow /usr/local/bin/swallow
+  shell: cp {{ local_src }}/swallow/swallow /usr/local/bin/swallow
   args:
-    chdir: "{{ local_src }}/swallow"
+    chdir: "{{ local_src }}"
+  check_mode: no
   when: not haziswallow.stat.exists
-  check_mode: yes
 
 - name: Install i3ipc for Python 3
   pip:
