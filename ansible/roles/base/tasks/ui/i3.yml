@@ -3,6 +3,7 @@
 - name: check if swallow is already installed
   stat: path="/usr/local/bin/swallow"
   register: haziswallow
+  tags: ['swallow']
 
 - name: clone i3-swallow
   git:
@@ -12,6 +13,7 @@
     update: no
     force: no
   when: not haziswallow.stat.exists
+  tags: ['swallow']
 
 - name: move i3-swallow to bin dir
   shell: cp {{ local_src }}/swallow/swallow /usr/local/bin/swallow
@@ -19,6 +21,7 @@
     chdir: "{{ local_src }}"
   check_mode: no
   when: not haziswallow.stat.exists
+  tags: ['swallow']
 
 - name: Install i3ipc for Python 3
   pip:
