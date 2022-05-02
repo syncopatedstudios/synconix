@@ -31,6 +31,7 @@
         chdir: "{{ local_src }}/ohmyzsh/tools/"
 
   when: not haziohymyzsh.stat.exists
+  check_mode: yes
 
 - name: create zsh custom themes dir
   file:
