@@ -16,7 +16,6 @@
       - "--update"
       - "--exclude='.backup'"
   register: pipewire_config
-  tags: ['pipewire']
 
 - name: Restart pipewire services
   systemd:
@@ -32,4 +31,4 @@
   # become: True
   # become_user: "{{ user.name }}"
   when: pipewire_config.changed
-  tags: ['pipewire']
+  check_mode: no
