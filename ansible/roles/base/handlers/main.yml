@@ -3,6 +3,12 @@
 - name: reload firewalld
   shell: "firewall-cmd --reload"
 
+- name: lightdm service
+  systemd:
+    name: lightdm
+    state: restarted
+    enabled: yes
+
 - name: restart libvirtd
   action: service name=libvirtd state=restarted
 

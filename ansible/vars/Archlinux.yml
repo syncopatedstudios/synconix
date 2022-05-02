@@ -169,6 +169,7 @@ ui:
     - gtk-engine-murrine
     - i3-gaps
     - kvantum-qt5
+    - lightdm
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
