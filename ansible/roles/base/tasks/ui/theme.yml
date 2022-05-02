@@ -111,13 +111,13 @@
 - block:
     - name: Extract soundbot theme into /home/user/.themes
       unarchive:
-        src: oomox-soundbotv2.tar.gz
+        src: oomox-soundbotv2.zip
         dest: "{{ user.home }}/.themes"
 
-    - name: Extract soundbot theme icons into /home/user/.icons
-      unarchive:
-        src: oomox-soundbotv2_icons.tar.gz
-        dest: "{{ user.home }}/.icons"
+    # - name: Extract soundbot theme icons into /home/user/.icons
+    #   unarchive:
+    #     src: oomox-soundbotv2_icons.tar.gz
+    #     dest: "{{ user.home }}/.icons"
 
   become: true
   become_user: "{{ user.name }}"
