@@ -1,18 +1,11 @@
 ---
 
-- name: Set base packages to install
+- name: set base packages to installl
   set_fact:
-    base_packages: "{{ base.system }}"
+    _packages: "{{ (base.system + docker) }}"
 
-- name: add packages for install docker
-  set_fact:
-    docker_packages: "{{ docker }}"
 
-- name: set packages var
-  set_fact:
-    _packages: "{{ base_packages + docker_packages}}"
-
-- name: Install packages
+- name: Install base packages
   import_role:
     name: pkg_manager
   vars:

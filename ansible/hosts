@@ -1,6 +1,6 @@
 [daw]
 archlinux
-
+calculon ansible_connection=local
 [soundbots:children]
 daw
 

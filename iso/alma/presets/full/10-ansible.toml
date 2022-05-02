@@ -29,10 +29,10 @@ else
     echo "previous thing failed. exiting...:|"
     exit
   else
-    ansible-playbook -v -K --connection=local -i $HOSTNAME, synconix.yml
+    ansible-playbook -v --connection=local -i $HOSTNAME, synconix.yml
     if [ "$?" -ne 0 ]; then
       echo "something went wrong...chroot install image and check it out"
-    fi  
+    fi
   fi
 fi
 """
