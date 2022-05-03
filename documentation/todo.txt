@@ -21,6 +21,7 @@ TODO: @artwork
 
 TODO: @pipewire
 [ ] set chrome to use to compressor-->eq
+	[ ] or set apps in general to not autoconnect
 
 TODO: @ansible
 [ ] reorder tasks
