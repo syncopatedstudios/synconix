@@ -4,6 +4,15 @@
   set_fact:
     _packages: "{{ (base.system + docker) }}"
 
+- name: remove some packages
+  shell: |
+    yay -Rdd --noconfirm {{ item }}
+  with_items:
+    - nodejs
+  become: True
+  become_user: "{{ user.name }}"
+  ignore_errors: True
+
 - name: Install base packages
   import_role:
     name: pkg_manager
@@ -30,15 +39,6 @@
         name: pkg_manager
       vars:
         pkg_state: present
-
-    - name: remove some packages
-      shell: |
-        yay -Rdd --noconfirm {{ item }}
-      with_items:
-        - nodejs
-      become: True
-      become_user: "{{ user.name }}"
-      ignore_errors: True
 
     - name: set desktop packages to install
       set_fact:
