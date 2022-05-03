@@ -1,11 +1,25 @@
+[storage]
+bender
+
 [daw]
-archlinux
-calculon ansible_connection=local
+crambot ansible_connection=local
+calculon
+
+[mobile]
+thinkbot
+lapbot
+
+[node]
+soundbot01
+
 [soundbots:children]
+storage
 daw
+mobile
+node
 
 [soundbots:vars]
-ansible_user=soundbot
+ansible_user=b08x
 ansible_become=true
 admin_user=wheel
 autofs_configs=/etc/autofs

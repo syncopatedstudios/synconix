@@ -1,6 +1,8 @@
 // text editor
 atom-text-editor {
-  background-color: #0D0D0D;
+  background-color: #0a0a0a;
+  // font-family: "mononoki Nerd Font";
+  line-height: 1.5em;
 }
 
 .line-number {
@@ -11,8 +13,8 @@ atom-text-editor {
    background-color: #0D0D0D;
    height: 2.9rem;
    border: 0.25mm solid #e09547;
-   font-family: "Hack Nerd Font";
-   font-size: 14px;
+   font-family: "mononoki Nerd Font";
+   font-size: 15px;
 }
 
 .tab-bar:not([data-reactid]) .tab .title[data-path]::before {
@@ -21,9 +23,9 @@ atom-text-editor {
 }
 
 .tree-view {
- background-color: #0d0b0b;
- font-family: "Hack Nerd Font";
- font-size: 14px;
+ background-color:#0a0a0a;
+ font-family: "mononoki Nerd Font";
+ font-size: 15px;
  font-weight: normal !important;
 }
 
@@ -37,7 +39,7 @@ atom-text-editor {
 .selection {
   background-color: #000000;
   // outline: 1px dashed #f6117f;
-  border: 0.25mm dashed #477be0;
+  border: 0.25mm dashed #e0df47;
 }
 
 .selection .region {
@@ -117,7 +119,7 @@ atom-text-editor {
   }
 
   .syntax--parameter.syntax--function {
-    color: #5685ec;
+    color: #ec56e6;
     // font-family: Nimbus Mono PS;
     opacity: 0.8;
   }
@@ -127,7 +129,8 @@ atom-text-editor {
   }
 
   .syntax--name.syntax--function {
-    color: #0bb3d7;
+    // color: #0bb3d7;
+    color: #ebb616;
     font-weight: 500;
   }
 
@@ -176,7 +179,7 @@ atom-text-editor {
     color: #9518e2;
   }
 }
-syntax--entity syntax--other syntax--attribute-name
+
 // Yaml
 .syntax--ansible-advanced {
   .syntax--name {
@@ -206,4 +209,42 @@ syntax--entity syntax--other syntax--attribute-name
   .syntax--keyword {
     color: #9518e2;
   }
+}
+
+//text
+.syntax--text {
+   color: #ebb616;
+
+  .syntax--paragraph {
+    color: #eb1696;
+  }
+
+  .syntax--unordered {
+    color: #177e19;
+  }
+
+  .syntax--ordered {
+    color: #3e40f4;
+  }
+
+  .syntax--underline.syntax--link {
+    color: #446b12;
+  }
+
+  .syntax--hyperlink {
+    color: #cdc228;
+  }
+
+  .syntax--heading-1 {
+    color: #b6361f;
+  }
+
+  .syntax--heading-2 {
+    color: #833a95;
+  }
+
+  .syntax--heading-3 {
+    color: #91953a;
+  }
+
 }

@@ -57,5 +57,7 @@
     zone: "{{ firewalld['zone']}}"
   notify:
     - "reload firewalld"
-  with_items: ["{{ firewalld['ports'] }}"]
-  when: firewalld is defined
+  with_items:
+      - 4464/udp
+      - 24800/tcp
+#["{{ firewalld['ports'] }}"]
