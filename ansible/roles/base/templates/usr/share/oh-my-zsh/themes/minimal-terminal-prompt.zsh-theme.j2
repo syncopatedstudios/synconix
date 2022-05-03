@@ -38,7 +38,7 @@ PROMPT='%{$col_orange%}[$col_gray%~%{$col_orange%}]$(git_prompt_info)$col_gray%(
 {% else %}
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'lapbot' %}
+{% if ansible_facts['hostname'] == 'thinkbot' %}
 PROMPT='%{$col_wine%}[$col_gray%~%{$col_wine%}]$(git_prompt_info)$col_gray%(?.%{$col_wine%}.%{$col_pink%})%{$reset_color%} '
 {% else %}
 {% endif %}
