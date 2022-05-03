@@ -54,7 +54,7 @@
     port: "{{ item }}"
     permanent: yes
     state: enabled
-    zone: "{{ firewalld['zone']}}"
+    # zone: "{{ firewalld['zone']}}"
   notify:
     - "reload firewalld"
   with_items:
