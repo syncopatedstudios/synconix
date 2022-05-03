@@ -92,11 +92,14 @@ $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --di
 
 # $exec $autostart
 $exec pactl set-sink-volume @DEFAULT_SINK@ 0
+{% if inventory_hostname in groups['mobile'] %}
+{% else %}
 $exec $atom
 $exec $kitty_init
 $exec $zim_todo
 $exec $raysession
 $exec pactl set-sink-volume @DEFAULT_SINK@ +50%
+{% endif %}
 
 ######################################
 # ---{ window settings }---
