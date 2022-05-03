@@ -25,6 +25,8 @@ base:
     - networkmanager-vpnc
     - nm-connection-editor
   system:
+    # - samba
+    # - ssvnc
     - abduco
     - aria2
     - atool
@@ -40,18 +42,20 @@ base:
     - btrfsmaintenance
     - cmake
     - dialog
+    - dmidecode
     - exa
     - faad2
     - fd
     - firewalld
+    - fwupd
     - fzf
     - gcc-libs
     - gendesk
     - git
     - git-filter-repo
+    - git-lfs
     - gitflow-avh
     - gitflow-zshcompletion-avh
-    - git-lfs
     - glibc
     - glow
     - graphicsmagick
@@ -108,12 +112,10 @@ base:
     - rtkit
     - ruby-bundler
     - rubygems
-    # - samba
     - smartmontools
     - sndio
     - sox
     - sqlite
-    # - ssvnc
     - sudo
     - suil
     - taglib
@@ -121,11 +123,14 @@ base:
     - tesseract
     - tuna
     - tuned
+    - udisks2
+    - usbutils
     - w3m
     - waf
     - wavpack
     - wol
     - xarchiver
+    - xf86-input-wacom
     - xf86-video-intel
     - xterm
     - xz
