@@ -28,3 +28,4 @@
       changed_when: hazi$4.rc != 0
       check_mode: no
       ignore_errors: yes
+    """  
