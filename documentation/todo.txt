@@ -9,6 +9,10 @@ TODO: @i3
 [*] make floating window borders stand out more
 [ ] configure "i3" only keyboard
 [ ] bindsym xkill
+[ ] unicode fonts and rendering
+[ ] bindsym prompt for name -> chrome|mpv -> jack_capture -> samples/to_process/ | stop
+
+ 
 
 TODO: @artwork
 [*] rename stuff to "Synconix"
