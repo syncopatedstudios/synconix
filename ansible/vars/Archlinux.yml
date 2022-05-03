@@ -295,6 +295,7 @@ workstation:
     - ffmpegthumbnailer
     - gnuplot
     - google-chrome
+    - gpick
     - grsync
     - gtksourceview3
     - gtkspell3
