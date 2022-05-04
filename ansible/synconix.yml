@@ -1,4 +1,5 @@
 ---
+# this for the live ISO
 
 - hosts: localhost
   gather_facts: yes
