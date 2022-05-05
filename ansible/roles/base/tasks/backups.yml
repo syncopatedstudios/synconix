@@ -1,41 +1,71 @@
 ---
 
-- name: install exclude list for home dir
-  template:
-    src: "dots/exclude.list.j2"
-    dest: "/home/exclude.list"
-    owner: root
-    group: root
+# - name: install exclude list for home dir
+#   template:
+#     src: "dots/exclude.list.j2"
+#     dest: "/home/exclude.list"
+#     owner: root
+#     group: root
+
+- name: create Studio directory
+  file:
+    path: "{{ user.home }}/Studio/.backup"
+    state: directory
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    recurse: True
+
+- name: use shell to do stuff
+  shell: |
+    mkdir -pv {{ user.home }}/Studio
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: install include list
+  copy:
+    src: dots/Studio/.exclude.list
+    dest: "{{ user.home }}/Studio/.exclude.list"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0644'
+
+# - name: install osync configs
+#   template:
+#     src: "etc/osync/sync_lapbot_to_bender.conf.j2"
+#     dest: "/etc/osync/sync_lapbot_to_bender.conf"
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   when: inventory_hostname == 'lapbot'
+#   tags: ['osync']
+#
+# - name: install osync configs
+#   template:
+#     src: "etc/osync/sync_crambot_to_bender.conf.j2"
+#     dest: "/etc/osync/sync_crambot_to_bender.conf"
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   when: inventory_hostname == 'crambot'
+#   tags: ['osync']
+#
+# - name: install osync configs
+#   template:
+#     src: "etc/osync/sync_bender_to_lapbot.conf.j2"
+#     dest: "/etc/osync/sync_bender_to_lapbot.conf"
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   when: inventory_hostname == 'bender'
+#   tags: ['osync']
 
 - name: install osync configs
   template:
-    src: "etc/osync/sync_lapbot_to_bender.conf.j2"
-    dest: "/etc/osync/sync_lapbot_to_bender.conf"
+    src: etc/osync/sync_studio.conf.j2
+    dest: /etc/osync/sync_studio.conf
     owner: root
     group: root
     mode: '0644'
-  when: inventory_hostname == 'lapbot'
-  tags: ['osync']
-
-- name: install osync configs
-  template:
-    src: "etc/osync/sync_crambot_to_bender.conf.j2"
-    dest: "/etc/osync/sync_crambot_to_bender.conf"
-    owner: root
-    group: root
-    mode: '0644'
-  when: inventory_hostname == 'crambot'
-  tags: ['osync']
-
-- name: install osync configs
-  template:
-    src: "etc/osync/sync_bender_to_lapbot.conf.j2"
-    dest: "/etc/osync/sync_bender_to_lapbot.conf"
-    owner: root
-    group: root
-    mode: '0644'
-  when: inventory_hostname == 'bender'
-  tags: ['osync']
 
 # - block:
 #     - name: ensure lsyncd config dir exists

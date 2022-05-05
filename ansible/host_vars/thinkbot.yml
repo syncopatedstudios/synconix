@@ -1,5 +1,4 @@
 ---
-
 use_kernel: stock
 
 graphical_target: True
@@ -9,6 +8,8 @@ docker_host: True
 
 use_systemdnetwork: True
 wireless: True
+
+sync_to: bender
 
 systemd_networkd_network:
   wlan0:
@@ -38,7 +39,7 @@ systemd_networkd_network:
 
 
 build_baudline: True
-build_bespoke: True
+build_bespoke: False
 build_jacktrip: True
 build_jalv_select: True
 build_non: True

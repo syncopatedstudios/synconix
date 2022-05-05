@@ -7,15 +7,15 @@
 ## ---------- GENERAL OPTIONS
 
 ## Sync job identification
-INSTANCE_ID="bender_to_lapbot"
+INSTANCE_ID="{{ inventory_hostname }}_studio"
 
 ## Directories to synchronize.
 ## Initiator is the system osync runs on. The initiator directory must be a local path.
-INITIATOR_SYNC_DIR="{{ user.home }}"
+INITIATOR_SYNC_DIR="{{ user.home }}/Studio"
 
 ## Target is the system osync synchronizes to (can be the same system as the initiator in case of local sync tasks). The target directory can be a local or remote path.
 #TARGET_SYNC_DIR="/home/git/osync/dir2"
-TARGET_SYNC_DIR="ssh://{{ user.name }}@lapbot:22/{{ user.home }}"
+TARGET_SYNC_DIR="ssh://{{ user.name }}@{{ sync_to }}:22/{{ user.home }}/Studio"
 ## If the target system is remote, you can specify a RSA key (please use full path). If not defined, the default ~/.ssh/id_rsa will be used. See documentation for further information.
 #SSH_RSA_PRIVATE_KEY="/root/.ssh/id_rsa"
 SSH_RSA_PRIVATE_KEY="{{ user.home }}/.ssh/id_rsa"
@@ -38,7 +38,7 @@ MINIMUM_SPACE=10240
 BANDWIDTH=0
 
 ## If enabled, synchronization on remote system will be processed as superuser. See documentation for /etc/sudoers file configuration.
-SUDO_EXEC=yes
+SUDO_EXEC=no
 ## Paranoia option. Don't change this unless you read the documentation.
 RSYNC_EXECUTABLE=rsync
 ## Remote rsync executable path. Leave this empty in most cases
@@ -50,15 +50,14 @@ RSYNC_PATTERN_FIRST=include
 ## List of files / directories to incldue / exclude from sync on both sides (see rsync patterns, wildcards work).
 ## Paths are relative to sync dirs. List elements are separated by a semicolon.
 RSYNC_INCLUDE_PATTERN=""
-RSYNC_EXCLUDE_PATTERN=""
+RSYNC_EXCLUDE_PATTERN="n"
 #RSYNC_EXCLUDE_PATTERN="tmp;archives"
 
 ## Files that contains lists of files / directories to include / exclude from sync on both sides. Leave this empty if you don't want to use an exclusion file.
 ## This file has to be in the same directory as the config file
 ## Paths are relative to sync dirs. One element per line.
-RSYNC_INCLUDE_FROM=""
-#RSYNC_EXCLUDE_FROM=""
-RSYNC_EXCLUDE_FROM="/home/exclude.list"
+#RSYNC_INCLUDE_FROM="{{ user.home }}/Studio/.backup/include.list"
+RSYNC_EXCLUDE_FROM="{{ user.home }}/Studio/.exclude.list"
 
 ## List elements separator char.  You may set an alternative separator char for your directories lists above.
 PATH_SEPARATOR_CHAR=";"
