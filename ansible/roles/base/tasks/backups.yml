@@ -1,27 +1,21 @@
 ---
 
-# - name: install exclude list for home dir
-#   template:
-#     src: "dots/exclude.list.j2"
-#     dest: "/home/exclude.list"
-#     owner: root
-#     group: root
-
-- name: create Studio directory
-  file:
-    path: "{{ user.home }}/Studio/.backup"
-    state: directory
+- name: install exclude list for home dir
+  template:
+    src: "dots/exclude.list.j2"
+    dest: "{{ user.home }}/.exclude.list"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    recurse: True
+  become: True
+  become_user: "{{ user.name }}"
 
-- name: use shell to do stuff
+- name: create Studio directory
   shell: |
     mkdir -pv {{ user.home }}/Studio
   become: True
   become_user: "{{ user.name }}"
 
-- name: install include list
+- name: install Studio include list
   copy:
     src: dots/Studio/.exclude.list
     dest: "{{ user.home }}/Studio/.exclude.list"
@@ -29,43 +23,16 @@
     group: "{{ user.name }}"
     mode: '0644'
 
-# - name: install osync configs
-#   template:
-#     src: "etc/osync/sync_lapbot_to_bender.conf.j2"
-#     dest: "/etc/osync/sync_lapbot_to_bender.conf"
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   when: inventory_hostname == 'lapbot'
-#   tags: ['osync']
-#
-# - name: install osync configs
-#   template:
-#     src: "etc/osync/sync_crambot_to_bender.conf.j2"
-#     dest: "/etc/osync/sync_crambot_to_bender.conf"
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   when: inventory_hostname == 'crambot'
-#   tags: ['osync']
-#
-# - name: install osync configs
-#   template:
-#     src: "etc/osync/sync_bender_to_lapbot.conf.j2"
-#     dest: "/etc/osync/sync_bender_to_lapbot.conf"
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   when: inventory_hostname == 'bender'
-#   tags: ['osync']
-
 - name: install osync configs
   template:
-    src: etc/osync/sync_studio.conf.j2
-    dest: /etc/osync/sync_studio.conf
+    src: "etc/osync/{{ item }}.j2"
+    dest: "/etc/osync/{{ item }}"
     owner: root
     group: root
     mode: '0644'
+  with_items:
+    - sync_home.conf
+    - sync_studio.conf
 
 # - block:
 #     - name: ensure lsyncd config dir exists
