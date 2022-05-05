@@ -299,6 +299,7 @@ audio:
     - tonespace
     - vital-synth
     - vmpk
+    - zita-mu1
 desktop:
     - actdiag
     - aspell-en
