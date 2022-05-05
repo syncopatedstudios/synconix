@@ -40,6 +40,7 @@
   service:
     name: systemd-networkd
     enabled: yes
+    state: restarted
   with_items:
     - systemd-networkd
     - systemd-networkd-wait-online
