@@ -10,20 +10,20 @@ use_networkmanager: True
 
 wireless: True
 
-# systemd_networkd_network:
-#   wlan1:
-#     - Match:
-#       - Name: "wlan1"
-#       - MACAddress: "c0:25:e9:74:cd:96"
-#     - Link:
-#       - MACAddress: "58:8A:5A:38:FB:22"
-#     - Network:
-#       - DHCP: "no"
-#       - IPv6AcceptRouterAdvertisements: "no"
-#       - DNS: "{{dns['nameserver'] }}"
-#       - Domains: "{{ dns['search'] }}"
-#       - Address: "192.168.41.5/24"
-#       - Gateway: "192.168.41.1"
+systemd_networkd_network:
+  wlan1:
+    - Match:
+      - Name: "wlan1"
+      - MACAddress: "c0:25:e9:74:cd:96"
+    - Link:
+      - MACAddress: "58:8A:5A:38:FB:22"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.5/24"
+      - Gateway: "192.168.41.1"
 
 firewalld:
   zone: public

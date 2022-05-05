@@ -7,6 +7,36 @@ autologin: True
 
 docker_host: True
 
+use_systemdnetwork: True
+wireless: True
+
+systemd_networkd_network:
+  wlan0:
+    - Match:
+      - Name: "wlan0"
+      - MACAddress: "c0:25:e9:74:cd:96"
+    - Link:
+      - MACAddress: "58:8A:5A:38:FB:22"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.15/24"
+      - Gateway: "192.168.41.1"
+  eth1:
+    - Match:
+      - Name: "eth1"
+      - MACAddress: "00:e0:4d:78:b7:7c"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.15/24"
+      - Gateway: "192.168.41.1"
+
+
 build_baudline: True
 build_bespoke: True
 build_jacktrip: True
