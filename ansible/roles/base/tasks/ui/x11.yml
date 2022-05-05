@@ -41,7 +41,7 @@
         dest: "{{ user.home }}/.screenlayout/{{ item }}"
         owner: "{{ user.name }}"
         group: "{{ user.group }}"
-        mode: "0644"
+        mode: "0755"
         backup: yes
       with_items:
         - "dual.sh"

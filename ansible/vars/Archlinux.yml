@@ -140,7 +140,6 @@ base:
     - zsh-completions
     - zsh-history-substring-search
     - zsh-syntax-highlighting
-    - zsh-theme-powerlevel10k
   pipewire:
     - pipewire
     - pipewire-alsa
@@ -332,6 +331,7 @@ desktop:
     - s
     - seqdiag
     - stunnel
+    - teiler
     - thunar
     - thunar-archive-plugin
     - thunar-volman

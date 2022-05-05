@@ -1,9 +1,18 @@
 ---
 
-- name: Copy os-release
+- name: install os-release
   copy:
     src: "etc/os-release"
     dest: "/etc/os-release"
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
+
+- name: install system-release
+  copy:
+    src: "etc/os-release"
+    dest: "/etc/system-release"
     owner: root
     group: root
     mode: '0644'

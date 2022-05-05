@@ -58,6 +58,9 @@ set $raysession "raysession; sleep 2"
 
 set $autostart "$HOME/.local/bin/autostart.sh"
 
+set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
+
+
 ######################################
 # ---{ autostart }---
 ######################################
@@ -259,7 +262,7 @@ assign [title="VU\ Meter\ \(Stereo\)"] 2
 ######################################
 # ---{ app bindings }---
 ######################################
-{% if ansible_facts['hostname'] == 'lapbot' %}
+{% if inventory_hostname in groups['mobile'] %}
 bindsym XF86MonBrightnessDown $exec brightnessctl s 5%-
 bindsym XF86MonBrightnessUp $exec brightnessctl s 5%+
 {% else %}
@@ -281,7 +284,9 @@ bindsym $mod+Return $exec kitty
 
 # start dmenu (a program launcher)
 bindsym $mod+d $exec $rofi
-bindsym Menu $exec $jgmenu
+bindsym XF86Tools $exec $jgmenu
+
+bindsym XF86Display $exec $monitor
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
@@ -290,6 +295,7 @@ bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
+bindsym XF86Favorites $exec $search
 bindsym XF86Search $exec $search
 bindsym $mod+g $exec $search
 
