@@ -29,4 +29,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: atom_check.rc != 0
+  when: atom_check.rc == 0

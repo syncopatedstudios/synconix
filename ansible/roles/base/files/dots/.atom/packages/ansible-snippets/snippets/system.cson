@@ -28,4 +28,13 @@
       changed_when: hazi$4.rc != 0
       check_mode: no
       ignore_errors: yes
-    """  
+    """
+  "host_conditional":
+    "prefix": "host_conditional"
+    "body": """
+    {% if inventory_hostname == '$1'}
+    $2
+    {% else %}
+    $3
+    {% endif %}
+    """
