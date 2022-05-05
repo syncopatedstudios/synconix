@@ -27,7 +27,7 @@
 
 - name: install ruby gems
   shell: |
-    sudo gem install {{ item }}
+    gem install {{ item }}
   with_items:
     - "{{ _gems }}"
   when: _gems | length > 0

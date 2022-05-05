@@ -9,6 +9,7 @@
     yay -Rdd --noconfirm {{ item }}
   with_items:
     - nodejs
+    - erlang-nox
   become: True
   become_user: "{{ user.name }}"
   ignore_errors: True

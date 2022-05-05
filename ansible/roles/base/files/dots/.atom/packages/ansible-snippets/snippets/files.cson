@@ -36,3 +36,12 @@
         backup: $7
         directory_mode: $8
     """
+  "link":
+    "prefix": "link"
+    "body": """
+    - name: $1
+      file:
+        src: /$2
+        dest: /$3
+        state: link
+    """
