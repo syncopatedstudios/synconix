@@ -3,7 +3,7 @@
 
 if ! pgrep -a "sync" > /dev/null; then
   notify-send -u normal "starting backup"
-  osync.sh /etc/osync/sync_crambot_to_bender.conf --silent --summary --verbose --stats
+  osync.sh /etc/osync/sync_home.conf --silent --summary --verbose --stats
 else
   notify-send -u normal "backup already happening"
 fi
