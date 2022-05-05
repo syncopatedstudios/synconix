@@ -25,10 +25,10 @@ set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
-# set $ws5 "5"
-# set $ws6 "6"
-# set $ws7 "7"
-# set $ws8 "8"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
 # set $ws9 "9"
 # set $ws10 "10"
 
@@ -178,18 +178,26 @@ client.background       $color12
 ######################################
 # ---{ workspace assignments }---
 ######################################
-{% if ansible_facts['hostname'] == 'calculon' %}
-workspace $ws1 output HDMI2
-workspace $ws2 output HDMI2
-workspace $ws3 output HDMI1
-workspace $ws4 output HDMI1
+{% if ansible_facts['hostname'] == 'thinkbot' %}
+workspace $ws1 output eDP1
+workspace $ws2 output eDP1
+workspace $ws3 output eDP1
+workspace $ws4 output eDP1
+workspace $ws5 output HDMI1
+workspace $ws6 output HDMI1
+workspace $ws7 output HDMI1
+workspace $ws8 output HDMI1
 {% else %}
 {% endif %}
 {% if ansible_facts['hostname'] == 'crambot' %}
-workspace $ws1 output HDMI2
-workspace $ws2 output HDMI2
+workspace $ws1 output HDMI1
+workspace $ws2 output HDMI1
 workspace $ws3 output HDMI1
 workspace $ws4 output HDMI1
+workspace $ws5 output HDMI2
+workspace $ws6 output HDMI2
+workspace $ws7 output HDMI2
+workspace $ws8 output HDMI2
 {% else %}
 {% endif %}
 

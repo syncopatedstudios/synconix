@@ -9,7 +9,7 @@
         owner: root
         group: root
 
-    - name: copy x11 intel graphics config
+    - name: install x11 intel graphics config
       copy:
         src: etc/X11/xorg.conf.d/20-intel.conf
         dest: /etc/X11/xorg.conf.d/20-intel.conf
@@ -21,7 +21,7 @@
   when: tri_monitors|bool
 
 - block:
-    - name: Push xprofile templates
+    - name: install xprofile templates
       template:
         src: "dots/{{ item }}.j2"
         dest: "{{ user.home }}/.{{ item }}"
@@ -34,6 +34,28 @@
         - "Xresources"
         - "profile"
         - "xprofile"
+
+    - name: install display templates
+      template:
+        src: "dots/screenlayout/{{ item }}.j2"
+        dest: "{{ user.home }}/.screenlayout/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0644"
+        backup: yes
+      with_items:
+        - "dual.sh"
+        - "single.sh"
+
+    - name: ensure screenlayout scripts can execute
+      shell: |
+        chmod +x {{ item }}
+      args:
+        chdir: "{{ user.home }}/.screenlayout"
+      with_items:
+        - "dual.sh"
+        - "single.sh"
+
   become: True
   become_user: "{{ user.name }}"
   tags: ['dots']
