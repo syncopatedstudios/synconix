@@ -17,29 +17,11 @@
   when: mkinit.changed
   tags: ['initram']
 
-- block:
-    - name: push default grub file
-      template:
-        src: etc/default/grub.j2
-        dest: /etc/default/grub
-        owner: root
-        group: root
-        mode: '644'
-        backup: yes
-      register: default_grub
 
-    - block:
-        - name: Set linux-lts as the defaule in grub
-          shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
-          when: use_kernel == 'lts'
-
-        - name: Set linux-zen as the defaule in grub
-          shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-zen'"
-          when: use_kernel == 'zen'
-
-        - name: remake grub
-          shell: "{{ grub_cmd }} -o {{ grub_config }}"
-
-      when: default_grub.changed
-
-  tags: ['grub']
+# - name: Set linux-lts as the default in grub
+#   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
+#   when: use_kernel == 'lts'
+#
+# - name: Set linux-zen as the defaule in grub
+#   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-zen'"
+#   when: use_kernel == 'zen'

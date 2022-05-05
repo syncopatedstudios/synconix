@@ -48,6 +48,9 @@
 - include: tuning.yml
   tags: ['tuning']
 
+- include: grub.yml
+  tags: ['grub']
+
 - include: nfs.yml
   when: nfs_host is defined
   tags: ['nfs']
@@ -73,6 +76,9 @@
 
 - include: nvim.yml
   tags: ['nvim']
+
+- include: desktop/atom.yml
+  tags: ['atom']
 
 - include: indexer.yml
   tags: ['indexer']
