@@ -140,14 +140,6 @@ base:
     - zsh-completions
     - zsh-history-substring-search
     - zsh-syntax-highlighting
-  pipewire:
-    - pipewire
-    - pipewire-alsa
-    - pipewire-jack
-    - pipewire-media-session
-    - pipewire-pulse
-    - pipewire-v4l2
-    - pipewire-zeroconf
 ui:
   x11:
     - jgmenu
@@ -158,6 +150,7 @@ ui:
     - xf86-video-ati
     - xf86-video-intel
     - xf86-video-nouveau
+    - xorg-fonts-misc
     - xorg-mkfontscale
     - xorg-server
     - xorg-xev
@@ -226,6 +219,14 @@ ui:
     - xorg-mkfontscale
     - xorg-xlsfonts
 audio:
+  pipewire:
+    - pipewire
+    - pipewire-alsa
+    - pipewire-jack
+    - pipewire-media-session
+    - pipewire-pulse
+    - pipewire-v4l2
+    - pipewire-zeroconf
   utils:
     - a2jmidid
     - alsa-lib
