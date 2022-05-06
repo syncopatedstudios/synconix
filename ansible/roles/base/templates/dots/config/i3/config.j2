@@ -80,7 +80,7 @@ $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'calculon' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --debug INFO --name calculon --disable-crypto [thinkbot]:2480 &"
+$exec "sleep 0.2; /usr/bin/barrierc -f --debug INFO --name calculon --disable-crypto [thinkbot]:24800 &"
 {% else %}
 {% endif %}
 
