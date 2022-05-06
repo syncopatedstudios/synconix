@@ -64,7 +64,7 @@ docker_host: True
 docker_storage: /var/lib/docker
 
 build_baudline: True
-build_bespoke: True
+build_bespoke: False
 build_jacktrip: True
 build_jalv_select: True
 build_non: True
