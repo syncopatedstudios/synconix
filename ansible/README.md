@@ -1,6 +1,7 @@
-# instructions for a soundbot
+# instructions for a soundbot v1.0.0-alpha
 
 Hey Baby. Looking good. Wanna install me? I'm a real good time.
+
 
 ## > This is what I'll do for Five dollars
 
