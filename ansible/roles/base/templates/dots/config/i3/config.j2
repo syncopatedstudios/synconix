@@ -79,19 +79,21 @@ $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
 {% if ansible_facts['hostname'] == 'calculon' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [crambot]:24800 &"
+$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [thinkbot]:2480 &"
 {% else %}
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'crambot' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name crambot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
+{% if ansible_facts['hostname'] == 'thinkbot' %}
+$exec /usr/bin/barriers -f --no-tray --debug INFO --name thinkbot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
 {% else %}
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'lapbot' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [crambot]:24800 &"
-{% else %}
-{% endif %}
+# {% if ansible_facts['hostname'] == 'lapbot' %}
+# $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [crambot]:24800 &"
+# {% else %}
+# {% endif %}
+
+
 
 # $exec $autostart
 $exec pactl set-sink-volume @DEFAULT_SINK@ 0
@@ -190,6 +192,8 @@ workspace $ws5 output eDP1
 workspace $ws6 output HDMI1
 workspace $ws7 output HDMI1
 workspace $ws8 output HDMI1
+workspace $ws9 output HDMI1
+workspace $ws10 output HDMI1
 {% else %}
 {% endif %}
 {% if ansible_facts['hostname'] == 'crambot' %}
@@ -203,7 +207,6 @@ workspace $ws7 output HDMI2
 workspace $ws8 output HDMI2
 workspace $ws9 output HDMI2
 workspace $ws10 output HDMI2
-
 {% else %}
 {% endif %}
 

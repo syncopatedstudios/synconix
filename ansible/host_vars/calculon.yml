@@ -29,6 +29,8 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - Address: "192.168.40.2/24"
 
+sync_to: bender
+
 firewalld:
   zone: docker
   ports:
