@@ -21,10 +21,12 @@
         group: root
         mode: '0644'
         backup: no
+      register: iwd_config
 
     - name: enable iwd service
       systemd:
         name: iwd
         state: restarted
         enabled: yes
+      when: iwd_config.changed
   when: wireless|bool

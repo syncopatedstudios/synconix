@@ -1,0 +1,19 @@
+---
+
+- block:
+    - name: Push studio scripts
+      synchronize:
+        src: dot
+        dest: "{{ user.home }}/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts:
+          - "--update"
+          - "--omit-dir-times"
+
+  become: true
+  become_user: "{{ user.name }}"
+  tags: ['dots']

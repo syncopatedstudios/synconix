@@ -1,9 +1,5 @@
 ---
 
-- name: Set base packages to installl
-  set_fact:
-    _packages: "{{ (base.system + docker) }}"
-
 - name: remove some packages
   shell: |
     yay -Rdd --noconfirm {{ item }}
@@ -15,42 +11,63 @@
   become_user: "{{ user.name }}"
   ignore_errors: True
 
+- name: Get list of installed packages
+  command: bash -lc "yay -Q | awk '{ print $1 }'"
+  register: package_list
+  ignore_errors: yes
+  become: True
+  become_user: "{{ user.name }}"
+
+- set_fact:
+    installed_packages: "{{ package_list.stdout }}"
+
+- name: Set base packages to installl
+  set_fact:
+    _packages: "{{ (base.system + docker)|difference(installed_packages) }}"
+
+- debug:
+    msg: "{{ _packages }}"
+
 - name: Install base packages
   import_role:
     name: pkg_manager
   vars:
     pkg_state: present
+  when: _packages|length > 0
 
 - name: Set audio packages to install
   set_fact:
-    _packages: "{{ (audio.utils + audio.plugins + audio.applications) }}"
+    _packages: "{{ (audio.utils + audio.plugins + audio.applications)|difference(installed_packages) }}"
 
 - name: Install audio packages
   import_role:
     name: pkg_manager
   vars:
     pkg_state: present
+  when: _packages|length > 0
 
 - block:
     - name: set ui packages to install
       set_fact:
-        _packages: "{{ (ui.i3 + ui.x11 + ui.fonts) }}"
+        _packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(installed_packages) }}"
 
     - name: Install ui packages
       import_role:
         name: pkg_manager
       vars:
         pkg_state: present
+      when: _packages|length > 0
 
     - name: set desktop packages to install
       set_fact:
-        _packages: "{{ desktop }}"
+        _packages: "{{ desktop|difference(installed_packages) }}"
 
     - name: Install deskop packages
       import_role:
         name: pkg_manager
       vars:
         pkg_state: present
+      when: _packages|length > 0
 
     - include: desktop/atom.yml
 

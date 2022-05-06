@@ -12,3 +12,4 @@
 
 - name: remake grub
   shell: "{{ grub_cmd }} -o {{ grub_config }}"
+  when: default_grub.changed

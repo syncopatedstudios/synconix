@@ -17,6 +17,8 @@
     gem list | awk '{ print $1 }'
   register: gemlist
   ignore_errors: yes
+  become: True
+  become_user: "{{ user.name }}"
 
 - set_fact:
     installed_gems: "{{ gemlist.stdout }}"
