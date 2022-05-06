@@ -45,3 +45,19 @@
         dest: /$3
         state: link
     """
+  "sync":
+    "prefix": "sync"
+    "body": """
+    - name: sync folder $1
+      synchronize:
+        src: $2
+        dest: $3
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts:
+          - "--update"
+          - "--omit-dir-times"
+    """
