@@ -107,9 +107,7 @@
   become: True
   become_user: "{{ user.name }}"
   tags: ['dots']
-
-- include: fonts.yml
-# 
+#
 # - block:
 #     - name: Extract soundbot theme into /home/user/.themes
 #       unarchive:

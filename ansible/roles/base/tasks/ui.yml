@@ -13,6 +13,9 @@
 - include: ui/theme.yml
   tags: ['theme']
 
+- include: ui/fonts.yml
+  tags: ['fonts']
+
 - include: ui/autologin.yml
   tags: ['autologin']
 

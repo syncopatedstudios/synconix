@@ -8,7 +8,7 @@
     owner: root
     group: root
     mode: '644'
-    backup: no
+    backup: yes
 
 - name: enable fontconfig presets
   file:
@@ -19,9 +19,17 @@
     state: link
   with_items:
     - 10-sub-pixel-rgb.conf
+    - 10-hinting-slight.conf
     - 70-no-bitmaps.conf
 
+- name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+  blockinfile:
+    path: /etc/profile.d/freetype2.sh
+    block: |
+      export FREETYPE_PROPERTIES="truetype:interpreter-version=38"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK test"
+
 - name: Update font-cache
-  command: fc-cache -r
+  command: fc-cache -fv
   register: font_cache
   changed_when: font_cache.rc != 0

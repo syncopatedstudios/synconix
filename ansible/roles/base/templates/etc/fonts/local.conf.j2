@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
+  <match target="font">
+    <edit name="antialias" mode="assign">
+      <bool>true</bool>
+    </edit>
+    <edit name="hinting" mode="assign">
+      <bool>true</bool>
+    </edit>
+    <edit mode="assign" name="rgba">
+      <const>rgb</const>
+    </edit>
+    <edit mode="assign" name="hintstyle">
+      <const>hintslight</const>
+    </edit>
+    <edit mode="assign" name="lcdfilter">
+      <const>lcddefault</const>
+    </edit>
+  </match>
    <match>
       <edit mode="prepend" name="family">
          <string>Hack Nerd Font</string>
@@ -11,7 +28,7 @@
          <string>serif</string>
       </test>
       <edit name="family" mode="assign" binding="same">
-         <string>Hack Nerd Fontf</string>
+         <string>Hack Nerd Font</string>
       </edit>
    </match>
    <match target="pattern">
