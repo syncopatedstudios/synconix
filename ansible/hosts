@@ -2,11 +2,11 @@
 bender
 
 [daw]
-crambot ansible_connection=local
+crambot 
 calculon
 
 [mobile]
-thinkbot
+thinkbot ansible_connection=local
 lapbot
 
 [node]
