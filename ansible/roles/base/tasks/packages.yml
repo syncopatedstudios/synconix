@@ -10,6 +10,7 @@
   with_items:
     - nodejs
     - erlang-nox
+    - pipewire-media-session
   become: True
   become_user: "{{ user.name }}"
   ignore_errors: True

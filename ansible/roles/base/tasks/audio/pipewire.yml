@@ -17,6 +17,23 @@
       - "--exclude='.backup'"
   register: pipewire_config
 
+- name: sync wireplumber configs
+  synchronize:
+    src: "usr/share/wireplumber/"
+    dest: "/usr/share/wireplumber/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: yes
+    perms: no
+    rsync_opts:
+      - "--delete-before"
+      - "--backup-dir='.backup'"
+      - "--suffix='_bak'"
+      - "--update"
+      - "--exclude='.backup'"
+  register: wireplumber_config
+
 - name: Restart pipewire services
   systemd:
     name: "{{ item }}"
@@ -26,8 +43,9 @@
   with_items:
     - pipewire
     - pipewire-pulse
+    - wireplumber
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
   become: True
   become_user: "{{ user.name }}"
-  when: pipewire_config.changed
+  when: (pipewire_config.changed or wireplumber_config.changed)
