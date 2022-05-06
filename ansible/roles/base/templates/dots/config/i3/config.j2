@@ -60,6 +60,7 @@ set $autostart "$HOME/.local/bin/autostart.sh"
 
 set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 
+set $timemachine "$HOME/Studio/scripts/vox_record.sh"
 
 ######################################
 # ---{ autostart }---
@@ -295,6 +296,7 @@ bindsym XF86Tools $exec $jgmenu
 
 bindsym XF86Display $exec $monitor
 bindsym XF86Launch3 $exec fmit
+bindsym XF86Launch4 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
