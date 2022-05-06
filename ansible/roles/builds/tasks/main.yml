@@ -75,6 +75,10 @@
   when: build_linuxsampler|bool
   tags: ['linuxsampler']
 
+- include: lsmi.yml
+  when: build_lsmi|bool
+  tags: ['lsmi']
+
 - include: njconnect.yml
   when: build_njconnect|bool
   tags: ['njconnect']

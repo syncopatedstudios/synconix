@@ -116,6 +116,20 @@
       shell: |
         sudo ldconfig
 
+  become: true
+  become_user: "{{ user.name }}"
+  when: not hazilinuxsampler.stat.exists
+
+
+- block:
+    - name: install java for jsampler
+      shell: |
+        yay -S {{ item }}
+      with_items:
+        - ant
+        - jdk8-openjdk
+        - jre8-openjdk
+
     - name: build jlscp
       shell: |
         cd linuxsampler/jlscp
@@ -133,7 +147,5 @@
         sudo mv dist/JS_Classic-0.9.jar /usr/local/bin/JS_Classic-0.9.jar
       args:
         chdir: "{{ local_src }}"
-
-  become: true
-  become_user: "{{ user.name }}"
-  when: not hazilinuxsampler.stat.exists
+  when: build_jsampler|bool
+  tags: ['jsampler']

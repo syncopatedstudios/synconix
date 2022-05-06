@@ -1,0 +1,21 @@
+---
+
+- name: copy lsmi.tar.gz to local source
+  copy:
+    src: usr/local/src/lsmi.tar.gz
+    dest: /usr/local/src/lsmi.tar.gz
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0644'
+
+- name: extract and make lsmi
+  shell: |
+    if ! [ -x "$(command -v lsmi-keyhack)" ]; then
+      tar -xvf lsmi.tar.gz
+      cd lsmi && make && make install
+      rm -rf {{ local_src }}/lsmi && rm -rf {{ local_src }}/lsmi.tar.gz
+    fi
+  args:
+    chdir: "{{ local_src }}"
+  register: lsmi_install
+  changed_when: lsmi_install.rc != 0

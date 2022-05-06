@@ -42,6 +42,8 @@ build_baudline: True
 build_bespoke: False
 build_jacktrip: True
 build_jalvselect: True
+build_lsmi: True
+build_linuxsampler: True
 build_non: True
 build_patchage: True
 build_protokol: True

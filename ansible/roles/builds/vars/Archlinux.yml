@@ -195,15 +195,12 @@ builds:
     - qt5-tools
     - udev
   linuxsampler:
-    - ant
     - bison
     - byacc
     - docbook-xsl
     - doxygen
     - flex
     - gpp
-    - jdk8-openjdk
-    - jre8-openjdk
     - libxslt
     - subversion
   njconnect:
