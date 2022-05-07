@@ -69,7 +69,5 @@
         pkg_state: present
       when: _packages|length > 0
 
-    - include: desktop/atom.yml
-
   when: graphical_target|bool
   tags: ['packages', 'desktop']

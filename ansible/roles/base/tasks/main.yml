@@ -77,9 +77,6 @@
 - include: nvim.yml
   tags: ['nvim']
 
-- include: desktop/atom.yml
-  tags: ['atom']
-
 - include: indexer.yml
   tags: ['indexer']
 

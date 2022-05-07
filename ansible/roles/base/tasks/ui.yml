@@ -22,6 +22,9 @@
 - include: ui/termpdf.yml
   tags: ['utils']
 
+- include: desktop/atom.yml
+  tags: ['atom']
+
 - name: set thunar as default for opening directories
   shell: |
     xdg-mime default thunar.desktop inode/directory
