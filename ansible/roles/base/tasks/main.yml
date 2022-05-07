@@ -42,9 +42,6 @@
 - include: ruby.yml
   tags: ['ruby']
 
-- include: filesystem.yml
-  tags: ['filesystem']
-
 - include: tuning.yml
   tags: ['tuning']
 

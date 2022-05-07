@@ -90,6 +90,7 @@ base:
     - mediainfo
     - mlocate
     - ncurses
+    - ncdu
     - neofetch
     - neovim
     - neovim-symlinks
@@ -305,6 +306,7 @@ audio:
     - zita-mu1
 desktop:
     - actdiag
+    - antimicrox
     - aspell-en
     - atom
     - blockdiag

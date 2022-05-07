@@ -5,7 +5,6 @@
     name: "{{ user.name }}"
     groups: "docker"
     append: yes
-  tags: ['docker']
 
 - name: push docker service config
   template:
@@ -15,13 +14,4 @@
     group: root
     mode: '644'
     backup: yes
-  register: docker_service
-  notify:
-    - "reload systemd"
-    - "docker service"
-
-- name: reload systemd
-  shell: |
-    systemctl daemon-reload
-  when: docker_service.changed
-  tags: ['docker']
+  notify: docker service

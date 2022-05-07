@@ -80,18 +80,9 @@ firewalld:
 ##########################  Networking  ##########################
 ##################################################################
 
-intranet_ssid: soundbot
-# run `wpa_passphrase soundbot`
-wireless_pw: passphrase
-
-dns:
-  nameserver: 192.168.41.1
-  search: syncopated.net
-
 use_networkmanager: False
 use_systemdnetwork: False
 
-use_wpa_supplicant: False
 wireless: False
 
 conn_check:
@@ -147,6 +138,9 @@ soundcard:
 ##########################  UI  ##################################
 ##################################################################
 
+graphical_target: False
+autologin: False
+
 tri_monitors: False
 
 swallow:
@@ -158,37 +152,16 @@ icon_folder: "{{ user.home }}/.icons"
 font:
   name: Hack Nerd Font
   size: 10
+  hintstyle: hintslight
 
 # theme options
-theme: oomox-syncopated-linux
-icon_theme: oomox-syncopated-linux
-cursor_theme: Adwaita
+theme:
+  name: oomox-syncopated-linux
+  icon: oomox-syncopated-linux
+  cursor: Adwaita
+  kvantum: KvGnomeDark
 
 qt5ct_style: Fusion
-kvantum_theme: KvGnomeDark
-
-hintstyle: hintslight
-
-graphical_target: False
-
-autologin: False
-
-wallpaper:
-  screen1: /usr/share/backgrounds/010.png
-
-background: #282828
-background-alt: #2828282
-foreground: #282828
-foreground-alt: #EBDBB2
-alert: #bd2c40
-
-#background
-bg:      #101010ff;
-#foreground
-fg:      #cbb907;
-#border_color
-ac:      #42A5F5ff;
-yellowish: #ffb52aff;
 
 colors:
   primary: "#ffb52a"
@@ -197,6 +170,7 @@ colors:
   inactive_border_color: "#cccccc"
   foreground: "#8F350A"
   background: "#0F1110"
+  background-alt: "#101010"
   selection_foreground: "#000000"
   selection_background: "#fffacd"
   #: black

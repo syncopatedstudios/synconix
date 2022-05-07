@@ -39,9 +39,7 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
-set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
-
-# set $googler "guake --show -n '$PWD' -e googler"
+set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
 
 set $search "/usr/local/bin/search.sh"
 
@@ -51,14 +49,11 @@ set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
 
 set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty --class 'kitty_init' --session $HOME/.config/kitty/start.conf"
 
-#set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
 set $zim_todo "zim synconix"
 
 set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 2"
 
 set $raysession "raysession; sleep 2"
-
-set $autostart "$HOME/.local/bin/autostart.sh"
 
 set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 
@@ -74,7 +69,7 @@ set $layout_manager "$HOME/.config/i3/scripts/layout_manager.sh"
 ######################################
 $exec_always $HOME/.screenlayout/$HOSTNAME.sh
 
-$exec_always $picom_start
+$exec_always $picom
 
 $exec_always nitrogen --restore
 
@@ -111,7 +106,7 @@ $exec $atom
 $exec $kitty_init
 $exec $zim_todo
 $exec $raysession
-$exec pactl set-sink-volume @DEFAULT_SINK@ +50%
+$exec pactl set-sink-volume @DEFAULT_SINK@ +20%
 {% endif %}
 
 ######################################
@@ -178,13 +173,15 @@ set $color13 #9F511F
 set $color14 #A06A38
 set $color15 #f22a0f
 set $color16 #f22a0f
+set $color17 #ee18d9
+set $color18 #292826
 
 # class                 border  bground text    indicat child_border
-client.focused          $color16 $color8 $color11 $color2 $color0
-client.focused_inactive $color3 $color3 #928374 $color2 $color0
-client.unfocused        $color11 $color3 #928374 $color2 $color0
-client.urgent           $color15 $color7 #282828 $color2
-client.placeholder      $color0 $color0 #FFFFFF $color2 $color0
+client.focused          $color2 $color8 $color11 $color17 $color4
+client.focused_inactive $color3 $color0 $color12 $color2 $color0
+client.unfocused        $color11 $color18 $color11 $color2 $color0
+client.urgent           $color8 $color16 $color0 $color2 $color0
+client.placeholder      $color17 $color17 $color17 $color2 $color0
 
 client.background       $color12
 

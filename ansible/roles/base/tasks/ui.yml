@@ -37,4 +37,4 @@
     systemctl set-default graphical.target
   register: graphicaltarget
   changed_when: graphicaltarget.rc != 0
-  tags: ['test']
+  when: graphical_target|bool

@@ -13,23 +13,15 @@
   register: haziswallow
   tags: ['swallow']
 
-- name: clone i3-swallow
-  git:
-    repo: "{{ swallow['git'] }}"
-    dest: "{{ local_src }}/swallow"
-    accept_hostkey: yes
-    update: no
-    force: no
-  when: not haziswallow.stat.exists
-  tags: ['swallow']
-
-- name: move i3-swallow to bin dir
-  shell: cp {{ local_src }}/swallow/swallow /usr/local/bin/swallow
-  args:
-    chdir: "{{ local_src }}"
-  check_mode: no
-  when: not haziswallow.stat.exists
-  tags: ['swallow']
+- name: install swallow
+  copy:
+    src: usr/local/bin/swallow
+    dest: /usr/local/bin/swallow
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0755'
+    backup: no
+  tags: ['i3-config']
 
 - name: install i3-layout-manager
   copy:
@@ -39,7 +31,7 @@
     group: "{{ user.name }}"
     mode: '0755'
     backup: no
-  tags: ['i3-config']
+  tags: ['i3-config', 'dots']
 
 - name: Set i3help release url
   set_fact:
@@ -169,3 +161,4 @@
 
   become: True
   become_user: "{{ user.name }}"
+  tags: ['dots']

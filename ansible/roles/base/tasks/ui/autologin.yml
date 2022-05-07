@@ -31,5 +31,4 @@
         group: root
         backup: yes
 
-  notify:
-    - "lightdm service"
+  notify: lightdm service

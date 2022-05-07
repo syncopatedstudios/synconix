@@ -22,7 +22,7 @@
     - 10-hinting-slight.conf
     - 70-no-bitmaps.conf
 
-- name: Insert/Update "Match User" configuration block in /etc/ssh/sshd_config
+- name: enable infinality freetype2
   blockinfile:
     path: /etc/profile.d/freetype2.sh
     block: |

@@ -9,17 +9,6 @@
     state: restarted
     enabled: yes
 
-- name: restart libvirtd
-  action: service name=libvirtd state=restarted
-
-- name: restart systemd-networkd
-  become: true
-  service:
-    name: systemd-networkd
-    state: restarted
-    enabled: yes
-  when: systemd_networkd_apply_config
-
 - name: rtirq service
   systemd:
     name: rtirq
@@ -34,19 +23,31 @@
     daemon_reload: yes
 
 - name: autofs service
-  systemd: enabled=yes state=restarted daemon_reload=yes name=autofs
+  systemd:
+    name: autofs
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
 
 - name: docker service
   systemd:
     name: docker
     state: restarted
     enabled: yes
+    daemon_reload: yes
 
 - name: libvirtd service
   service:
     name: libvirtd
     enabled: no
     state: stopped
+
+- name: systemd-timesyncd service
+  systemd:
+    name: systemd-timesyncd
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
 
 - name: reload user systemd
   systemd:
