@@ -62,6 +62,8 @@ set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 
 set $timemachine "$HOME/Studio/scripts/timemachine.sh"
 
+set $fmit "$HOME/Studio/scripts/fmit.sh"
+
 ######################################
 # ---{ autostart }---
 ######################################
@@ -295,7 +297,7 @@ bindsym Menu $exec $jgmenu
 bindsym XF86Tools $exec $jgmenu
 
 bindsym XF86Display $exec $monitor
-bindsym XF86Launch3 $exec fmit
+bindsym XF86Launch3 $exec $fmit
 bindsym XF86Launch4 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
