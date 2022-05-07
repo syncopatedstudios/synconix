@@ -24,8 +24,9 @@ TODO: @pipewire
 	[ ] or set apps in general to not autoconnect
 
 TODO: @ansible
-[ ] reorder tasks
+[*] reorder tasks
 	1. package installs
+[ ] add swallow to files
 
 TODO: @deadsampler
 [ ] add script to tag flac with key
