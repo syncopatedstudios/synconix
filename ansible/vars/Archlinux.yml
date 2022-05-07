@@ -152,6 +152,7 @@ ui:
     - xf86-video-nouveau
     - xorg-fonts-misc
     - xorg-mkfontscale
+    - xorg-apps
     - xorg-server
     - xorg-xev
     - xorg-xinit
@@ -171,6 +172,7 @@ ui:
     - nitrogen
     - notification-daemon
     - picom
+    - perl-anyevent-i3
     - polybar
     - qt5-base
     - qt5-tools

@@ -1,5 +1,13 @@
 ---
 
+- name: Install i3ipc for Python 3
+  pip:
+    name: i3ipc
+    executable: pip3
+  with_items:
+    - i3ipc
+    - pillow-simd
+
 - name: check if swallow is already installed
   stat: path="/usr/local/bin/swallow"
   register: haziswallow
@@ -23,13 +31,15 @@
   when: not haziswallow.stat.exists
   tags: ['swallow']
 
-- name: Install i3ipc for Python 3
-  pip:
-    name: i3ipc
-    executable: pip3
-  with_items:
-    - i3ipc
-    - pillow-simd
+- name: install i3-layout-manager
+  copy:
+    src: dots/.config/i3/scripts/layout_manager.sh
+    dest: "{{ user.home }}/.config/i3/scripts/layout_manager.sh"
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0755'
+    backup: no
+  tags: ['i3-config']
 
 - name: Set i3help release url
   set_fact:
