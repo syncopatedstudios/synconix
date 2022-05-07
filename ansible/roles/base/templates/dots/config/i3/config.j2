@@ -21,6 +21,8 @@ set $KP_9 81
 set $KP_0 90
 set $KP_Enter 104
 
+set $midi_kill 374
+
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -63,6 +65,8 @@ set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 set $timemachine "$HOME/Studio/scripts/timemachine.sh"
 
 set $fmit "$HOME/Studio/scripts/fmit.sh"
+
+set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
 
 ######################################
 # ---{ autostart }---
@@ -249,24 +253,33 @@ for_window [class="(?i)zita-mu1"] floating enable
 for_window [class='^Sonic\sPi$'] floating disable
 for_window [class="^Non-Mixer$"] floating disable
 
-assign [class="^kitty_init$"] 1
-assign [class="^Atom$"] 1
-assign [class='^Sonic\sPi$'] 1
-assign [class="^Patchage$"] 1
-assign [class="^RaySession$"] 1
-assign [class="^REAPER$"] 2
-assign [class="^Non-Mixer$"] 2
-assign [title="Mixxx"] 3
-assign [class="^Qsampler$"] 1
-assign [class="^qmidiarp$"] 1
-assign [title="JS:\ ATK FOA Decode Stereo"] 1
-assign [title="jalv.gtkmm"] 1
-assign [class="^jalv.select$"] 1
-assign [title="^EBU R128 Meter$"] 2
-assign [title="zita-mu1-0.3.3"] 2
-assign [class="^meterbridge$"] 2
-assign [title="jkmeter"] 2
-assign [title="VU\ Meter\ \(Stereo\)"] 2
+assign [class="^kitty_init$"] $ws1
+assign [class="^Atom$"] $ws1
+assign [class='^Sonic\sPi$'] $ws1
+assign [class="^RaySession$"] $ws1
+assign [class="^jalv.select$"] $ws1
+
+assign [title="^EBU R128 Meter$"] $ws2
+assign [title="zita-mu1-0.3.3"] $ws2
+assign [class="^meterbridge$"] $ws2
+assign [title="jkmeter"] $ws2
+assign [title="VU\ Meter\ \(Stereo\)"] $ws2
+
+assign [title="jalv.gtkmm"] $ws3
+
+assign [title="Mixxx"] $ws7
+
+assign [class="^Qsampler$"] $ws8
+assign [class="^qmidiarp$"] $ws8
+
+assign [class="^Patchage$"] $ws9
+
+assign [class="^REAPER$"] $ws10
+assign [title="JS:\ ATK FOA Decode Stereo"] $ws10
+assign [class="^Non-Mixer$"] $ws10
+
+
+
 
 ######################################
 # ---{ app bindings }---
@@ -302,6 +315,8 @@ bindsym XF86Launch4 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
+
+bindcode $exec $midi_kill
 
 bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
