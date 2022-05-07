@@ -37,6 +37,8 @@ systemd_networkd_network:
       - Address: "192.168.41.15/24"
       - Gateway: "192.168.41.1"
 
+capture: "Built-in Audio Analog Stereo:capture_FL"
+
 
 build_baudline: True
 build_bespoke: False

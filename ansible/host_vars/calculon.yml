@@ -48,6 +48,7 @@ soundcard:
   rate: 48000
   allowed-rates: "32000,44100,48000,96000"
   speaker-layout: "FL,FR"
+  capture: "alsa_input.pci-0000_00_1b.0.capture.0.0"
 
 wallpaper:
   screen1: "{{ user.home }}/Library/Visuals/backgrounds/001.png"
