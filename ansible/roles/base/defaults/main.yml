@@ -160,14 +160,14 @@ font:
   size: 10
 
 # theme options
-theme: oomox-soundbotv2
-icon_theme: Numix-Circle
+theme: oomox-syncopated-linux
+icon_theme: oomox-syncopated-linux
 cursor_theme: Adwaita
 
 qt5ct_style: Fusion
-kvantum_theme: MateriaDark
+kvantum_theme: KvGnomeDark
 
-hintstyle: hintmedium
+hintstyle: hintslight
 
 graphical_target: False
 

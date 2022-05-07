@@ -5,14 +5,14 @@ Xft.rgba:      rgb
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-Xcursor.theme: xcursor-breeze
+Xcursor.theme: {{ cursor_theme }}
 Xcursor.size:                     0
 
 xterm.termName:       xterm-256color
 
 *pointerColor:      #1ABB9B
-*faceName:          Hack Nerd Font
-*faceSize:          12
+*faceName:          {{ font.name }}
+*faceSize:          {{ font.size }}
 
 ! Only select text
 *highlightSelection: true
