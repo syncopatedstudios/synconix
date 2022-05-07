@@ -38,7 +38,7 @@
     ]
   editor:
     fontFamily: "Hack Nerd Font"
-    fontSize: 16
+    fontSize: 18
     preferredLineLength: 100
     softWrap: true
     softWrapAtPreferredLineLength: true
@@ -59,6 +59,8 @@
     "*.yml": "source.yaml"
     "*config": "source.shell"
     ".zsh*": "source.shell"
+  "highlight-colors":
+    highlightCssNamedColors: false
   "markdown-toolbar":
     position: "bottom"
     size: "medium"
