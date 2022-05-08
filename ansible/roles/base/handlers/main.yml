@@ -37,7 +37,7 @@
     daemon_reload: yes
 
 - name: libvirtd service
-  service:
+  systemd:
     name: libvirtd
     enabled: no
     state: stopped
@@ -48,6 +48,13 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+
+- name: xdg-user-dirs-update service
+  systemd:
+    name: xdg-user-dirs-update
+    state: restarted
+    enabled: yes
+    scope: user
 
 - name: reload user systemd
   systemd:

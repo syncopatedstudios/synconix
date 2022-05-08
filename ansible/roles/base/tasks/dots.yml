@@ -13,6 +13,7 @@
         rsync_opts:
           - "--update"
           - "--omit-dir-times"
+      notify: xdg-user-dirs-update service
 
   become: true
   become_user: "{{ user.name }}"

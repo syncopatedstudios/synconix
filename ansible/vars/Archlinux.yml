@@ -131,6 +131,7 @@ base:
     - wavpack
     - wol
     - xarchiver
+    - xdg-user-dirs
     - xf86-input-wacom
     - xf86-video-intel
     - xterm
