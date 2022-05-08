@@ -52,9 +52,8 @@
   when: nfs_host is defined
   tags: ['nfs']
 
-# - include: autofs.yml
-#   when: autofs_client is defined
-#   tags: ['autofs']
+- include: autofs.yml
+  tags: ['autofs']
 
 - include: rsyncd.yml
   when: rsyncd_host is defined
