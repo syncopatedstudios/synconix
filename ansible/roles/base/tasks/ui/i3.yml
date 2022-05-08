@@ -111,7 +111,7 @@
         backup: yes
       with_items:
         - "rofi/config.rasi"
-        - "rofi/docu.rasi"
+        - "rofi/Monokai.rasi"
       tags: ['rofi']
 
     - name: Install jgmenu templates

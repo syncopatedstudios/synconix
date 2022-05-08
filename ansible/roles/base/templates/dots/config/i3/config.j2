@@ -299,9 +299,10 @@ bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym $mod+Return $exec kitty
 
 # start dmenu (a program launcher)
-bindsym $mod+d $exec $layout_manager
-bindsym Menu $exec $jgmenu
-bindsym XF86Tools $exec $jgmenu
+bindsym $mod+Shift+d $exec $layout_manager
+bindsym $mod+d $exec $rofi
+bindsym Menu $exec $rofi
+bindsym XF86Tools $exec $rofi
 
 bindsym XF86Display $exec $monitor
 bindsym XF86Launch3 $exec $fmit
