@@ -9,6 +9,4 @@ autofs_client:
   shares:
     - storage
     - media
-    - b08x
-
 sync_to: bender
