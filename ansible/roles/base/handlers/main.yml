@@ -51,10 +51,13 @@
 
 - name: xdg-user-dirs-update service
   systemd:
-    name: xdg-user-dirs-update
-    state: restarted
+    name: xdg-user-dirs-update.service
     enabled: yes
     scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  become: True
+  become_user: "{{ user.name }}"
 
 - name: reload user systemd
   systemd:
