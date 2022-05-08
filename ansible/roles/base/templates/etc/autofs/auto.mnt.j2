@@ -1,6 +1,11 @@
 #{{ ansible_managed }}
 
-{% for share in autofs_client.shares %}
-{{ share }}		-fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768	{{ autofs_client.host }}:{{ share }}
-{% endfor %}
-b08x         -fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768     bender:/home/b08x
+# {% for share in autofs_client.shares %}
+# {{ share }}		-fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768	{{ autofs_client.host }}:{{ share }}
+# {% endfor %}
+
+
+#TODO within ansible template; account for exports that are in a subdirectory
+b08x            -fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768     bender:/home/b08x
+storage         -fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768     bender:/storage
+media           -fstype=nfs4,rw,noacl,nocto,noatime,rsize=32768,wsize=32768     bender:/media
