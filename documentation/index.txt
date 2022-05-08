@@ -16,4 +16,4 @@ Download the Live ISO to see what it's like to use i3 in audio production|creati
 
 [[software]]
 
-[[../todo.txt|ToDo]]
+[[todo|ToDo]]
