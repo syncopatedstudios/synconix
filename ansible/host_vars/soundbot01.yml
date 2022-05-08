@@ -28,9 +28,3 @@ soundcard:
   rate: 48000
   allowed-rates: "32000,44100,48000,96000"
   position: "FL,FR"
-
-autofs_client:
-  host: bender
-  shares:
-    - storage
-    - backup

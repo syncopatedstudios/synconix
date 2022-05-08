@@ -9,8 +9,6 @@ docker_host: True
 use_systemdnetwork: True
 wireless: True
 
-sync_to: bender
-
 systemd_networkd_network:
   wlan0:
     - Match:

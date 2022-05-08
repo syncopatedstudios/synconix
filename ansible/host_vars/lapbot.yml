@@ -31,16 +31,8 @@ firewalld:
     - 4464/udp
     - 24800/tcp
 
-autofs_client:
-  host: bender
-  shares:
-    - storage
-    - backup
-
 kvm_host: False
 docker_host: False
-
-sync_host: bender
 
 soundcard:
   alsa_in: alsa_input.pci-0000_00_1f.3.capture.0.0

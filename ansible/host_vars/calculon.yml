@@ -29,8 +29,6 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - Address: "192.168.40.2/24"
 
-sync_to: bender
-
 firewalld:
   zone: docker
   ports:
@@ -49,12 +47,6 @@ soundcard:
   allowed-rates: "32000,44100,48000,96000"
   speaker-layout: "FL,FR"
   capture: "alsa_input.pci-0000_00_1b.0.capture.0.0"
-
-autofs_client:
-  host: bender
-  shares:
-    - storage
-    - home/backups
 
 kvm_host: False
 docker_host: True

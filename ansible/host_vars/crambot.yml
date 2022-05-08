@@ -59,14 +59,6 @@ soundcard:
 wallpaper:
   screen1: /usr/share/backgrounds/010.png
 
-sync_host: bender
-
-autofs_client:
-  host: bender
-  exports:
-    storage: /storage
-    backups: /home/backups
-
 kvm_host: True
 docker_host: True
 docker_storage: /var/lib/docker
