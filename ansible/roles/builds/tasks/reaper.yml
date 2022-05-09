@@ -5,6 +5,15 @@
   register: hazireaper
   tags: ['reaper']
 
+- name: check reaper version
+  shell: |
+    cat whatsnew.txt | grep {{ reaper.version }}
+  args:
+    chdir: /opt/REAPER
+  when: hazireaper.stat.exists
+  register: installed_version
+  ignore_errors: true
+
 - name: ensure desktop-directories directory exists
   file:
     path: "/usr/share/desktop-directories"
@@ -21,6 +30,13 @@
         dest: "{{ local_src }}"
         # validate_certs: no
 
+    - name: uninstall reaper
+      shell: |
+        bash -x ./uninstall-reaper.sh --quiet --uninstall
+      args:
+        chdir: /opt/REAPER
+      when: hazireaper.stat.exists
+
     - name: extract reaper
       shell: |
         tar -xvf {{ reaper.file }}
@@ -33,4 +49,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: not hazireaper.stat.exists
+  when: (not hazireaper.stat.exists or installed_version.rc != 0)
