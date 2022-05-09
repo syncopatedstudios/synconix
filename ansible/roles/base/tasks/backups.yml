@@ -9,12 +9,6 @@
   become: True
   become_user: "{{ user.name }}"
 
-- name: create Studio directory
-  shell: |
-    mkdir -pv {{ user.home }}/Studio
-  become: True
-  become_user: "{{ user.name }}"
-
 - name: install osync configs
   template:
     src: "etc/osync/{{ item }}.j2"
