@@ -104,6 +104,7 @@ base:
     - openssl
     - opusfile
     - pandoc
+    - pcsclite
     - poppler
     - python-pip
     - python-pymupdf
