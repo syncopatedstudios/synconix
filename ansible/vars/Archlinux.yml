@@ -90,6 +90,7 @@ base:
     - mdadm
     - mediainfo
     - mlocate
+    - most
     - mp3val
     - ncurses
     - ncdu

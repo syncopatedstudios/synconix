@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: daw
   strategy: linear
   gather_facts: yes
   vars:
