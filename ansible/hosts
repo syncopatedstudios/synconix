@@ -1,13 +1,17 @@
 [storage]
 bender
 
-[daw]
+[desktop]
 crambot
 calculon
-thinkbot ansible_connection=local
 
 [mobile]
 lapbot
+thinkbot ansible_connection=local
+
+[daw:children]
+desktop
+mobile
 
 [node]
 soundbot01
@@ -15,7 +19,6 @@ soundbot01
 [soundbots:children]
 storage
 daw
-mobile
 node
 
 [soundbots:vars]
