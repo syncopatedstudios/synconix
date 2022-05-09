@@ -38,6 +38,15 @@
     backup: yes
   tags: ['pacmanconf']
 
+- name: set library var in makepkg
+  lineinfile:
+    dest: /usr/bin/makepkg
+    regexp: "^LIBRARY=${LIBRARY:-'/usr/share/makepkg'}"
+    line: "LIBRARY='/usr/share/makepkg'"
+    backrefs: yes
+    backup: yes
+  tags: ['makepkg']
+
 - name: install makepkg config
   copy:
     src: "etc/makepkg.conf"
