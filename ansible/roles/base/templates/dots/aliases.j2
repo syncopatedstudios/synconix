@@ -31,10 +31,10 @@ alias netlog='sudo journalctl -b -o short-monotonic --no-hostname -u systemd-ude
 alias fileperms="find . -type f -exec chmod 0664 {} +"
 alias dirperms="find . -type d -exec chmod 0755 {} +"
 
-#alias man="PAGER='most' man "
+alias man="PAGER='most' man "
 #alias awman="PAGER='most' awman"
 
-alias search="yay -Ss search"
+alias search="yay -Ss"
 alias install="yay -S"
 alias uninstall="yay -Rdd"
 alias list="yay -Qe"
@@ -42,7 +42,7 @@ alias list="yay -Qe"
 alias p="sudo ping -c 4 google.com"
 
 alias commit="git commit -am"
-alias gfp="git fetch && git pull"
+alias gitfet="git fetch && git pull"
 alias st="git status"
 
 #alias cat="bat"
@@ -50,13 +50,13 @@ alias st="git status"
 #turn off pcspkr
 alias beepoff="rmmod pcspkr"
 
-alias e="$EDITOR"
-alias d='dig +nocmd +multiline +noall +answer'
+alias edit="$EDITOR"
+alias dig="dig +nocmd +multiline +noall +answer"
 
 alias cpup="sudo cpupower -c all frequency-set -g performance"
 
-alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
-alias dst='dots status'
+# alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
+# alias dst='dots status'
 
 # open rb file in pry
 alias loadpry='pry -r'
@@ -82,7 +82,7 @@ alias gitlog="git log --oneline --decorate --graph --all"
 alias clearcaps='/usr/bin/xmodmap -e "clear Lock"'
 alias capsf13='/usr/bin/xmodmap -e "keysym Caps_Lock = F13"'
 
-alias betty="~/Workspace/betty/main.rb"
+# alias betty="~/Workspace/betty/main.rb"
 
 alias ytdl="youtube-dl -x --audio-format wav --external-downloader aria2c"
 
@@ -90,4 +90,7 @@ alias icat="kitty +kitten icat --align left"
 
 alias baudline_jack="pw-jack baudline_jack -c 4 -jack"
 
+alias jnoisemeter="pw-jack jnoisemeter"
+
 alias ansible-play="cd $ANSIBLE_HOME"
+alias soundbot_dev="cd $WORKSPACE/soundbot"
