@@ -29,6 +29,8 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - Address: "192.168.40.2/24"
 
+nfs_host: True
+
 firewalld:
   zone: docker
   ports:
