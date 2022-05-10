@@ -1,20 +1,19 @@
 ---
 
-- name: install system gemrc
-  copy:
-    src: etc/gemrc
+- name: set no-user-install in gemrc
+  lineinfile:
     dest: /etc/gemrc
-    directory_mode: no
-    owner: root
-    group: root
-    mode: '0644'
+    regexp: "^gem: --user-install"
+    line: "gem: --no-user-install"
+    backrefs: yes
     backup: yes
+  tags: ['gems']
 
 #TODO: account for using RVM
 
 - name: Get list of installed gems
   shell: |
-    gem list | awk '{ print $1 }'
+    sudo gem list | awk '{ print $1 }'
   register: gemlist
   ignore_errors: yes
   become: True
@@ -29,7 +28,7 @@
 
 - name: install ruby gems
   shell: |
-    gem install {{ item }}
+    sudo gem install {{ item }}
   with_items:
     - "{{ _gems }}"
   when: _gems | length > 0
