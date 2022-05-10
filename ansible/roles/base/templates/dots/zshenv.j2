@@ -1,32 +1,32 @@
-  local _old_path="$PATH"
-
-# Local config
-[[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
-
-if [[ $PATH != $_old_path ]]; then
-  # `colors` isn't initialized yet, so define a few manually
-  typeset -AHg fg fg_bold
-  if [ -t 2 ]; then
-    fg[red]=$'\e[31m'
-    fg_bold[white]=$'\e[1;37m'
-    reset_color=$'\e[m'
-  else
-    fg[red]=""
-    fg_bold[white]=""
-    reset_color=""
-  fi
-
-  cat <<MSG >&2
-${fg[red]}Warning:${reset_color} your \`~/.zshenv.local' configuration seems to edit PATH entries.
-Please move that configuration to \`.zshrc.local' like so:
-  ${fg_bold[white]}cat ~/.zshenv.local >> ~/.zshrc.local && rm ~/.zshenv.local${reset_color}
-
-(called from ${(%):-%N:%i})
-
-MSG
-fi
-
-unset _old_path
+# local _old_path="$PATH"
+#
+# # Local config
+# [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
+#
+# if [[ $PATH != $_old_path ]]; then
+#   # `colors` isn't initialized yet, so define a few manually
+#   typeset -AHg fg fg_bold
+#   if [ -t 2 ]; then
+#     fg[red]=$'\e[31m'
+#     fg_bold[white]=$'\e[1;37m'
+#     reset_color=$'\e[m'
+#   else
+#     fg[red]=""
+#     fg_bold[white]=""
+#     reset_color=""
+#   fi
+#
+#   cat <<MSG >&2
+# ${fg[red]}Warning:${reset_color} your \`~/.zshenv.local' configuration seems to edit PATH entries.
+# Please move that configuration to \`.zshrc.local' like so:
+#   ${fg_bold[white]}cat ~/.zshenv.local >> ~/.zshrc.local && rm ~/.zshenv.local${reset_color}
+#
+# (called from ${(%):-%N:%i})
+#
+# MSG
+# fi
+#
+# unset _old_path
 
 export TEMP="/tmp"
 
@@ -41,9 +41,13 @@ export TERMCMD="$TERMINAL"
 {% endif %}
 
 export BROWSER="google-chrome-stable"
-export PAGER=less
 
-export NO_AT_BRIDGE=1
+if [ -x "$(command -v most)" ]; then
+  export PAGER=most
+else
+  echo "most is not installed, using less..."
+  export PAGER=less
+fi
 
 export VAMP_PATH="$HOME/.vamp"
 
@@ -58,6 +62,9 @@ export DISABLE_AUTO_TITLE=true
 
 export HOSTNAME=`hostnamectl --static`
 
+##################################
+#  synconix elements
+##################################
 export WORKSPACE="$HOME/Workspace"
 
 export ANSIBLE_HOME="$WORKSPACE/synconix/ansible"
@@ -71,12 +78,17 @@ export STUDIO="$HOME/Studio"
 export PROJECTS="$STUDIO/projects"
 
 ##################################
-# For the graphical elements
+#  graphical elements
+##################################
+
+export NO_AT_BRIDGE=1
+
 export QT_SCALE_FACTOR=1.0
-# To make the fonts readable
 export QT_FONT_DPI=96
 
 export NODE_PATH=/usr/lib/node_modules
 
 export XDG_DATA_DIRS="/usr/local/share/:/usr/share"
 export XDG_CONFIG_DIRS="/etc/xdg"
+
+export PIPEWIRE_LOG_SYSTEMD=false
