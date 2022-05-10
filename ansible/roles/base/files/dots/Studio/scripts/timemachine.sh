@@ -19,5 +19,5 @@ fi
 
 if ! pgrep -x "timemachine" > /dev/null; then
   set_mic_levels
-  swallow -d timemachine -a -b -25.0 -e -30.0 -T 5 -t 10 -c 2 'Built-in Audio Analog Stereo:capture_FL' 'Built-in Audio Analog Stereo:capture_FR' -f flac -s -p "$RECORDINGS/tm-"
+  kitty -e timemachine -i -t 10 -c 2 'Built-in Audio Analog Stereo:capture_FL' 'Built-in Audio Analog Stereo:capture_FR' -f flac -s -p "$RECORDINGS/tm-"
 fi

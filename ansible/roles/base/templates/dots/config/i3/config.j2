@@ -229,6 +229,8 @@ for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 1, move position center, focus
 for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
+for_window [class="^FMIT$"] floating enable, resize set 660 537, move position center, focus
+for_window [class="^Timemachine"] floating enable, move position center, focus
 ######################################
 #       ---{ reaper stuff }---
 ######################################
@@ -255,6 +257,8 @@ assign [class="^Atom$"] $ws1
 assign [class='^Sonic\sPi$'] $ws1
 assign [class="^RaySession$"] $ws1
 assign [class="^jalv.select$"] $ws1
+assign [class="^FMIT$"] $ws1
+assign [class="^Timemachine$"] $ws1
 
 assign [title="^EBU R128 Meter$"] $ws2
 assign [title="zita-mu1-0.3.3"] $ws2
@@ -305,8 +309,8 @@ bindsym Menu $exec $rofi
 bindsym XF86Tools $exec $rofi
 
 bindsym XF86Display $exec $monitor
-bindsym XF86Launch3 $exec $fmit
-bindsym XF86Launch4 $exec $timemachine
+bindsym Shift+XF86Launch3 $exec $fmit
+bindsym Shift+XF86Launch4 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
