@@ -78,9 +78,9 @@ alias lsmi="/usr/local/src/lsmi/lsmi-keyhack -v -k ~/.keydb -d /dev/input/event5
 alias clearcaps='/usr/bin/xmodmap -e "clear Lock"'
 alias capsf13='/usr/bin/xmodmap -e "keysym Caps_Lock = F13"'
 
-alias ytdla="youtube-dl -o "%(title)s.%(ext)s" -x --audio-format wav --external-downloader aria2c"
+alias ytdla="youtube-dl -o "%(artist)s.%(title)s.%(ext)s" -x --audio-format wav --external-downloader aria2c"
 
-alias ytdlv="youtube-dl -o "%(title)s.%(ext)s" -f mp4 --external-downloader aria2c"
+alias ytdlv="youtube-dl -o "%(artist)s.%(title)s.%(ext)s" -f mp4 --external-downloader aria2c"
 
 alias icat="kitty +kitten icat --align left"
 
