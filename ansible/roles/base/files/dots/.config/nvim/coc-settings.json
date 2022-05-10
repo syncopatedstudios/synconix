@@ -9,5 +9,5 @@
     }
 
   },
-  "solargraph.commandPath": "/home/b08x/.local/share/gem/ruby/3.0.0/bin/solargraph"
+  "solargraph.commandPath": "/usr/bin/solargraph"
 }

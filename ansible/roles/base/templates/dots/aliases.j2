@@ -46,6 +46,7 @@ alias co="git commit -a"
 alias gi="git fetch && git pull"
 alias gs="git status"
 alias gp="git push"
+alias glog="git log --oneline --decorate --graph --all"
 
 alias cat="bat -p"
 
@@ -76,8 +77,6 @@ alias awk_preview="echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | aw
 alias ruby_preview="echo '' | fzf --print-query --preview 'ruby -e {q}'"
 
 alias lsmi="/usr/local/src/lsmi/lsmi-keyhack -v -k ~/.keydb -d /dev/input/event5"
-
-alias gitlog="git log --oneline --decorate --graph --all"
 
 # Re-enable caps lock
 # (in case if you accidentally disable capslock when capslock is still ON)

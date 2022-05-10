@@ -73,7 +73,7 @@
   "open-terminal-here":
     command: "guake --show -n $PWD"
   "ruby-solargraph":
-    commandPath: "$HOME/.local/share/gem/ruby/3.0.0/bin/solargraph"
+    commandPath: "/usr/bin/solargraph"
   "sb-atom-sonic-pi":
     sendOSCMessagesToGUI: true
   "spell-check":
