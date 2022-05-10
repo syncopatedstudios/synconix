@@ -1,3 +1,4 @@
+################# jack stuff ###################################
 # alias startjack="jack_control start && a2j_control --start"
 #
 # alias zalsa_out_preamp="jack_load zalsa_out -i '-d hw:1' &!"
@@ -5,47 +6,48 @@
 #
 # alias preamp_out="zita-j2a -j preamp_out -d hw:1 &!"
 # alias preamp_in="zita-a2j -j preamp_in -d hw:1,0 &!"
+###############################################################
 
-alias listinputs="sudo libinput list-devices"
+alias lsin="sudo libinput list-devices"
 
 alias h="history 1"
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias mv="mv -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
+# confirm before overwriting something
+alias cp="cp -i"
+# confirm before overwriting something
+alias mv="mv -i"
+# human-readable sizes
+alias df='df -h'
 
-#alias ll="ls -lah"
+alias ls="exa -a --icons"
 alias ll="printf '\n' && exa -lH --group-directories-first --icons"
 alias llh="printf '\n' && exa -alH --group-directories-first --icons"
 
+# remove comments from a file
 alias nocomment='grep -v "^\($\|#\)"'
 
 alias checklog='sudo journalctl -o short-iso | lnav'
 alias taillog='sudo journalctl -f | lnav'
-
 alias netlog='sudo journalctl -b -o short-monotonic --no-hostname -u systemd-udevd -u systemd-networkd -f | lnav'
 
 alias fileperms="find . -type f -exec chmod 0664 {} +"
 alias dirperms="find . -type d -exec chmod 0755 {} +"
 
 alias man="PAGER='most' man "
-#alias awman="PAGER='most' awman"
+alias awman="PAGER='most' awman"
 
 alias search="yay -Ss"
 alias install="yay -S"
 alias uninstall="yay -Rdd"
-alias list="yay -Qe"
-
+alias list="yay -Q"
 alias p="sudo ping -c 4 google.com"
 
-alias commit="git commit -am"
-alias gitfet="git fetch && git pull"
-alias st="git status"
+alias co="git commit -a"
+alias gi="git fetch && git pull"
+alias gs="git status"
+alias gp="git push"
 
-#alias cat="bat"
+alias cat="bat -p"
 
 #turn off pcspkr
 alias beepoff="rmmod pcspkr"
@@ -92,5 +94,8 @@ alias baudline_jack="pw-jack baudline_jack -c 4 -jack"
 
 alias jnoisemeter="pw-jack jnoisemeter"
 
-alias ansible-play="cd $ANSIBLE_HOME"
-alias soundbot_dev="cd $WORKSPACE/soundbot"
+alias an="cd $ANSIBLE_HOME"
+alias so="cd $WORKSPACE/soundbot"
+
+alias wo="cd $WORKSPACE"
+alias gem="sudo gem"
