@@ -69,23 +69,18 @@ alias pulse_list_sources="pacmd list-sources | grep -e 'index:' -e device.string
 
 alias vnc_serv="x11vnc -ncache_cr -display :0"
 
-# stolen with malice and spite from: https://reposhub.com/linux/miscellaneous/pawelduda-fzf-live-repl.html
-# alias manp="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
 
-alias awk_preview="echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'"
-
-alias ruby_preview="echo '' | fzf --print-query --preview 'ruby -e {q}'"
+alias manp="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
 
 alias lsmi="/usr/local/src/lsmi/lsmi-keyhack -v -k ~/.keydb -d /dev/input/event5"
 
 # Re-enable caps lock
-# (in case if you accidentally disable capslock when capslock is still ON)
 alias clearcaps='/usr/bin/xmodmap -e "clear Lock"'
 alias capsf13='/usr/bin/xmodmap -e "keysym Caps_Lock = F13"'
 
-# alias betty="~/Workspace/betty/main.rb"
+alias ytdla="youtube-dl -o "%(title)s.%(ext)s" -x --audio-format wav --external-downloader aria2c"
 
-alias ytdl="youtube-dl -x --audio-format wav --external-downloader aria2c"
+alias ytdlv="youtube-dl -o "%(title)s.%(ext)s" -f mp4 --external-downloader aria2c"
 
 alias icat="kitty +kitten icat --align left"
 
