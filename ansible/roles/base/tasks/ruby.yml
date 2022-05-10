@@ -34,3 +34,9 @@
   when: _gems | length > 0
   become: True
   become_user: "{{ user.name }}"
+
+- name: use shell to do stuff
+  shell: |
+    bundle config set --local system 'true'
+  become: True
+  become_user: "{{ user.name }}"
