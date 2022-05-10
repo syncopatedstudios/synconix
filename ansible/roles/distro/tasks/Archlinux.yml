@@ -106,9 +106,9 @@
       shell: |
         yay -Sc --noconfirm
 
-    - name: update aur packages
-      shell: |
-        yay -Syyuu --noconfirm --needed
+    # - name: update aur packages
+    #   shell: |
+    #     yay -Syyuu --noconfirm --needed
 
   become: True
   become_user: "{{ user.name }}"

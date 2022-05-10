@@ -96,8 +96,6 @@ $exec /usr/bin/barriers -f --no-tray --debug INFO --name thinkbot --disable-cryp
 # {% else %}
 # {% endif %}
 
-
-
 # $exec $autostart
 $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 {% if inventory_hostname in groups['mobile'] %}
@@ -105,7 +103,7 @@ $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 $exec $atom
 # $exec $kitty_init
 $exec $zim_todo
-$exec $raysession
+#$exec $raysession
 {% endif %}
 
 ######################################
@@ -292,9 +290,9 @@ bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
 
-bindsym XF86AudioNext $exec mocp -f
-bindsym XF86AudioPrev $exec mocp -r
-bindsym XF86AudioPlay $exec mocp -G
+#bindsym XF86AudioNext $exec mocp -f
+#bindsym XF86AudioPrev $exec mocp -r
+#bindsym XF86AudioPlay $exec mocp -G
 
 bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
