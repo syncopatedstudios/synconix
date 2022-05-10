@@ -13,5 +13,5 @@ set_mic_levels()
 
 if ! pgrep -x "fmit" > /dev/null; then
   set_mic_levels
-  swallow -d fmit
+  fmit
 fi
