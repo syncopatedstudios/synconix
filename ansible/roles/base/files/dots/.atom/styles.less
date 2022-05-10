@@ -101,7 +101,12 @@ atom-text-editor {
   color: #eb5912;
 
   .syntax--variable {
-    color: #db9a1a;
+    color: #f5d91c;
+    // opacity: 0.8;
+  }
+
+  .syntax--variable.syntax--constant {
+    color: #1a4bdb;
     // opacity: 0.8;
   }
 
@@ -180,7 +185,7 @@ atom-text-editor {
   }
 }
 
-// Yaml
+// Ansble-Advanced
 .syntax--ansible-advanced {
   .syntax--name {
     color: #e01653;
@@ -209,6 +214,14 @@ atom-text-editor {
   .syntax--keyword {
     color: #9518e2;
   }
+}
+
+.syntax--python.syntax--jinja {
+    color: #29b992;
+
+    .syntax--other.syntax--jinja {
+      color: #e014c0;
+    }
 }
 
 //text

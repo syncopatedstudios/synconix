@@ -29,7 +29,6 @@
       "language-gfm"
       "markdown-preview"
     ]
-    packagesWithKeymapsDisabled: []
     projectHome: "/home/b08x/Workspace"
     telemetryConsent: "no"
     themes: [
@@ -38,7 +37,7 @@
     ]
   editor:
     fontFamily: "Hack Nerd Font"
-    fontSize: 18
+    fontSize: 15
     preferredLineLength: 100
     softWrap: true
     softWrapAtPreferredLineLength: true
@@ -53,7 +52,7 @@
     "*.ReaperOSC": "source.shell"
     "*.cfg": "source.shell"
     "*.conf": "source.shell"
-    "*.j2": "source.ansible-advanced"
+    "*.j2": "source.python.jinja"
     "*.n3": "source.ruby"
     "*.rules": "source.shell"
     "*.yml": "source.yaml"
@@ -74,7 +73,7 @@
   "open-terminal-here":
     command: "guake --show -n $PWD"
   "ruby-solargraph":
-    commandPath: "$HOME/.rvm/rubies/ruby-3.0.0/bin/solargraph"
+    commandPath: "$HOME/.local/share/gem/ruby/3.0.0/bin/solargraph"
   "sb-atom-sonic-pi":
     sendOSCMessagesToGUI: true
   "spell-check":

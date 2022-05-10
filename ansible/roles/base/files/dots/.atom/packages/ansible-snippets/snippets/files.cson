@@ -61,3 +61,15 @@
           - "--update"
           - "--omit-dir-times"
     """
+    "lineinfile":
+      "prefix": "linein"
+      "body": """
+      - name: replace line in file
+        lineinfile:
+          dest: $1
+          regexp: "$2"
+          line: "$3"
+          backrefs: yes
+          backup: yes
+        tags: ['$4']
+    """

@@ -1,5 +1,6 @@
 ---
 NAME="Arch Linux"
+VERSION=22
 PRETTY_NAME="Arch Linux"
 ID=arch
 BUILD_ID=rolling
@@ -9,4 +10,3 @@ DOCUMENTATION_URL="https://wiki.archlinux.org/"
 SUPPORT_URL="https://bbs.archlinux.org/"
 BUG_REPORT_URL="https://bugs.archlinux.org/"
 LOGO=archlinux-logo
-VERSION=00
