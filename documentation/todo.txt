@@ -11,7 +11,6 @@ TODO: @i3
 [>] bindsym xkill
 [>] unicode fonts and rendering
 [ ] bindsym prompt for name -> chrome|mpv -> jack_capture -> samples/to_process/ | stop
-[ ] setup "dots"
  
 
 TODO: @artwork
@@ -27,6 +26,8 @@ TODO: @ansible
 [*] reorder tasks
 	1. package installs
 [*] add swallow to files
+[ ] setup "dots"
+	[ ] convert ansible templates into lineinfile statements
 
 TODO: @deadsampler
 [ ] add script to tag flac with key
