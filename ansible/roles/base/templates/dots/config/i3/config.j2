@@ -55,9 +55,9 @@ set $raysession "raysession; sleep 2"
 
 set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 
-set $timemachine "$HOME/Studio/scripts/timemachine.sh"
+set $timemachine "$HOME/.local/bin/timemachine.sh"
 
-set $fmit "$HOME/Studio/scripts/fmit.sh"
+set $fmit "$HOME/.local/bin/fmit.sh"
 
 set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
 
@@ -73,36 +73,15 @@ $exec_always nitrogen --restore
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
+include $HOME/.config/i3/autostart/`hostname`.conf
+
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
 {% else %}
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'calculon' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --debug INFO --name calculon --disable-crypto [thinkbot]:24800 &"
-{% else %}
-{% endif %}
-
-{% if ansible_facts['hostname'] == 'thinkbot' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name thinkbot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
-{% else %}
-{% endif %}
-
-# {% if ansible_facts['hostname'] == 'lapbot' %}
-# $exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [crambot]:24800 &"
-# {% else %}
-# {% endif %}
-
-# $exec $autostart
 $exec pactl set-sink-volume @DEFAULT_SINK@ 0
-{% if inventory_hostname in groups['mobile'] %}
-{% else %}
-$exec $atom
-# $exec $kitty_init
-$exec $zim_todo
-#$exec $raysession
-{% endif %}
 
 ######################################
 # ---{ window settings }---
@@ -183,32 +162,7 @@ client.background       $color12
 ######################################
 # ---{ workspace assignments }---
 ######################################
-{% if ansible_facts['hostname'] == 'thinkbot' %}
-workspace $ws1 output eDP1
-workspace $ws2 output eDP1
-workspace $ws3 output eDP1
-workspace $ws4 output eDP1
-workspace $ws5 output eDP1
-workspace $ws6 output HDMI1
-workspace $ws7 output HDMI1
-workspace $ws8 output HDMI1
-workspace $ws9 output HDMI1
-workspace $ws10 output HDMI1
-{% else %}
-{% endif %}
-{% if ansible_facts['hostname'] == 'crambot' %}
-workspace $ws1 output HDMI1
-workspace $ws2 output HDMI1
-workspace $ws3 output HDMI1
-workspace $ws4 output HDMI1
-workspace $ws5 output HDMI1
-workspace $ws6 output HDMI2
-workspace $ws7 output HDMI2
-workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
-workspace $ws10 output HDMI2
-{% else %}
-{% endif %}
+include $HOME/.config/i3/workspaces/`hostname`.conf
 
 ######################################
 #       ---{ scratchpad }---
@@ -279,11 +233,7 @@ assign [class="^Non-Mixer$"] $ws10
 ######################################
 # ---{ app bindings }---
 ######################################
-{% if inventory_hostname in groups['mobile'] %}
-bindsym XF86MonBrightnessDown $exec brightnessctl s 5%-
-bindsym XF86MonBrightnessUp $exec brightnessctl s 5%+
-{% else %}
-{% endif %}
+include $HOME/.config/i3/bindings/`hostname`.conf
 
 bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
