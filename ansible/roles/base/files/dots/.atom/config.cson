@@ -71,7 +71,7 @@
     siteImagesDir: "assets/images/"
     siteLocalDir: "/home/b08x/Workspace/syncopated-linux/website"
   "open-terminal-here":
-    command: "guake --show -n $PWD"
+    command: "kitty -d $PWD"
   "ruby-solargraph":
     commandPath: "/usr/bin/solargraph"
   "sb-atom-sonic-pi":
