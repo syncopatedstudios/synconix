@@ -58,19 +58,19 @@
       become: True
       become_user: "{{ user.name }}"
 
-    - name: Install deadbeef plugins
-      synchronize:
-        src: usr/local/lib/deadbeef/
-        dest: "{{ user.home }}./local/lib/deadbeef/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: no
-        perms: no
-        times: yes
-        # rsync_opts: "--update"
-      tags: ['deadbeef']
-
   when:
     - "ansible_distribution_version != '32'"
     - "not hazideadbeef.stat.exists"
+
+- name: Install deadbeef plugins
+  synchronize:
+    src: usr/local/lib/deadbeef/
+    dest: "{{ user.home }}/.local/lib/deadbeef/"
+    recursive: yes
+    mode: push
+    delete: no
+    checksum: no
+    perms: no
+    times: yes
+    # rsync_opts: "--update"
+  tags: ['deadbeef']
