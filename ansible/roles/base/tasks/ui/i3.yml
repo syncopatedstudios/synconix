@@ -23,15 +23,15 @@
     backup: no
   tags: ['i3-config']
 
-- name: install i3-layout-manager
-  copy:
-    src: dots/.config/i3/scripts/layout_manager.sh
-    dest: "{{ user.home }}/.config/i3/scripts/layout_manager.sh"
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: '0755'
-    backup: no
-  tags: ['i3-config', 'dots']
+# - name: install i3-layout-manager
+#   copy:
+#     src: dots/.config/i3/scripts/layout_manager.sh
+#     dest: "{{ user.home }}/.config/i3/scripts/layout_manager.sh"
+#     owner: "{{ user.name }}"
+#     group: "{{ user.name }}"
+#     mode: '0755'
+#     backup: no
+#   tags: ['i3-config', 'dots']
 
 - name: Set i3help release url
   set_fact:
@@ -64,100 +64,100 @@
       register: i3_config_dir
       changed_when: i3_config_dir.rc != 0
 
-    - name: Install i3 templates
-      template:
-        src: "dots/config/i3/config.j2"
-        dest: "{{ user.home }}/.config/i3/config"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: yes
-      notify: restart i3
-      tags: ['i3-config']
+    # - name: Install i3 templates
+    #   template:
+    #     src: "dots/config/i3/config.j2"
+    #     dest: "{{ user.home }}/.config/i3/config"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: "0644"
+    #     backup: yes
+    #   notify: restart i3
+    #   tags: ['i3-config']
+    #
+    # - name: Install polybar templates
+    #   template:
+    #     src: "dots/config/polybar/{{ item }}.j2"
+    #     dest: "{{ user.home }}/.config/polybar/{{ item }}"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: "0644"
+    #     backup: yes
+    #   with_items:
+    #     - config
+    #     - bars.ini
+    #     - colors.ini
+    #     - modules.ini
+    #     - user_modules.ini
+    #   tags: ['polybar']
+    #
+    # - name: Install i3 polybar script
+    #   template:
+    #     src: "dots/config/i3/scripts/polybar.sh.j2"
+    #     dest: "{{ user.home }}/.config/i3/scripts/polybar.sh"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: "0755"
+    #     backup: yes
+    #   tags: ['polybar']
+    #
+    # - name: Install rofi templates
+    #   template:
+    #     src: "dots/config/{{ item }}.j2"
+    #     dest: "{{ user.home }}/.config/{{ item }}"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: "0644"
+    #     backup: yes
+    #   with_items:
+    #     - "rofi/config.rasi"
+    #     - "rofi/Monokai.rasi"
+    #   tags: ['rofi']
 
-    - name: Install polybar templates
-      template:
-        src: "dots/config/polybar/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/polybar/{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: yes
-      with_items:
-        - config
-        - bars.ini
-        - colors.ini
-        - modules.ini
-        - user_modules.ini
-      tags: ['polybar']
+    # - name: Install jgmenu templates
+    #   template:
+    #     src: "dots/config/{{ item }}.j2"
+    #     dest: "{{ user.home }}/.config/{{ item }}"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: "0644"
+    #     backup: no
+    #   with_items:
+    #     - "jgmenu/append.csv"
+    #     - "jgmenu/jgmenurc"
+    #     - "jgmenu/prepend.csv"
+    #   tags: ['jgmenu']
 
-    - name: Install i3 polybar script
-      template:
-        src: "dots/config/i3/scripts/polybar.sh.j2"
-        dest: "{{ user.home }}/.config/i3/scripts/polybar.sh"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0755"
-        backup: yes
-      tags: ['polybar']
+    # - name: Install search script
+    #   copy:
+    #     src: usr/local/bin/search.sh
+    #     dest: /usr/local/bin/search.sh
+    #     directory_mode: no
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.name }}"
+    #     mode: '0775'
+    #     backup: no
+    #   tags: ['search']
 
-    - name: Install rofi templates
-      template:
-        src: "dots/config/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: yes
-      with_items:
-        - "rofi/config.rasi"
-        - "rofi/Monokai.rasi"
-      tags: ['rofi']
-
-    - name: Install jgmenu templates
-      template:
-        src: "dots/config/{{ item }}.j2"
-        dest: "{{ user.home }}/.config/{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: no
-      with_items:
-        - "jgmenu/append.csv"
-        - "jgmenu/jgmenurc"
-        - "jgmenu/prepend.csv"
-      tags: ['jgmenu']
-
-    - name: Install search script
-      copy:
-        src: usr/local/bin/search.sh
-        dest: /usr/local/bin/search.sh
-        directory_mode: no
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0775'
-        backup: no
-      tags: ['search']
-
-    - name: Install picom config
-      copy:
-        src: dots/.config/picom/picom.conf
-        dest: "{{ user.home }}/.config/picom/picom.conf"
-        directory_mode: no
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-      tags: ['picom']
-
-    - name: Install redshift config
-      copy:
-        src: dots/.config/redshift/redshift.conf
-        dest: "{{ user.home }}/.config/redshift/redshift.conf"
-        directory_mode: no
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-      tags: ['redshift']
+    # - name: Install picom config
+    #   copy:
+    #     src: dots/.config/picom/picom.conf
+    #     dest: "{{ user.home }}/.config/picom/picom.conf"
+    #     directory_mode: no
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.name }}"
+    #     mode: '0644'
+    #   tags: ['picom']
+    #
+    # - name: Install redshift config
+    #   copy:
+    #     src: dots/.config/redshift/redshift.conf
+    #     dest: "{{ user.home }}/.config/redshift/redshift.conf"
+    #     directory_mode: no
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.name }}"
+    #     mode: '0644'
+    #   tags: ['redshift']
 
   become: True
   become_user: "{{ user.name }}"

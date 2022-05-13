@@ -47,15 +47,6 @@
         - "dual.sh"
         - "single.sh"
 
-    # - name: ensure screenlayout scripts can execute
-    #   shell: |
-    #     chmod +x {{ item }}
-    #   args:
-    #     chdir: "{{ user.home }}/.screenlayout"
-    #   with_items:
-    #     - "dual.sh"
-    #     - "single.sh"
-
   become: True
   become_user: "{{ user.name }}"
   tags: ['dots']
