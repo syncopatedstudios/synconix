@@ -1,0 +1,55 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-05-13T03:25:35-04:00
+
+====== dots ======
+
+{{{code: lang="sh" linenumbers="False"
+dots add .Xdefaults
+dots add .Xresources
+dots add .aliases
+dots add .atom/config.cson
+dots add .atom/keymap.cson
+dots add .atom/packages/ansible-snippets/snippets/
+dots add .atom/packages/vibrant-ink-ruby/
+dots add .atom/snippets.cson
+dots add .atom/styles.less
+dots add .config/Kvantum/
+dots add .config/RaySession/RaySession.conf
+dots add .config/RaySession/client_templates/
+dots add .config/Thunar/
+dots add .config/fmit/
+dots add .config/gtk-2.0/
+dots add .config/gtk-3.0/
+dots add .config/gtk-4.0/
+dots add .config/i3/
+dots add .config/kitty/
+dots add .config/mpv/
+dots add .config/nitrogen/
+dots add .config/nvim/
+dots add .config/picom/
+dots add .config/polybar/
+dots add .config/qt5ct/
+dots add .config/ranger/
+dots add .config/redshift/
+dots add .config/rofi/
+dots add .config/s/
+dots add .config/teiler/
+dots add .config/terminator/
+dots add .config/user-dirs.dirs
+dots add .config/zim/
+dots add .fehbg
+dots add .gitconfig
+dots add .helm-synth/
+dots add .profile
+dots add .screenlayout/
+dots add .sonic-pi/helpers/
+dots add .sonic-pi/snippets/
+dots add .sonic-pi/store/default/*.spi
+dots add .xprofile
+dots add .zlogin
+dots add .zsh/
+dots add .zshenv
+dots add .zshrc
+
+}}}
