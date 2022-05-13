@@ -48,7 +48,7 @@ alias gs="git status"
 alias gp="git push"
 alias glog="git log --oneline --decorate --graph --all"
 
-alias cat="bat -p"
+alias cat="bat --theme 'Solarized (dark)' -p"
 
 #turn off pcspkr
 alias beepoff="rmmod pcspkr"
@@ -58,8 +58,8 @@ alias dig="dig +nocmd +multiline +noall +answer"
 
 alias cpup="sudo cpupower -c all frequency-set -g performance"
 
-# alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
-# alias dst='dots status'
+alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
+alias ds='dots status'
 
 # open rb file in pry
 alias loadpry='pry -r'

@@ -21,8 +21,6 @@ set $KP_9 81
 set $KP_0 90
 set $KP_Enter 104
 
-set $midi_kill 374
-
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -215,9 +213,9 @@ workspace $ws10 output HDMI2
 ######################################
 #       ---{ scratchpad }---
 ######################################
-for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad, scratchpad show
-for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad, scratchpad show
-for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480, move to scratchpad, scratchpad show
+for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad
+for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad
+for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480
 #for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
 for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
 ######################################
@@ -260,6 +258,7 @@ assign [class="^Timemachine$"] $ws1
 
 assign [title="^EBU R128 Meter$"] $ws2
 assign [title="zita-mu1-0.3.3"] $ws2
+assign [class="^Jnoisemeter$"] $ws2
 assign [class="^meterbridge$"] $ws2
 assign [title="jkmeter"] $ws2
 assign [title="VU\ Meter\ \(Stereo\)"] $ws2
@@ -307,13 +306,13 @@ bindsym Menu $exec $rofi
 bindsym XF86Tools $exec $rofi
 
 bindsym XF86Display $exec $monitor
-bindsym Shift+XF86Launch3 $exec $fmit
-bindsym Shift+XF86Launch4 $exec $timemachine
+bindsym Shift+F8 $exec $fmit
+bindsym Shift+F9 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
 
-bindcode $exec $midi_kill
+bindcode $mod+m $exec $midi_off
 
 bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
