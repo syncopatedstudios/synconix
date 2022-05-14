@@ -56,7 +56,7 @@ alsa_monitor.rules = {
       -- Don't use the hardware mixer for volume control. It
       -- will only use software volume. The mixer is still used
       -- to mute unused paths based on the selected port.
-      --["api.alsa.soft-mixer"] = false,
+      ["api.alsa.soft-mixer"] = true,
 
       -- Ignore decibel settings of the driver. Can be used to
       -- work around buggy drivers that report wrong values.
