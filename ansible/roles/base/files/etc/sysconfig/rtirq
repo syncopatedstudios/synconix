@@ -3,7 +3,7 @@
 RTIRQ_NAME_LIST="rtc snd usb"
 
 # Highest priority.
-RTIRQ_PRIO_HIGH=89
+RTIRQ_PRIO_HIGH=90
 
 # Priority decrease step.
 RTIRQ_PRIO_DECR=1

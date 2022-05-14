@@ -1,7 +1,7 @@
 ---
 
-- include: filesystem.yml
-  tags: ['filesystem']
+# - include: filesystem.yml
+#   tags: ['filesystem']
 
 - name: Add user to audio groups
   user:
@@ -16,7 +16,7 @@
     state: directory
     owner: root
     group: root
-    mode: '0744'
+    mode: '0755'
   check_mode: no
 
 - name: push jack limits file
@@ -53,13 +53,13 @@
 # kernel argument, add it to your grub.cfg by editing /etc/default/grub as root, adding “threadirqs”
 # to the line for GRUB_CMDLINE_LINUX, then generate a new grub.cfg file.
 - name: Copy over rtirq template
-  template:
-    src: etc/sysconfig/rtirq.j2
+  copy:
+    src: etc/sysconfig/rtirq
     dest: "{{ rtirq_dir }}"
+    directory_mode: no
     owner: root
     group: root
     mode: "0644"
-    backup: yes
   register: rtirq_config
   notify:
     - "rtirq service"
@@ -78,7 +78,7 @@
     mode: '0644'
   register: rtkit_conf
   notify:
-    - "rtirq service"
+    - "rtkit service"
 
 - name: Copy rtkit systemd file
   copy:

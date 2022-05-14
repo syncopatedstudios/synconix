@@ -44,17 +44,17 @@
         - "{{ user.home }}/.themes"
         - "{{ user.home }}/.icons"
 
-    - name: remove these files
-      file:
-        path: "{{ user.home }}/{{ item }}"
-        state: absent
-      with_items:
-        - .gtkrc-2.0
-        - .config/gtk-3.0/settings.ini
-        - .config/gtk-3.0/gtk.css
-        - .config/gtk-4.0/settings.ini
-        - .config/qt5ct/qt5ct.conf
-        - .config/Kvantum/kvantum.kvconfig
+    # - name: remove these files
+    #   file:
+    #     path: "{{ user.home }}/{{ item }}"
+    #     state: absent
+    #   with_items:
+    #     - .gtkrc-2.0
+    #     - .config/gtk-3.0/settings.ini
+    #     - .config/gtk-3.0/gtk.css
+    #     - .config/gtk-4.0/settings.ini
+    #     - .config/qt5ct/qt5ct.conf
+    #     - .config/Kvantum/kvantum.kvconfig
 
     - name:  Update gtk2
       blockinfile:

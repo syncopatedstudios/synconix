@@ -24,22 +24,22 @@
     - makesfz
   tags: ['utils']
 
-- name: create fmit config directory
-  file:
-    path: "{{ user.home }}/.config/fmit/fmit.conf.j2"
-    state: directory
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-  tags: ['fmit']
-
-- name: install fmit config
-  template:
-    src: "dots/config/fmit/fmit.conf.j2"
-    dest: "{{ user.home }}/.config/fmit/fmit.conf"
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: '0644'
-  tags: ['fmit']
+# - name: create fmit config directory
+#   file:
+#     path: "{{ user.home }}/.config/fmit/fmit.conf.j2"
+#     state: directory
+#     owner: "{{ user.name }}"
+#     group: "{{ user.name }}"
+#   tags: ['fmit']
+#
+# - name: install fmit config
+#   template:
+#     src: "dots/config/fmit/fmit.conf.j2"
+#     dest: "{{ user.home }}/.config/fmit/fmit.conf"
+#     owner: "{{ user.name }}"
+#     group: "{{ user.name }}"
+#     mode: '0644'
+#   tags: ['fmit']
 
 - name: Sync .desktop files to /usr/local
   synchronize:
@@ -53,5 +53,5 @@
     rsync_opts: "--update"
   tags: ['xdg']
 
-- include: audio/moc.yml
-  tags: ['moc']
+# - include: audio/moc.yml
+#   tags: ['moc']
