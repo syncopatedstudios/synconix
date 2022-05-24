@@ -39,7 +39,7 @@ set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
 set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
 
-set $search "/usr/local/bin/search.sh"
+set $search "$HOME/.local/bin/search.sh"
 
 set $ranger "kitty -e ranger"
 
@@ -62,6 +62,8 @@ set $fmit "$HOME/.local/bin/fmit.sh"
 set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
 
 set $layout_manager "$HOME/.config/i3/scripts/layout_manager.sh"
+
+set $start_jack "$HOME/.config/i3/scripts/start_jack.sh"
 ######################################
 # ---{ autostart }---
 ######################################
@@ -73,6 +75,8 @@ $exec_always nitrogen --restore
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
+$exec $start_jack
+
 include $HOME/.config/i3/autostart/`hostname`.conf
 
 {% if ansible_os_family == 'Redhat' %}
@@ -81,7 +85,9 @@ $exec /usr/libexec/notification-daemon &
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-$exec pactl set-sink-volume @DEFAULT_SINK@ 0
+
+
+# $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 
 ######################################
 # ---{ window settings }---
@@ -235,16 +241,16 @@ assign [class="^Non-Mixer$"] $ws10
 ######################################
 include $HOME/.config/i3/bindings/`hostname`.conf
 
-bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
+# bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
 
 #bindsym XF86AudioNext $exec mocp -f
 #bindsym XF86AudioPrev $exec mocp -r
 #bindsym XF86AudioPlay $exec mocp -G
 
-bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 # start a terminal
 bindsym $mod+Return $exec kitty
@@ -255,9 +261,9 @@ bindsym $mod+d $exec $rofi
 bindsym Menu $exec $rofi
 bindsym XF86Tools $exec $rofi
 
-bindsym XF86Display $exec $monitor
-bindsym Shift+F8 $exec $fmit
-bindsym Shift+F9 $exec $timemachine
+# bindsym XF86Display $exec $monitor
+# bindsym Shift+F8 $exec $fmit
+# bindsym Shift+F9 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser

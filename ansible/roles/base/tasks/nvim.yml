@@ -21,6 +21,13 @@
   changed_when: nvim_install.rc != 0
 
 - block:
+    - name: check if nvim plugged is already installed
+      shell: stat {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
+      register: hazivimplugged
+      changed_when: hazivimplugged.rc != 0
+      check_mode: no
+      ignore_errors: yes
+
     - name: ensure nvim plugged directory exists
       file:
         path: "{{ user.home }}/.local/share/nvim/site/autoload"
@@ -32,6 +39,8 @@
       get_url:
         url: "{{ _nvimplug }}"
         dest: "{{ user.home }}/.local/share/nvim/site/autoload"
+      when: hazivimplugged.rc != 0
+
   become: True
   become_user: "{{ user.name }}"
   when: nvim_install.rc == 0

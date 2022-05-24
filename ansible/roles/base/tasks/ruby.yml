@@ -19,24 +19,15 @@
   become: True
   become_user: "{{ user.name }}"
 
-- set_fact:
-    installed_gems: "{{ gemlist.stdout }}"
-
-- name: determine gems that need to be installed
+- name: Determine gems that need to be installed
   set_fact:
-    _gems: "{{ gems|difference(installed_gems) }}"
+    _gems: "{{ gems|difference(gemlist.stdout) }}"
 
-- name: install ruby gems
+- name: Install ruby gems
   shell: |
     sudo gem install {{ item }}
   with_items:
     - "{{ _gems }}"
   when: _gems | length > 0
-  become: True
-  become_user: "{{ user.name }}"
-
-- name: use shell to do stuff
-  shell: |
-    bundle config set --local system 'true'
   become: True
   become_user: "{{ user.name }}"
