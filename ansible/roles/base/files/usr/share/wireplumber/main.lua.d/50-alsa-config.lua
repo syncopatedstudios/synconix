@@ -91,14 +91,14 @@ alsa_monitor.rules = {
       },
       {
         -- Matches all sinks.
-        { "node.name", "matches", "alsa_output.*" },
+        { "node.name", "matches", "alsa_output.pci-*" },
       },
     },
     apply_properties = {
       --["node.nick"]              = "My Node",
       --["priority.driver"]        = 100,
       --["priority.session"]       = 100,
-      --["node.pause-on-idle"]     = false,
+      ["node.pause-on-idle"]     = false,
       --["resample.quality"]       = 9,
       --["channelmix.normalize"]   = false,
       --["channelmix.mix-lfe"]     = false,

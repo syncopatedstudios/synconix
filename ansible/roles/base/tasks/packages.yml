@@ -18,56 +18,81 @@
   become: True
   become_user: "{{ user.name }}"
 
-- set_fact:
-    installed_packages: "{{ package_list.stdout }}"
+- name: determine kernel packages to install
+  set_fact:
+    _kernel_packages: "{{ base.kernel.mainline|difference(package_list.stdout) }}"
+
+- name: Install mainline kernel packages
+  aur:
+    use: auto
+    name: "{{ _kernel_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when:
+    - _kernel_packages|length > 0
+    - use_kernel == 'mainline'
 
 - name: Set base packages to installl
   set_fact:
-    _packages: "{{ (base.system + docker)|difference(installed_packages) }}"
-
-- debug:
-    msg: "{{ _packages }}"
+    _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
 
 - name: Install base packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  when: _packages|length > 0
+  aur:
+    use: auto
+    name: "{{ _base_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when: _base_packages|length > 0
+
+- name: Remove pipewire packages
+  shell: |
+    yay -Rdd --noconfirm {{ item }}
+  with_items:
+    - pipewire
+    - pipewire-alsa
+    - pipewire-jack
+    - pipewire-pulse
+    - gst-plugin-pipewire
+    - wireplumber
+  become: True
+  become_user: "{{ user.name }}"
+  when: install_pipewire == 'False'
+  ignore_errors: True
 
 - name: Set audio packages to install
   set_fact:
-    _packages: "{{ (audio.utils + audio.plugins + audio.applications)|difference(installed_packages) }}"
+    _audio_packages: "{{ (audio.jack + audio.pulseaudio + audio.utils + audio.plugins + audio.applications)|difference(package_list.stdout) }}"
 
 - name: Install audio packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  when: _packages|length > 0
+  aur:
+    use: auto
+    name: "{{ _audio_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when: _audio_packages|length > 0
+  register: package_result
 
 - block:
-    - name: set ui packages to install
+    - name: Set ui packages to install
       set_fact:
-        _packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(installed_packages) }}"
+        _ui_packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(package_list.stdout) }}"
 
-    - name: Install ui packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      when: _packages|length > 0
-
-    - name: set desktop packages to install
+    - name: Set desktop packages to install
       set_fact:
-        _packages: "{{ desktop|difference(installed_packages) }}"
+        _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
 
-    - name: Install deskop packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      when: _packages|length > 0
+    - name: Install ui and desktop packages
+      aur:
+        use: auto
+        name: "{{ (_ui_packages + _desktop_packages) }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: (_ui_packages|length > 0 or _desktop_packages|length > 0)
+      register: package_result
 
   when: graphical_target|bool
   tags: ['packages', 'desktop']
