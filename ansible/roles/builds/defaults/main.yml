@@ -93,8 +93,8 @@ raysession:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper657_linux_x86_64.tar.xz
-  version: v6.57
+  file: reaper658_linux_x86_64.tar.xz
+  version: v6.58
 
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
