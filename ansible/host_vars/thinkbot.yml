@@ -1,5 +1,5 @@
 ---
-use_kernel: stock
+use_kernel: mainline
 
 graphical_target: True
 autologin: True
@@ -13,9 +13,9 @@ systemd_networkd_network:
   wlan0:
     - Match:
       - Name: "wlan0"
-      - MACAddress: "c0:25:e9:74:cd:96"
+      - MACAddress: "7c:76:35:0f:03:1b"
     - Link:
-      - MACAddress: "58:8A:5A:38:FB:22"
+      - MACAddress: "00:e0:4d:78:b7:7c"
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"

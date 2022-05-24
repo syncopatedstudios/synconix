@@ -3,6 +3,10 @@
 
 base:
   kernel:
+    mainline:
+      - linux
+      - linux-headers
+      - dkms
     lts:
       - linux-lts
       - linux-lts-headers
@@ -30,13 +34,16 @@ base:
     - abduco
     - aria2
     - atool
+    - autoconf
     - autofs
+    - automake
     - barrier
-    - base-devel
     - bash-language-server
     - bat
     - bibtool
     - bind
+    - binutils
+    - bison
     - boost
     - brightnessctl
     - btrfsmaintenance
@@ -45,13 +52,20 @@ base:
     - dmidecode
     - exa
     - faad2
+    - fakeroot
     - fasd
     - fd
+    - file
+    - findutils
     - firewalld
+    - flex
     - fwupd
     - fzf
+    - gawk
+    - gcc
     - gcc-libs
     - gendesk
+    - gettext
     - git
     - git-filter-repo
     - git-lfs
@@ -60,6 +74,9 @@ base:
     - glibc
     - glow
     - graphicsmagick
+    - grep
+    - groff
+    - gzip
     - help2man
     - htop
     - hunspell
@@ -77,6 +94,7 @@ base:
     - libmad
     - libopusenc
     - libsamplerate
+    - libtool
     - libvdpau-va-gl
     - libxcrypt-compat
     - libxml2
@@ -85,6 +103,8 @@ base:
     - lsyncd
     - lua
     - lzip
+    - m4
+    - make
     - man-db
     - man-pages
     - mdadm
@@ -92,8 +112,8 @@ base:
     - mlocate
     - most
     - mp3val
-    - ncurses
     - ncdu
+    - ncurses
     - neofetch
     - neovim
     - neovim-symlinks
@@ -103,8 +123,11 @@ base:
     - numlockx
     - openssl
     - opusfile
+    - pacman
     - pandoc
+    - patch
     - pcsclite
+    - pkgconf
     - poppler
     - python-pip
     - python-pymupdf
@@ -117,6 +140,7 @@ base:
     - rtkit
     - ruby-bundler
     - rubygems
+    - sed
     - smartmontools
     - sndio
     - sox
@@ -126,6 +150,7 @@ base:
     - taglib
     - terminator
     - tesseract
+    - texinfo
     - tuna
     - tuned
     - udisks2
@@ -133,11 +158,10 @@ base:
     - w3m
     - waf
     - wavpack
+    - which
     - wol
     - xarchiver
     - xdg-user-dirs
-    - xf86-input-wacom
-    - xf86-video-intel
     - xterm
     - xz
     - zlib
@@ -152,22 +176,47 @@ ui:
     - xdot
     - xdotool
     - xf86-input-libinput
-    - xf86-video-amdgpu
-    - xf86-video-ati
+    - xf86-input-wacom
     - xf86-video-intel
-    - xf86-video-nouveau
+    - xorg-bdftopcf
     - xorg-fonts-misc
+    - xorg-iceauth
     - xorg-mkfontscale
-    - xorg-apps
     - xorg-server
+    - xorg-sessreg
+    - xorg-setxkbmap
+    - xorg-smproxy
+    - xorg-x11perf
+    - xorg-xauth
+    - xorg-xbacklight
+    - xorg-xcmsdb
+    - xorg-xcursorgen
+    - xorg-xdpyinfo
+    - xorg-xdriinfo
     - xorg-xev
+    - xorg-xgamma
+    - xorg-xhost
     - xorg-xinit
     - xorg-xinput
+    - xorg-xkbcomp
+    - xorg-xkbevd
+    - xorg-xkbutils
+    - xorg-xkill
+    - xorg-xlsatoms
+    - xorg-xlsclients
     - xorg-xlsfonts
     - xorg-xmodmap
+    - xorg-xpr
+    - xorg-xprop
     - xorg-xrandr
     - xorg-xrdb
-    - xterm
+    - xorg-xrefresh
+    - xorg-xset
+    - xorg-xsetroot
+    - xorg-xvinfo
+    - xorg-xwd
+    - xorg-xwininfo
+    - xorg-xwud
   i3:
     - arandr
     - gtk-engine-murrine
@@ -235,6 +284,13 @@ audio:
     - pipewire-v4l2
     - pipewire-zeroconf
     - wireplumber
+  jack:
+    - jack2-dbus
+    - pulseaudio-jack
+  pulseaudio:
+    - pulseaudio-alsa
+    - pulseaudio-bluetooth
+    - pavucontrol
   utils:
     - a2jmidid
     - alsa-lib
@@ -253,6 +309,7 @@ audio:
     - jack-keyboard
     - jack-rack
     - jack_capture
+    - jack_snapshot
     - jack_utils
     - jconvolver
     - stunnel
@@ -274,6 +331,7 @@ audio:
     - cmt
     - distrho-ports
     - dragonfly-reverb
+    - iempluginsuite
     - intersect.lv2-git
     - ir.lv2
     - ladspa
@@ -286,6 +344,7 @@ audio:
     - x42-plugins
   applications:
     - ams
+    - audacity
     - carla
     - fmit
     - guitarix
@@ -295,6 +354,7 @@ audio:
     - japa
     - jkmeter
     - mixxx
+    - meterbridge
     - non-sequencer
     - ocenaudio-bin
     - qmidiarp
