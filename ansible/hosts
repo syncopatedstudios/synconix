@@ -1,13 +1,15 @@
+127.0.0.1 ansible_connection=local
+
 [storage]
 bender
 
 [desktop]
 crambot
 calculon
+thinkbot ansible_connection=local
 
 [mobile]
 lapbot
-thinkbot ansible_connection=local
 
 [daw:children]
 desktop

@@ -3,7 +3,7 @@
 - name: check if deadbeef is already installed
   shell: command -v deadbeef
   register: if_deadbeef_installed
-  changed_when: if_deadbeef_installed != 0
+  changed_when: if_deadbeef_installed.rc != 0
   check_mode: no
   ignore_errors: yes
 

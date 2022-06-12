@@ -44,4 +44,4 @@
       become: True
       become_user: "{{ user.name }}"
 
-  when: if_jalv_installed
+  when: if_jalv_installed.changed
