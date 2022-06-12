@@ -1,8 +1,9 @@
 ---
 
 - name: check if reaper is already installed
-  stat: path="/usr/local/bin/reaper"
-  register: hazireaper
+  shell: command -v reaper
+  register: if_reaper_installed
+  changed_when: if_reaper_installed.rc != 0
   tags: ['reaper']
 
 - name: check reaper version
@@ -10,18 +11,10 @@
     cat whatsnew.txt | grep {{ reaper.version }}
   args:
     chdir: /opt/REAPER
-  when: hazireaper.stat.exists
-  register: installed_version
+  when: if_reaper_installed
+  register: if_installed_version
+  changed_when: if_installed_version.rc != 0
   ignore_errors: true
-
-- name: ensure desktop-directories directory exists
-  file:
-    path: "/usr/share/desktop-directories"
-    state: directory
-    owner: root
-    group: root
-    mode: '0775'
-  tags: ['reaper']
 
 - block:
     - name: fetch reaper
@@ -35,7 +28,6 @@
         bash -x ./uninstall-reaper.sh --quiet --uninstall
       args:
         chdir: /opt/REAPER
-      when: hazireaper.stat.exists
 
     - name: extract reaper
       shell: |
@@ -49,4 +41,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: (not hazireaper.stat.exists or installed_version.rc != 0)
+  when: (if_reaper_installed.changed or if_installed_version.changed)

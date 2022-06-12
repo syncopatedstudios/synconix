@@ -65,7 +65,5 @@ gems:
   - sys-proctable
   - tty-command
 python:
-  - matplotlib
-  - numpy
-  - sounddevice
-  - scipy
+  - i3ipc
+  - pillow-simd

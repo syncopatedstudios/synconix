@@ -29,44 +29,47 @@
     env_vars:
       ZSH: "{{ user.zsh }}"
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
-  vars_files:
-    - "vars/common.yml"
-    - "{{ ansible_os_family }}.yml"
 
   # pre_tasks:
+  #   - name: gather facts
+  #     setup:
+  #       gather_subset:
+  #         - os_family
+  #         - pkg_mgr
+  #
   #   - name: print hostname
   #     debug: msg="inventory_hostname={{inventory_hostname}}"
   #     tags: ['inventory']
   #
   #   - name: print package_manager
-  #     debug: msg="{{ansible_pkg_mgr}}"
-  #     tags: ['inventory']
+  #     debug: msg="{{ansible_facts}}"
+  #     tags: ['facts']
   #
   #   - name: print os_family
   #     debug: msg="{{ansible_os_family}}"
   #     tags: ['inventory']
 
-  tasks:
-    - name: Check whether this is an initial install or not.
-      stat:
-        path: "{{ user.home }}/.installed"
-      register: check_installed
-
-    - name: touch .installed in user home directory
-      file:
-        path: "{{ user.home }}/.installed"
-        state: touch
-      register: installed
-      when: not check_installed.stat.exists
-      become: True
-      become_user: "{{ user.name }}"
-
-    - name: Reboot on initial setup
-      shell: |
-        wall "rebooting in 1 minute"
-        shutdown -r +1
-      when: not check_installed.stat.exists
-      ignore_errors: True
+  # tasks:
+  #   - name: Check whether this is an initial install or not.
+  #     stat:
+  #       path: "{{ user.home }}/.installed"
+  #     register: check_installed
+  #
+  #   - name: touch .installed in user home directory
+  #     file:
+  #       path: "{{ user.home }}/.installed"
+  #       state: touch
+  #     register: installed
+  #     when: not check_installed.stat.exists
+  #     become: True
+  #     become_user: "{{ user.name }}"
+  #
+  #   - name: Reboot on initial setup
+  #     shell: |
+  #       wall "rebooting in 1 minute"
+  #       shutdown -r +1
+  #     when: not check_installed.stat.exists
+  #     ignore_errors: True
 
   roles:
      - { role: distro, tags: ['distro'] }

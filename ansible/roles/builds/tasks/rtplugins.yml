@@ -2,20 +2,22 @@
 
 - name: Check if rtplugins is already installed
   stat: path="/usr/lib/ladspa/RTallpass1.so"
-  register: hazirtplugins
+  register: if_rtplugins_installed
+  changed_when: if_rtplugins_installed.rc != 0
 
 - block:
     - name: set rtplugin dependencies to install
       set_fact:
-        _packages: "{{ builds.rtplugins }}"
-      tags: ['packages']
+        _rtplugin_dependencies: "{{ builds.rtplugins|difference(package_list.stdout) }}"
 
     - name: Install rtplugin dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _rtplugin_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _rtplugin_dependencies|length > 0
 
     - block:
         - name: Fetch rtplugins
@@ -41,4 +43,4 @@
       become: True
       become_user: "{{ user.name }}"
 
-  when: not hazirtplugins.stat.exists
+  when: if_rtplugins_installed.changed

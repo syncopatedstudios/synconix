@@ -1,8 +1,11 @@
 ---
 
 - name: check if tony is already installed
-  stat: path="/usr/local/bin/tony"
-  register: hazitony
+  shell: command -v tony
+  register: if_tony_installed
+  changed_when: if_tony_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - block:
@@ -30,4 +33,4 @@
         mode: '644'
       notify: "update desktop database"
 
-  when: not hazitony.stat.exists
+  when: if_tony_installed.changed

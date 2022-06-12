@@ -1,69 +1,67 @@
 ---
 
 - name: check if deadbeef is already installed
-  stat: path="/usr/local/bin/deadbeef"
-  register: hazideadbeef
-  tags: ['deadbeef']
-
+  shell: command -v deadbeef
+  register: if_deadbeef_installed
+  changed_when: if_deadbeef_installed != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
-    - name: set Deadbeef dependencies to install
+    - name: set deadbeef dependencies to install
       set_fact:
-        _packages: "{{ builds.deadbeef }}"
-      tags: ['packages']
+        _deadbeef_dependencies: "{{ builds.deadbeef|difference(package_list.stdout) }}"
 
-    - name: Install Deadbeef dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-
-    - block:
-      - name: Create deadbeef plugin dir
-        command: mkdir -pv "{{ user.home }}/.local/lib/deadbeef/"
-
-      - name: Clone deadbeef
-        git:
-          repo: "{{ deadbeef.git }}"
-          dest: "{{ local_src }}/deadbeef"
-          accept_hostkey: yes
-          update: no
-          force: no
-
-      - name: Run autogen
-        command: bash -lc "./autogen.sh"
-        args:
-          chdir: "{{ local_src }}/deadbeef"
-
-      - name: Run configure
-        command: bash -lc "CC=clang CXX=clang++ ./configure --with-gnu-ld --disable-lfm --disable-notify --disable-cdda --disable-cdda-paranoia --disable-ffap --disable-sid --disable-coreaudio"
-        args:
-          chdir: "{{ local_src }}/deadbeef"
-        register: deadbeef_configure
-        failed_when: deadbeef_configure.failed
-
-      - name: Make and install
-        command: bash -lc "make && sudo make install"
-        args:
-          chdir: "{{ local_src }}/deadbeef"
-        register: deadbeef_build
-        failed_when: deadbeef_build.failed
-
-      - name: Clean up build directory
-        command: bash -lc "make distclean"
-        args:
-          chdir: "{{ local_src }}/deadbeef"
-
+    - name: Install deadbeef dependencies
+      aur:
+        use: auto
+        name: "{{ _deadbeef_dependencies }}"
+        state: present
       become: True
       become_user: "{{ user.name }}"
+      when: _deadbeef_dependencies|length > 0
 
-  when:
-    - "ansible_distribution_version != '32'"
-    - "not hazideadbeef.stat.exists"
+    - name: Create deadbeef plugin dir
+      command: mkdir -pv "{{ user.home }}/.local/lib/deadbeef/"
+
+    - name: Clone deadbeef
+      git:
+        repo: "{{ deadbeef.git }}"
+        dest: "{{ local_src }}/deadbeef"
+        accept_hostkey: yes
+        update: no
+        force: no
+
+    - name: Run autogen
+      command: bash -lc "./autogen.sh"
+      args:
+        chdir: "{{ local_src }}/deadbeef"
+
+    - name: Run configure
+      command: bash -lc "CC=clang CXX=clang++ ./configure --with-gnu-ld --disable-lfm --disable-notify --disable-cdda --disable-cdda-paranoia --disable-ffap --disable-sid --disable-coreaudio"
+      args:
+        chdir: "{{ local_src }}/deadbeef"
+      register: deadbeef_configure
+      failed_when: deadbeef_configure.failed
+
+    - name: Make and install
+      command: bash -lc "make && sudo make install"
+      args:
+        chdir: "{{ local_src }}/deadbeef"
+      register: deadbeef_build
+      failed_when: deadbeef_build.failed
+
+    - name: Clean up build directory
+      command: bash -lc "make distclean"
+      args:
+        chdir: "{{ local_src }}/deadbeef"
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: if_deadbeef_installed.changed
 
 - name: Install deadbeef plugins
-  synchronize:
+  ansible.posix.synchronize:
     src: usr/local/lib/deadbeef/
     dest: "{{ user.home }}/.local/lib/deadbeef/"
     recursive: yes

@@ -1,42 +1,48 @@
 ---
 
 - name: check if njconnect is already installed
-  stat: path="/usr/bin/njconnect"
-  register: hazinjconnect
+  shell: command -v njconnect
+  register: if_njconnect_installed
+  changed_when: if_njconnect_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set njconnect dependencies to install
       set_fact:
-        _packages: "{{ builds.njconnect }}"
-      tags: ['packages']
+        _njconnect_dependencies: "{{ builds.njconnect|difference(package_list.stdout) }}"
 
     - name: Install njconnect dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _njconnect_dependencies }}"
+        state: present
+      when: _njconnect_dependencies|length > 0
 
-    - block:
-      - name: clone njconnect
-        git:
-          repo: "{{ njconnect['git'] }}"
-          dest: "{{ local_src }}/njconnect"
-          accept_hostkey: yes
-          update: no
-          force: no
+    - name: clone njconnect
+      git:
+        repo: "{{ njconnect['git'] }}"
+        dest: "{{ local_src }}/njconnect"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-      - name: make and install njconnect
-        shell: |
-          make
-          sleep 0.5
-          sudo make install
-        args:
-          chdir: "{{ local_src }}/njconnect"
-        register: njconnect_build
-        failed_when: njconnect_build.failed
+    - name: make and install njconnect
+      shell: |
+        make && sudo make install
+      args:
+        chdir: "{{ local_src }}/njconnect"
+      register: njconnect_build
+      failed_when: njconnect_build.failed
 
-      become: True
-      become_user: "{{ user.name }}"
+    - name: archive build dir
+      shell: |
+        tar -czvf njconnect.tar.gz njconnect/ && \
+        rm -rf njconnect/
+      args:
+        chdir: /usr/local/src
+      when: njconnect_build|succeeded
 
-  when: not hazinjconnect.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  when: if_njconnect_installed.changed

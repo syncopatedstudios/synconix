@@ -22,7 +22,8 @@
 
 - block:
     - name: check if nvim plugged is already installed
-      shell: stat {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
+      shell: |
+        stat {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
       register: hazivimplugged
       changed_when: hazivimplugged.rc != 0
       check_mode: no

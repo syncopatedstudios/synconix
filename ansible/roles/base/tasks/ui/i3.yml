@@ -1,17 +1,10 @@
 ---
 
-- name: Install i3ipc for Python 3
-  pip:
-    name: i3ipc
-    executable: pip3
-  with_items:
-    - i3ipc
-    - pillow-simd
-
-- name: check if swallow is already installed
-  stat: path="/usr/local/bin/swallow"
-  register: haziswallow
-  tags: ['i3-config']
+# 
+# - name: check if swallow is already installed
+#   stat: path="/usr/local/bin/swallow"
+#   register: haziswallow
+#   tags: ['i3-config']
 
 - name: install swallow
   copy:
@@ -21,7 +14,7 @@
     group: "{{ user.name }}"
     mode: '0755'
     backup: no
-  when: not haziswallow.stat.exists
+  # when: not haziswallow.stat.exists
   tags: ['i3-config']
 
 - name: Set i3help release url

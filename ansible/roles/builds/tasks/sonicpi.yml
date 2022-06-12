@@ -1,81 +1,79 @@
 ---
 
-- name: check if sonicpi is already installed
-  stat: path="/opt/sonic-pi/app/build/gui/qt/sonic-pi"
-  register: hazisonicpi
-  tags: ['sonicpi']
+- name: check if sonic-pi is already installed
+  shell: command -v sonic-pi
+  register: if_sonicpi_installed
+  changed_when: if_sonicpi_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set sonic-pi dependencies to install
       set_fact:
-        _packages: "{{ builds.sonicpi }}"
-      tags: ['packages']
+        _sonicpi_dependencies: "{{ builds.sonicpi|difference(package_list.stdout) }}"
 
-    - name: Install sonic-pi dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+    - name: Install sonic pi dependencies
+      aur:
+        use: auto
+        name: "{{ _sonicpi_dependencies }}"
+        state: present
+      when: _sonicpi_dependencies|length > 0
 
-    - block:
-      - name: clone sonicpi
-        git:
-          repo: "{{ sonicpi['git'] }}"
-          dest: "{{ sonicpi['path'] }}"
-          accept_hostkey: yes
-          update: no
-          force: no
+    - name: clone sonicpi
+      git:
+        repo: "{{ sonicpi['git'] }}"
+        dest: "{{ sonicpi['path'] }}"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-      - name: checkout releasev3.3 branch
-        shell: "git checkout {{ sonicpi['branch'] }}"
-        args:
-          chdir: "{{ sonicpi['path'] }}"
+    - name: checkout releasev3.3 branch
+      shell: "git checkout {{ sonicpi['branch'] }}"
+      args:
+        chdir: "{{ sonicpi['path'] }}"
 
-      - name: checkout releasev3.3 branch for fedora
-        shell: "git checkout v3.3-release_fedora"
-        args:
-          chdir: "{{ sonicpi['path'] }}"
-        when: "ansible_facts['os_family'] == 'RedHat'"
+    - name: checkout releasev3.3 branch for fedora
+      shell: "git checkout v3.3-release_fedora"
+      args:
+        chdir: "{{ sonicpi['path'] }}"
+      when: "ansible_facts['os_family'] == 'RedHat'"
 
-      - name: run pre-build
-        shell: |
-          echo -e "\n change into the app directory"
-          cd app/
+    - name: run pre-build
+      shell: |
+        echo -e "\n change into the app directory"
+        cd app/
 
-          echo -e "\n running linux-prebuild"
+        echo -e "\n running linux-prebuild"
 
-          if {{ sonicpi['prebuild'] }} ; then
-            echo -e "\n prebuild success! now running linux-config"
-            {{ sonicpi['compile'] }}
-          else
-            echo -e "\n build failed"
-          fi
-        args:
-          chdir: "{{ sonicpi['path'] }}"
-        register: sonicpi_prebuild
-        failed_when: sonicpi_prebuild.failed
+        if {{ sonicpi['prebuild'] }} ; then
+          echo -e "\n prebuild success! now running linux-config"
+          {{ sonicpi['compile'] }}
+        else
+          echo -e "\n build failed"
+        fi
+      args:
+        chdir: "{{ sonicpi['path'] }}"
+      register: sonicpi_prebuild
+      failed_when: sonicpi_prebuild.failed
 
-      - name: build sonicpi
-        shell: |
-          echo -e "\n change into the build directory"
+    - name: build sonicpi
+      shell: |
+        echo -e "\n change into the build directory"
 
-          cd app/build/
+        cd app/build/
 
-          make
-        args:
-          chdir: "{{ sonicpi['path'] }}"
-        register: sonicpi_build
-        failed_when: sonicpi_build.failed
+        make
+      args:
+        chdir: "{{ sonicpi['path'] }}"
+      register: sonicpi_build
+      failed_when: sonicpi_build.failed
 
+    # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
+    # - debug: msg="{{ sonicpi_build.stdout_lines }}"
 
-      # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
-      # - debug: msg="{{ sonicpi_build.stdout_lines }}"
-
-      become: True
-      become_user: "{{ user.name }}"
-
-  when: not hazisonicpi.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  when: if_sonicpi_installed.changed
 
 - name: Ensure sonic-pi config directory exists
   file:

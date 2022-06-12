@@ -1,9 +1,11 @@
 ---
 
-- name: check if sonicpitool is already installed
-  stat: path="/usr/local/bin/sonic-pi-tool"
-  register: hazisonicpitool
-  tags: ['sonicpitool']
+- name: check if sonic-pi-tool is already installed
+  shell: command -v sonic-pi-tool
+  register: if_sonicpitool_installed
+  changed_when: if_sonicpitool_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: Install sonicpi-tools dependencies
@@ -25,4 +27,4 @@
         chdir: "{{ local_src }}"
   become: True
   become_user: "{{ user.name }}"
-  when: not hazisonicpitool.stat.exists
+  when: if_sonicpitool_installed.changed

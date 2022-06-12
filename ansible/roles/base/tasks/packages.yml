@@ -1,5 +1,8 @@
 ---
 
+- name: Include common package variables.
+  include_vars: "common.yml"
+
 - name: remove some packages
   shell: |
     yay -Rdd --noconfirm {{ item }}
@@ -17,6 +20,11 @@
   ignore_errors: yes
   become: True
   become_user: "{{ user.name }}"
+
+- name: Gather list of installed python modules
+  command: pip3 list installed | awk '{print $1}'
+  register: pip_list
+  ignore_errors: yes
 
 - name: determine kernel packages to install
   set_fact:
@@ -45,6 +53,15 @@
   become: True
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
+
+- name: determine python modules to install
+  set_fact:
+    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+
+- name: Install python modules
+  pip:
+    name: "{{ _python_modules }}"
+    executable: pip3
 
 - name: Remove pipewire packages
   shell: |

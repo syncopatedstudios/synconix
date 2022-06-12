@@ -24,20 +24,9 @@
 
 ###################################
 
-- include: sonicannotator.yml
-  tags: ['sonicannotator']
-  when: build_sonicannotator|bool
-
 - include_tasks: audiowaveform.yml
   when: build_audiowaveform|bool
   tags: ['audiowaveform']
-
-#TODO: refactor task
-# - include_tasks: surfraw.yml
-#   tags: ['surfraw']
-
-  ###################################
-
 
 - include: ardour.yml
   tags: ['ardour']
@@ -122,6 +111,10 @@
 - include: seq192.yml
   when: build_seq192|bool
   tags: ['seq192']
+
+- include: sonicannotator.yml
+  tags: ['sonicannotator']
+  when: build_sonicannotator|bool
 
 - include: soniclineup.yml
   when: build_soniclineup|bool

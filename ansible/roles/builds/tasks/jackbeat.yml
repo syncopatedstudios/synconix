@@ -1,21 +1,24 @@
 ---
 
 - name: check if jackbeat is already installed
-  stat: path="/usr/bin/jackbeat"
-  register: hazijackbeat
-  tags: ['jackbeat']
+  shell: command -v jackbeat
+  register: if_jackbeat_installed
+  changed_when: if_jackbeat_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - name: set jackbeat dependencies to install
   set_fact:
-    _packages: "{{ builds.jackbeat }}"
-  tags: ['packages']
+    _jackbeat_dependencies: "{{ builds.jackbeat|difference(package_list.stdout) }}"
 
 - name: Install jackbeat dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
+  aur:
+    use: auto
+    name: "{{ _jackbeat_dependencies }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when: _jackbeat_dependencies|length > 0
 
 - block:
     - name: clone jackbeat
@@ -42,4 +45,4 @@
       register: jackbeat_build
       failed_when: jackbeat_build.failed
 
-  when: not hazijackbeat.stat.exists
+  when: if_jackbeat_installed.changed

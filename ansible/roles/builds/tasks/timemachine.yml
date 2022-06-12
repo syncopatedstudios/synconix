@@ -1,7 +1,9 @@
 - name: check if timemachine is already installed
-  stat: path="/usr/local/bin/timemachine"
-  register: hazitimemachine
-  tags: ['timemachine']
+  shell: command -v timemachine
+  register: if_timemachine_installed
+  changed_when: if_timemachine_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
   - name: clone timemachine
@@ -14,14 +16,22 @@
 
   - name: build timemachine
     shell: |
-      ./autogen.sh
-      make
+      ./autogen.sh && \
+      make && \
       sudo make install
     args:
       chdir: "{{ local_src }}/timemachine"
     register: timemachine_build
     failed_when: timemachine_build.failed
 
+  - name: archive build dir
+    shell: |
+      tar -czvf timemachine.tar.gz timemachine/ && \
+      rm -rf timemachine/
+    args:
+      chdir: /usr/local/src
+    when: timemachine_build|succeeded
+
   become: True
   become_user: "{{ user.name }}"
-  when: not hazitimemachine.stat.exists
+  when: if_timemachine_installed.changed

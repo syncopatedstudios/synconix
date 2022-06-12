@@ -2,30 +2,26 @@
 #https://linuxsampler-devel.narkive.com/g4cCNyDP/libgig-compiler-error-on-ubuntustudio-16-04
 
 - name: check if linuxsampler is already installed
-  stat: path="/usr/local/bin/linuxsampler"
-  register: hazilinuxsampler
+  shell: command -v linuxsampler
+  register: if_linuxsampler_installed
+  changed_when: if_linuxsampler_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-
-    - name: Include OS-specific variables.
-      include_vars: "{{ ansible_os_family }}.yml"
-
     - name: set linuxsampler dependencies to install
       set_fact:
-        _packages: "{{ builds.linuxsampler }}"
+        _linuxsampler_dependencies: "{{ builds.linuxsampler|difference(package_list.stdout) }}"
       tags: ['packages']
 
     - name: Install linuxsampler dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _linuxsampler_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _linuxsampler_dependencies|length > 0
 
     - name: copy ld config file
       copy:
@@ -116,7 +112,7 @@
 
   become: true
   become_user: "{{ user.name }}"
-  when: not hazilinuxsampler.stat.exists
+  when: if_linuxsampler_installed.changed
 
 
 - block:
