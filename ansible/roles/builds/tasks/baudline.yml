@@ -1,9 +1,11 @@
 ---
 
 - name: check if baudline is already installed
-  stat: path="/usr/local/bin/baudline_jack"
-  register: hazibaudline
-  tags: ['baudline']
+  shell: command -v baudline_jack
+  register: if_baudline_installed
+  changed_when: if_baudline_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: fetch baudline
@@ -38,4 +40,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: not hazibaudline.stat.exists
+  when: if_baudline_installed.changed

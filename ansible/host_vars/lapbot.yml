@@ -10,20 +10,20 @@ use_networkmanager: True
 
 wireless: True
 
-# systemd_networkd_network:
-#   wlan1:
-#     - Match:
-#       - Name: "wlan1"
-#       - MACAddress: "c0:25:e9:74:cd:96"
-#     - Link:
-#       - MACAddress: "58:8A:5A:38:FB:22"
-#     - Network:
-#       - DHCP: "no"
-#       - IPv6AcceptRouterAdvertisements: "no"
-#       - DNS: "{{dns['nameserver'] }}"
-#       - Domains: "{{ dns['search'] }}"
-#       - Address: "192.168.41.5/24"
-#       - Gateway: "192.168.41.1"
+systemd_networkd_network:
+  wlan1:
+    - Match:
+      - Name: "wlan1"
+      - MACAddress: "c0:25:e9:74:cd:96"
+    - Link:
+      - MACAddress: "58:8A:5A:38:FB:22"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.5/24"
+      - Gateway: "192.168.41.1"
 
 firewalld:
   zone: public
@@ -31,16 +31,8 @@ firewalld:
     - 4464/udp
     - 24800/tcp
 
-autofs_client:
-  host: bender
-  shares:
-    - storage
-    - backup
-
 kvm_host: False
 docker_host: False
-
-sync_host: bender
 
 soundcard:
   alsa_in: alsa_input.pci-0000_00_1f.3.capture.0.0

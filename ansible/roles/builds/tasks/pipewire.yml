@@ -1,21 +1,24 @@
 ---
 
 - name: check if pipewire is already installed
-  stat: path="/usr/bin/pipewire"
-  register: hazipipewire
+  shell: command -v pipewire
+  register: if_pipewire_installed
+  changed_when: if_pipewire_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set pipewire dependencies to install
       set_fact:
-        _packages: "{{ (builds.pipewire + builds.libcamera) }}"
+         _pipewire_dependencies: "{{ (builds.pipewire + builds.libcamera)|difference(package_list.stdout) }}"
       tags: ['packages']
 
     - name: Install pipewire dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _pipewire_dependencies }}"
+        state: present
+      when: _pipewire_dependencies|length > 0
 
     - name: clone libcamera
       git:
@@ -27,13 +30,13 @@
 
     - name: build libcamera
       shell: |
-        meson build -Dprefix=/usr
+        meson build -Dprefix=/usr && \
 
         sudo ninja -C build install
       args:
         chdir: "/usr/local/src/libcamera"
-      register: libcamera_install
-      failed_when: libcamera_install.failed
+      register: libcamera_build
+      failed_when: libcamera_build.failed
 
     - name: clone pipewire
       git:
@@ -45,13 +48,23 @@
 
     - name: build pipewire
       shell: |
-        meson setup builddir
+        meson setup builddir && \
 
-        meson configure builddir -Dprefix=/usr
+        meson configure builddir -Dprefix=/usr && \
 
         ninja -C builddir
       args:
         chdir: "/usr/local/src/pipewire"
+      when: libcamera_build|succeeded
+
+    - name: archive build dir
+      shell: |
+        tar -czvf pipewire.tar.gz pipewire/ && \
+        rm -rf pipewire/
+        tar -czvf libcamera.tar.gz libcamera/
+      args:
+        chdir: /usr/local/src
+      when: libcamera_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"

@@ -1,16 +1,25 @@
-[controller]
+127.0.0.1 ansible_connection=local
+
+[storage]
 bender
 
-[daw]
-crambot ansible_connection=local
+[desktop]
+crambot
 calculon
+thinkbot ansible_connection=local
+
+[mobile]
 lapbot
+
+[daw:children]
+desktop
+mobile
 
 [node]
 soundbot01
 
 [soundbots:children]
-controller
+storage
 daw
 node
 

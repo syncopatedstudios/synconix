@@ -1,47 +1,42 @@
 ---
 
-- name: check if sonicvisualiser is already installed
-  stat: path="/usr/local/bin/sonic-visualiser"
-  register: hazivisualiser
-  tags: ['sonicvisualiser']
-
-- name: set sonic-visualiser dependencies to install
-  set_fact:
-    _packages: "{{ builds.sonicvisualiser }}"
-  tags: ['packages']
-
-- name: Install sonic-visualiser dependencies
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
+- name: check if sonic-visualiser is already installed
+  shell: command -v sonic-visualiser
+  register: if_sonicvisualiser_installed
+  changed_when: if_sonicvisualiser_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
-    - block:
-        - name: clone sonicvisualiser
-          git:
-            repo: "{{ sonicvisualiser['git'] }}"
-            dest: "/usr/local/src/sonicvisualiser"
-            accept_hostkey: yes
-            update: no
-            force: no
+    - name: clone sonicvisualiser
+      git:
+        repo: "{{ sonicvisualiser['git'] }}"
+        dest: "/usr/local/src/sonicvisualiser"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-        - name: build sonicvisualiser
-          shell: |
-            ./repoint install
+    - name: build sonicvisualiser
+      shell: |
+        ./repoint install && \
 
-            meson build
+        meson build && \
 
-            cd build/ && ninja
+        cd build/ && ninja && \
 
-            sudo meson install
-          args:
-            chdir: "/usr/local/src/sonicvisualiser"
-          register: sv_build
-          failed_when: sv_build.failed
+        sudo meson install
+      args:
+        chdir: "/usr/local/src/sonicvisualiser"
+      register: sv_build
+      failed_when: sv_build.failed
 
-      become: True
-      become_user: "{{ user.name }}"
+    - name: archive build dir
+      shell: |
+        tar -czvf sonicvisualiser.tar.gz sonicvisualiser/ && \
+        rm -rf sonicvisualiser/
+      args:
+        chdir: /usr/local/src
 
-  when: not hazivisualiser.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  when: if_sonicvisualiser_installed.changed

@@ -7,9 +7,30 @@ Created Wednesday 27 April 2022
 
 TODO: @i3
 [*] make floating window borders stand out more
+[ ] configure "i3" only keyboard
+[>] bindsym xkill
+[>] unicode fonts and rendering
+[ ] bindsym prompt for name -> chrome|mpv -> jack_capture -> samples/to_process/ | stop
+ 
 
 TODO: @artwork
-[ ] rename stuff to "Synconix"
+[*] rename stuff to "Synconix"
 [ ] logo 
+[ ] icons for workspaces
 
+TODO: @pipewire
+[ ] set chrome to use to compressor-->eq
+	[ ] or set apps in general to not autoconnect
 
+TODO: @ansible
+[*] reorder tasks
+	1. package installs
+[*] add swallow to files
+[ ] setup "dots"
+	[ ] convert ansible templates into lineinfile statements
+
+TODO: @deadsampler
+[ ] add script to tag flac with key
+
+TODO: @software
+[ ] try this: https://github.com/clearly-broken-software/ninjas2

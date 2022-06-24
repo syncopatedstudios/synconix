@@ -1,14 +1,49 @@
 ---
 
 - name: enable and start firewalld
-  service:
+  systemd:
     name: firewalld
     state: started
     enabled: yes
+  check_mode: yes
+  ignore_errors: True
 
 - name: permit traffic for sshd service
   firewalld:
     service: ssh
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- name: permit traffic for ntp service
+  firewalld:
+    service: ntp
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- name: permit traffic for nfs service
+  firewalld:
+    service: nfs
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+
+- name: permit traffic to rpcbind ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+  notify:
+    - "reload firewalld"
+  with_items: ["{{ nfs_ports }}"]
+
+- name: permit traffic for rsyncd service
+  firewalld:
+    service: rsyncd
     permanent: yes
     state: enabled
   notify:
@@ -19,8 +54,10 @@
     port: "{{ item }}"
     permanent: yes
     state: enabled
-    zone: "{{ firewalld['zone']}}"
+    # zone: "{{ firewalld['zone']}}"
   notify:
     - "reload firewalld"
-  with_items: ["{{ firewalld['ports'] }}"]
-  when: firewalld is defined
+  with_items:
+      - 4464/udp
+      - 24800/tcp
+#["{{ firewalld['ports'] }}"]

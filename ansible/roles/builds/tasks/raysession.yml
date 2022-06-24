@@ -1,44 +1,47 @@
 ---
 
 - name: check if raysession is already installed
-  stat: path="/usr/local/bin/raysession"
-  register: haziraysession
-  tags: ['raysession']
+  shell: command -v raysession
+  register: if_raysession_installed
+  changed_when: if_raysession_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set raysession dependencies to install
       set_fact:
-        _packages: "{{ builds.raysession }}"
-      when: builds.raysession is defined
-      tags: ['packages']
+        _raysession_dependencies: "{{ builds.raysession|difference(package_list.stdout) }}"
 
-    - name: Install raysession dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+    - name: Install ray session dependencies
+      aur:
+        use: auto
+        name: "{{ _raysession_dependencies }}"
+        state: present
+      when: _raysession_dependencies|length > 0
 
-    - block:
-      - name: clone raysession
-        git:
-          repo: "{{ raysession['git'] }}"
-          dest: "{{ local_src }}/RaySession"
-          accept_hostkey: yes
-          update: no
-          force: no
+    - name: clone raysession
+      git:
+        repo: "{{ raysession['git'] }}"
+        dest: "{{ local_src }}/RaySession"
+        accept_hostkey: yes
+        update: no
+        force: no
 
-      - name: make and install ray session
-        shell: |
-          make
-          sleep 0.5
-          sudo make install
-        args:
-          chdir: "{{ local_src }}/RaySession"
-        register: raysession_build
-        failed_when: raysession_build.failed
+    - name: make and install ray session
+      shell: |
+        make && sudo make install
+      args:
+        chdir: "{{ local_src }}/RaySession"
+      register: raysession_build
+      failed_when: raysession_build.failed
 
-      become: True
-      become_user: "{{ user.name }}"
+    - name: archive build dir
+      shell: |
+        tar -czvf RaySession.tar.gz RaySession/ && \
+        rm -rf RaySession/
+      args:
+        chdir: /usr/local/src
 
-  when: not haziraysession.stat.exists
+  become: True
+  become_user: "{{ user.name }}"
+  when: if_raysession_installed.changed

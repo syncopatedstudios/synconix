@@ -37,11 +37,9 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
-set $picom_start "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
+set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
 
-# set $googler "guake --show -n '$PWD' -e googler"
-
-set $search "/usr/local/bin/search.sh"
+set $search "$HOME/.local/bin/search.sh"
 
 set $ranger "kitty -e ranger"
 
@@ -49,25 +47,37 @@ set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
 
 set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty --class 'kitty_init' --session $HOME/.config/kitty/start.conf"
 
-#set $scratchpad "kitty --class 'scratchpad' -e nvim $HOME/scratchpad.md"
 set $zim_todo "zim synconix"
 
 set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 2"
 
 set $raysession "raysession; sleep 2"
 
-set $autostart "$HOME/.local/bin/autostart.sh"
+set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 
+set $timemachine "$HOME/.local/bin/timemachine.sh"
+
+set $fmit "$HOME/.local/bin/fmit.sh"
+
+set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
+
+set $layout_manager "$HOME/.config/i3/scripts/layout_manager.sh"
+
+set $start_jack "$HOME/.local/bin/start_jack.sh"
 ######################################
 # ---{ autostart }---
 ######################################
 $exec_always $HOME/.screenlayout/$HOSTNAME.sh
 
-$exec_always $picom_start
+$exec_always $picom
 
 $exec_always nitrogen --restore
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
+
+$exec $start_jack
+
+include $HOME/.config/i3/autostart/`hostname`.conf
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
@@ -75,28 +85,9 @@ $exec /usr/libexec/notification-daemon &
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 {% endif %}
 
-{% if ansible_facts['hostname'] == 'calculon' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name calculon --disable-crypto [crambot]:24800 &"
-{% else %}
-{% endif %}
 
-{% if ansible_facts['hostname'] == 'crambot' %}
-$exec /usr/bin/barriers -f --no-tray --debug INFO --name crambot --disable-crypto --disable-client-cert-checking -c .config/Debauchee/barriers.sgc --address :24800 &
-{% else %}
-{% endif %}
 
-{% if ansible_facts['hostname'] == 'lapbot' %}
-$exec "sleep 0.2; /usr/bin/barrierc -f --no-tray --debug INFO --name lapbot --disable-crypto [crambot]:24800 &"
-{% else %}
-{% endif %}
-
-# $exec $autostart
-$exec pactl set-sink-volume @DEFAULT_SINK@ 0
-$exec $atom
-$exec $kitty_init
-$exec $zim_todo
-$exec $raysession
-$exec pactl set-sink-volume @DEFAULT_SINK@ +50%
+# $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 
 ######################################
 # ---{ window settings }---
@@ -162,52 +153,29 @@ set $color13 #9F511F
 set $color14 #A06A38
 set $color15 #f22a0f
 set $color16 #f22a0f
+set $color17 #ee18d9
+set $color18 #292826
 
 # class                 border  bground text    indicat child_border
-client.focused          $color16 $color8 $color11 $color2 $color0
-client.focused_inactive $color3 $color3 #928374 $color2 $color0
-client.unfocused        $color11 $color3 #928374 $color2 $color0
-client.urgent           $color15 $color7 #282828 $color2
-client.placeholder      $color0 $color0 #FFFFFF $color2 $color0
+client.focused          $color2 $color8 $color11 $color17 $color4
+client.focused_inactive $color3 $color0 $color12 $color2 $color0
+client.unfocused        $color11 $color18 $color11 $color2 $color0
+client.urgent           $color8 $color16 $color0 $color2 $color0
+client.placeholder      $color17 $color17 $color17 $color2 $color0
 
 client.background       $color12
 
 ######################################
 # ---{ workspace assignments }---
 ######################################
-{% if ansible_facts['hostname'] == 'calculon' %}
-workspace $ws1 output HDMI1
-workspace $ws2 output HDMI1
-workspace $ws3 output HDMI1
-workspace $ws4 output HDMI1
-workspace $ws5 output HDMI1
-workspace $ws6 output HDMI2
-workspace $ws7 output HDMI2
-workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
-workspace $ws10 output HDMI2
-{% else %}
-{% endif %}
-{% if ansible_facts['hostname'] == 'crambot' %}
-workspace $ws1 output HDMI1
-workspace $ws2 output HDMI1
-workspace $ws3 output HDMI1
-workspace $ws4 output HDMI1
-workspace $ws5 output HDMI1
-workspace $ws6 output HDMI2
-workspace $ws7 output HDMI2
-workspace $ws8 output HDMI2
-workspace $ws9 output HDMI2
-workspace $ws10 output HDMI2
-{% else %}
-{% endif %}
+include $HOME/.config/i3/workspaces/`hostname`.conf
 
 ######################################
 #       ---{ scratchpad }---
 ######################################
-for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad, scratchpad show
-for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad, scratchpad show
-for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480, move to scratchpad, scratchpad show
+for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad
+for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad
+for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480
 #for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
 for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
 ######################################
@@ -215,8 +183,10 @@ for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad sh
 ######################################
 for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
-for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 6, move position center, focus
+for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 1, move position center, focus
 for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
+for_window [class="^FMIT$"] floating enable, resize set 660 537, move position center, focus
+for_window [class="^Timemachine"] floating enable, move position center, focus
 ######################################
 #       ---{ reaper stuff }---
 ######################################
@@ -238,59 +208,73 @@ for_window [class="(?i)zita-mu1"] floating enable
 for_window [class='^Sonic\sPi$'] floating disable
 for_window [class="^Non-Mixer$"] floating disable
 
-assign [class="^kitty_init$"] 1
-assign [class="^Atom$"] 1
-assign [class='^Sonic\sPi$'] 1
-assign [class="^REAPER$"] 2
-assign [class="^Non-Mixer$"] 2
-assign [title="Mixxx"] 4
-assign [class="^Patchage$"] 5
-assign [class="^RaySession$"] 6
-assign [class="^Qsampler$"] 7
-assign [class="^qmidiarp$"] 7
-assign [title="JS:\ ATK FOA Decode Stereo"] 8
-assign [title="jalv.gtkmm"] 8
-assign [class="^jalv.select$"] 9
-assign [title="^EBU R128 Meter$"] 10
-assign [title="zita-mu1-0.3.3"] 10
-assign [class="^meterbridge$"] 10
-assign [title="jkmeter"] 10
-assign [title="VU\ Meter\ \(Stereo\)"] 10
+assign [class="^kitty_init$"] $ws1
+assign [class="^Atom$"] $ws1
+assign [class='^Sonic\sPi$'] $ws1
+assign [class="^RaySession$"] $ws1
+assign [class="^jalv.select$"] $ws1
+assign [class="^FMIT$"] $ws1
+assign [class="^Timemachine$"] $ws1
+
+assign [title="^EBU R128 Meter$"] $ws2
+assign [title="zita-mu1-0.3.3"] $ws2
+assign [class="^Jnoisemeter$"] $ws2
+assign [class="^meterbridge$"] $ws2
+assign [title="jkmeter"] $ws2
+assign [title="VU\ Meter\ \(Stereo\)"] $ws2
+
+assign [title="jalv.gtkmm"] $ws3
+
+assign [title="Mixxx"] $ws7
+
+assign [class="^Qsampler$"] $ws8
+assign [class="^qmidiarp$"] $ws8
+
+assign [class="^Patchage$"] $ws9
+
+assign [class="^REAPER$"] $ws10
+assign [title="JS:\ ATK FOA Decode Stereo"] $ws10
+assign [class="^Non-Mixer$"] $ws10
 
 ######################################
 # ---{ app bindings }---
 ######################################
-{% if ansible_facts['hostname'] == 'lapbot' %}
-bindsym XF86MonBrightnessDown $exec brightnessctl s 5%-
-bindsym XF86MonBrightnessUp $exec brightnessctl s 5%+
-{% else %}
-{% endif %}
+include $HOME/.config/i3/bindings/`hostname`.conf
 
-bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
+# bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym XF86AudioMute $exec pactl set-sink-mute 0 toggle
 
-bindsym XF86AudioNext $exec mocp -f
-bindsym XF86AudioPrev $exec mocp -r
-bindsym XF86AudioPlay $exec mocp -G
+#bindsym XF86AudioNext $exec mocp -f
+#bindsym XF86AudioPrev $exec mocp -r
+#bindsym XF86AudioPlay $exec mocp -G
 
-bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+# bindsym $mod+KP_Subtract $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+# bindsym $mod+KP_Add $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 
 # start a terminal
 bindsym $mod+Return $exec kitty
 
 # start dmenu (a program launcher)
+bindsym $mod+Shift+d $exec $layout_manager
 bindsym $mod+d $exec $rofi
-bindsym Menu $exec $jgmenu
+bindsym Menu $exec $rofi
+bindsym XF86Tools $exec $rofi
+
+# bindsym XF86Display $exec $monitor
+# bindsym Shift+F8 $exec $fmit
+# bindsym Shift+F9 $exec $timemachine
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
+
+bindcode $mod+m $exec $midi_off
 
 bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
+bindsym XF86Favorites $exec $search
 bindsym XF86Search $exec $search
 bindsym $mod+g $exec $search
 
@@ -306,6 +290,8 @@ bindsym $mod+slash $exec i3help
 bindsym $mod+grave scratchpad show
 
 bindsym Print $exec teiler
+
+bindsym $mod+x $exec xkill
 
 bindcode $alt+Shift+$KP_1 $exec atom
 bindcode $alt+Shift+$KP_9 $exec patchage

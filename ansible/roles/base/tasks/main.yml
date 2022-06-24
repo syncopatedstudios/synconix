@@ -7,26 +7,22 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- include: packages.yml
+  tags: ['packages']
+
 - include: network.yml
   tags: ['network']
 
-- include: kernel.yml
-  when: use_kernel is defined
-  tags: ['kernel']
-
-- name: Set base packages to install
-  set_fact:
-    _packages: "{{ base.system }}"
-  tags: ['packages']
-
-- name: Install base packages
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
+- name: check if firewalld is presnet
+  shell: command -v firewalld
+  register: hazifirewalld
+  changed_when: hazifirewalld.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - include: firewalld.yml
   tags: ['firewall']
+  when: not hazifirewalld.rc != 0
 
 - include: ssh.yml
   tags: ['ssh']
@@ -40,25 +36,24 @@
 - include: zsh.yml
   tags: ['zsh']
 
-- include: dots.yml
-  tags: ['dots']
+# - include: dots.yml
+#   tags: ['dots']
 
-# - include: ruby.yml
-#   tags: ['ruby']
-
-- include: filesystem.yml
-  tags: ['filesystem']
+- include: ruby.yml
+  tags: ['ruby']
 
 - include: tuning.yml
   tags: ['tuning']
+
+- include: grub.yml
+  tags: ['grub']
 
 - include: nfs.yml
   when: nfs_host is defined
   tags: ['nfs']
 
-# - include: autofs.yml
-#   when: autofs_client is defined
-#   tags: ['autofs']
+- include: autofs.yml
+  tags: ['autofs']
 
 - include: rsyncd.yml
   when: rsyncd_host is defined
@@ -81,30 +76,8 @@
 - include: indexer.yml
   tags: ['indexer']
 
-- block:
-    - name: Set desktop packages
-      set_fact:
-        _packages: "{{ workstation }}"
-
-    - name: Install desktop packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-
-    - include: atom.yml
-      tags: ['atom']
-
-    - include: chrome.yml
-      tags: ['chrome']
-
-  when: inventory_hostname in groups['daw']
-  tags: ['packages', 'desktop']
-
 - include: audio.yml
-  when: inventory_hostname in groups['daw']
   tags: ['audio']
 
 - include: ui.yml
-  when: inventory_hostname in groups['daw']
   tags: ['ui']

@@ -36,3 +36,40 @@
         backup: $7
         directory_mode: $8
     """
+  "link":
+    "prefix": "link"
+    "body": """
+    - name: $1
+      file:
+        src: /$2
+        dest: /$3
+        state: link
+    """
+  "sync":
+    "prefix": "sync"
+    "body": """
+    - name: sync folder $1
+      synchronize:
+        src: $2
+        dest: $3
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts:
+          - "--update"
+          - "--omit-dir-times"
+    """
+    "lineinfile":
+      "prefix": "linein"
+      "body": """
+      - name: replace line in file
+        lineinfile:
+          dest: $1
+          regexp: "$2"
+          line: "$3"
+          backrefs: yes
+          backup: yes
+        tags: ['$4']
+    """

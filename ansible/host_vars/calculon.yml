@@ -29,6 +29,8 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - Address: "192.168.40.2/24"
 
+nfs_host: True
+
 firewalld:
   zone: docker
   ports:
@@ -46,25 +48,19 @@ soundcard:
   rate: 48000
   allowed-rates: "32000,44100,48000,96000"
   speaker-layout: "FL,FR"
-
-wallpaper:
-  screen1: "{{ user.home }}/Library/Visuals/backgrounds/001.png"
-  # screen2: "{{ user.home }}/Library/Visuals/backgrounds/002.png"
-
-autofs_client:
-  host: bender
-  shares:
-    - storage
-    - home/backups
+  capture: "alsa_input.pci-0000_00_1b.0.capture.0.0"
 
 kvm_host: False
 docker_host: True
 docker_storage: /var/lib/docker
 
 build_baudline: True
-build_bespoke: True
+build_bespoke: False
 build_jacktrip: True
 build_jalv_select: True
+build_jsampler: True
+build_linuxsampler: True
+build_lsmi: True
 build_non: True
 build_patchage: True
 build_protokol: True

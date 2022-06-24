@@ -1,6 +1,8 @@
 // text editor
 atom-text-editor {
-  background-color: #0D0D0D;
+  background-color: #0a0a0a;
+  // font-family: "mononoki Nerd Font";
+  line-height: 1.5em;
 }
 
 .line-number {
@@ -11,8 +13,8 @@ atom-text-editor {
    background-color: #0D0D0D;
    height: 2.9rem;
    border: 0.25mm solid #e09547;
-   font-family: "Hack Nerd Font";
-   font-size: 14px;
+   font-family: "mononoki Nerd Font";
+   font-size: 15px;
 }
 
 .tab-bar:not([data-reactid]) .tab .title[data-path]::before {
@@ -21,9 +23,9 @@ atom-text-editor {
 }
 
 .tree-view {
- background-color: #0d0b0b;
- font-family: "Hack Nerd Font";
- font-size: 14px;
+ background-color:#0a0a0a;
+ font-family: "mononoki Nerd Font";
+ font-size: 15px;
  font-weight: normal !important;
 }
 
@@ -37,7 +39,7 @@ atom-text-editor {
 .selection {
   background-color: #000000;
   // outline: 1px dashed #f6117f;
-  border: 0.25mm dashed #477be0;
+  border: 0.25mm dashed #e0df47;
 }
 
 .selection .region {
@@ -51,11 +53,11 @@ atom-text-editor {
 }
 
 .syntax--unquoted {
-  color: #5779c9;
+  color: #366ff5;
 }
 
 .syntax--entity.syntax--other.syntax--attribute-name {
-  color: #c4b73e;
+  color: #dac92c;
   font-weight: bold;
 }
 
@@ -96,10 +98,15 @@ atom-text-editor {
 
 // Ruby
 .syntax--ruby {
-  color: #eb5912;
+  color: #e7e4e2;
 
   .syntax--variable {
-    color: #db9a1a;
+    color: #D1E014;
+    // opacity: 0.8;
+  }
+
+  .syntax--variable.syntax--constant {
+    color: #d2965e;
     // opacity: 0.8;
   }
 
@@ -112,38 +119,40 @@ atom-text-editor {
   }
 
   .syntax--variable.syntax--other.syntax--readwrite.syntax--global {
-    color: #ffffff;
+    color: #49E014;
     font-weight: lighter;
   }
 
+  .syntax--constant.syntax--other.syntax--symbol {
+    color: #7bee4c;
+  }
+
+  .syntax--name.syntax--function {
+    // color: #0bb3d7;
+    // color: #6a62c9;
+    color: #e014c0;
+    font-weight: 500;
+  }
+
   .syntax--parameter.syntax--function {
-    color: #5685ec;
+    color: #6a62c9;
     // font-family: Nimbus Mono PS;
     opacity: 0.8;
   }
 
-  .syntax--constant.syntax--other.syntax--symbol {
-    color: #f5c169;
-  }
-
-  .syntax--name.syntax--function {
-    color: #0bb3d7;
-    font-weight: 500;
-  }
-
   .syntax--string {
-    color: #8fb5bd;
+    color: #2ab6d1;
   }
 
   .syntax--name.syntax--class {
-    color: #8d4ccf;
+    color: #a2544d;
 
   }
 
   .syntax--keyword {
-    color: #64db41;
+    color: #DC1840;
       &.syntax--control {
-        color: #10de35;
+        color: #f2562d;
       }
    }
 
@@ -176,8 +185,8 @@ atom-text-editor {
     color: #9518e2;
   }
 }
-syntax--entity syntax--other syntax--attribute-name
-// Yaml
+
+// Ansble-Advanced
 .syntax--ansible-advanced {
   .syntax--name {
     color: #e01653;
@@ -206,4 +215,50 @@ syntax--entity syntax--other syntax--attribute-name
   .syntax--keyword {
     color: #9518e2;
   }
+}
+
+.syntax--python.syntax--jinja {
+    color: #29b992;
+
+    .syntax--other.syntax--jinja {
+      color: #e014c0;
+    }
+}
+
+//text
+.syntax--text {
+   color: #ebb616;
+
+  .syntax--paragraph {
+    color: #eb1696;
+  }
+
+  .syntax--unordered {
+    color: #177e19;
+  }
+
+  .syntax--ordered {
+    color: #3e40f4;
+  }
+
+  .syntax--underline.syntax--link {
+    color: #446b12;
+  }
+
+  .syntax--hyperlink {
+    color: #cdc228;
+  }
+
+  .syntax--heading-1 {
+    color: #b6361f;
+  }
+
+  .syntax--heading-2 {
+    color: #833a95;
+  }
+
+  .syntax--heading-3 {
+    color: #91953a;
+  }
+
 }

@@ -12,32 +12,6 @@
 
 #-------------------------------------#
 
-- block:
-    - name: Set audio packages to install
-      set_fact:
-        _packages: "{{ (audio.utils + audio.plugins) }}"
-
-    - name: Install audio packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-  tags: ['packages']
-
-- block:
-    - name: Set daw packages to install
-      set_fact:
-        _packages: "{{ audio.applications }}"
-
-    - name: Install daw packages
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-
-  when: inventory_hostname in groups['daw']
-  tags: ['packages', 'daw']
-
 - name: makesfz and makeh2drumkit
   copy:
     src: "usr/local/bin/{{ item }}"
@@ -49,6 +23,23 @@
     - makeh2kit
     - makesfz
   tags: ['utils']
+
+# - name: create fmit config directory
+#   file:
+#     path: "{{ user.home }}/.config/fmit/fmit.conf.j2"
+#     state: directory
+#     owner: "{{ user.name }}"
+#     group: "{{ user.name }}"
+#   tags: ['fmit']
+#
+# - name: install fmit config
+#   template:
+#     src: "dots/config/fmit/fmit.conf.j2"
+#     dest: "{{ user.home }}/.config/fmit/fmit.conf"
+#     owner: "{{ user.name }}"
+#     group: "{{ user.name }}"
+#     mode: '0644'
+#   tags: ['fmit']
 
 - name: Sync .desktop files to /usr/local
   synchronize:
@@ -62,5 +53,5 @@
     rsync_opts: "--update"
   tags: ['xdg']
 
-- include: audio/moc.yml
-  tags: ['moc']
+# - include: audio/moc.yml
+#   tags: ['moc']

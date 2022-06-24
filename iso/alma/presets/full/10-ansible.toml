@@ -1,0 +1,39 @@
+script = """
+set -eux
+
+HOSTNAME="archlinux"
+
+export SYNCONIX="/opt/synconix"
+export ANSIBLE_HOME="$SYNCONIX/ansible"
+export ANSIBLE_PLUGINS="$ANSIBLE_HOME/plugins/modules"
+
+sudo chmod 2775 /opt
+sudo chgrp ${ALMA_USER} /opt
+
+mkdir -pv /root/.ansible && touch /root/.ansible/ansible.log
+
+if [ -d $ANSIBLE_HOME ];
+then
+  cd $SYNCONIX && git checkout main && cd $ANSIBLE_HOME
+  git fetch && git pull
+  ansible-playbook -v -K --connection=local -i $HOSTNAME, synconix.yml
+else
+  if [ -d $SYNCONIX ]; then
+    sudo rm -rf $SYNCONIX
+  fi
+  cd /opt && git clone https://github.com/syncopatedstudios/synconix.git synconix
+  cd $SYNCONIX && git checkout development && git-lfs fetch
+  cd $ANSIBLE_HOME
+
+  if [ "$?" -ne 0 ]; then
+    echo "previous thing failed. exiting...:|"
+    exit
+  else
+    ansible-playbook -v --connection=local -i $HOSTNAME, synconix.yml
+    if [ "$?" -ne 0 ]; then
+      echo "something went wrong...chroot install image and check it out"
+    fi
+  fi
+fi
+"""
+environment_variables = ["ALMA_USER"]

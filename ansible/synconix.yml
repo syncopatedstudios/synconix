@@ -1,0 +1,40 @@
+---
+# this for the live ISO
+
+- hosts: localhost
+  gather_facts: yes
+  vars:
+    user:
+      name: soundbot
+      home: /home/soundbot
+      gnupg: /home/soundbot/.gnupg
+      uid: 1000
+      gid: 1000
+      group: soundbot
+      secondary_groups: "input,video,audio"
+      shell: zsh
+      terminal: kitty
+      zsh: /usr/share/oh-my-zsh
+      email: soundbot@synconix.io
+    path:
+      - "{{ user.home }}/.local/bin"
+      - "{{ user.home }}/.cargo/bin"
+      - "{{ user.home }}/.gem/ruby/3.0.0/bin"
+      - "{{ user.home }}/.rvm/rubies/ruby-3.0.0/bin"
+      - "/var/lib/gems/2.7.0/bin"
+      - "/usr/lib/jvm/default/bin"
+      - "/opt/soundbot/bin"
+      - "/opt/sonic-pi/bin"
+    env_vars:
+      ZSH: "{{ user.zsh }}"
+      PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
+      SYNCONIX: "/opt/synconix"
+      ANSIBLE_HOME: "{{ ansible_env.SYNCONIX }}/ansible"
+      ANSIBLE_PLUGINS: "{{ ansible_env.ANSIBLE_HOME }}/plugins/modules"
+  vars_files:
+    - "vars/common.yml"
+    - "{{ ansible_os_family }}.yml"
+  roles:
+     - { role: distro, tags: ['distro'] }
+     - { role: base, tags: ['base'] }
+     - { role: builds, tags: ['builds'] }

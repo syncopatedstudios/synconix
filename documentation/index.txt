@@ -5,18 +5,15 @@ Creation-Date: 2021-11-02T00:22:40-04:00
 ====== Synconix ======
 A Linux Audio Redistribution
 
-Synconix is an linux based distribution designed for ~~crime~~ audio production.
+Synconix is intended as a linux based distribution designed for ~~crime~~ audio production for people who are both musically and systematically enthusiac. It's an excerise in the concept of a ubitiqous set of configuration instructions...this is to help keep track of the numerous "moving parts"....
 
- Nodes (soundbots) are configured from a management console using Ansible.
+Download the Live ISO to see what it's like to use i3 in audio production|creation workflow. This is not an "official" ISO and is meant for testing. Security is not really considered in this design, so be aware of that. Passwords are disabled wherever they can, firewalls, etc and this is not a gpg signed...This is to remove anys parts of the chain that would interfere for processing. Don't use this with any accounts that contain sensitive information. 
 
-Download the Live ISO to get started...
 	[ ] make iso 
-
-The desktop environmnet uses i3 window manager. 
 
 
 [[resources]]
 
 [[software]]
 
-[[../todo.txt|ToDo]]
+[[todo|ToDo]]

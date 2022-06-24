@@ -3,16 +3,71 @@
 - name: reload firewalld
   shell: "firewall-cmd --reload"
 
-- name: restart libvirtd
-  action: service name=libvirtd state=restarted
-
-- name: restart systemd-networkd
-  become: true
-  service:
-    name: systemd-networkd
+- name: lightdm service
+  systemd:
+    name: lightdm
     state: restarted
     enabled: yes
-  when: systemd_networkd_apply_config
+
+- name: rtirq service
+  systemd:
+    name: rtirq
+    state: restarted
+    enabled: yes
+
+- name: rtkit service
+  systemd:
+    name: rtkit-daemon
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: autofs service
+  systemd:
+    name: autofs
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: docker service
+  systemd:
+    name: docker
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: libvirtd service
+  systemd:
+    name: libvirtd
+    enabled: no
+    state: stopped
+
+- name: systemd-timesyncd service
+  systemd:
+    name: systemd-timesyncd
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: xdg-user-dirs-update service
+  systemd:
+    name: xdg-user-dirs-update.service
+    enabled: yes
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ user.uid }}"
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: reload user systemd
+  systemd:
+    daemon_reload: yes
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
 
 - name: update desktop database
   command: bash -lc "update-desktop-database"
@@ -22,9 +77,3 @@
   become: True
   become_user: "{{ user.name }}"
   ignore_errors: True
-
-- name: reload systemd
-  systemd:
-    daemon_reload: yes
-  become: True
-  become_user: "{{ user.name }}"

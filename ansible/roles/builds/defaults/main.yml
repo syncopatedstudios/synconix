@@ -9,7 +9,9 @@ build_ecasound: False
 build_ingen: False
 build_jacktrip: False
 build_jalvselect: False
+build_jsampler: False
 build_linuxsampler: False
+build_lmsi: False
 build_njconnect: False
 build_non: False
 build_obs: False
@@ -81,7 +83,7 @@ pipewire:
 
 protokol:
   url: "https://hexler.net/pub/protokol/"
-  file: "protokol-0.4.2.84-linux-x86_64.zip"
+  file: "protokol-0.4.4.86-linux-x86_64.zip"
 
 qmidinet:
   git: "https://github.com/rncbc/qmidinet.git"
@@ -91,7 +93,8 @@ raysession:
 
 reaper:
   url: "http://reaper.fm/files/6.x/"
-  file: reaper655_linux_x86_64.tar.xz
+  file: reaper657_linux_x86_64.tar.xz
+  version: v6.57
 
 rtplugins:
   url: "https://faculty.tru.ca/rtaylor/rt-plugins/"
@@ -143,7 +146,7 @@ tony:
 
 touchosc:
   url: "https://hexler.net/pub/touchosc/"
-  file: "touchosc-1.0.9.126-linux-x86_64.zip"
+  file: "touchosc-1.1.3.139-linux-x86_64.zip"
 
 vampplugins:
   url: "https://code.soundsoftware.ac.uk/attachments/download/2696/"

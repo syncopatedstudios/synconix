@@ -29,7 +29,6 @@
       "language-gfm"
       "markdown-preview"
     ]
-    packagesWithKeymapsDisabled: []
     projectHome: "/home/b08x/Workspace"
     telemetryConsent: "no"
     themes: [
@@ -38,7 +37,7 @@
     ]
   editor:
     fontFamily: "Hack Nerd Font"
-    fontSize: 16
+    fontSize: 15
     preferredLineLength: 100
     softWrap: true
     softWrapAtPreferredLineLength: true
@@ -53,12 +52,14 @@
     "*.ReaperOSC": "source.shell"
     "*.cfg": "source.shell"
     "*.conf": "source.shell"
-    "*.j2": "source.ansible-advanced"
+    "*.j2": "source.python.jinja"
     "*.n3": "source.ruby"
     "*.rules": "source.shell"
     "*.yml": "source.yaml"
     "*config": "source.shell"
     ".zsh*": "source.shell"
+  "highlight-colors":
+    highlightCssNamedColors: false
   "markdown-toolbar":
     position: "bottom"
     size: "medium"
@@ -70,9 +71,9 @@
     siteImagesDir: "assets/images/"
     siteLocalDir: "/home/b08x/Workspace/syncopated-linux/website"
   "open-terminal-here":
-    command: "guake --show -n $PWD"
+    command: "kitty -d $PWD"
   "ruby-solargraph":
-    commandPath: "$HOME/.rvm/rubies/ruby-3.0.0/bin/solargraph"
+    commandPath: "/usr/bin/solargraph"
   "sb-atom-sonic-pi":
     sendOSCMessagesToGUI: true
   "spell-check":

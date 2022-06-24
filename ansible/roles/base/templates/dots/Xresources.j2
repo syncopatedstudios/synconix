@@ -1,19 +1,18 @@
 Xft.dpi:       96
-Xft.antialias: true
-Xft.hinting:   true
+Xft.antialias: 1
+Xft.hinting:   1
 Xft.rgba:      rgb
-Xft.autohint:  false
 Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
-Xcursor.theme: xcursor-breeze
+Xcursor.theme: {{ theme.cursor }}
 Xcursor.size:                     0
 
 xterm.termName:       xterm-256color
 
 *pointerColor:      #1ABB9B
-*faceName:          Hack Nerd Font
-*faceSize:          12
+*faceName:          {{ font.name }}
+*faceSize:          {{ font.size }}
 
 ! Only select text
 *highlightSelection: true

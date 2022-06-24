@@ -1,36 +1,34 @@
 ---
 
-- name: Ensure group "autologin" exists
-  group:
-    name: autologin
-    state: present
-    system: yes
+- block:
+    - name: Ensure group "autologin" exists
+      group:
+        name: autologin
+        state: present
+        system: yes
 
-- name: Add user to autologin group
-  user:
-    name: "{{ user.name }}"
-    groups: autologin
-    append: yes
+    - name: Add user to autologin group
+      user:
+        name: "{{ user.name }}"
+        groups: autologin
+        append: yes
 
-- name: Copy Xsession file to /etc/lightdm/Xsession
-  copy:
-    src: etc/lightdm/Xsession
-    dest: /etc/lightdm/Xsession
-    directory_mode: yes
-    owner: root
-    group: root
-    mode: '0755'
+    - name: Copy Xsession file to /etc/lightdm/Xsession
+      copy:
+        src: etc/lightdm/Xsession
+        dest: /etc/lightdm/Xsession
+        directory_mode: yes
+        owner: root
+        group: root
+        mode: '0755'
 
-- name: Copy lightdm.conf template
-  template:
-    src: etc/lightdm/lightdm.conf.j2
-    dest: /etc/lightdm/lightdm.conf
-    mode: '644'
-    owner: root
-    group: root
-    backup: yes
+    - name: Copy lightdm.conf template
+      template:
+        src: etc/lightdm/lightdm.conf.j2
+        dest: /etc/lightdm/lightdm.conf
+        mode: '644'
+        owner: root
+        group: root
+        backup: yes
 
-- name: enable lightdm service
-  systemd:
-    name: lightdm
-    enabled: yes
+  notify: lightdm service

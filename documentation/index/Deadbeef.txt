@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-05-01T16:10:36-04:00
+
+====== Deadbeef ======
+Created Sunday 01 May 2022
+
+# deadbeef shellexec commands
+
+shellexec_config_wip [{"command": "audacity %F", "flags": ["local", "single"], "title": "Edit/Audacity", "name": "new_cmd"},
+{"command": "mkdir -pv %D/converted && sox %F -r 48k %D/converted/%f", "flags": ["local", "single", "multiple"], "title": "Edit/Sox/Resample", "name": "sox_resample"}, {"command": "normalize-audio -m %F", "flags": ["local", "single", "multiple"], "title": "Edit/Normalize", "name": "norm_audos"}, {"command": "puddletag %D", "flags": ["local", "single"], "title": "Edit/Puddletag", "name": "puddle_tag"}, 
+
+{"command": "mkdir -pv %D/converted && sox %F -r 48k %D/converted/%f channels 1", "flags": ["local", "single", "multiple"], "title": "Edit/Sox/To Mono and Resample", "name": "sox_mixres"}]
+
+xterm -bg black -hold -title MakeSFZ -font 9x15 -e "mkdir -pv %D/converted && sox %F -r 48k %d/converted/%N"

@@ -1,9 +1,11 @@
 ---
 
-- name: check if bespoke executable exists
-  command: bash -lc 'command -v BespokeSynth'
-  register: bespoke_check
-  ignore_errors: true
+- name: check if BespokeSynth is already installed
+  shell: command -v BespokeSynth
+  register: if_BespokeSynth_installed
+  changed_when: if_BespokeSynth_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
   - name: clone bespoke
@@ -24,10 +26,18 @@
     register: bespoke_build
     failed_when: bespoke.failed
 
+  - name: archive build dir
+    shell: |
+      tar -czvf BespokeSynth.tar.gz && \
+      rm -rf BespokeSynth/
+    args:
+      chdir: /usr/local/src
+    when: bespoke_build|succeeded
+
   - name: Show output of bespoke build
     when: bespoke_build|succeeded
     debug: msg="{{ bespoke_build.stdout_lines }}"
 
   become: True
   become_user: "{{ user.name }}"
-  when: bespoke_check.rc != 0
+  when: if_BespokeSynth_installed.changed

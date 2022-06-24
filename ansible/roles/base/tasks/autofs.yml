@@ -14,12 +14,10 @@
     owner: root
     group: root
     backup: yes
-  register: autofsconfig
   with_items:
     - autofs.conf
     - auto.master
     - auto.mnt
-
-- name: Enable and/or start autofs
-  systemd: enabled=yes state=restarted daemon_reload=yes name=autofs
-  when: autofsconfig.changed
+  register: autofsconfig
+  notify:
+    - "autofs service"

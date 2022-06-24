@@ -1,0 +1,115 @@
+---
+
+- name: Include common package variables.
+  include_vars: "common.yml"
+
+- name: remove some packages
+  shell: |
+    yay -Rdd --noconfirm {{ item }}
+  with_items:
+    - nodejs
+    - erlang-nox
+    - pipewire-media-session
+  become: True
+  become_user: "{{ user.name }}"
+  ignore_errors: True
+
+- name: Get list of installed packages
+  command: bash -lc "yay -Q | awk '{ print $1 }'"
+  register: package_list
+  ignore_errors: yes
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Gather list of installed python modules
+  command: pip3 list installed | awk '{print $1}'
+  register: pip_list
+  ignore_errors: yes
+
+- name: determine kernel packages to install
+  set_fact:
+    _kernel_packages: "{{ base.kernel.mainline|difference(package_list.stdout) }}"
+
+- name: Install mainline kernel packages
+  aur:
+    use: auto
+    name: "{{ _kernel_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when:
+    - _kernel_packages|length > 0
+    - use_kernel == 'mainline'
+
+- name: Set base packages to installl
+  set_fact:
+    _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
+
+- name: Install base packages
+  aur:
+    use: auto
+    name: "{{ _base_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when: _base_packages|length > 0
+
+- name: determine python modules to install
+  set_fact:
+    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+
+- name: Install python modules
+  pip:
+    name: "{{ _python_modules }}"
+    executable: pip3
+
+- name: Remove pipewire packages
+  shell: |
+    yay -Rdd --noconfirm {{ item }}
+  with_items:
+    - pipewire
+    - pipewire-alsa
+    - pipewire-jack
+    - pipewire-pulse
+    - gst-plugin-pipewire
+    - wireplumber
+  become: True
+  become_user: "{{ user.name }}"
+  when: install_pipewire == 'False'
+  ignore_errors: True
+
+- name: Set audio packages to install
+  set_fact:
+    _audio_packages: "{{ (audio.jack + audio.pulseaudio + audio.utils + audio.plugins + audio.applications)|difference(package_list.stdout) }}"
+
+- name: Install audio packages
+  aur:
+    use: auto
+    name: "{{ _audio_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when: _audio_packages|length > 0
+  register: package_result
+
+- block:
+    - name: Set ui packages to install
+      set_fact:
+        _ui_packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(package_list.stdout) }}"
+
+    - name: Set desktop packages to install
+      set_fact:
+        _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
+
+    - name: Install ui and desktop packages
+      aur:
+        use: auto
+        name: "{{ (_ui_packages + _desktop_packages) }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: (_ui_packages|length > 0 or _desktop_packages|length > 0)
+      register: package_result
+
+  when: graphical_target|bool
+  tags: ['packages', 'desktop']

@@ -1,17 +1,27 @@
 ---
 
-- name: copy x11 intel graphics config
-  copy:
-    src: etc/X11/xorg.conf.d/20-intel.conf
-    dest: /etc/X11/xorg.conf.d/20-intel.conf
-    owner: root
-    group: root
-    mode: '0644'
-    backup: yes
-    directory_mode: no
+- block:
+    - name: Ensure these directories exist
+      file:
+        path: "/etc/X11/xorg.conf.d/"
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: install x11 intel graphics config
+      copy:
+        src: etc/X11/xorg.conf.d/20-intel.conf
+        dest: /etc/X11/xorg.conf.d/20-intel.conf
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+        directory_mode: no
+  when: tri_monitors|bool
 
 - block:
-    - name: Push xprofile templates
+    - name: install xprofile templates
       template:
         src: "dots/{{ item }}.j2"
         dest: "{{ user.home }}/.{{ item }}"
@@ -24,6 +34,19 @@
         - "Xresources"
         - "profile"
         - "xprofile"
+
+    - name: install display templates
+      template:
+        src: "dots/screenlayout/{{ item }}.j2"
+        dest: "{{ user.home }}/.screenlayout/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: "0755"
+        backup: yes
+      with_items:
+        - "dual.sh"
+        - "single.sh"
+
   become: True
   become_user: "{{ user.name }}"
   tags: ['dots']

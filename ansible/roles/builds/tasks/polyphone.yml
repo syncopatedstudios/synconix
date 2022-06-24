@@ -2,24 +2,26 @@
    file: defaults/polyphone.yml
   tags: ['polyphone']
 
-- name: check whether polyphone is already installed
-  stat:
-    path: "{{ application.source.folder }}/.installed"
-  register: check_installed
-  tags: ['polyphone']
+- name: check if polyphone is already installed
+  shell: command -v polyphone
+  register: if_polyphone_installed
+  changed_when: if_polyphone_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: Set "{{ application.name }}" dependencies to install
       set_fact:
-        _packages: "{{ application.dependencies.Archlinux }}"
-      tags: ['polyphone']
+        _polyphone_dependencies: "{{ application.dependencies.Archlinux|difference(package_list.stdout) }}"
 
-    - name: "Install {{ application.dependencies.Archlinux }}"
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['polyphone']
+    - name: Install polyphone dependencies
+      aur:
+        use: auto
+        name: "{{ _polyphone_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _polyphone_dependencies|length > 0
 
     - name: clone "{{ application.source }}"
       git:
@@ -47,31 +49,25 @@
       register: configure_status
       failed_when: configure_status.failed
 
-    - name: make "{{ application.name }}"
-      shell: "make -j$(nproc)"
+    - name: make and install "{{ application.name }}"
+      shell: "make -j$(nproc) && sudo make install"
       args:
         chdir: "{{ application.source.folder }}/sources"
-      register: make_status
-      failed_when: make_status.failed
-
-    - name: install "{{ application.name }}"
-      shell: "sudo make install"
-      args:
-        chdir: "{{ application.source.folder }}/sources"
-      register: make_install_status
-      when: make_status.rc == 0
+      register: polyphone_build
+      failed_when: polyphone_build.failed
 
     - name: run ldconfig
       command: bash -lc "sudo ldconfig"
       when: make_install_status.rc == 0
 
-    - name: touch .installed in user home directory
-      file:
-        path: "{{ application.source.folder }}/.installed"
-        state: touch
-      when: make_install_status.rc == 0
+    - name: archive build dir
+      shell: |
+        tar -czvf polyphone.tar.gz polyphone/ && \
+        rm -rf polyphone/
+      args:
+        chdir: /usr/local/src
+      when: polyphone_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"
-  when: not check_installed.stat.exists
-  tags: ['polyphone']
+  when: if_polyphone_installed.changed

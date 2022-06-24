@@ -8,16 +8,25 @@
 
 - include: network/networkmanager.yml
   when: use_networkmanager|bool
-  tags: ['networkmanager']
 
 - include: network/systemd-networkd.yml
   when: use_systemdnetwork|bool
-  tags: ['systemdnetwork']
 
-- include: network/udev-rules.yml
+- block:
+    - name: install iwd config
+      copy:
+        src: etc/iwd/main.conf
+        dest: /etc/iwd/main.conf
+        owner: root
+        group: root
+        mode: '0644'
+        backup: no
+      register: iwd_config
+
+    - name: enable iwd service
+      systemd:
+        name: iwd
+        state: restarted
+        enabled: yes
+      when: iwd_config.changed
   when: wireless|bool
-  tags: ['wireless']
-
-- include: network/wpa_supplicant.yml
-  when: use_wpa_supplicant|bool
-  tags: ['wireless']

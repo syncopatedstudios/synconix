@@ -1,23 +1,10 @@
 ---
 
-- name: set packages to install
-  set_fact:
-    _packages: "{{ docker }}"
-  tags: ['packages']
-
-- name: Ensure all the required packages are installed
-  import_role:
-    name: pkg_manager
-  vars:
-    pkg_state: present
-  tags: ['packages']
-
 - name: Add user to docker group
   user:
     name: "{{ user.name }}"
     groups: "docker"
     append: yes
-  tags: ['docker']
 
 - name: push docker service config
   template:
@@ -27,17 +14,4 @@
     group: root
     mode: '644'
     backup: yes
-  register: docker_service
-  tags: ['docker']
-
-- name: reload systemd
-  shell: |
-    systemctl daemon-reload
-  when: docker_service.changed
-  tags: ['docker']
-
-- name: enable docker service
-  systemd:
-    name: docker
-    state: started
-    enabled: yes
+  notify: docker service

@@ -2,40 +2,36 @@
 #https://linuxsampler-devel.narkive.com/g4cCNyDP/libgig-compiler-error-on-ubuntustudio-16-04
 
 - name: check if linuxsampler is already installed
-  stat: path="/usr/local/bin/linuxsampler"
-  register: hazilinuxsampler
-
-- name: copy ld config file
-  copy:
-    src: etc/ld.so.conf
-    dest: /etc/ld.so.conf
-    owner: root
-    group: root
-    mode: '0644'
-    directory_mode: no
-    backup: yes
+  shell: command -v linuxsampler
+  register: if_linuxsampler_installed
+  changed_when: if_linuxsampler_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
-    - name: gather facts
-      setup:
-        gather_subset:
-          - os_family
-          - pkg_mgr
-
-    - name: Include OS-specific variables.
-      include_vars: "{{ ansible_os_family }}.yml"
-
     - name: set linuxsampler dependencies to install
       set_fact:
-        _packages: "{{ builds.linuxsampler }}"
+        _linuxsampler_dependencies: "{{ builds.linuxsampler|difference(package_list.stdout) }}"
       tags: ['packages']
 
     - name: Install linuxsampler dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _linuxsampler_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _linuxsampler_dependencies|length > 0
+
+    - name: copy ld config file
+      copy:
+        src: etc/ld.so.conf
+        dest: /etc/ld.so.conf
+        owner: root
+        group: root
+        mode: '0644'
+        directory_mode: no
+        backup: yes
 
     - name: checkout latest versions of ls libs
       shell: |
@@ -45,8 +41,6 @@
         svn co https://svn.linuxsampler.org/svn/liblscp/trunk liblscp
         svn co https://svn.linuxsampler.org/svn/linuxsampler/trunk linuxsampler
         svn co https://svn.linuxsampler.org/svn/qsampler/trunk qsampler
-        svn co https://svn.linuxsampler.org/svn/jlscp/trunk jlscp
-        svn co https://svn.linuxsampler.org/svn/jsampler/trunk jsampler
         svn co https://svn.linuxsampler.org/svn/gigedit/trunk gigedit
       args:
         chdir: "{{ local_src }}"
@@ -82,6 +76,10 @@
       register: liblscp_build
       failed_when: liblscp_build.failed
 
+    - name: run ldconfig
+      shell: |
+        sudo ldconfig
+
     - name: build linuxsampler
       shell: |
         cd linuxsampler/linuxsampler/
@@ -112,28 +110,53 @@
       register: qsampler_build
       failed_when: qsampler_build.failed
 
-    - name: run ldconfig
-      shell: |
-        sudo ldconfig
-
-    - name: build jlscp
-      shell: |
-        cd linuxsampler/jlscp
-        ant build-lib
-        sudo mv lib/jlscp.jar /usr/lib/jvm/java-8-openjdk/jre/lib/ext/jlscp.jar
-      args:
-        chdir: "{{ local_src }}"
-      register: libjlscp_build
-      failed_when: libjlscp_build.failed
-
-    - name: build jsampler
-      shell: |
-        cd linuxsampler/jsampler
-        ant build-jsclassic
-        sudo mv dist/JS_Classic-0.9.jar /usr/local/bin/JS_Classic-0.9.jar
-      args:
-        chdir: "{{ local_src }}"
-
   become: true
   become_user: "{{ user.name }}"
-  when: not hazilinuxsampler.stat.exists
+  when: if_linuxsampler_installed.changed
+
+
+- block:
+    - name: check if jsampler is already installed
+      stat: path="/usr/local/bin/JS_Classic-0.9.jar"
+      register: hazijsampler
+
+    - block:
+        - name: install java for jsampler
+          shell: |
+            yay -S --noconfirm --needed --cleanafter --useask {{ item }}
+          with_items:
+            - ant
+            - jdk8-openjdk
+            - jre8-openjdk
+
+        - name: create linuxsampler directory
+          file:
+            path: "{{ local_src }}/linuxsampler"
+            state: directory
+            owner: "{{ user.name }}"
+            group: "{{ user.name }}"
+
+        - name: download jlscp from svn and build
+          shell: |
+            cd linuxsampler/
+            svn co https://svn.linuxsampler.org/svn/jlscp/trunk jlscp
+            svn co https://svn.linuxsampler.org/svn/jsampler/trunk jsampler
+            cd jlscp
+            ant build-lib
+            sudo mv lib/jlscp.jar /usr/lib/jvm/java-8-openjdk/jre/lib/ext/jlscp.jar
+          args:
+            chdir: "{{ local_src }}"
+          register: libjlscp_build
+          failed_when: libjlscp_build.failed
+
+        - name: build jsampler
+          shell: |
+            cd linuxsampler/jsampler
+            ant build-jsclassic
+            sudo mv dist/JS_Classic-0.9.jar /usr/local/bin/JS_Classic-0.9.jar
+          args:
+            chdir: "{{ local_src }}"
+      when: not hazijsampler.stat.exists
+
+  when: build_jsampler|bool
+  tags: ['jsampler']

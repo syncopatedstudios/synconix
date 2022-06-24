@@ -28,7 +28,7 @@ kvm_host: False
 docker_host: True
 docker_storage: /storage/docker
 
-sync_host: lapbot
+sync_to: thinkbot
 
 firewalld:
   zone: docker

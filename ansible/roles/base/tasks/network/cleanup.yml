@@ -21,25 +21,3 @@
     path: "/etc/systemd/network/{{ item }}"
     state: absent
   loop: "{{ networkd_files.files | map(attribute='path') | map('basename') | difference(expected_files | flatten) | list }}"
-  notify:
-    - restart systemd-networkd
-
-- name: remove wpa_supplicant configs
-  file:
-    path: "/etc/wpa_supplicant/{{ item }}"
-    state: absent
-  with_items:
-    - wpa_supplicant-nl80211.conf
-    - wpa_supplicant-wired.conf
-  ignore_errors: True
-  register: wpa_cleanup
-
-- name: stop wpa_supplicant service
-  systemd:
-    name: "{{ item }}"
-    enabled: no
-    state: stopped
-  with_items:
-    - wpa_supplicant
-  when: wpa_cleanup.changed
-  ignore_errors: True

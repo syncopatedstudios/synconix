@@ -4,23 +4,25 @@
 
 - name: check if patchage is already installed
   shell: command -v patchage
-  register: hazipatchage
-  changed_when: hazipatchage.rc != 0
+  register: if_patchage_installed
+  changed_when: if_patchage_installed.rc != 0
   check_mode: no
   ignore_errors: yes
 
 - block:
     - name: set patchage dependencies to install
       set_fact:
-        _packages: "{{ builds.drobilla }}"
+        _patcghage_dependencies: "{{ builds.drobilla|difference(package_list.stdout) }}"
       tags: ['packages']
 
-    - name: Install patchage dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+    - name: Install patcghage dependencies
+      aur:
+        use: auto
+        name: "{{ _patcghage_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _patcghage_dependencies|length > 0
 
     - name: clone patchage
       git:
@@ -36,18 +38,21 @@
       command: bash -lc "./waf configure --prefix=/usr && ./waf"
       args:
         chdir: "{{ local_src }}/patchage"
+      register: patchage_build
 
     - name: install patchage
       command: bash -lc "sudo ./waf install && ./waf clean"
       args:
         chdir: "{{ local_src }}/patchage"
 
-    - name: archive the source folder
-      archive:
-        path: "{{ local_src }}/patchage"
-        dest: "{{ local_src }}/patchage.tar.gz"
-        format: gz
+    - name: archive build dir
+      shell: |
+        tar -czvf patchage.tar.gz patchage/ && \
+        rm -rf patchage/
+      args:
+        chdir: /usr/local/src
+      when: patchage_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"
-  when: hazipatchage.rc != 0
+  when: if_patchage_installed.changed

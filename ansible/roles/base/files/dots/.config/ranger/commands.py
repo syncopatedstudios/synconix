@@ -1991,3 +1991,124 @@ class paste_ext(Command):
 
     def execute(self):
         return self.fm.paste(make_safe_path=paste_ext.make_safe_path)
+
+class mkcd(Command):
+    """
+    :mkcd <dirname>
+
+    Creates a directory with the name <dirname> and enters it.
+    """
+
+    def execute(self):
+        from os.path import join, expanduser, lexists
+        from os import makedirs
+        import re
+
+        dirname = join(self.fm.thisdir.path, expanduser(self.rest(1)))
+        if not lexists(dirname):
+            makedirs(dirname)
+
+            match = re.search('^/|^~[^/]*/', dirname)
+            if match:
+                self.fm.cd(match.group(0))
+                dirname = dirname[match.end(0):]
+
+            for m in re.finditer('[^/]+', dirname):
+                s = m.group(0)
+                if s == '..' or (s.startswith('.') and not self.fm.settings['show_hidden']):
+                    self.fm.cd(s)
+                else:
+                    ## We force ranger to load content before calling `scout`.
+                    self.fm.thisdir.load_content(schedule=False)
+                    self.fm.execute_console('scout -ae ^{}$'.format(s))
+        else:
+            self.fm.notify("file/directory exists!", bad=True)
+
+class up(Command):
+    def execute(self):
+        if self.arg(1):
+            scpcmd = ["scp", "-r"]
+            scpcmd.extend([f.realpath for f in self.fm.thistab.get_selection()])
+            scpcmd.append(self.arg(1))
+            self.fm.execute_command(scpcmd)
+            self.fm.notify("Uploaded!")
+
+
+    def tab(self, tabnum):
+        import os.path
+        try:
+            import paramiko
+        except ImportError:
+            """paramiko not installed"""
+            return
+
+        try:
+            with open(os.path.expanduser("~/.ssh/config")) as file:
+                paraconf = paramiko.SSHConfig()
+                paraconf.parse(file)
+        except IOError:
+            """cant open ssh config"""
+            return
+
+        hosts = sorted(list(paraconf.get_hostnames()))
+        # remove any wildcard host settings since they're not real servers
+        hosts.remove("*")
+        query = self.arg(1) or ''
+        matching_hosts = []
+        for host in hosts:
+            if host.startswith(query):
+                matching_hosts.append(host)
+        return (self.start(1) + host + ":" for host in matching_hosts)
+
+class fzf_rga_documents_search(Command):
+    """
+    :fzf_rga_search_documents
+    Search in PDFs, E-Books and Office documents in current directory.
+    Allowed extensions: .epub, .odt, .docx, .fb2, .ipynb, .pdf.
+
+    Usage: fzf_rga_search_documents <search string>
+    """
+    def execute(self):
+        if self.arg(1):
+            search_string = self.rest(1)
+        else:
+            self.fm.notify("Usage: fzf_rga_search_documents <search string>", bad=True)
+            return
+
+        import subprocess
+        import os.path
+        from ranger.container.file import File
+        command="rga '%s' . --rga-adapters=pandoc,poppler | fzf +m | awk -F':' '{print $1}'" % search_string
+        fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
+        stdout, stderr = fzf.communicate()
+        if fzf.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            self.fm.execute_file(File(fzf_file))
+
+class fasd(Command):
+    """
+    :fasd
+
+    Jump to directory using fasd
+    """
+    def execute(self):
+        args = self.rest(1).split()
+        if args:
+            directories = self._get_directories(*args)
+            if directories:
+                self.fm.cd(directories[0])
+            else:
+                self.fm.notify("No results from fasd", bad=True)
+
+    def tab(self, tabnum):
+        start, current = self.start(1), self.rest(1)
+        for path in self._get_directories(*current.split()):
+            yield start + path
+
+    @staticmethod
+    def _get_directories(*args):
+        import subprocess
+        output = subprocess.check_output(["fasd", "-dl"] + list(args), universal_newlines=True)
+        dirs = output.strip().split("\n")
+        dirs.sort(reverse=True)  # Listed in ascending frecency
+        return dirs

@@ -1,8 +1,11 @@
 ---
 
 - name: check if qmidinet is already installed
-  stat: path="/usr/bin/qmidinet"
-  register: haziqmidinet
+  shell: command -v qmidinet
+  register: if_qmidinet_installed
+  changed_when: if_qmidinet_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
   - name: clone qmidinet
@@ -15,14 +18,22 @@
 
   - name: build and install qmidinet
     shell: |
-      cmake -DCMAKE_INSTALL_PREFIX=/usr -B build -S .
-      make -C build
+      cmake -DCMAKE_INSTALL_PREFIX=/usr -B build -S . && \
+      make -C build && \
       sudo make -C build install
     args:
       chdir: /usr/local/src/qmidinet
     register: qmidinet_build
     failed_when: qmidinet_build.failed
 
+  - name: archive build dir
+    shell: |
+      tar -czvf qmidinet.tar.gz qmidinet/ && \
+      rm -rf qmidinet/
+    args:
+      chdir: /usr/local/src
+    when: qmidinet_build|succeeded
+
   become: True
   become_user: "{{ user.name }}"
-  when: not haziqmidinet.stat.exists
+  when: if_qmidinet_installed.changed

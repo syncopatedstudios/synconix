@@ -1,50 +1,12 @@
 ---
 
-local_src: "/usr/local/src"
-local_bin: "/usr/local/bin"
-
 dns:
   nameserver: 192.168.41.1
   search: syncopated.net
 
-user_groups:
-  - name: home
-    gid: 1041
-
-user:
-  name: b08x
-  home: /home/b08x
-  gnupg: /home/b08x/.gnupg
-  uid: 1000
-  gid: 1000
-  group: b08x
-  secondary_groups: "input,video,audio"
-  shell: zsh
-  terminal: kitty
-  zsh: /usr/share/oh-my-zsh
-  email: rwpannick@gmail.com
-  password: $1$ynx7axf8$D/jA4ELwCCtvToD9tcmDq.
-
-zsh:
-  configs: "{{ user.home }}/.zsh"
-  theme: minimal-terminal-prompt
-
-path:
-  - "{{ user.home }}/.local/bin"
-  - "{{ user.home }}/.cargo/bin"
-  - "{{ user.home }}/.gem/ruby/3.0.0/bin"
-  - "{{ user.home }}/.rvm/rubies/ruby-3.0.0/bin"
-  - "/var/lib/gems/2.7.0/bin"
-  - "/usr/lib/jvm/default/bin"
-  - "/opt/soundbot/bin"
-  - "/opt/sonic-pi/bin"
-
-dots:
-  repo: https://gitlab.com/b08x/dots.git
-  home: "{{ user.home }}/.dots"
-  backup: "{{ user.home }}/.dotsbackup"
-  untracked: False
-
-intranet_ssid: soundbot
-# run `wpa_passphrase soundbot`
-wireless_pw: passphrase
+autofs_client:
+  host: bender
+  shares:
+    - storage
+    - media
+sync_to: bender

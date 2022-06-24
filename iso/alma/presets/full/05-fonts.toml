@@ -1,0 +1,33 @@
+packages=[
+  "adobe-source-han-sans-cn-fonts",
+  "adobe-source-han-sans-jp-fonts",
+  "adobe-source-han-sans-kr-fonts",
+  "gnu-free-fonts",
+  "noto-fonts",
+  "opendesktop-fonts",
+  "otf-font-awesome",
+  "terminus-font",
+  "ttf-bitstream-vera",
+  "ttf-caladea",
+  "ttf-carlito",
+  "ttf-croscore",
+  "ttf-dejavu",
+  "ttf-input",
+  "ttf-jetbrains-mono",
+  "ttf-liberation",
+  "ttf-nerd-fonts-symbols",
+  "ttf-opensans",
+  "ttf-ubuntu-font-family",
+  "xorg-fonts-alias-75dpi",
+  "xorg-fonts-alias-100dpi",
+  "xorg-fonts-alias-cyrillic",
+  "xorg-fonts-alias-misc"
+]
+
+aur_packages=[
+  "nerd-fonts-hack",
+  "nerd-fonts-mononoki",
+  "ttf-devicons",
+  "ttf-font-awesome-4",
+  "ttf-unifont"
+]

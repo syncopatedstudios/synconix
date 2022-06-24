@@ -66,6 +66,109 @@ builds:
     - readline
     - ruby
     - timidity++
+  ffmpeg:
+    - alsa-lib
+    - aom
+    - aribb24
+    - bzip2
+    - celt
+    - chromaprint-fftw
+    - codec2
+    - dav1d
+    - davs2
+    - flite1-patched
+    - fontconfig
+    - freetype2
+    - frei0r-plugins
+    - fribidi
+    - glslang-git
+    - gmp
+    - gnutls
+    - gsm
+    - intel-media-sdk
+    - kvazaar
+    - ladspa
+    - lame
+    - lensfun-git
+    - libass
+    - libavc1394
+    - libbluray
+    - libbs2b
+    - libcaca
+    - libcdio-paranoia
+    - libdc1394
+    - libdrm
+    - libfdk-aac
+    - libgcrypt
+    - libgl
+    - libgme
+    - libiec61883
+    - libilbc
+    - libklvanc-git
+    - libmodplug
+    - libmysofa
+    - libomxil-bellagio
+    - libopenmpt-svn
+    - libpulse
+    - librabbitmq-c
+    - librist
+    - librsvg
+    - libsoxr
+    - libssh
+    - libtheora
+    - libva
+    - libvdpau
+    - libvorbis
+    - libvpx
+    - libwebp
+    - libx11
+    - libxcb
+    - libxext
+    - libxml2
+    - libxv
+    - lilv
+    - lv2
+    - ocl-icd
+    - openal
+    - opencore-amr
+    - openh264
+    - openjpeg2
+    - opus
+    - pipewire-jack
+    - pocketsphinx
+    - rav1e
+    - rtmpdump
+    - rubberband
+    - sdl2
+    - shine
+    - smbclient
+    - snappy
+    - sndio
+    - speex
+    - spirv-tools
+    - srt
+    - svt-av1
+    - svt-hevc
+    - svt-vp9
+    - tesseract
+    - twolame
+    - uavs3d-git
+    - v4l-utils
+    - vapoursynth
+    - vid.stab
+    - vmaf
+    - vo-amrwbenc
+    - vulkan-icd-loader
+    - x264
+    - x265
+    - xavs
+    - xavs2
+    - xvidcore
+    - xz
+    - zeromq
+    - zimg
+    - zlib
+    - zvbi
   jalvselect:
     - jalv
     - gtkmm
@@ -92,15 +195,12 @@ builds:
     - qt5-tools
     - udev
   linuxsampler:
-    - ant
     - bison
     - byacc
     - docbook-xsl
     - doxygen
     - flex
     - gpp
-    - jdk8-openjdk
-    - jre8-openjdk
     - libxslt
     - subversion
   njconnect:

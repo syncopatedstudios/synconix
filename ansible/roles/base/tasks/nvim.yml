@@ -8,28 +8,43 @@
   set_fact:
     _nvimplug: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-- name: ensure nvim plugged directory exists
-  file:
-    path: "{{ user.home }}/.local/share/nvim/site/autoload"
-    state: directory
-    owner: "{{ user.name }}"
-    group: "{{ user.group }}"
-
-- name: install nvim appimage and nvim plug
+- name: install nvim appimage
   shell: |
     if ! [ -x "$(command -v nvim)" ]; then
       wget -q {{ _nvim }} -O /usr/local/bin/nvim
       chmod +x /usr/local/bin/nvim
       ln -s /usr/local/bin/nvim vim
     fi
-
-    if ! [ -e {{ user.home }}/.local/share/nvim/site/autoload ]; then
-      wget -q {{ _nvimplug }} -0 {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
-    fi
   args:
     chdir: /usr/local/bin
   register: nvim_install
   changed_when: nvim_install.rc != 0
+
+- block:
+    - name: check if nvim plugged is already installed
+      shell: |
+        stat {{ user.home }}/.local/share/nvim/site/autoload/plug.vim
+      register: hazivimplugged
+      changed_when: hazivimplugged.rc != 0
+      check_mode: no
+      ignore_errors: yes
+
+    - name: ensure nvim plugged directory exists
+      file:
+        path: "{{ user.home }}/.local/share/nvim/site/autoload"
+        state: directory
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+
+    - name: fetch neovim plug
+      get_url:
+        url: "{{ _nvimplug }}"
+        dest: "{{ user.home }}/.local/share/nvim/site/autoload"
+      when: hazivimplugged.rc != 0
+
+  become: True
+  become_user: "{{ user.name }}"
+  when: nvim_install.rc == 0
 
 - name: install bash-language-server
   shell: |

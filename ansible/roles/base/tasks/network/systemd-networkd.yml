@@ -25,7 +25,7 @@
     label:
       type: "{{ item.0.type }}"
       name: "{{ item.1.key }}"
-  notify: restart systemd-networkd
+  register: networkd_config
 
 - name: push systemd-resolved.conf
   template:
@@ -35,24 +35,9 @@
     group: root
     mode: "0644"
     backup: yes
+  register: resolved_config
 
-- name: enable systemd-networkd
-  service:
-    name: systemd-networkd
-    enabled: yes
-  with_items:
-    - systemd-networkd
-    - systemd-networkd-wait-online
-  when: systemd_networkd_network or systemd_networkd_link or systemd_networkd_netdev
-
-- name: start and enable systemd-resolved
-  service:
-    name: systemd-resolved
-    enabled: yes
-    state: restarted
-  when: systemd_networkd_enable_resolved
-
-- name: replace /etc/resolv.conf with a symlink to the systemd-resolved stub
+- name: synlink /etc/resolv.conf to systemd-resolved stub
   file:
     path: /etc/resolv.conf
     src: /run/systemd/resolve/stub-resolv.conf
@@ -60,9 +45,19 @@
     force: yes
   when: systemd_networkd_symlink_resolv_conf
 
-# - name: remove networkmanager packages
-#   pacman:
-#     name: "{{ networkmanager }}"
-#     state: absent
-#     force: yes
-#     extra_args: --noconfirm
+- name: systemd-networkd service
+  systemd:
+    name: systemd-networkd
+    enabled: yes
+    state: restarted
+  with_items:
+    - systemd-networkd
+    - systemd-networkd-wait-online
+  when: networkd_config.changed
+
+- name: systemd-resolved service
+  systemd:
+    name: systemd-resolved
+    enabled: yes
+    state: restarted
+  when: resolved_config.changed

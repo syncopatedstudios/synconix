@@ -1,23 +1,27 @@
 ---
 
-- name: check if jalv.select is already installed
-  stat: path="/usr/bin/jalv.select"
-  register: hazijalvselect
-  tags: ['jalvselect']
+- name: check if jalv_select is already installed
+  shell: command -v jalv.select
+  register: if_jalv_installed
+  changed_when: if_jalv_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set jalv_select dependencies to install
       set_fact:
-        _packages: "{{ builds.jalvselect }}"
+        _jalv_dependencies: "{{ builds.jalvselect|difference(package_list.stdout) }}"
       tags: ['packages']
 
-    - name: Install jalv_select dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
-      
+    - name: Install jalv dependencies
+      aur:
+        use: auto
+        name: "{{ _jalv_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _jalv_dependencies|length > 0
+
     - block:
       - name: clone jalv-select
         git:
@@ -40,4 +44,4 @@
       become: True
       become_user: "{{ user.name }}"
 
-  when: not hazijalvselect.stat.exists
+  when: if_jalv_installed.changed

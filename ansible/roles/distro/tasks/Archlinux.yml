@@ -1,17 +1,22 @@
 ---
 
-- name: Check if a system-release file exists
-  stat: path="/etc/system-release"
-  register: hazirelease
+- name: install os-release
+  copy:
+    src: "etc/os-release"
+    dest: "/etc/os-release"
+    owner: root
+    group: root
+    mode: '0644'
+    directory_mode: no
 
-- name: Create link to os-release
-  file:
-    src: "/etc/os-release"
+- name: install system-release
+  copy:
+    src: "etc/os-release"
     dest: "/etc/system-release"
     owner: root
     group: root
-    state: link
-  when: not hazirelease.stat.exists
+    mode: '0644'
+    directory_mode: no
 
 - name: push pacman conf
   template:
@@ -32,6 +37,15 @@
     group: root
     backup: yes
   tags: ['pacmanconf']
+
+- name: set library var in makepkg
+  lineinfile:
+    dest: /usr/bin/makepkg
+    regexp: "^LIBRARY=${LIBRARY:-'/usr/share/makepkg'}"
+    line: "LIBRARY='/usr/share/makepkg'"
+    backrefs: yes
+    backup: yes
+  tags: ['makepkg']
 
 - name: install makepkg config
   copy:
@@ -92,9 +106,9 @@
       shell: |
         yay -Sc --noconfirm
 
-    - name: update aur packages
-      shell: |
-        yay -Syyuu --noconfirm --needed
+    # - name: update aur packages
+    #   shell: |
+    #     yay -Syyuu --noconfirm --needed
 
   become: True
   become_user: "{{ user.name }}"

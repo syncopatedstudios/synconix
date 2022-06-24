@@ -1,22 +1,25 @@
 ---
 
 - name: check if swami is already installed
-  stat: path="/usr/bin/swami"
-  register: haziswami
-  tags: ['swami']
+  shell: command -v swami
+  register: if_swami_installed
+  changed_when: if_swami_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set swami dependencies to install
       set_fact:
-        _packages: "{{ builds.swami }}"
-      tags: ['packages']
+        _swami_dependencies: "{{ builds.swami|difference(package_list.stdout) }}"
 
     - name: Install swami dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _swami_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _swami_dependencies|length > 0
 
     - name: Clone libinstpatch
       git:
@@ -38,21 +41,23 @@
       failed_when: libinstpatch_cmake.failed
 
     - name: make libinstpatch
-      shell: "make -j$(nproc)"
+      shell: "make -j$(nproc) && sudo make install"
       args:
         chdir: "{{ local_src }}/libinstpatch/build"
-      register: libinstpatch_make
-      failed_when: libinstpatch_make.failed
+      register: libinstpatch_build
+      failed_when: libinstpatch_build.failed
 
-    - name: install libinstpatch
-      shell: "sudo make install"
+    - name: archive build dir
+      shell: |
+        tar -czvf libinstpatch.tar.gz libinstpatch/ && \
+        rm -rf libinstpatch/
       args:
-        chdir: "{{ local_src }}/libinstpatch/build"
-      when: libinstpatch_make.rc == 0
+        chdir: /usr/local/src
+      when: libinstpatch_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"
-  when: not haziswami.stat.exists
+  when: if_swami_installed.changed
 
 - block:
     - name: Clone swami
@@ -73,18 +78,19 @@
       register: swami_build
       failed_when: swami_build.failed
 
-    - name: make swami
-      shell: "make -j$(nproc)"
+    - name: make and install swami
+      shell: "make -j$(nproc) && sudo make install"
       args:
         chdir: "{{ local_src }}/swami/build"
       register: swami_make
       failed_when: swami_make.failed
 
-    - name: install swami
-      shell: "sudo make install"
+    - name: archive build dir
+      shell: |
+        tar -czvf swami.tar.gz swami/ && \
+        rm -rf swami/
       args:
-        chdir: "{{ local_src }}/swami/build"
-      when: swami_make.rc == 0
+        chdir: /usr/local/src
 
   rescue:
     - debug:
@@ -92,5 +98,4 @@
 
   become: True
   become_user: "{{ user.name }}"
-  when: not haziswami.stat.exists
-  tags: ['swami']
+  when: if_swami_installed.changed

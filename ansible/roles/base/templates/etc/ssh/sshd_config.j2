@@ -110,11 +110,7 @@ Subsystem	sftp	/usr/lib/ssh/sftp-server
 
 # Example of overriding settings on a per-user basis
 #Match User anoncvs
-{% if inventory_hostname in groups['daw'] %}
-X11Forwarding yes
-{% else %}
 X11Forwarding no
-{% endif %}
 
 #	AllowTcpForwarding no
 #	PermitTTY no

@@ -1,21 +1,25 @@
 ---
 
 - name: check if non-mixer is already installed
-  stat: path="/usr/local/bin/non-mixer"
-  register: hazinonmixer
+  shell: command -v non-mixer
+  register: if_non_mixer_installed
+  changed_when: if_non_mixer_installed.rc != 0
+  check_mode: no
+  ignore_errors: yes
 
 - block:
     - name: set non dependencies to install
       set_fact:
-        _packages: "{{ builds.non }}"
-      tags: ['packages']
+        _non_dependencies: "{{ builds.non|difference(package_list.stdout) }}"
 
-    - name: Install non dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+    - name: Install non-dependencies
+      aur:
+        use: auto
+        name: "{{ _non_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _non_dependencies|length > 0
 
     - name: clone non
       git:
@@ -26,27 +30,21 @@
         force: no
         recursive: no
 
-    - name: configure non-mixer
-      command: bash -lc "./waf configure --project=mixer && ./waf"
+    - name: configure and install non-mixer
+      shell: |
+        ./waf configure --project=mixer && \
+        ./waf && \
+        sudo ./waf install && ./waf clean
       args:
         chdir: "{{ local_src }}/non"
 
-    - name: install non-mixer
-      command: bash -lc "sudo ./waf install && ./waf clean"
+    - name: archive build dir
+      shell: |
+        tar -czvf non.tar.gz non/ && \
+        rm -rf non/
       args:
-        chdir: "{{ local_src }}/non"
-
-    - name: archive the source folder
-      archive:
-        path: "{{ local_src }}/non"
-        dest: "{{ local_src }}/non.tar.gz"
-        format: gz
-
-    - name: remove the build directory
-      file:
-        path: "{{ local_src }}/non"
-        state: absent
+        chdir: /usr/local/src
 
   become: True
   become_user: "{{ user.name }}"
-  when: not hazinonmixer.stat.exists
+  when: if_non_mixer_installed.changed

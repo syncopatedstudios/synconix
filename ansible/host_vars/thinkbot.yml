@@ -1,0 +1,59 @@
+---
+use_kernel: mainline
+
+graphical_target: True
+autologin: True
+
+docker_host: True
+
+use_systemdnetwork: True
+wireless: True
+
+systemd_networkd_network:
+  wlan0:
+    - Match:
+      - Name: "wlan0"
+      - MACAddress: "7c:76:35:0f:03:1b"
+    - Link:
+      - MACAddress: "00:e0:4d:78:b7:7c"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.15/24"
+      - Gateway: "192.168.41.1"
+  eth1:
+    - Match:
+      - Name: "eth1"
+      - MACAddress: "00:e0:4d:78:b7:7c"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.15/24"
+      - Gateway: "192.168.41.1"
+
+capture: "Built-in Audio Analog Stereo:capture_FL"
+
+
+build_baudline: True
+build_bespoke: False
+build_deadbeef: True
+build_jacktrip: True
+build_jalvselect: True
+build_lsmi: True
+build_linuxsampler: True
+build_non: True
+build_patchage: True
+build_protokol: True
+build_raysession: True
+build_reaper: True
+build_seq192: True
+build_sonicannotator: True
+build_soniclineup: True
+build_sonicpi: True
+build_timemachine: True
+build_tony: True
+build_touchosc: True

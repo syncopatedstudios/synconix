@@ -17,7 +17,7 @@ alsa_monitor.properties = {
 
 alsa_monitor.rules = {
   -- An array of matches/actions to evaluate.
-  -- 
+  --
   -- If you want to disable some devices or nodes, you can apply properties per device as the following example.
   -- The name can be found by running pw-cli ls Device, or pw-cli dump Device
   --{
@@ -53,7 +53,7 @@ alsa_monitor.rules = {
       -- Don't use the hardware mixer for volume control. It
       -- will only use software volume. The mixer is still used
       -- to mute unused paths based on the selected port.
-      --["api.alsa.soft-mixer"] = false,
+      ["api.alsa.soft-mixer"] = true,
 
       -- Ignore decibel settings of the driver. Can be used to
       -- work around buggy drivers that report wrong values.
@@ -88,27 +88,27 @@ alsa_monitor.rules = {
       },
       {
         -- Matches all sinks.
-        { "node.name", "matches", "alsa_output.pci-0000_00_1b.0.playback.0.0" },
+        { "node.name", "matches", "alsa_output.pci-*" },
       },
     },
     apply_properties = {
-      ["node.nick"]              = "Stereo Out",
+      --["node.nick"]              = "My Node",
       --["priority.driver"]        = 100,
       --["priority.session"]       = 100,
-      --["node.pause-on-idle"]     = false,
-      ["resample.quality"]       = 10,
+      ["node.pause-on-idle"]     = false,
+      --["resample.quality"]       = 9,
       --["channelmix.normalize"]   = false,
       --["channelmix.mix-lfe"]     = false,
-      ["audio.channels"]         = 2,
-      ["audio.format"]           = "S32LE",
-      ["audio.rate"]             = 48000,
-      ["audio.allowed-rates"]    = "32000,44100,48000,96000",
-      ["audio.position"]         = "FL,FR",
+      --["audio.channels"]         = 2,
+      --["audio.format"]           = "S16LE",
+      --["audio.rate"]             = 48000,
+      --["audio.allowed-rates"]    = "32000,44100,48000,96000"
+      --["audio.position"]         = "FL,FR",
       --["api.alsa.period-size"]   = 1024,
-      ["api.alsa.headroom"]      = 0
+      --["api.alsa.headroom"]      = 0,
       --["api.alsa.disable-mmap"]  = false,
       --["api.alsa.disable-batch"] = false,
-      --["session.suspend-timeout-seconds"] = 5,  -- 0 disables suspend
+      ["session.suspend-timeout-seconds"] = 0,  -- 0 disables suspend
     },
   },
 }

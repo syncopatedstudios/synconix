@@ -1,62 +1,65 @@
-alias startjack="jack_control start && a2j_control --start"
+################# jack stuff ###################################
+# alias startjack="jack_control start && a2j_control --start"
+#
+# alias zalsa_out_preamp="jack_load zalsa_out -i '-d hw:1' &!"
+# alias zalsa_in_preamp="jack_load zalsa_in -i '-d hw:1,0' &!"
+#
+# alias preamp_out="zita-j2a -j preamp_out -d hw:1 &!"
+# alias preamp_in="zita-a2j -j preamp_in -d hw:1,0 &!"
+###############################################################
 
-alias zalsa_out_preamp="jack_load zalsa_out -i '-d hw:1' &!"
-alias zalsa_in_preamp="jack_load zalsa_in -i '-d hw:1,0' &!"
-
-alias preamp_out="zita-j2a -j preamp_out -d hw:1 &!"
-alias preamp_in="zita-a2j -j preamp_in -d hw:1,0 &!"
-
-alias listinputs="sudo libinput list-devices"
+alias lsin="sudo libinput list-devices"
 
 alias h="history 1"
 
-alias cp="cp -i"                          # confirm before overwriting something
-alias mv="mv -i"                          # confirm before overwriting something
-alias df='df -h'                          # human-readable sizes
-alias free='free -m'                      # show sizes in MB
-alias np='nano -w PKGBUILD'
-alias more=less
+# confirm before overwriting something
+alias cp="cp -i"
+# confirm before overwriting something
+alias mv="mv -i"
+# human-readable sizes
+alias df='df -h'
 
-#alias ll="ls -lah"
+alias ls="exa -a --icons"
 alias ll="printf '\n' && exa -lH --group-directories-first --icons"
 alias llh="printf '\n' && exa -alH --group-directories-first --icons"
 
+# remove comments from a file
 alias nocomment='grep -v "^\($\|#\)"'
 
 alias checklog='sudo journalctl -o short-iso | lnav'
 alias taillog='sudo journalctl -f | lnav'
-
 alias netlog='sudo journalctl -b -o short-monotonic --no-hostname -u systemd-udevd -u systemd-networkd -f | lnav'
 
 alias fileperms="find . -type f -exec chmod 0664 {} +"
 alias dirperms="find . -type d -exec chmod 0755 {} +"
 
-#alias man="PAGER='most' man "
-#alias awman="PAGER='most' awman"
+alias man="PAGER='most' man "
+alias awman="PAGER='most' awman"
 
-alias search="yay -Ss search"
+alias search="yay -Ss"
 alias install="yay -S"
 alias uninstall="yay -Rdd"
-alias list="yay -Qe"
-
+alias list="yay -Q"
 alias p="sudo ping -c 4 google.com"
 
-alias commit="git commit -am"
-alias gfp="git fetch && git pull"
-alias st="git status"
+alias co="git commit -a"
+alias gi="git fetch && git pull"
+alias gs="git status"
+alias gp="git push"
+alias glog="git log --oneline --decorate --graph --all"
 
-#alias cat="bat"
+alias cat="bat --theme 'Solarized (dark)' -p"
 
 #turn off pcspkr
 alias beepoff="rmmod pcspkr"
 
-alias e="$EDITOR"
-alias d='dig +nocmd +multiline +noall +answer'
+alias edit="$EDITOR"
+alias dig="dig +nocmd +multiline +noall +answer"
 
 alias cpup="sudo cpupower -c all frequency-set -g performance"
 
 alias dots='/usr/bin/git --git-dir=$HOME/.dots/ --work-tree=$HOME'
-alias dst='dots status'
+alias ds='dots status'
 
 # open rb file in pry
 alias loadpry='pry -r'
@@ -66,24 +69,28 @@ alias pulse_list_sources="pacmd list-sources | grep -e 'index:' -e device.string
 
 alias vnc_serv="x11vnc -ncache_cr -display :0"
 
-# stolen with malice and spite from: https://reposhub.com/linux/miscellaneous/pawelduda-fzf-live-repl.html
-# alias manp="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
 
-alias awk_preview="echo '' | fzf --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'"
-
-alias ruby_preview="echo '' | fzf --print-query --preview 'ruby -e {q}'"
+alias manp="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
 
 alias lsmi="/usr/local/src/lsmi/lsmi-keyhack -v -k ~/.keydb -d /dev/input/event5"
 
-alias gitlog="git log --oneline --decorate --graph --all"
-
 # Re-enable caps lock
-# (in case if you accidentally disable capslock when capslock is still ON)
 alias clearcaps='/usr/bin/xmodmap -e "clear Lock"'
 alias capsf13='/usr/bin/xmodmap -e "keysym Caps_Lock = F13"'
 
-alias betty="~/Workspace/betty/main.rb"
+alias ytdla="youtube-dl -o "%(artist)s.%(title)s.%(ext)s" -x --audio-format wav --external-downloader aria2c"
 
-alias ytdl="youtube-dl -x --audio-format wav --external-downloader aria2c"
+alias ytdlv="youtube-dl -o "%(artist)s.%(title)s.%(ext)s" -f mp4 --external-downloader aria2c"
 
 alias icat="kitty +kitten icat --align left"
+
+alias baudline_jack="baudline_jack -channels 4 -jack"
+
+alias jnoisemeter="jnoisemeter"
+
+alias wo="cd $WORKSPACE"
+alias an="cd $ANSIBLE_HOME"
+alias so="cd $WORKSPACE/soundbot"
+alias do="cd $HOME/Library/Downloads"
+
+alias gem="sudo gem"
