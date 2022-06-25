@@ -1,0 +1,14 @@
+Set Powersave Profile,echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+Set Performance Profile,echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+^sep()
+Terminal,kitty,kitty
+Browser,google-chrome-stable %U,google-chrome
+File manager,pcmanfm,soundbot
+^sep()
+@search,,3,3,150,20,2,left,top,auto,#000000 0,Type to Search
+
+
+# Tune something,fmit,fmit
+# Audio,^checkout(audio)
+# ^tag(audio)
+# Tune something,fmit,fmit

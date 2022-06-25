@@ -19,5 +19,4 @@
     - auto.master
     - auto.mnt
   register: autofsconfig
-  notify:
-    - "autofs service"
+  notify: autofs service

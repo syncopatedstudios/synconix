@@ -73,3 +73,17 @@
           backup: yes
         tags: ['$4']
     """
+    "blockinfile":
+      "prefix": "blockin"
+      "body": """
+      - name: blockinfile
+        blockinfile:
+          path: $1
+          owner: $2
+          group: $3
+          mode: $4
+          create: yes
+          marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
+          block: |
+            $5
+    """

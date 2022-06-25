@@ -65,23 +65,3 @@
 - name: set perms for root home
   shell: "chown -R root:root /root"
   tags: ['dots']
-
-- block:
-    - name: Push user zshell templates
-      template:
-        src: "dots/{{ item }}.j2"
-        dest: "{{ user.home }}/.{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: no
-      with_items:
-        - "aliases"
-        - "gitconfig"
-        - "zlogin"
-        - "zshenv"
-        - "zshrc"
-
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['zsh', 'dots']

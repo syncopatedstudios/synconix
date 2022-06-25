@@ -11,7 +11,7 @@ use_systemdnetwork: True
 systemd_networkd_network:
   eth0:
     - Match:
-      - Name: "eth0"
+      - Name: "en*"
       - MACAddress: "bc:5f:f4:0e:bb:b5"
     - Network:
       - DHCP: "no"
@@ -22,7 +22,7 @@ systemd_networkd_network:
       - Gateway: "192.168.41.1"
   eth1:
     - Match:
-      - Name: "eth1"
+      - Name: "en*"
       - MACAddress: "bc:5f:f4:0e:bb:b3"
     - Network:
       - DHCP: "no"

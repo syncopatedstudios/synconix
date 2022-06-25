@@ -1,5 +1,20 @@
 ---
 
+- name: Remove pipewire packages
+  shell: |
+    yay -Rdd --noconfirm {{ item }}
+  with_items:
+    - pipewire
+    - pipewire-alsa
+    - pipewire-jack
+    - pipewire-pulse
+    - gst-plugin-pipewire
+    - wireplumber
+  become: True
+  become_user: "{{ user.name }}"
+  when: install_pipewire == 'False'
+  ignore_errors: True
+
 - block:
     - name: sync pipewire configs
       synchronize:
@@ -50,5 +65,5 @@
       become: True
       become_user: "{{ user.name }}"
       when: (pipewire_config.changed or wireplumber_config.changed)
- 
+
   when: install_pipewire|bool

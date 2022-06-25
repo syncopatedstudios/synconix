@@ -1,0 +1,16 @@
+run_in_background()
+    {
+        $@ > /dev/null 2>&1 &
+        echo "Job running in background with pid: $!"
+    }
+
+google()
+    {
+        local command="google-chrome https://www.google.com.au/search?q=$1&btnl=1"
+        run_in_background "$command"
+    }
+
+view_network()
+    {
+        lsof -i
+    }

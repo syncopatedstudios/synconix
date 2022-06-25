@@ -1,0 +1,17 @@
+".source.ruby":
+  "module_function":
+    "prefix": "module_function"
+    "body": """
+      module $1
+        module_function
+
+      end
+  """
+  "eatme":
+    "prefix": "ea"
+    "body": """
+      same $1
+        thing
+
+      hopefully
+  """

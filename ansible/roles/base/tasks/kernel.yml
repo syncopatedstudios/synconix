@@ -17,7 +17,8 @@
   when: mkinit.changed
   tags: ['initram']
 
-
+- include: grub.yml
+  tags: ['grub']
 # - name: Set linux-lts as the default in grub
 #   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
 #   when: use_kernel == 'lts'

@@ -45,14 +45,22 @@
     force: yes
   when: systemd_networkd_symlink_resolv_conf
 
+- name: push resolv.conf
+  template:
+    src: "etc/resolv.conf.j2"
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: yes
+  register: resolved_config
+  when: not systemd_networkd_symlink_resolv_conf
+
 - name: systemd-networkd service
   systemd:
     name: systemd-networkd
     enabled: yes
     state: restarted
-  with_items:
-    - systemd-networkd
-    - systemd-networkd-wait-online
   when: networkd_config.changed
 
 - name: systemd-resolved service

@@ -37,7 +37,7 @@
     ]
   editor:
     fontFamily: "Hack Nerd Font"
-    fontSize: 15
+    fontSize: 22
     preferredLineLength: 100
     softWrap: true
     softWrapAtPreferredLineLength: true
@@ -48,6 +48,7 @@
     "**/.config/sway/**": "source.shell"
     "**/.zsh/*": "source.shell"
     "**/.zsh/**": "source.shell"
+    "**/Studio/**": "source.ruby.sonic-pi"
     "**/nnn/**": "source.shell"
     "*.ReaperOSC": "source.shell"
     "*.cfg": "source.shell"

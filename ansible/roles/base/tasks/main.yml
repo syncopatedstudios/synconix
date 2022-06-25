@@ -13,7 +13,7 @@
 - include: network.yml
   tags: ['network']
 
-- name: check if firewalld is presnet
+- name: check if firewalld is present
   shell: command -v firewalld
   register: hazifirewalld
   changed_when: hazifirewalld.rc != 0
@@ -36,17 +36,14 @@
 - include: zsh.yml
   tags: ['zsh']
 
-# - include: dots.yml
-#   tags: ['dots']
+- include: dots.yml
+  tags: ['dots']
 
 - include: ruby.yml
   tags: ['ruby']
 
 - include: tuning.yml
   tags: ['tuning']
-
-- include: grub.yml
-  tags: ['grub']
 
 - include: nfs.yml
   when: nfs_host is defined

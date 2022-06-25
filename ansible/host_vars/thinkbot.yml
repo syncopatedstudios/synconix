@@ -12,7 +12,7 @@ wireless: True
 systemd_networkd_network:
   wlan0:
     - Match:
-      - Name: "wlan0"
+      - Name: "w*"
       - MACAddress: "7c:76:35:0f:03:1b"
     - Link:
       - MACAddress: "00:e0:4d:78:b7:7c"
@@ -25,7 +25,20 @@ systemd_networkd_network:
       - Gateway: "192.168.41.1"
   eth1:
     - Match:
-      - Name: "eth1"
+      - Name: "en*"
+      - MACAddress: "00:e0:4d:78:b7:7c"
+    - Network:
+      - DHCP: "no"
+      - IPv6AcceptRouterAdvertisements: "no"
+      - DNS: "{{dns['nameserver'] }}"
+      - Domains: "{{ dns['search'] }}"
+      - Address: "192.168.41.15/24"
+      - Gateway: "192.168.41.1"
+  eth2:
+    - Match:
+      - Name: "en*"
+      - MACAddress: "54:ee:75:fd:46:30"
+    - Link:
       - MACAddress: "00:e0:4d:78:b7:7c"
     - Network:
       - DHCP: "no"

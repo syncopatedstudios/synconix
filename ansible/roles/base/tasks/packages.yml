@@ -26,9 +26,29 @@
   register: pip_list
   ignore_errors: yes
 
-- name: determine kernel packages to install
+- name: Determine kernel packages to install
   set_fact:
     _kernel_packages: "{{ base.kernel.mainline|difference(package_list.stdout) }}"
+
+- name: Determine base packages to installl
+  set_fact:
+    _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
+
+- name: determine python modules to install
+  set_fact:
+    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+
+- name: Determine audio packages to install
+  set_fact:
+    _audio_packages: "{{ (audio.jack + audio.pulseaudio + audio.utils + audio.plugins + audio.applications)|difference(package_list.stdout) }}"
+
+- name: Determine ui packages to install
+  set_fact:
+    _ui_packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(package_list.stdout) }}"
+
+- name: Determine desktop packages to install
+  set_fact:
+    _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
 
 - name: Install mainline kernel packages
   aur:
@@ -41,9 +61,8 @@
     - _kernel_packages|length > 0
     - use_kernel == 'mainline'
 
-- name: Set base packages to installl
-  set_fact:
-    _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
+- include: kernel.yml
+  tags: ['grub']
 
 - name: Install base packages
   aur:
@@ -54,33 +73,10 @@
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
 
-- name: determine python modules to install
-  set_fact:
-    _python_modules: "{{ python|difference(pip_list.stdout) }}"
-
 - name: Install python modules
   pip:
     name: "{{ _python_modules }}"
     executable: pip3
-
-- name: Remove pipewire packages
-  shell: |
-    yay -Rdd --noconfirm {{ item }}
-  with_items:
-    - pipewire
-    - pipewire-alsa
-    - pipewire-jack
-    - pipewire-pulse
-    - gst-plugin-pipewire
-    - wireplumber
-  become: True
-  become_user: "{{ user.name }}"
-  when: install_pipewire == 'False'
-  ignore_errors: True
-
-- name: Set audio packages to install
-  set_fact:
-    _audio_packages: "{{ (audio.jack + audio.pulseaudio + audio.utils + audio.plugins + audio.applications)|difference(package_list.stdout) }}"
 
 - name: Install audio packages
   aur:
@@ -93,13 +89,6 @@
   register: package_result
 
 - block:
-    - name: Set ui packages to install
-      set_fact:
-        _ui_packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(package_list.stdout) }}"
-
-    - name: Set desktop packages to install
-      set_fact:
-        _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
 
     - name: Install ui and desktop packages
       aur:

@@ -18,8 +18,7 @@ Plug 'https://github.com/nanotech/jellybeans.vim.git'
 Plug 'tomasr/molokai'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'liuchengxu/space-vim-dark'
-
-
+Plug 'https://github.com/vim-scripts/AutoComplPop.git'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -55,8 +54,41 @@ let g:Hexokinase_highlighters = [ 'virtual' ]
 
 colorscheme molokai
 
+set omnifunc=syntaxcomplete#Complete
 
+" set completeopt-=preview
+" set completeopt+=longest,menuone,noselect
 
+function! OpenCompletion()
+    if !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
+        call feedkeys("\<C-x>\<C-o>")
+    endif
+endfunction
+
+function! Smart_TabComplete()
+  let line = getline('.')                         " current line
+
+  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  " line to one character right
+                                                  " of the cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+
+inoremap <tab> <C-r>=Smart_TabComplete()<CR>
+
+" autocmd InsertCharPre * call OpenCompletion()
 " Default term cursor
 set guicursor=
 
@@ -88,7 +120,7 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTree<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
 
