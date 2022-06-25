@@ -161,24 +161,3 @@ on bender or lapbot:
 git init .
 git fetch
 git checkout development -f
-
-
-{--* create file on crambot, file is transferred to bender. from bender file is transferred to lapbot.
-  - if file is deleted on crambot, the file is backued up on bender and lapbot in ~/.backups
-
-
-* create file on bender, file is transferred to lapbot.
-  - if file is deleted on lapbot, it is retransferred from bender.
-  - if file is deleted on bender, the file is backed up on lapbot in ~/.backups after lsyncd service is restarted
-
-* create file on lapbot, file is not transferred
-  - file is deleted the next time the lsyncd service is restarted on bender
-
-* create file on lapbot, file is transferred to bender.
-  - if file is deleted on bender, the file is backed up on lapbot to ~/.backups
-  - if file is deleted on lapbot, the file is backup up on bender to ~/.backups--}
-
-* create file on crambot, file is transferred to bender.
-  - run osync on lapbot, file is transferred from bender to lapbot
-  - if file is removed on crambot, file is removed on bender
-    - run osync on lapbot, file is backed up to .osync_workdir/deleted

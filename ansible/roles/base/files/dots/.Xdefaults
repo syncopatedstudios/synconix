@@ -1,0 +1,63 @@
+!! put the following in ~/.Xdefaults (then run: $ xrdb ~/.Xdefaults):
+!!
+*.foreground: #C0AF9F
+*.background: #0E0B09
+*.cursorColor: #C0AF9F
+
+*.color0:  #0E0B09
+*.color1:  #EC5252
+*.color2:  #5DA713
+*.color3:  #C97016
+*.color4:  #3890E9
+*.color5:  #A359ED
+*.color6:  #13AFAF
+*.color7:  #957B62
+*.color8:  #17130F
+*.color9:  #FF9191
+*.color10: #9ACD68
+*.color11: #EDA55D
+*.color12: #7DBEFF
+*.color13: #CB96FF
+*.color14: #6ECFCF
+*.color15: #C0AF9F
+
+
+! normal term session
+xterm.vt100.geometry: 122x61
+
+! tmux two panes
+! xterm.vt100.geometry: 151x73
+
+! XTerm*metaSendsEscape: true
+! XTerm*altIsNotMeta: true
+
+! fix C-h not working
+! https://www.emacswiki.org/emacs/BackspaceKey
+xterm*ttyModes: erase ^?
+xterm*VT100*translations:       #override \
+   <Key>BackSpace: string(0x7f)
+xterm*backarrowKeyIsErase:      true
+
+
+! select entire urls
+xterm*charClass: 33:48,37-38:48,45-47:48,64:48,58:48,126:48,61:48,63:48,43:48,35:48
+
+!===================
+! scrollbar start
+xterm*scrollBar:      true
+xterm*rightScrollBar: true
+! scrollbar end
+!=====================
+
+! stop output from moving scroll down to the bottom (scroll position relative to the bottom is kept)
+! xterm*scrollTtyOutput: false
+
+! Enable mouse scrolling in applications like vim
+xterm*vt100*alternateScroll: true
+
+xterm*vt100*translations:   #override                       \n \
+  Shift Ctrl <KeyPress>C: copy-selection(CLIPBOARD)       \n \
+  Shift Ctrl <KeyPress>V: insert-selection(CLIPBOARD)     \n
+
+*faceName: Hack Nerd Font
+*faceSize: 11

@@ -20,33 +20,33 @@
         directory_mode: no
   when: tri_monitors|bool
 
-- block:
-    - name: install xprofile templates
-      template:
-        src: "dots/{{ item }}.j2"
-        dest: "{{ user.home }}/.{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: yes
-      with_items:
-        - "Xdefaults"
-        - "Xresources"
-        - "profile"
-        - "xprofile"
-
-    - name: install display templates
-      template:
-        src: "dots/screenlayout/{{ item }}.j2"
-        dest: "{{ user.home }}/.screenlayout/{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0755"
-        backup: yes
-      with_items:
-        - "dual.sh"
-        - "single.sh"
-
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['dots']
+# - block:
+#     - name: install xprofile templates
+#       template:
+#         src: "dots/{{ item }}.j2"
+#         dest: "{{ user.home }}/.{{ item }}"
+#         owner: "{{ user.name }}"
+#         group: "{{ user.group }}"
+#         mode: "0644"
+#         backup: yes
+#       with_items:
+#         - "Xdefaults"
+#         - "Xresources"
+#         - "profile"
+#         - "xprofile"
+#
+#     - name: install display templates
+#       template:
+#         src: "dots/screenlayout/{{ item }}.j2"
+#         dest: "{{ user.home }}/.screenlayout/{{ item }}"
+#         owner: "{{ user.name }}"
+#         group: "{{ user.group }}"
+#         mode: "0755"
+#         backup: yes
+#       with_items:
+#         - "dual.sh"
+#         - "single.sh"
+#
+#   become: True
+#   become_user: "{{ user.name }}"
+#   tags: ['dots']

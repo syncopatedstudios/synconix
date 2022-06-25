@@ -1,7 +1,8 @@
 [global_config]
   handle_size = 0
-  title_transmit_bg_color = "#555753"
+  title_transmit_bg_color = "#0f0f0e"
   title_receive_bg_color = "#f57900"
+  title_inactive_bg_color = "#3d3846"
 [keybindings]
   go_up = <Primary>Up
   go_down = <Primary>Down
@@ -12,13 +13,13 @@
     background_darkness = 0.95
     background_type = transparent
     cursor_color = "#aaaaaa"
-    font = Bitstream Vera Sans Mono 12
+    font = mononoki Nerd Font 12
     foreground_color = "#2ebeff"
     scrollback_infinite = True
     palette = "#000000:#b50047:#97e023:#fa8419:#838d6e:#ff4f04:#06989a:#ffffff:#ffa896:#b7c0e8:#97e023:#c3b624:#e74343:#be004a:#1e9696:#000000"
+    login_shell = True
     use_system_font = False
     bold_is_bright = True
-    login_shell = True
   [[New Profile]]
     cursor_color = "#aaaaaa"
 [layouts]

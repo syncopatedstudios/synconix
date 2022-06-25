@@ -1,20 +1,20 @@
 ---
 
-# - block:
-#     - name: Push dots
-#       synchronize:
-#         src: dots/
-#         dest: "{{ user.home }}/"
-#         recursive: yes
-#         mode: push
-#         delete: no
-#         checksum: yes
-#         perms: no
-#         rsync_opts:
-#           - "--update"
-#           - "--omit-dir-times"
-#       notify: xdg-user-dirs-update service
-#
-#   become: true
-#   become_user: "{{ user.name }}"
-#   tags: ['dots']
+- block:
+    - name: Push dots
+      synchronize:
+        src: dots/
+        dest: "{{ user.home }}/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts:
+          - "--update"
+          - "--omit-dir-times"
+      notify: xdg-user-dirs-update service
+
+  become: true
+  become_user: "{{ user.name }}"
+  tags: ['dots']

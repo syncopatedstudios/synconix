@@ -1,6 +1,6 @@
 ---
 
-# 
+#
 # - name: check if swallow is already installed
 #   stat: path="/usr/local/bin/swallow"
 #   register: haziswallow
@@ -48,16 +48,16 @@
       register: i3_config_dir
       changed_when: i3_config_dir.rc != 0
 
-    - name: Install i3 templates
-      template:
-        src: "dots/config/i3/config.j2"
-        dest: "{{ user.home }}/.config/i3/config"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: yes
-      notify: restart i3
-      tags: ['i3-config']
+    # - name: Install i3 templates
+    #   template:
+    #     src: "dots/config/i3/config.j2"
+    #     dest: "{{ user.home }}/.config/i3/config"
+    #     owner: "{{ user.name }}"
+    #     group: "{{ user.group }}"
+    #     mode: "0644"
+    #     backup: yes
+    #   notify: restart i3
+    #   tags: ['i3-config']
     #
     # - name: Install polybar templates
     #   template:

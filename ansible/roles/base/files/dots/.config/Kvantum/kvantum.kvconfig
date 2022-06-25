@@ -1,0 +1,4 @@
+### BEGIN ANSIBLE MANAGED BLOCK ###
+[General]
+theme=KvGnomeDark
+### END ANSIBLE MANAGED BLOCK ###

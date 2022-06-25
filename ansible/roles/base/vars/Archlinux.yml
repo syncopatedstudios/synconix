@@ -107,6 +107,7 @@ base:
     - libxml2
     - libzip
     - lnav
+    - lsof
     - lsyncd
     - lua
     - lzip
