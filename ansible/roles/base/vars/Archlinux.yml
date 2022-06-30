@@ -278,7 +278,7 @@ ui:
     - ttf-nerd-fonts-symbols
     - ttf-opensans
     - ttf-ubuntu-font-family
-    - ttf-unifont
+    # - ttf-unifont
     - xorg-fonts-alias-75dpi
     - xorg-fonts-alias-100dpi
     - xorg-fonts-alias-cyrillic
@@ -370,7 +370,7 @@ audio:
     - qmidiarp
     - qmidinet
     - scala-music
-    - scala-music-scales
+    # - scala-music-scales
     - sfizz
     - songrec
     - sooperlooper
@@ -412,7 +412,7 @@ desktop:
     - s
     - seqdiag
     - stunnel
-    - teiler
+    # - teiler
     - thunar
     - thunar-archive-plugin
     - thunar-volman

@@ -10,12 +10,6 @@
 - include: sudoers.yml
   tags: ['sudoers']
 
-- include: zsh.yml
-  tags: ['zsh']
-
-- include: dots.yml
-  tags: ['dots']
-
 - include: packages.yml
   tags: ['packages']
 
@@ -32,6 +26,12 @@
 - include: firewalld.yml
   tags: ['firewall']
   when: not hazifirewalld.rc != 0
+
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: dots.yml
+  tags: ['dots']
 
 - include: ssh.yml
   tags: ['ssh']

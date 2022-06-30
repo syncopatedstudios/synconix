@@ -24,7 +24,9 @@
   tags: ['utils']
 
 - include: desktop/atom.yml
-  when: inventory_hostname in groups['daw']
+  when:
+    - inventory_hostname in groups['daw']
+    - install_atom|bool
   tags: ['atom']
 
 - include: desktop/nvim.yml

@@ -2,6 +2,14 @@
 
 # https://github.com/atom/atom/releases
 
+- name: Install atom
+  aur:
+    use: auto
+    name: atom
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+
 - name: check if atom is already installed
   shell: |
     command -v atom && command -v apm
@@ -9,6 +17,7 @@
     warn: no
   register: atom_check
   changed_when: atom_check.rc != 0
+  ignore_errors: True
 
 - block:
     - name: gather list of installed apm packages

@@ -7,12 +7,10 @@
   with_items:
     - root
     - "{{ user.name }}"
-  tags: ['dots']
 
 - name: Check if oh-my-zsh is already installed
   stat: path="/usr/share/oh-my-zsh"
   register: haziohymyzsh
-  tags: ['dots']
 
 - block:
     - name: Clone oh-my-zsh
@@ -38,7 +36,6 @@
     path: /usr/share/oh-my-zsh/custom/themes
     state: directory
     mode: '0775'
-  tags: ['dots']
   check_mode: no
 
 - name: Push oh-my-zsh-theme template
@@ -48,7 +45,6 @@
     owner: root
     group: root
     mode: '0644'
-  tags: ['dots']
 
 - name: Push root zshell config
   synchronize:

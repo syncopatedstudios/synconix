@@ -3,8 +3,10 @@
 - name: Install mainline kernel packages
   aur:
     use: auto
-    name: "{{ _kernel_packages }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ _kernel_packages }}"    
   become: True
   become_user: "{{ user.name }}"
   when:

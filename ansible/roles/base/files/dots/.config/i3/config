@@ -189,6 +189,9 @@ for_window [class="^Timemachine"] floating enable, move position center, focus
 #for_window [title="^Mixer"] floating disable, border pixel 1
 for_window [class="REAPER" title="^Mixer"] floating disable
 for_window [title="JS:\ ATK FOA Decode Stereo"] floating disable
+for_window [class="REAPER" title="^JS:"] floating disable, splith, move to workspace 1
+for_window [class="REAPER" title="^VST:"] floating disable, splitv, move to workspace 1
+for_window [class="REAPER" title="^LV2:"] floating disable, splitv, move to workspace 1
 for_window [title="^Docker"] floating disable
 for_window [title="^Toolbar"] floating disable
 for_window [title="^MIDI take:"] floating disable

@@ -21,11 +21,6 @@
   become: True
   become_user: "{{ user.name }}"
 
-- name: Gather list of installed python modules
-  command: pip3 list installed | awk '{print $1}'
-  register: pip_list
-  ignore_errors: yes
-
 - name: Determine kernel packages to install
   set_fact:
     _kernel_packages: "{{ base.kernel.mainline|difference(package_list.stdout) }}"
@@ -33,10 +28,6 @@
 - name: Determine base packages to installl
   set_fact:
     _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
-
-- name: determine python modules to install
-  set_fact:
-    _python_modules: "{{ python|difference(pip_list.stdout) }}"
 
 - name: Determine audio packages to install
   set_fact:
@@ -56,22 +47,21 @@
 - name: Install base packages
   aur:
     use: auto
-    name: "{{ _base_packages }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ _base_packages }}"
   become: True
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
 
-- name: Install python modules
-  pip:
-    name: "{{ _python_modules }}"
-    executable: pip3
-
 - name: Install audio packages
   aur:
     use: auto
-    name: "{{ _audio_packages }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ _audio_packages }}"
   become: True
   become_user: "{{ user.name }}"
   when: _audio_packages|length > 0 and inventory_hostname in groups['daw']
@@ -82,8 +72,10 @@
     - name: Install ui and desktop packages
       aur:
         use: auto
-        name: "{{ (_ui_packages + _desktop_packages) }}"
+        name: "{{ item }}"
         state: present
+      with_items:
+        - "{{ (_ui_packages + _desktop_packages) }}"
       become: True
       become_user: "{{ user.name }}"
       when: (_ui_packages|length > 0 or _desktop_packages|length > 0)
@@ -91,3 +83,19 @@
 
   when: graphical_target|bool
   tags: ['packages', 'desktop']
+
+- name: Gather list of installed python modules
+  command: pip3 list installed | awk '{print $1}'
+  register: pip_list
+  ignore_errors: yes
+
+- name: determine python modules to install
+  set_fact:
+    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+
+- name: Install python modules
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items:
+    - "{{ _python_modules }}"

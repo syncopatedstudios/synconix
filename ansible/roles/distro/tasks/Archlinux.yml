@@ -59,20 +59,6 @@
     directory_mode: no
   tags: ['makepkg']
 
-- name: Check if unix admin sudoers file already exists
-  stat: "path=/etc/sudoers.d/10-installer"
-  register: hazifile
-  tags: ['sudoers']
-
-- name: Add unix_admin.name to sudoers if it doesn't already exist
-  lineinfile:
-    path: /etc/sudoers.d/10-installer
-    line: '{{ user.name }} ALL=(ALL:ALL) NOPASSWD: ALL'
-    create: yes
-    validate: 'visudo -cf %s'
-  when: not hazifile.stat.exists
-  tags: ['sudoers']
-
 # - name: Check if a yay already exists
 #   stat: path="/usr/bin/yay"
 #   register: haziyay

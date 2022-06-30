@@ -65,6 +65,5 @@ gems:
   - sys-proctable
   - tty-command
 python:
-  - i3ipc
   - pillow-simd
   - wheel
