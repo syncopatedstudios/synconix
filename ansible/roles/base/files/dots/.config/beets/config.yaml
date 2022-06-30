@@ -1,0 +1,171 @@
+plugins: fetchart embedart convert scrub lastgenre chroma web badfiles edit fromfilename ftintitle info 
+directory: ~/Library/Music
+library: ~/.config/beets/musiclibrary.db
+statefile: ~/.config/beets/state.pickle
+art_filename: albumart
+threaded: yes
+original_date: yes
+
+discogs:
+  user_token: ojSkyJgsXSeDUWgMrAInfBBNegbciCHQHthcZgNU
+
+badfiles:
+    check_on_import: no
+    commands:
+        wma: ffprobe -v error
+        m4p: ffprobe -v error
+        m4a: ffprobe -v error
+        wav: /home/b08x/.local/bin/wavcheck.rb
+        mp3: mp3val
+        flac: flac --test --warnings-as-errors --silent
+        aiff: /home/b08x/.local/bin/aiffcheck.rb
+
+musicbrainz:
+    host: calculon:5000
+    https: no
+    ratelimit: 100
+    ratelimit_interval: 1.0
+    searchlimit: 10
+    extra_tags: []
+    genres: no
+
+ui:
+    terminal_width: 80
+    length_diff_thresh: 10.0
+    color: yes
+    colors:
+        text_success: green
+        text_warning: yellow
+        text_error: red
+        text_highlight: red
+        text_highlight_minor: lightgray
+        action_default: turquoise
+        action: blue
+
+format_item: $artist - $album - $title
+format_album: $albumartist - $album
+time_format: '%Y-%m-%d %H:%M:%S'
+format_raw_length: no
+
+sort_album: albumartist+ album+
+sort_item: artist+ album+ disc+ track+
+sort_case_insensitive: yes
+
+ftintitle:
+    auto: yes
+    drop: no
+    format: feat. {0}
+
+aunique:
+    keys: albumartist album
+    disambiguators: albumtype year label catalognum albumdisambig releasegroupdisambig
+    bracket: '[]'
+
+paths:
+    default: $albumartist/($year) $album%aunique{}/$track $title
+    singleton: Singles/$artist/$title
+    comp: Compilations/$album%aunique{}/$track $title
+    albumtype:soundtrack: Soundtracks/$album%aunique{}/$track $title
+
+import:
+    write: yes
+    copy: no
+    move: yes
+    detail: yes
+    resume: ask
+    incremental: yes
+    quiet: no
+    quiet_fallback: skip
+    timid: no
+    log: ~/.config/beets/beet.log
+    duplicate_action: skip
+    none_rec_action: ask
+    incremental_skip_later: no
+    from_scratch: no
+    singletons: no
+    group_albums: yes
+
+lastgenre:
+    auto: yes
+    source: album
+
+embedart:
+    auto: no
+
+fetchart:
+    auto: no
+
+replaygain:
+    auto: no
+
+scrub:
+    auto: yes
+
+chroma:
+  auto: no
+
+edit:
+  albumfields: album albumartist
+  itemfields: grouping label title track artist album albumartist
+  ignore_fields: id path
+
+replace:
+  '[\\/]': _
+  ^\.: _
+  '[\x00-\x1f]': _
+  '[<>:"\?\*\|]': _
+  \.$: _
+  \s+$: ''
+  ^\s+: ''
+  ^-: _
+
+path_sep_replace: _
+asciify_paths: yes
+max_filename_length: 0
+va_name: Various
+ignore_hidden: yes
+per_disc_numbering: no
+terminal_encoding: UTF-8
+
+match:
+    strong_rec_thresh: 0.40
+    medium_rec_thresh: 0.25
+    rec_gap_thresh: 0.25
+    max_rec:
+        missing_tracks: medium
+        unmatched_tracks: medium
+    distance_weights:
+        source: 2.0
+        artist: 3.0
+        album: 3.0
+        media: 1.0
+        mediums: 1.0
+        year: 1.0
+        country: 0.5
+        label: 0.5
+        catalognum: 0.5
+        albumdisambig: 0.5
+        album_id: 5.0
+        tracks: 2.0
+        missing_tracks: 0.9
+        unmatched_tracks: 0.6
+        track_title: 3.0
+        track_artist: 2.0
+        track_index: 1.0
+        track_length: 2.0
+        track_id: 5.0
+    preferred:
+        countries: []
+        media: []
+        original_year: yes
+    ignored: []
+    required: []
+    ignored_media: []
+    ignore_data_tracks: yes
+    ignore_video_tracks: yes
+    track_length_grace: 10
+    track_length_max: 30
+
+web:
+    host: 0.0.0.0
+    port: 8337
