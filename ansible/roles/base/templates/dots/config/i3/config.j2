@@ -61,7 +61,7 @@ set $fmit "$HOME/.local/bin/fmit.sh"
 
 set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
 
-set $layout_manager "$HOME/.config/i3/scripts/layout_manager.sh"
+set $layout_manager "$HOME/.i3/scripts/layout_manager.sh"
 
 set $start_jack "$HOME/.local/bin/start_jack.sh"
 ######################################
@@ -73,11 +73,11 @@ $exec_always $picom
 
 $exec_always nitrogen --restore
 
-$exec_always $HOME/.config/i3/scripts/polybar.sh
+$exec_always $HOME/.i3/scripts/polybar.sh
 
 $exec $start_jack
 
-include $HOME/.config/i3/autostart/`hostname`.conf
+include $HOME/.i3/autostart/`hostname`.conf
 
 {% if ansible_os_family == 'Redhat' %}
 $exec /usr/libexec/notification-daemon &
@@ -168,7 +168,7 @@ client.background       $color12
 ######################################
 # ---{ workspace assignments }---
 ######################################
-include $HOME/.config/i3/workspaces/`hostname`.conf
+include $HOME/.i3/workspaces/`hostname`.conf
 
 ######################################
 #       ---{ scratchpad }---
@@ -239,7 +239,7 @@ assign [class="^Non-Mixer$"] $ws10
 ######################################
 # ---{ app bindings }---
 ######################################
-include $HOME/.config/i3/bindings/`hostname`.conf
+include $HOME/.i3/bindings/`hostname`.conf
 
 # bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 # bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%

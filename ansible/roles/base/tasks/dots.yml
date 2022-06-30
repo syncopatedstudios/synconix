@@ -13,9 +13,6 @@
         rsync_opts:
           - "--update"
           - "--omit-dir-times"
-          - "--exclude='.config/i3'"
-          - "--exclude='.config/polybar'"
-          - "--exclude='.config/picom'"
       notify: xdg-user-dirs-update service
 
   become: true

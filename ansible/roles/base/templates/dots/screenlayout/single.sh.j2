@@ -6,6 +6,6 @@ xrandr --output eDP1 --primary --mode 1600x900 --pos 0x0 --rotate normal --outpu
 if [ "$?" -ne 0 ]; then
   notify-send -u critical "monitor reconfiguration was not successful"
 else
-  $HOME/.config/i3/scripts/polybar.sh
+  $HOME/.i3/scripts/polybar.sh
   nitrogen --restore
 fi

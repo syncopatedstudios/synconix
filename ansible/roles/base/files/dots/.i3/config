@@ -47,11 +47,9 @@ set $jgmenu "jgmenu_run >/dev/null 2>&1 &"
 
 set $kitty_init "kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty --class 'kitty_init' --session $HOME/.config/kitty/start.conf"
 
-set $zim_todo "zim synconix"
+set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 1"
 
-set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sleep 2"
-
-set $raysession "raysession; sleep 2"
+set $raysession "raysession; sleep 1"
 
 set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
 
@@ -61,26 +59,29 @@ set $fmit "$HOME/.local/bin/fmit.sh"
 
 set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
 
-set $layout_manager "$HOME/.config/i3/scripts/layout_manager.sh"
-
 set $start_jack "$HOME/.local/bin/start_jack.sh"
 ######################################
 # ---{ autostart }---
 ######################################
-$exec_always $HOME/.screenlayout/`hostname`.sh
+$exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-$exec_always $picom
+$exec nm-applet
+
+$exec_always $HOME/.screenlayout/`hostname`.sh
 
 $exec_always nitrogen --restore
 
-$exec_always $HOME/.config/i3/scripts/polybar.sh
+$exec_always $picom
 
-include $HOME/.config/i3/autostart/`hostname`.conf
+$exec_always $HOME/.i3/scripts/polybar.sh
 
-#TODO: set this a systemd oneshot
-$exec /usr/lib/notification-daemon-1.0/notification-daemon &
+$exec_always fix_xcursor
 
-$exec systemctl start jack_control.service
+include $HOME/.i3/autostart/`hostname`.conf
+
+#$exec /usr/lib/notification-daemon-1.0/notification-daemon &
+
+#$exec systemctl start jack_control.service
 
 # $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 
@@ -94,7 +95,7 @@ workspace_auto_back_and_forth yes
 workspace_layout tabbed
 
 default_border pixel 1
-default_floating_border pixel 3
+default_floating_border normal
 new_window 1pixel
 
 hide_edge_borders none
@@ -105,14 +106,16 @@ floating_modifier $mod
 #to disable window title for all windows
 for_window [class="^.*"] border pixel 1
 
+for_window [urgent=latest] focus
+
 
 #############################
 ### settings for i3-gaps: ###
 #############################
 
 # Set inner/outer gaps
-gaps inner 10
-gaps outer -5
+gaps inner 14
+gaps outer -2
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
@@ -126,9 +129,78 @@ smart_gaps on
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
 
+# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
 ######################################
 # ---{ theme }---
 ######################################
+
+# Color palette used for the terminal ( ~/.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+# Change the variable name at the place you want to match the color
+# of your terminal like this:
+# [example]
+# If you want your bar to have the same background color as your
+# terminal background change the line 362 from:
+# background #14191D
+# to:
+# background $term_background
+# Same logic applied to everything else.
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
 set $background #0F1110
 set $foreground #e0aa7c
 
@@ -164,7 +236,7 @@ client.background       $color12
 ######################################
 # ---{ workspace assignments }---
 ######################################
-include $HOME/.config/i3/workspaces/`hostname`.conf
+include $HOME/.i3/workspaces/`hostname`.conf
 
 ######################################
 #       ---{ scratchpad }---
@@ -189,9 +261,9 @@ for_window [class="^Timemachine"] floating enable, move position center, focus
 #for_window [title="^Mixer"] floating disable, border pixel 1
 for_window [class="REAPER" title="^Mixer"] floating disable
 for_window [title="JS:\ ATK FOA Decode Stereo"] floating disable
-for_window [class="REAPER" title="^JS:"] floating disable, splith, move to workspace 1
-for_window [class="REAPER" title="^VST:"] floating disable, splitv, move to workspace 1
-for_window [class="REAPER" title="^LV2:"] floating disable, splitv, move to workspace 1
+for_window [class="REAPER" title="^JS:"] floating disable, splith, move to workspace 9, focus
+for_window [class="REAPER" title="^VST:"] floating disable, splitv, move to workspace 9, focus
+for_window [class="REAPER" title="^LV2:"] floating disable, splitv, move to workspace 9, focus
 for_window [title="^Docker"] floating disable
 for_window [title="^Toolbar"] floating disable
 for_window [title="^MIDI take:"] floating disable
@@ -238,7 +310,7 @@ assign [class="^Non-Mixer$"] $ws10
 ######################################
 # ---{ app bindings }---
 ######################################
-include $HOME/.config/i3/bindings/`hostname`.conf
+include $HOME/.i3/bindings/`hostname`.conf
 
 # bindsym XF86AudioRaiseVolume $exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 # bindsym XF86AudioLowerVolume $exec pactl set-sink-volume @DEFAULT_SINK@ -5%
