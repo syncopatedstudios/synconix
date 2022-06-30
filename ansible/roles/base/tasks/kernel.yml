@@ -1,5 +1,16 @@
 ---
 
+- name: Install mainline kernel packages
+  aur:
+    use: auto
+    name: "{{ _kernel_packages }}"
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+  when:
+    - _kernel_packages|length > 0
+    - use_kernel == 'mainline'
+
 - name: push mkinitcpio configs
   template:
     src: "etc/mkinitcpio.conf.j2"

@@ -123,7 +123,7 @@ icon_folder: "{{ user.home }}/.icons"
 
 font:
   name: Hack Nerd Font
-  size: 10
+  size: 14
   hintstyle: hintslight
 
 # theme options

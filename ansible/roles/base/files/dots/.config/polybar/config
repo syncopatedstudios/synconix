@@ -246,17 +246,14 @@ scroll-down = i3-msg workspace prev_on_output
 [bar/HDMI2]
 inherit = bar/HDMI1
 monitor = ${env:MONITOR:HDMI2}
-tray-position = right
 
 [bar/DP1-1]
 inherit = bar/HDMI1
 monitor = ${env:MONITOR:DP1-1}
-tray-position = right
 
-[bar/DP1-2]
+[bar/DP2-2]
 inherit = bar/HDMI1
-monitor = ${env:MONITOR:DP1-2}
-tray-position = right
+monitor = ${env:MONITOR:DP2-2}
 
 [bar/eDP1]
 inherit = bar/HDMI1

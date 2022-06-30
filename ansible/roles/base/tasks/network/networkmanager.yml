@@ -1,10 +1,10 @@
 ---
 
-- name: Push connectivity check config
-  template:
-      src: etc/NetworkManager/conf.d/connectivity.conf.j2
-      dest: /etc/NetworkManager/conf.d/20-connectivity.conf
-  when: conn_check is defined
+# - name: Push connectivity check config
+#   template:
+#       src: etc/NetworkManager/conf.d/connectivity.conf.j2
+#       dest: /etc/NetworkManager/conf.d/20-connectivity.conf
+#   when: conn_check is defined
 
 - name: Push resolv.conf
   template:

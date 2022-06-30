@@ -10,6 +10,9 @@
 - include: audio/alsa.yml
   tags: ['alsa']
 
+- include: tuning.yml
+  tags: ['tuning']
+
 #-------------------------------------#
 
 - name: makesfz and makeh2drumkit

@@ -67,7 +67,7 @@ set $start_jack "$HOME/.local/bin/start_jack.sh"
 ######################################
 # ---{ autostart }---
 ######################################
-$exec_always $HOME/.screenlayout/$HOSTNAME.sh
+$exec_always $HOME/.screenlayout/`hostname`.sh
 
 $exec_always $picom
 
@@ -75,13 +75,12 @@ $exec_always nitrogen --restore
 
 $exec_always $HOME/.config/i3/scripts/polybar.sh
 
-$exec $start_jack
-
 include $HOME/.config/i3/autostart/`hostname`.conf
 
+#TODO: set this a systemd oneshot
 $exec /usr/lib/notification-daemon-1.0/notification-daemon &
 
-
+$exec systemctl start jack_control.service
 
 # $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 

@@ -5,7 +5,7 @@
 
 - name: remove some packages
   shell: |
-    yay -Rdd --noconfirm {{ item }}
+    pamac remove --no-orphans --no-confirm {{ item }}
   with_items:
     - nodejs
     - erlang-nox
@@ -15,7 +15,7 @@
   ignore_errors: True
 
 - name: Get list of installed packages
-  command: bash -lc "yay -Q | awk '{ print $1 }'"
+  command: bash -lc "pamac list --installed | awk '{ print $1 }'"
   register: package_list
   ignore_errors: yes
   become: True
@@ -50,17 +50,6 @@
   set_fact:
     _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
 
-- name: Install mainline kernel packages
-  aur:
-    use: auto
-    name: "{{ _kernel_packages }}"
-    state: present
-  become: True
-  become_user: "{{ user.name }}"
-  when:
-    - _kernel_packages|length > 0
-    - use_kernel == 'mainline'
-
 - include: kernel.yml
   tags: ['grub']
 
@@ -85,7 +74,7 @@
     state: present
   become: True
   become_user: "{{ user.name }}"
-  when: _audio_packages|length > 0
+  when: _audio_packages|length > 0 and inventory_hostname in groups['daw']
   register: package_result
 
 - block:

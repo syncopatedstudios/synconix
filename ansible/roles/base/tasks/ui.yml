@@ -13,16 +13,22 @@
 - include: ui/theme.yml
   tags: ['theme']
 
-- include: ui/fonts.yml
-  tags: ['fonts']
+# - include: ui/fonts.yml
+#   tags: ['fonts']
 
-- include: ui/autologin.yml
-  tags: ['autologin']
+# - include: ui/autologin.yml
+#   tags: ['autologin']
 
-- include: ui/termpdf.yml
+- include: desktop/termpdf.yml
+  when: inventory_hostname in groups['daw']
   tags: ['utils']
 
 - include: desktop/atom.yml
+  when: inventory_hostname in groups['daw']
+  tags: ['atom']
+
+- include: desktop/nvim.yml
+  when: inventory_hostname in groups['daw']
   tags: ['atom']
 
 - name: set thunar as default for opening directories

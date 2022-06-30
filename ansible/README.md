@@ -119,12 +119,6 @@ If you would like to use git to keep track the files in your home directory then
 ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 ```
 
-# compiling applications from source
-To add an application you want to compile from source...
-* add the applications git repo or download location in [builds](roles/builds/defaults/main.yml)
-* create a task file in builds/tasks/<appname>.yml
-* add the task to the main task list in builds/tasks/main.yml
-
 # ansible stuff
 
 ## variable precdence
@@ -143,7 +137,6 @@ To add an application you want to compile from source...
 
 ###### Some Resources
 
-
 - [repology](https://repology.org/) | database of distro package names
 
 - [pkgs.org](https://pkgs.org/) | same
@@ -151,13 +144,3 @@ To add an application you want to compile from source...
 - [command-not-found](https://command-not-found.com/) | find out what packages contains a command
 
 - [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
-
-## lsyncd
-
-running lsync from crambot --> bender
-
-on bender or lapbot:
-
-git init .
-git fetch
-git checkout development -f

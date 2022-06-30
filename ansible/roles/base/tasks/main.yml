@@ -7,6 +7,15 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- include: sudoers.yml
+  tags: ['sudoers']
+
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: dots.yml
+  tags: ['dots']
+
 - include: packages.yml
   tags: ['packages']
 
@@ -30,26 +39,15 @@
 - include: ntp.yml
   tags: ['ntp']
 
-- include: sudoers.yml
-  tags: ['sudoers']
-
-- include: zsh.yml
-  tags: ['zsh']
-
-- include: dots.yml
-  tags: ['dots']
-
 - include: ruby.yml
   tags: ['ruby']
-
-- include: tuning.yml
-  tags: ['tuning']
 
 - include: nfs.yml
   when: nfs_host is defined
   tags: ['nfs']
 
 - include: autofs.yml
+  when: autofs_client is defined
   tags: ['autofs']
 
 - include: rsyncd.yml
@@ -57,23 +55,21 @@
   tags: ['rsyncd']
 
 - include: docker.yml
-  when: docker_host|bool and docker is defined
+  when: docker_host|bool
   tags: ['docker']
 
 - include: libvirt.yml
   when: kvm_host|bool
   tags: ['libvirt']
 
-- include: backups.yml
-  tags: ['backups']
+# - include: backups.yml
+#   tags: ['backups']
 
-- include: nvim.yml
-  tags: ['nvim']
-
-- include: indexer.yml
-  tags: ['indexer']
+- include: updatedb.yml
+  tags: ['updatedb']
 
 - include: audio.yml
+  when: inventory_hostname in groups['daw']
   tags: ['audio']
 
 - include: ui.yml

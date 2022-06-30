@@ -6,7 +6,7 @@
     regexp: "^gem: --user-install"
     line: "gem: --no-user-install"
     backrefs: yes
-    backup: yes
+    create: yes
   tags: ['gems']
 
 #TODO: account for using RVM

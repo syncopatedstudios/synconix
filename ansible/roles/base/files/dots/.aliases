@@ -37,9 +37,9 @@ alias man="PAGER='most' man "
 alias awman="PAGER='most' awman"
 
 alias search="/usr/local/bin/pkgsearch"
-alias install="yay -S"
-alias uninstall="yay -Rdd"
-alias list="yay -Q"
+alias install="pamac install"
+alias uninstall="pamac remove --no-orphans"
+alias list="pamac list --installed"
 alias p="sudo ping -c 4 google.com"
 
 alias co="git commit -a"

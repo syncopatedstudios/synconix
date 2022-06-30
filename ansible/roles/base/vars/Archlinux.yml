@@ -46,6 +46,7 @@ base:
     - automake
     - barrier
     - bash-language-server
+    - base-devel
     - bat
     - bibtool
     - bind
@@ -108,7 +109,7 @@ base:
     - libzip
     - lnav
     - lsof
-    - lsyncd
+    # - lsyncd
     - lua
     - lzip
     - m4
@@ -137,6 +138,7 @@ base:
     - pcsclite
     - pkgconf
     - poppler
+    - python-i3ipc
     - python-pip
     - python-pymupdf
     - qscintilla-qt5

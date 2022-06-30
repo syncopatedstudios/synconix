@@ -6,8 +6,9 @@ autologin: True
 
 docker_host: True
 
-use_systemdnetwork: True
-wireless: True
+use_systemdnetwork: False
+use_networkmanager: True
+wireless: False
 
 systemd_networkd_network:
   wlan0:
@@ -21,7 +22,7 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - DNS: "{{dns['nameserver'] }}"
       - Domains: "{{ dns['search'] }}"
-      - Address: "192.168.41.15/24"
+      - Address: "192.168.41.4/24"
       - Gateway: "192.168.41.1"
   eth1:
     - Match:
@@ -30,10 +31,7 @@ systemd_networkd_network:
     - Network:
       - DHCP: "no"
       - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: "{{dns['nameserver'] }}"
-      - Domains: "{{ dns['search'] }}"
-      - Address: "192.168.41.15/24"
-      - Gateway: "192.168.41.1"
+      - Address: "192.168.40.1/24"
   eth2:
     - Match:
       - Name: "en*"
@@ -45,11 +43,18 @@ systemd_networkd_network:
       - IPv6AcceptRouterAdvertisements: "no"
       - DNS: "{{dns['nameserver'] }}"
       - Domains: "{{ dns['search'] }}"
-      - Address: "192.168.41.15/24"
+      - Address: "192.168.41.4/24"
       - Gateway: "192.168.41.1"
 
-capture: "Built-in Audio Analog Stereo:capture_FL"
+autofs_client:
+  host: bender
+  shares:
+    - storage
+    - media
+    - backups
+sync_to: bender
 
+capture: "Built-in Audio Analog Stereo:capture_FL"
 
 build_baudline: True
 build_bespoke: False

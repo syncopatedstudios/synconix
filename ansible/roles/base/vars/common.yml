@@ -67,3 +67,4 @@ gems:
 python:
   - i3ipc
   - pillow-simd
+  - wheel

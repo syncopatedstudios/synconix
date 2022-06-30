@@ -17,6 +17,8 @@
     chgrp -R {{ user.group }} /opt && \
     mkdir -pv /usr/share/desktop-directories && \
     chmod 0775 /usr/share/desktop-directories
+  register: local_opt
+  changed_when: local_opt.rc != 0
 
 - include_tasks: RedHat.yml
   when: "ansible_os_family == 'RedHat'"

@@ -43,7 +43,7 @@ options:
         description:
             - The tool to use, 'auto' uses the first known helper found and makepkg as a fallback.
         default: auto
-        choices: [ auto, yay, paru, pacaur, trizen, pikaur, aurman, makepkg ]
+        choices: [ auto, yay, pamac, paru, pacaur, trizen, pikaur, aurman, makepkg ]
 
     extra_args:
         description:
@@ -104,7 +104,7 @@ def_lang = ['env', 'LC_ALL=C', 'LANGUAGE=C']
 
 use_cmd = {
     'yay': ['yay', '-S', '--noconfirm', '--needed', '--cleanafter', '--useask'],
-    'pamac': ['pamac', 'install' '--no-confirm', '--no-upgrade'],
+    'pamac': ['pamac', 'install', '--no-confirm', '--no-upgrade'],
     'paru': ['paru', '-S', '--noconfirm', '--needed', '--cleanafter'],
     'pacaur': ['pacaur', '-S', '--noconfirm', '--noedit', '--needed'],
     'trizen': ['trizen', '-S', '--noconfirm', '--noedit', '--needed'],

@@ -5,8 +5,8 @@ use_kernel: lts
 graphical_target: False
 autologin: False
 
-use_networkmanager: False
-use_systemdnetwork: True
+use_networkmanager: True
+use_systemdnetwork: False
 
 systemd_networkd_network:
   eth0:
