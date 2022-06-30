@@ -230,6 +230,7 @@ ui:
   i3:
     - arandr
     - gtk-engine-murrine
+    - gtk-clearlooks-compact
     - i3-gaps
     - kvantum-qt5
     - lightdm
@@ -255,6 +256,7 @@ ui:
     - numix-circle-icon-theme-git
     - paper-icon-theme-git
   fonts:
+    # - ttf-unifont
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-jp-fonts
     - adobe-source-han-sans-kr-fonts
@@ -271,14 +273,15 @@ ui:
     - ttf-croscore
     - ttf-dejavu
     - ttf-devicons
-    - ttf-font-awesome-4
+    - ttf-font-awesome
+    - ttf-icomoon-feather
     - ttf-input
     - ttf-jetbrains-mono
     - ttf-liberation
     - ttf-nerd-fonts-symbols
     - ttf-opensans
+    - ttf-polybar-icons
     - ttf-ubuntu-font-family
-    # - ttf-unifont
     - xorg-fonts-alias-75dpi
     - xorg-fonts-alias-100dpi
     - xorg-fonts-alias-cyrillic

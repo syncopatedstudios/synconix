@@ -20,6 +20,7 @@
   ignore_errors: yes
   become: True
   become_user: "{{ user.name }}"
+  tags: ['build_pkgs']
 
 - name: Determine kernel packages to install
   set_fact:

@@ -126,8 +126,6 @@ sonicpi:
   git: "https://gitlab.com/syncopated-linux/applications/sonic-pi.git"
   branch: "v3.3.1-MinSizeRel"
   path: /opt/sonic-pi
-  prebuild: "./linux-prebuild.sh --build-aubio"
-  compile: "./linux-config.sh --config Release"
 
 sonicvisualiser:
   git: "https://github.com/sonic-visualiser/sonic-visualiser"

@@ -59,6 +59,7 @@ gems:
   - pry-doc
   - pycall
   - rdoc
+  - rexml
   - rouge
   - rugged
   - sync

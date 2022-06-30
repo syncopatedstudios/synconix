@@ -4,6 +4,7 @@
   shell: command -v reaper
   register: if_reaper_installed
   changed_when: if_reaper_installed.rc != 0
+  ignore_errors: True
   tags: ['reaper']
 
 - name: check reaper version
@@ -11,10 +12,10 @@
     cat whatsnew.txt | grep {{ reaper.version }}
   args:
     chdir: /opt/REAPER
-  when: if_reaper_installed
+  when: if_reaper_installed.rc == 0
   register: if_installed_version
   changed_when: if_installed_version.rc != 0
-  ignore_errors: true
+  ignore_errors: True
 
 - block:
     - name: fetch reaper
@@ -28,6 +29,7 @@
         bash -x ./uninstall-reaper.sh --quiet --uninstall
       args:
         chdir: /opt/REAPER
+      when: if_reaper_installed.rc == 0
 
     - name: extract reaper
       shell: |

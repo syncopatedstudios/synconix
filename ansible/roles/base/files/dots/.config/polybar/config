@@ -125,8 +125,8 @@ module-margin-right = 1
 
 font-0 = "Hack Nerd Font:pixelsize=11;3"
 font-1 = "mononoki Nerd Font:size=10;1"
-font-2 = "feather:size=12;3"
-font-3 = "FontAwesome:size=10"
+font-2 = "icomoon:style=Regular:size=12;3"
+
 ; Modules are added to one of the available blocks
 ;   modules-left = cpu ram
 ;   modules-center = xwindow xbacklight
@@ -198,7 +198,7 @@ tray-scale = 1.0
 ; Currently supported WM's:
 ;   bspwm
 ;   i3 (requires: `override-redirect = true`)
-;;wm-restack =
+wm-restack = i3
 
 ; Set a DPI values used when rendering text
 ; This only affects scalable fonts
@@ -242,6 +242,10 @@ scroll-up = i3-msg workspace next_on_output
 scroll-down = i3-msg workspace prev_on_output
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[bar/HDMI-1]
+inherit = bar/HDMI1
+monitor = ${env:MONITOR:HDMI-1}
 
 [bar/HDMI2]
 inherit = bar/HDMI1

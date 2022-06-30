@@ -1,10 +1,12 @@
 ---
 
-# - name: Push connectivity check config
-#   template:
-#       src: etc/NetworkManager/conf.d/connectivity.conf.j2
-#       dest: /etc/NetworkManager/conf.d/20-connectivity.conf
-#   when: conn_check is defined
+- name: enable iwd backend
+  copy:
+    src: etc/NetworkManager/conf.d/wifi_backend.conf
+    dest: /etc/NetworkManager/conf.d/wifi_backend.conf
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Push resolv.conf
   template:

@@ -19,9 +19,9 @@
   copy:
     src: "usr/local/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
-    owner: root
-    group: root
-    mode: '0755'
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0775'
   with_items:
     - makeh2kit
     - makesfz

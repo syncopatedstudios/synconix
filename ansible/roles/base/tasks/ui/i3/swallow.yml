@@ -6,6 +6,6 @@
     dest: /usr/local/bin/swallow
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
-    mode: '0755'
+    mode: '0775'
     backup: no
   tags: ['i3-config']
