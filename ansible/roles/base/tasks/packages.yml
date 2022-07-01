@@ -132,20 +132,24 @@
   become: True
   become_user: "{{ user.name }}"
 
-- name: Gather list of installed python modules
-  command: pip3 list installed | awk '{print $1}'
-  register: pip_list
-  ignore_errors: yes
+- block:
+    - name: Gather list of installed python modules
+      command: pip3 list installed | awk '{print $1}'
+      register: pip_list
+      ignore_errors: yes
 
-- name: determine python modules to install
-  set_fact:
-    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+    - name: determine python modules to install
+      set_fact:
+        _python_modules: "{{ python|difference(pip_list.stdout) }}"
 
-# this task will ignore errors in check mode
-- name: Install python modules
-  pip:
-    name: "{{ item }}"
-    executable: pip3
-  with_items:
-    - "{{ _python_modules }}"
-  ignore_errors: "{{ ansible_check_mode }}"
+    # this task will ignore errors in check mode
+    - name: Install python modules
+      pip:
+        name: "{{ item }}"
+        executable: pip3
+      with_items:
+        - "{{ _python_modules }}"
+      ignore_errors: "{{ ansible_check_mode }}"
+
+  when: ansible_lsb['id'] != 'Manjaro-ARM'
+  tags: ['python']
