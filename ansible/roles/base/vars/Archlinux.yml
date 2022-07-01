@@ -138,7 +138,7 @@ base:
     - pcsclite
     - pkgconf
     - poppler
-    - python-i3ipc
+    # - python-i3ipc
     - python-pip
     - python-pymupdf
     - qscintilla-qt5
@@ -229,18 +229,20 @@ ui:
     - xorg-xwud
   i3:
     - arandr
-    - gtk-engine-murrine
     - gtk-clearlooks-compact
+    - gtk-engine-murrine
     - i3-gaps
     - kvantum-qt5
     - lightdm
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
-    - picom
     - perl-anyevent-i3
+    - picom
     - polybar
     - qt5-base
+    - qt5-graphicaleffects
+    - qt5-quickcontrols2
     - qt5-tools
     - qt5ct
     - qt6-base
@@ -280,7 +282,7 @@ ui:
     - ttf-liberation
     - ttf-nerd-fonts-symbols
     - ttf-opensans
-    - ttf-polybar-icons
+    # - ttf-polybar-icons
     - ttf-ubuntu-font-family
     - xorg-fonts-alias-75dpi
     - xorg-fonts-alias-100dpi

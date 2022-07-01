@@ -6,7 +6,7 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ _kernel_packages }}"    
+    - "[{{ _kernel_packages }}]"    
   become: True
   become_user: "{{ user.name }}"
   when:

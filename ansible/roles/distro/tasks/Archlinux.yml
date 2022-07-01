@@ -1,22 +1,16 @@
 ---
 
-- name: install os-release
-  copy:
-    src: "etc/os-release"
-    dest: "/etc/os-release"
+- name: push os-release
+  template:
+    src: etc/os-release.j2
+    dest: /etc/{{ item }}
+    mode: '0644'
     owner: root
     group: root
-    mode: '0644'
-    directory_mode: no
-
-- name: install system-release
-  copy:
-    src: "etc/os-release"
-    dest: "/etc/system-release"
-    owner: root
-    group: root
-    mode: '0644'
-    directory_mode: no
+    backup: yes
+  with_items:
+    - "os-release"
+    - "system-release"
 
 - name: push pamac conf
   template:
@@ -26,7 +20,8 @@
     owner: root
     group: root
     backup: yes
-  tags: ['pamacconf']
+  when: ansible_lsb['id'] == 'ManjaroLinux'
+  tags: ['pamac']
 
 - name: push pacman conf
   template:
@@ -36,7 +31,7 @@
     owner: root
     group: root
     backup: yes
-  tags: ['pacmanconf']
+  tags: ['pacman']
 
 - name: push pacman mirrorlist
   template:
@@ -46,7 +41,7 @@
     owner: root
     group: root
     backup: yes
-  tags: ['pacmanconf']
+  tags: ['pacman']
 
 - name: install makepkg config
   copy:
@@ -82,15 +77,6 @@
 #   become_user: "{{ user.name }}"
 #   when: not haziyay.stat.exists
 #   tags: ['yay']
-
-- block:
-    - name: clean package cache
-      shell: |
-        pamac clean
-
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['pamac']
 
 - name: remove packages
   pacman:

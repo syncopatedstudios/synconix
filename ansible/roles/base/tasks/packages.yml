@@ -5,7 +5,11 @@
 
 - name: remove some packages
   shell: |
-    pamac remove --no-orphans --no-confirm {{ item }}
+    if ! [ -x "$(command -v yay)" ]; then
+      pamac remove --no-orphans --no-confirm {{ item }}
+    else
+      yay -Rdd --noconfirm {{ item }}
+    fi
   with_items:
     - nodejs
     - erlang-nox
@@ -14,8 +18,21 @@
   become_user: "{{ user.name }}"
   ignore_errors: True
 
+# - name: Get list of installed packages
+#   command: bash -lc "pamac list --installed | awk '{ print $1 }'"
+#   register: package_list
+#   ignore_errors: yes
+#   become: True
+#   become_user: "{{ user.name }}"
+#   tags: ['build_pkgs']
+
 - name: Get list of installed packages
-  command: bash -lc "pamac list --installed | awk '{ print $1 }'"
+  shell: |
+    if ! [ -x "$(command -v yay)" ]; then
+      pamac list --installed | awk '{ print $1 }'
+    else
+      yay -Qe | awk '{ print $1 }'
+    fi
   register: package_list
   ignore_errors: yes
   become: True
@@ -51,7 +68,7 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ _base_packages }}"
+    - "[{{ _base_packages }}]"
   become: True
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
@@ -62,7 +79,7 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - "{{ _audio_packages }}"
+    - "[{{ _audio_packages }}]"
   become: True
   become_user: "{{ user.name }}"
   when: _audio_packages|length > 0 and inventory_hostname in groups['daw']
@@ -76,7 +93,7 @@
         name: "{{ item }}"
         state: present
       with_items:
-        - "{{ (_ui_packages + _desktop_packages) }}"
+        - "[{{ (_ui_packages + _desktop_packages) }}]"
       become: True
       become_user: "{{ user.name }}"
       when: (_ui_packages|length > 0 or _desktop_packages|length > 0)
