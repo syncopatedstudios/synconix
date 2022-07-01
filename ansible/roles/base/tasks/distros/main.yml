@@ -1,0 +1,22 @@
+---
+
+- name: starting distro role
+  debug:
+    msg: "starting distro role"
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+
+
+- include_tasks: RedHat.yml
+  when: "ansible_os_family == 'RedHat'"
+  tags: ['redhat']
+
+- include_tasks: Debian.yml
+  when: "ansible_os_family == 'Debian'"
+  tags: ['debian']
+
+- include_tasks: Archlinux.yml
+  when: "ansible_os_family == 'Archlinux'"
+  tags: ['archlinux']

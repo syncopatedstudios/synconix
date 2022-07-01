@@ -1,5 +1,0 @@
----
-pkg: []
-pkg_state: present
-
-archlinux_pkg_mgr: yay

@@ -6,12 +6,10 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - "[{{ _kernel_packages }}]"    
+    - "[{{ _kernel_packages }}]"
   become: True
   become_user: "{{ user.name }}"
-  when:
-    - _kernel_packages|length > 0
-    - use_kernel == 'mainline'
+  when: _kernel_packages|length > 0
 
 - name: push mkinitcpio configs
   template:
@@ -32,10 +30,3 @@
 
 - include: grub.yml
   tags: ['grub']
-# - name: Set linux-lts as the default in grub
-#   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
-#   when: use_kernel == 'lts'
-#
-# - name: Set linux-zen as the defaule in grub
-#   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-zen'"
-#   when: use_kernel == 'zen'

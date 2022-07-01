@@ -1,6 +1,5 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
-use_kernel: lts
 
 graphical_target: False
 autologin: False

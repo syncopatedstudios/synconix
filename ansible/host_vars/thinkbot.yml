@@ -1,5 +1,4 @@
 ---
-use_kernel: mainline
 
 graphical_target: True
 autologin: True
@@ -8,43 +7,7 @@ docker_host: True
 
 use_systemdnetwork: False
 use_networkmanager: True
-wireless: False
-
-systemd_networkd_network:
-  wlan0:
-    - Match:
-      - Name: "w*"
-      - MACAddress: "7c:76:35:0f:03:1b"
-    - Link:
-      - MACAddress: "00:e0:4d:78:b7:7c"
-    - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: "{{dns['nameserver'] }}"
-      - Domains: "{{ dns['search'] }}"
-      - Address: "192.168.41.4/24"
-      - Gateway: "192.168.41.1"
-  eth1:
-    - Match:
-      - Name: "en*"
-      - MACAddress: "00:e0:4d:78:b7:7c"
-    - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - Address: "192.168.40.1/24"
-  eth2:
-    - Match:
-      - Name: "en*"
-      - MACAddress: "54:ee:75:fd:46:30"
-    - Link:
-      - MACAddress: "00:e0:4d:78:b7:7c"
-    - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: "{{dns['nameserver'] }}"
-      - Domains: "{{ dns['search'] }}"
-      - Address: "192.168.41.4/24"
-      - Gateway: "192.168.41.1"
+wireless: True
 
 autofs_client:
   host: bender
@@ -54,16 +17,12 @@ autofs_client:
     - backups
 sync_to: bender
 
-capture: "Built-in Audio Analog Stereo:capture_FL"
-
 build_baudline: True
-build_bespoke: False
 build_deadbeef: True
 build_jacktrip: True
 build_jalvselect: True
 build_lsmi: True
 build_linuxsampler: True
-build_non: True
 build_patchage: True
 build_protokol: True
 build_raysession: True

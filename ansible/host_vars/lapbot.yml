@@ -1,29 +1,13 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
-use_kernel: zen
 
 graphical_target: True
 autologin: True
 
-use_systemdnetwork: True
-use_networkmanager: False
+use_systemdnetwork: False
+use_networkmanager: True
 
 wireless: True
-
-systemd_networkd_network:
-  wlan1:
-    - Match:
-      - Name: "wlan1"
-      - MACAddress: "c0:25:e9:74:cd:96"
-    - Link:
-      - MACAddress: "58:8A:5A:38:FB:22"
-    - Network:
-      - DHCP: "no"
-      - IPv6AcceptRouterAdvertisements: "no"
-      - DNS: "{{dns['nameserver'] }}"
-      - Domains: "{{ dns['search'] }}"
-      - Address: "192.168.41.5/24"
-      - Gateway: "192.168.41.1"
 
 autofs_client:
   host: bender
@@ -39,37 +23,13 @@ firewalld:
     - 4464/udp
     - 24800/tcp
 
-kvm_host: False
-docker_host: False
+docker_host: True
 
-soundcard:
-  alsa_in: alsa_input.pci-0000_00_1f.3.capture.0.0
-  alsa_out: alsa_output.pci-0000_00_1f.3.playback.0.0
-  resample_quality: 9
-  channels: 2
-  format: "S32LE"
-  rate: 48000
-  allowed-rates: "32000,44100,48000,96000"
-  position: "FL,FR"
-
-wallpaper:
-  screen1: /usr/share/backgrounds/010.png
-
-build_baudline: True
 build_jacktrip: True
 build_jalvselect: True
 build_njconnect: True
-build_non: True
 build_patchage: True
-build_polyphone: True
 build_qmidinet: True
 build_raysession: True
-build_reaper: True
 build_seq192: True
-build_sonicannotator: True
-build_soniclineup: True
 build_sonicpi: True
-build_sonicpitool: True
-build_timemachine: True
-build_tony: True
-build_touchosc: True

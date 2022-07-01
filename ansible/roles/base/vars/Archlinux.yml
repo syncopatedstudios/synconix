@@ -1,5 +1,24 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
+
+update_mirrors: False
+
+packages__reflector_args: >-
+  --latest 200
+  --sort rate
+  --protocol http --protocol https
+  --threads {{ ansible_facts.processor_vcpus }}
+  --save /etc/pacman.d/mirrorlist
+
+packages__gpg_keyserver: keyserver.ubuntu.com
+packages__gpg_conf: |
+  keyserver {{ packages__gpg_keyserver }}
+
+remove:
+  - vi
+  - vim
+  - python-pillow
+
 admin_user: wheel
 autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
@@ -10,21 +29,9 @@ grub_set_default: grub-set-default
 
 base:
   kernel:
-    mainline:
-      - linux
-      - linux-headers
-      - dkms
-    lts:
-      - linux-lts
-      - linux-lts-headers
-    rt:
-      - linux510-rt
-      - linux510-rt-acpi_call
-      - linux510-rt-headers
-      - linux510-rt-r8168
-    zen:
-      - linux-zen
-      - linux-zen-headers
+    - linux
+    - linux-headers
+    - dkms
   networkmanager:
     - libnm
     - libnma
@@ -411,8 +418,8 @@ desktop:
     - pcmanfm
     - pdfjs
     - python-adblock
-    - qpdfview
-    - qutebrowser
+    # - qpdfview
+    # - qutebrowser
     - radiotray-ng
     - s
     - seqdiag

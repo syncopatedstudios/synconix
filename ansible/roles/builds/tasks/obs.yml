@@ -16,15 +16,17 @@
 - block:
     - name: set obs dependencies to install
       set_fact:
-        _packages: "{{ builds.obs }}"
+        _obs_dependencies: "{{ builds.obs|difference(package_list.stdout) }}"
       tags: ['packages']
 
     - name: Install obs dependencies
-      import_role:
-        name: pkg_manager
-      vars:
-        pkg_state: present
-      tags: ['packages']
+      aur:
+        use: auto
+        name: "{{ _obs_dependencies }}"
+        state: present
+      become: True
+      become_user: "{{ user.name }}"
+      when: _obs_dependencies|length > 0
 
     - name: fetch sndio
       get_url:

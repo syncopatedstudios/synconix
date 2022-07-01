@@ -41,7 +41,7 @@
 
 - name: Determine kernel packages to install
   set_fact:
-    _kernel_packages: "{{ base.kernel.mainline|difference(package_list.stdout) }}"
+    _kernel_packages: "{{ base.kernel|difference(package_list.stdout) }}"
 
 - name: Determine base packages to installl
   set_fact:
