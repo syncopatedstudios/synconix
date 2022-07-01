@@ -1,0 +1,199 @@
+atom-text-editor {
+  background-color: @background;
+  color: @text;
+}
+
+.indent-guide, .invisible-character {
+  opacity: 0.2;
+}
+
+atom-text-editor .is-focused .cursor {
+  border-color: @text;
+}
+
+.syntax-text {
+  color: @syntax-text-color;
+}
+
+.selection .region {
+  background-color: @selection;
+}
+
+atom-text-editor .is_focused .line-number.cursor-line-selection,
+atom-text-editor .is-focused .line-number.cursor-line-no-selection,
+atom-text-editor .is-focused .line.cursor-line {
+  background-color: @line-highlight;
+}
+
+/* fix bracket matcher not drawn on highlight */
+.bracket-matcher {
+    z-index: 1;
+    position: absolute;
+}
+
+.syntax--constant.syntax--numeric {
+  color: @number;
+}
+.syntax--constant.syntax--nil, .syntax--constant.syntax--boolean {
+  color: #FF6600;
+}
+
+.syntax--comment {
+  color: @comment;
+}
+
+.syntax--storage.syntax--type.syntax--class.syntax--todo {
+  font-style: bold;
+  color: @red;
+
+}
+
+.syntax--constant {
+  color: @constant;
+}
+
+.syntax--keyword {
+  color: @keyword;
+}
+
+.syntax--keyword.syntax--preprocessor {
+  color: @keyword-preprocessor;
+}
+
+.syntax--keyword.syntax--preprocessor .syntax--directive {
+  color: @text;
+}
+
+.syntax--entity.syntax--name.syntax--function, .syntax--storage.syntax--type.syntax--function.syntax--js {
+  color: @function;
+}
+
+.syntax--storage.syntax--variable.syntax--ruby {
+  color: @keyword;
+}
+
+.syntax--variable.syntax--parameter {
+  font-style: italic;
+}
+
+.syntax--source .syntax--comment.syntax--block {
+  color: @special-comment;
+  background-color: @special-comment-bg;
+}
+
+.syntax--variable.syntax--other {
+  color: @text;
+}
+
+.syntax--variable.syntax--other.syntax--constant {
+  color: @constant;
+}
+
+.syntax--variable.syntax--self {
+  color: @keyword
+}
+
+.syntax--support.syntax--function.syntax--activerecord.syntax--rails {
+  color: @rails-support-function;
+}
+
+.syntax--string {
+  color: @string;
+}
+
+.syntax--string .syntax--constant.syntax--character.syntax--escape {
+  color: @string-escaped-char;
+}
+
+.syntax--string.syntax--interpolated {
+  color: #66FF00;
+}
+
+.syntax--string.syntax--regexp {
+  color: @regex;
+}
+
+.syntax--string.syntax--literal {
+  color: @string-literal;
+}
+
+.syntax--string.syntax--interpolated .syntax--constant.syntax--character.syntax--escape {
+  color: @string-interpolated-escaped-char;
+}
+
+.syntax--entity.syntax--name.syntax--class, .syntax--support.syntax--class,
+.syntax--entity.syntax--name.syntax--module {
+  color: @constant;
+}
+
+.syntax--entity.syntax--other.syntax--inherited-class {
+  font-style: italic;
+}
+
+.syntax--meta.syntax--tag.syntax--html {
+  color: @keyword;
+}
+
+.syntax--entity.syntax--other.syntax--attribute-name {
+  font-style: italic;
+  color: @entity-other-attribute-name;
+}
+
+.syntax--keyword.syntax--other {
+  color: @keyword-other;
+}
+
+.syntax--meta.syntax--selector.syntax--css,
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--pseudo-class.syntax--css,
+.syntax--entity.syntax--name.syntax--tag.syntax--wildcard.syntax--css,
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id.syntax--css,
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--class.syntax--css {
+  color: @keyword;
+}
+
+.syntax--support.syntax--type.syntax--property-name.syntax--css {
+  color: @support-property-css;
+}
+
+.syntax--keyword.syntax--other.syntax--unit.syntax--css,
+.syntax--constant.syntax--other.syntax--rgb-value.syntax--css,
+.syntax--constant.syntax--numeric.syntax--css {
+  color: @text;
+}
+
+.syntax--support.syntax--function.syntax--event-handler.syntax--js {
+  color: @text;
+}
+
+.syntax--keyword.syntax--operator.syntax--js {
+  color: @text;
+}
+
+.syntax--keyword.syntax--control.syntax--js {
+  color: @keyword-control-js;
+}
+
+.syntax--support.syntax--class.syntax--prototype.syntax--js {
+  color: @text;
+}
+
+.syntax--object.syntax--property.syntax--function.syntax--prototype.syntax--js {
+  color: @keyword;
+}
+
+.syntax--meta.syntax--embedded.syntax--line {
+  color: @text;
+}
+
+.syntax--punctuation.syntax--embedded {
+  color: @text;
+}
+
+.syntax--string.syntax--interpolated .syntax--punctuation.syntax--embedded {
+  color: @keyword;
+}
+
+.syntax--punctuation.syntax--separator.syntax--inheritance,
+.syntax--punctuation.syntax--separator.syntax--variable {
+  color: @keyword;
+}

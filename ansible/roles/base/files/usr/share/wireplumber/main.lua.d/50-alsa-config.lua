@@ -11,9 +11,6 @@ alsa_monitor.properties = {
   --["alsa.reserve.priority"] = -20,
   --["alsa.reserve.application-name"] = "WirePlumber",
 
-  -- Enables MIDI functionality
-  ["alsa.midi"] = true,
-
   -- Enables monitoring of alsa MIDI devices
   ["alsa.midi.monitoring"] = true,
 }
@@ -47,11 +44,11 @@ alsa_monitor.rules = {
     apply_properties = {
       -- Use ALSA-Card-Profile devices. They use UCM or the profile
       -- configuration to configure the device and mixer settings.
-      ["api.alsa.use-acp"] = true,
+      --["api.alsa.use-acp"] = true,
 
       -- Use UCM instead of profile when available. Can be
       -- disabled to skip trying to use the UCM profile.
-      --["api.alsa.use-ucm"] = true,
+      ["api.alsa.use-ucm"] = true,
 
       -- Don't use the hardware mixer for volume control. It
       -- will only use software volume. The mixer is still used
