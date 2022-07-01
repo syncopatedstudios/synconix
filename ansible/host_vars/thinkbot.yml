@@ -19,7 +19,6 @@ sync_to: bender
 
 build_baudline: True
 build_deadbeef: True
-build_jacktrip: True
 build_jalvselect: True
 build_lsmi: True
 build_linuxsampler: True

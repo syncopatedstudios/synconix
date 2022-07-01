@@ -25,11 +25,8 @@ firewalld:
 
 docker_host: True
 
-build_jacktrip: True
 build_jalvselect: True
-build_njconnect: True
 build_patchage: True
-build_qmidinet: True
 build_raysession: True
 build_seq192: True
 build_sonicpi: True

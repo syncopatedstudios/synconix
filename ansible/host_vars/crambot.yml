@@ -78,7 +78,6 @@ install_daw: True
 
 build_baudline: True
 build_bespoke: True
-build_jacktrip: True
 build_jalv_select: True
 build_non: True
 build_patchage: True

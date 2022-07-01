@@ -18,14 +18,6 @@
   become_user: "{{ user.name }}"
   ignore_errors: True
 
-# - name: Get list of installed packages
-#   command: bash -lc "pamac list --installed | awk '{ print $1 }'"
-#   register: package_list
-#   ignore_errors: yes
-#   become: True
-#   become_user: "{{ user.name }}"
-#   tags: ['build_pkgs']
-
 - name: Get list of installed packages
   shell: |
     if ! [ -x "$(command -v yay)" ]; then
@@ -46,6 +38,10 @@
 - name: Determine base packages to installl
   set_fact:
     _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
+
+- name: Determine network packages to install
+  set_fact:
+    _network_packages: "{{ base.network|difference(package_list.stdout) }}"
 
 - name: Determine audio packages to install
   set_fact:
@@ -72,6 +68,17 @@
   become: True
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
+
+- name: Install network packages
+  aur:
+    use: auto
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "[{{ _network_packages }}]"
+  become: True
+  become_user: "{{ user.name }}"
+  when: _network_packages|length > 0
 
 - name: Install audio packages
   aur:

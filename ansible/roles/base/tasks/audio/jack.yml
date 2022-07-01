@@ -12,6 +12,12 @@
     - jack_control
 
 - block:
+    - name: Create systemc user directory if it does not exist
+      file:
+        path: "{{ user.home }}/.config/systemd/user/"
+        state: directory
+        mode: '0755'
+
     - name: install a2j_control & jack_control service files
       synchronize:
         src: usr/lib/systemd/user/
@@ -37,5 +43,6 @@
         - a2j_control
         - jack_control
       when: jack_control_systemd.changed
+      ignore_errors: True
   become: True
   become_user: "{{ user.name }}"
