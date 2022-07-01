@@ -1,22 +1,25 @@
-GRUB_TIMEOUT=3
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
 GRUB_TIMEOUT_STYLE=menu
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
-GRUB_DEFAULT=saved
-GRUB_SAVEDEFAULT=false
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 info"
-{% if inventory_hostname != 'bender' %}
-GRUB_CMDLINE_LINUX="rootfstype=btrfs"
-{% else %}
-{% endif %}
+GRUB_CMDLINE_LINUX_DEFAULT="udev.log_priority=3"
 {% if inventory_hostname == 'lapbot' %}
 GRUB_CMDLINE_LINUX="crashkernel=auto threadirqs rhgb audit=0 delayacct systemd.restore_state=0"
 {% else %}
 GRUB_CMDLINE_LINUX="crashkernel=auto threadirqs rhgb audit=0 delayacct"
 {% endif %}
-{% endif %}
-
-GRUB_DISABLE_RECOVERY=True
-GRUB_DISABLE_SUBMENU=True
-GRUB_TERMINAL_OUTPUT=console
+GRUB_SAVEDEFAULT="false"
 GRUB_PRELOAD_MODULES="part_gpt part_msdos"
-GRUB_GFXMODE=1024x768
+GRUB_TERMINAL_INPUT=console
+GRUB_GFXMODE=auto
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_DISABLE_RECOVERY=true
+GRUB_DISABLE_OS_PROBER=false
+GRUB_COLOR_NORMAL="light-gray/black"
+GRUB_COLOR_HIGHLIGHT="green/black"
+#GRUB_BACKGROUND="/usr/share/grub/background.png"
+#GRUB_THEME="/path/to/gfxtheme"
+# Uncomment to get a beep at GRUB start
+#GRUB_INIT_TUNE="480 440 1"
+# See also Arch-Wiki: https://wiki.archlinux.org/index.php/Fsck#Boot_time_checking
+#GRUB_ROOT_FS_RO=true

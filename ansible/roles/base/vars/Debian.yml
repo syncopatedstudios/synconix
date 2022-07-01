@@ -1,6 +1,8 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
 
+apt_update: False
+
 autofs_configs: /etc
 admin_user: sudo
 rtirq_dir: /etc/default/rtirq

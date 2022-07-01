@@ -13,6 +13,12 @@
   when: use_systemdnetwork|bool
 
 - block:
+    - name: Create /etc/iwd directory if it does not exist
+      file:
+        path: /etc/iwd
+        state: directory
+        mode: '0755'
+
     - name: install iwd config
       copy:
         src: etc/iwd/main.conf

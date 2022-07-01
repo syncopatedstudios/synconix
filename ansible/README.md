@@ -1,3 +1,30 @@
+
+# error handling whilst installing a large number of packages
+source: https://stackoverflow.com/a/49758224/10073106
+
+First setup a sub-tasks.yml to contain your install tasks:
+
+```yaml
+Sub-Tasks.yml
+
+  - name: Install package and handle errors
+    block:
+      - name Install package
+        yum: state=latest name="{{ package_name }}"
+    rescue:
+      - debug:
+          msg: "I caught an error with {{ package_name }}"
+
+# Then your playbook will setup a loop of these tasks:
+
+  - name: Install all packages ignoring errors
+    include_tasks: Sub-Tasks.yml
+    vars:
+      package_name: "{{ item }}"
+    with_items:
+      - "{{ pkgs }}"
+```
+
 # instructions for a soundbot v1.0.0-alpha
 
 Hey Baby. Looking good. Wanna install me? I'm a real good time.
@@ -119,12 +146,6 @@ If you would like to use git to keep track the files in your home directory then
 ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 ```
 
-# compiling applications from source
-To add an application you want to compile from source...
-* add the applications git repo or download location in [builds](roles/builds/defaults/main.yml)
-* create a task file in builds/tasks/<appname>.yml
-* add the task to the main task list in builds/tasks/main.yml
-
 # ansible stuff
 
 ## variable precdence
@@ -143,7 +164,6 @@ To add an application you want to compile from source...
 
 ###### Some Resources
 
-
 - [repology](https://repology.org/) | database of distro package names
 
 - [pkgs.org](https://pkgs.org/) | same
@@ -151,13 +171,3 @@ To add an application you want to compile from source...
 - [command-not-found](https://command-not-found.com/) | find out what packages contains a command
 
 - [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
-
-## lsyncd
-
-running lsync from crambot --> bender
-
-on bender or lapbot:
-
-git init .
-git fetch
-git checkout development -f

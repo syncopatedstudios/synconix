@@ -4,6 +4,19 @@
   debug:
     msg: "starting ui role"
 
+- name: set /usr/local and /opt to be writable by group
+  shell: |
+    mkdir -pv /usr/local/{bin,lib,soundbot,share,src} && \
+    mkdir -pv /opt && \
+    chmod -R 0775 /usr/local/ && \
+    chmod -R 0775 /opt && \
+    chgrp -R {{ user.group }} /usr/local/ && \
+    chgrp -R {{ user.group }} /opt && \
+    mkdir -pv /usr/share/desktop-directories && \
+    chmod 0775 /usr/share/desktop-directories
+  register: local_opt
+  changed_when: local_opt.rc != 0
+
 - include: ui/x11.yml
   tags: ['x11']
 
@@ -13,16 +26,24 @@
 - include: ui/theme.yml
   tags: ['theme']
 
-- include: ui/fonts.yml
-  tags: ['fonts']
+# - include: ui/fonts.yml
+#   tags: ['fonts']
 
-- include: ui/autologin.yml
-  tags: ['autologin']
+# - include: ui/autologin.yml
+#   tags: ['autologin']
 
-- include: ui/termpdf.yml
+- include: desktop/termpdf.yml
+  when: inventory_hostname in groups['daw']
   tags: ['utils']
 
 - include: desktop/atom.yml
+  when:
+    - inventory_hostname in groups['daw']
+    - install_atom|bool
+  tags: ['atom']
+
+- include: desktop/nvim.yml
+  when: inventory_hostname in groups['daw']
   tags: ['atom']
 
 - name: set thunar as default for opening directories

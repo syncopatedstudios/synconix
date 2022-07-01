@@ -1,12 +1,5 @@
 ---
 
 dns:
-  nameserver: 192.168.41.20
+  nameserver: 192.168.41.1
   search: syncopated.net
-
-autofs_client:
-  host: bender
-  shares:
-    - storage
-    - media
-sync_to: bender

@@ -1,5 +1,24 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
+
+update_mirrors: False
+
+packages__reflector_args: >-
+  --latest 200
+  --sort rate
+  --protocol http --protocol https
+  --threads {{ ansible_facts.processor_vcpus }}
+  --save /etc/pacman.d/mirrorlist
+
+packages__gpg_keyserver: keyserver.ubuntu.com
+packages__gpg_conf: |
+  keyserver {{ packages__gpg_keyserver }}
+
+remove:
+  - vi
+  - vim
+  - python-pillow
+
 admin_user: wheel
 autofs_configs: /etc/autofs
 rtirq_dir: /etc/rtirq.conf
@@ -10,22 +29,10 @@ grub_set_default: grub-set-default
 
 base:
   kernel:
-    mainline:
-      - linux
-      - linux-headers
-      - dkms
-    lts:
-      - linux-lts
-      - linux-lts-headers
-    rt:
-      - linux510-rt
-      - linux510-rt-acpi_call
-      - linux510-rt-headers
-      - linux510-rt-r8168
-    zen:
-      - linux-zen
-      - linux-zen-headers
-  networkmanager:
+    - linux
+    - linux-headers
+    - dkms
+  network:
     - libnm
     - libnma
     - networkmanager
@@ -35,16 +42,29 @@ base:
     - networkmanager-pptp
     - networkmanager-vpnc
     - nm-connection-editor
+    - iwd
   system:
+    # - autofs
+    # - brightnessctl
+    # - btrfsmaintenance
+    # - lsyncd
+    # - mdadm
+    # - mp3val
+    # - neofetch
+    # - neovim-symlinks
+    # - pandoc
+    # - python-i3ipc
+    # - ripgrep-all
     # - samba
     # - ssvnc
+    # - tuna
+    # - tuned
     - abduco
     - aria2
     - atool
     - autoconf
-    - autofs
     - automake
-    - barrier
+    - base-devel
     - bash-language-server
     - bat
     - bibtool
@@ -52,8 +72,6 @@ base:
     - binutils
     - bison
     - boost
-    - brightnessctl
-    - btrfsmaintenance
     - cmake
     - dialog
     - dmidecode
@@ -76,8 +94,6 @@ base:
     - git
     - git-filter-repo
     - git-lfs
-    - gitflow-avh
-    - gitflow-zshcompletion-avh
     - glibc
     - glow
     - graphicsmagick
@@ -92,8 +108,6 @@ base:
     - iotop
     - jansson
     - jq
-    - kitty
-    - kitty-terminfo
     - libbluray
     - libev
     - libgit2
@@ -108,23 +122,18 @@ base:
     - libzip
     - lnav
     - lsof
-    - lsyncd
     - lua
     - lzip
     - m4
     - make
     - man-db
     - man-pages
-    - mdadm
     - mediainfo
     - mlocate
     - most
-    - mp3val
     - ncdu
     - ncurses
-    - neofetch
     - neovim
-    - neovim-symlinks
     - net-tools
     - nfs-utils
     - npm
@@ -132,7 +141,6 @@ base:
     - openssl
     - opusfile
     - pacman
-    - pandoc
     - patch
     - pcsclite
     - pkgconf
@@ -142,7 +150,6 @@ base:
     - qscintilla-qt5
     - r
     - ranger
-    - ripgrep-all
     - rsync
     - rtirq
     - rtkit
@@ -156,11 +163,8 @@ base:
     - sudo
     - suil
     - taglib
-    - terminator
     - tesseract
     - texinfo
-    - tuna
-    - tuned
     - udisks2
     - usbutils
     - w3m
@@ -168,9 +172,7 @@ base:
     - wavpack
     - which
     - wol
-    - xarchiver
     - xdg-user-dirs
-    - xterm
     - xz
     - zlib
     - zsh
@@ -227,6 +229,7 @@ ui:
     - xorg-xwud
   i3:
     - arandr
+    - gtk-clearlooks-compact
     - gtk-engine-murrine
     - i3-gaps
     - kvantum-qt5
@@ -234,10 +237,12 @@ ui:
     - lightdm-gtk-greeter
     - nitrogen
     - notification-daemon
-    - picom
     - perl-anyevent-i3
+    - picom
     - polybar
     - qt5-base
+    - qt5-graphicaleffects
+    - qt5-quickcontrols2
     - qt5-tools
     - qt5ct
     - qt6-base
@@ -253,6 +258,8 @@ ui:
     - numix-circle-icon-theme-git
     - paper-icon-theme-git
   fonts:
+    # - ttf-polybar-icons
+    # - ttf-unifont
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-jp-fonts
     - adobe-source-han-sans-kr-fonts
@@ -269,14 +276,14 @@ ui:
     - ttf-croscore
     - ttf-dejavu
     - ttf-devicons
-    - ttf-font-awesome-4
+    - ttf-font-awesome
+    - ttf-icomoon-feather
     - ttf-input
     - ttf-jetbrains-mono
     - ttf-liberation
     - ttf-nerd-fonts-symbols
     - ttf-opensans
     - ttf-ubuntu-font-family
-    - ttf-unifont
     - xorg-fonts-alias-75dpi
     - xorg-fonts-alias-100dpi
     - xorg-fonts-alias-cyrillic
@@ -300,6 +307,12 @@ audio:
     - pulseaudio-bluetooth
     - pavucontrol
   utils:
+    # - jack-audio-tools-carla
+    # - jack-audio-tools-common
+    # - jack-audio-tools-dbus
+    # - jack-audio-tools-lv2
+    # - jack-audio-tools-transport
+    # - jack_snapshot
     - a2jmidid
     - alsa-lib
     - alsa-plugins
@@ -308,27 +321,19 @@ audio:
     - aribb24
     - gst-libav
     - gst-plugins-bad
-    # - jack-audio-tools-carla
-    # - jack-audio-tools-common
-    # - jack-audio-tools-dbus
-    # - jack-audio-tools-lv2
-    # - jack-audio-tools-transport
     - jack-example-tools
-    - jack-keyboard
-    - jack-rack
     - jack_capture
-    - jack_snapshot
     - jack_utils
+    - jacktrip
     - jconvolver
-    - stunnel
+    - ladspa
+    - lv2
     - njconnect
     - opus
     - osc2midi
-    - sox-noise-git
+    - stunnel
     - timidity++
-    - tmux
     - vamp-plugin-sdk
-    - youtube-dl
     - zita-ajbridge
     - zita-alsa-pcmi
     - zita-lrx
@@ -342,8 +347,6 @@ audio:
     - iempluginsuite
     - intersect.lv2-git
     - ir.lv2
-    - ladspa
-    - lv2
     - mod-utilities-lv2-git
     - noise-repellent
     - psi-plugins.lv2-git
@@ -351,6 +354,7 @@ audio:
     - swh-plugins
     - x42-plugins
   applications:
+    # - scala-music-scales
     - ams
     - audacity
     - carla
@@ -358,36 +362,44 @@ audio:
     - guitarix
     - helm-synth
     - hydrogen
+    - jack-keyboard
+    - jack-rack
     - jack_mixer
     - japa
     - jkmeter
-    - mixxx
     - meterbridge
+    - mixxx
     - non-sequencer
     - ocenaudio-bin
     - qmidiarp
     - qmidinet
     - scala-music
-    - scala-music-scales
     - sfizz
     - songrec
     - sooperlooper
+    - sox-noise-git
     - stochas
     - tonespace
     - vital-synth
     - vmpk
     - zita-mu1
 desktop:
+    # - qpdfview
+    # - qutebrowser
+    # - teiler
     - actdiag
     - antimicrox
     - aspell-en
     - atom
+    - barrier
     - blockdiag
     - celluloid
     - darktable
     - epson-inkjet-printer-escpr2
     - feh
     - ffmpegthumbnailer
+    - gitflow-avh
+    - gitflow-zshcompletion-avh
     - gnuplot
     - google-chrome
     - gpick
@@ -395,6 +407,8 @@ desktop:
     - gtksourceview3
     - gtkspell3
     - guake
+    - kitty
+    - kitty-terminfo
     - mpv
     - mpv-plugin-excerpt-git
     - nodejs-lts-gallium
@@ -404,13 +418,11 @@ desktop:
     - pcmanfm
     - pdfjs
     - python-adblock
-    - qpdfview
-    - qutebrowser
     - radiotray-ng
     - s
     - seqdiag
     - stunnel
-    - teiler
+    - terminator
     - thunar
     - thunar-archive-plugin
     - thunar-volman
@@ -419,7 +431,9 @@ desktop:
     - wordnet-cli
     - xarchiver
     - xdot
+    - xterm
     - xzgv
+    - youtube-dl
     - zim
 docker:
   - docker

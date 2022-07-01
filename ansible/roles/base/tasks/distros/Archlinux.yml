@@ -1,0 +1,71 @@
+---
+
+- name: push os-release
+  template:
+    src: etc/os-release.j2
+    dest: /etc/{{ item }}
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  with_items:
+    - "os-release"
+    - "system-release"
+
+- name: push pamac conf
+  template:
+    src: etc/pamac.conf.j2
+    dest: /etc/pamac.conf
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  when: ansible_lsb['id'] == 'ManjaroLinux'
+  tags: ['pamac']
+
+- name: push pacman conf
+  template:
+    src: etc/pacman.conf.j2
+    dest: /etc/pacman.conf
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  tags: ['pacman']
+
+- name: push pacman mirrorlist
+  template:
+    src: etc/pacman.d/mirrorlist.j2
+    dest: /etc/pacman.d/mirrorlist
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  tags: ['pacman']
+
+- name: install makepkg config
+  template:
+    src: "etc/makepkg.conf.j2"
+    dest: "/etc/makepkg.conf"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+    directory_mode: no
+  tags: ['makepkg']
+
+- name: install pamac
+  pacman:
+    name: pamac-gtk
+    state: present
+    force: yes
+    extra_args: --noconfirm
+  tags: ['pamac']
+
+- name: remove packages
+  pacman:
+    name: "{{ remove }}"
+    state: absent
+    force: yes
+    extra_args: --noconfirm
+  tags: ['remove']

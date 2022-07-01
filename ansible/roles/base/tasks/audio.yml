@@ -10,36 +10,26 @@
 - include: audio/alsa.yml
   tags: ['alsa']
 
+- include: audio/tuning.yml
+  tags: ['tuning']
+
+- include: audio/jack.yml
+  tags: ['jack']
+
 #-------------------------------------#
 
-- name: makesfz and makeh2drumkit
+- name: install some audio utils
   copy:
     src: "usr/local/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     owner: root
     group: root
-    mode: '0755'
+    mode: '0775'
   with_items:
     - makeh2kit
     - makesfz
+    - Monique
   tags: ['utils']
-
-# - name: create fmit config directory
-#   file:
-#     path: "{{ user.home }}/.config/fmit/fmit.conf.j2"
-#     state: directory
-#     owner: "{{ user.name }}"
-#     group: "{{ user.name }}"
-#   tags: ['fmit']
-#
-# - name: install fmit config
-#   template:
-#     src: "dots/config/fmit/fmit.conf.j2"
-#     dest: "{{ user.home }}/.config/fmit/fmit.conf"
-#     owner: "{{ user.name }}"
-#     group: "{{ user.name }}"
-#     mode: '0644'
-#   tags: ['fmit']
 
 - name: Sync .desktop files to /usr/local
   synchronize:

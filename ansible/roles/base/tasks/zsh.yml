@@ -7,12 +7,10 @@
   with_items:
     - root
     - "{{ user.name }}"
-  tags: ['dots']
 
 - name: Check if oh-my-zsh is already installed
   stat: path="/usr/share/oh-my-zsh"
   register: haziohymyzsh
-  tags: ['dots']
 
 - block:
     - name: Clone oh-my-zsh
@@ -30,25 +28,23 @@
       args:
         chdir: "{{ local_src }}/ohmyzsh/tools/"
 
+    - name: create zsh custom themes dir
+      file:
+        path: /usr/share/oh-my-zsh/custom/themes
+        state: directory
+        mode: '0775'
+      ignore_errors: "{{ ansible_check_mode }}"
+
+    - name: Push oh-my-zsh-theme template
+      template:
+        src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme.j2"
+        dest: "/usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
+        owner: root
+        group: root
+        mode: '0644'
+
   when: not haziohymyzsh.stat.exists
-  check_mode: no
-
-- name: create zsh custom themes dir
-  file:
-    path: /usr/share/oh-my-zsh/custom/themes
-    state: directory
-    mode: '0775'
-  tags: ['dots']
-  check_mode: no
-
-- name: Push oh-my-zsh-theme template
-  template:
-    src: "usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme.j2"
-    dest: "/usr/share/oh-my-zsh/themes/{{ zsh.theme }}.zsh-theme"
-    owner: root
-    group: root
-    mode: '0644'
-  tags: ['dots']
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Push root zshell config
   synchronize:

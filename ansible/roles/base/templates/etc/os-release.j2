@@ -1,0 +1,42 @@
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'ManjaroLinux' %}
+NAME="Manjaro Linux"
+ID=manjaro
+ID_LIKE=arch
+BUILD_ID=rolling
+PRETTY_NAME="Manjaro Linux"
+ANSI_COLOR="32;1;24;144;200"
+HOME_URL="https://manjaro.org/"
+DOCUMENTATION_URL="https://wiki.manjaro.org/"
+SUPPORT_URL="https://manjaro.org/"
+BUG_REPORT_URL="https://bugs.manjaro.org/"
+LOGO=manjarolinux
+VERSION=00
+{% else %}
+{% endif %}
+
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'Manjaro-ARM' %}
+NAME="Manjaro-ARM"
+ID="manjaro-arm"
+ID_LIKE="manjaro arch"
+PRETTY_NAME="Manjaro ARM"
+ANSI_COLOR="1;32"
+HOME_URL="https://www.manjaro.org/"
+SUPPORT_URL="https://forum.manjaro.org/c/arm/"
+LOGO=manjarolinux
+{% else %}
+{% endif %}
+
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'ArchLinux' %}
+NAME="Arch Linux"
+PRETTY_NAME="Arch Linux"
+ID=arch
+BUILD_ID=rolling
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://archlinux.org/"
+DOCUMENTATION_URL="https://wiki.archlinux.org/"
+SUPPORT_URL="https://bbs.archlinux.org/"
+BUG_REPORT_URL="https://bugs.archlinux.org/"
+LOGO=archlinux-logo
+VERSION=00
+{% else %}
+{% endif %}

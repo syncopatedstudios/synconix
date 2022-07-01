@@ -16,6 +16,16 @@
     validate: 'visudo -cf %s'
   tags: ['sudoers']
 
+- name: Add unix_admin.name to sudoers if it doesn't already exist
+  lineinfile:
+    path: /etc/sudoers.d/10-installer
+    regexp: '^%wheel'
+    line: '{{ user.name }} ALL=(ALL:ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+    create: yes
+    backup: yes
+  tags: ['sudoers']
+
 - name: Like sudoers for polkit
   template:
     src: etc/polkit-1/rules.d/49-nopasswd_global.rules.j2

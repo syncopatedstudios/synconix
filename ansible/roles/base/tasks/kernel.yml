@@ -1,28 +1,36 @@
 ---
 
-- name: push mkinitcpio configs
-  template:
-    src: "etc/mkinitcpio.conf.j2"
-    dest: "/etc/mkinitcpio.conf"
-    owner: root
-    group: root
-    mode: '644'
-    backup: yes
-  register: mkinit
-  tags: ['initram']
+- block:
 
-- name: create an initial ramdisk environment.
-  shell: |
-    mkinitcpio -P
-  when: mkinit.changed
-  tags: ['initram']
+    - name: Install mainline kernel packages
+      aur:
+        use: auto
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "[{{ _kernel_packages }}]"
+      become: True
+      become_user: "{{ user.name }}"
+      when: _kernel_packages|length > 0
 
-- include: grub.yml
-  tags: ['grub']
-# - name: Set linux-lts as the default in grub
-#   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-lts'"
-#   when: use_kernel == 'lts'
-#
-# - name: Set linux-zen as the defaule in grub
-#   shell: "{{ grub_set_default }} 'Advanced options for Arch Linux>Arch Linux, with Linux linux-zen'"
-#   when: use_kernel == 'zen'
+    - name: push mkinitcpio configs
+      template:
+        src: "etc/mkinitcpio.conf.j2"
+        dest: "/etc/mkinitcpio.conf"
+        owner: root
+        group: root
+        mode: '644'
+        backup: yes
+      register: mkinit
+      tags: ['initram']
+
+    - name: create an initial ramdisk environment.
+      shell: |
+        mkinitcpio -P
+      when: mkinit.changed
+      tags: ['initram']
+
+    - include: grub.yml
+      tags: ['grub']
+
+  when: ansible_lsb['id'] != 'Manjaro-ARM'

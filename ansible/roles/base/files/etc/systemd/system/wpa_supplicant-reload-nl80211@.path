@@ -1,8 +1,0 @@
-[Unit]
-Description=WPA supplicant daemon (interface- and nl80211 driver-specific version) configuration file watcher
-After=wpa_supplicant-nl80211@%i.service
-BindsTo=wpa_supplicant-nl80211@%i.service
-
-[Path]
-PathModified=/etc/wpa_supplicant/wpa_supplicant-nl80211-%I.conf
-Unit=wpa_supplicant-reload@%i.service

@@ -5,7 +5,11 @@
 
 - name: remove some packages
   shell: |
-    yay -Rdd --noconfirm {{ item }}
+    if ! [ -x "$(command -v yay)" ]; then
+      pamac remove --no-orphans --no-confirm {{ item }}
+    else
+      yay -Rdd --noconfirm {{ item }}
+    fi
   with_items:
     - nodejs
     - erlang-nox
@@ -15,32 +19,33 @@
   ignore_errors: True
 
 - name: Get list of installed packages
-  command: bash -lc "yay -Q | awk '{ print $1 }'"
+  shell: |
+    if ! [ -x "$(command -v yay)" ]; then
+      pamac list --installed | awk '{ print $1 }'
+    else
+      yay -Qe | awk '{ print $1 }'
+    fi
   register: package_list
   ignore_errors: yes
   become: True
   become_user: "{{ user.name }}"
-
-- name: Gather list of installed python modules
-  command: pip3 list installed | awk '{print $1}'
-  register: pip_list
-  ignore_errors: yes
+  tags: ['build_pkgs']
 
 - name: Determine kernel packages to install
   set_fact:
-    _kernel_packages: "{{ base.kernel.mainline|difference(package_list.stdout) }}"
+    _kernel_packages: "{{ base.kernel|difference(package_list.stdout) }}"
 
 - name: Determine base packages to installl
   set_fact:
-    _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
+    _base_packages: "{{ base.system + audio.jack + audio.pulseaudio + audio.utils|difference(package_list.stdout) }}"
 
-- name: determine python modules to install
+- name: Determine network packages to install
   set_fact:
-    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+    _network_packages: "{{ base.network|difference(package_list.stdout) }}"
 
 - name: Determine audio packages to install
   set_fact:
-    _audio_packages: "{{ (audio.jack + audio.pulseaudio + audio.utils + audio.plugins + audio.applications)|difference(package_list.stdout) }}"
+    _audio_packages: "{{ (audio.plugins + audio.applications)|difference(package_list.stdout) }}"
 
 - name: Determine ui packages to install
   set_fact:
@@ -50,16 +55,9 @@
   set_fact:
     _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
 
-- name: Install mainline kernel packages
-  aur:
-    use: auto
-    name: "{{ _kernel_packages }}"
-    state: present
-  become: True
-  become_user: "{{ user.name }}"
-  when:
-    - _kernel_packages|length > 0
-    - use_kernel == 'mainline'
+- name: Determine docker packages to installl
+  set_fact:
+    _docker_packages: "{{ docker|difference(package_list.stdout) }}"
 
 - include: kernel.yml
   tags: ['grub']
@@ -67,25 +65,46 @@
 - name: Install base packages
   aur:
     use: auto
-    name: "{{ _base_packages }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "[{{ _base_packages }}]"
   become: True
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
 
-- name: Install python modules
-  pip:
-    name: "{{ _python_modules }}"
-    executable: pip3
+- name: Install docker packages
+  aur:
+    use: auto
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "[{{ _docker_packages }}]"
+  become: True
+  become_user: "{{ user.name }}"
+  when: _docker_packages|length > 0 and docker_host|bool
+
+- name: Install network packages
+  aur:
+    use: auto
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "[{{ _network_packages }}]"
+  become: True
+  become_user: "{{ user.name }}"
+  when: _network_packages|length > 0 and ansible_lsb['id'] != 'Manjaro-ARM'
 
 - name: Install audio packages
   aur:
     use: auto
-    name: "{{ _audio_packages }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "[{{ _audio_packages }}]"
   become: True
   become_user: "{{ user.name }}"
-  when: _audio_packages|length > 0
+  when: _audio_packages|length > 0 and inventory_hostname in groups['daw']
   register: package_result
 
 - block:
@@ -93,8 +112,10 @@
     - name: Install ui and desktop packages
       aur:
         use: auto
-        name: "{{ (_ui_packages + _desktop_packages) }}"
+        name: "{{ item }}"
         state: present
+      with_items:
+        - "[{{ (_ui_packages + _desktop_packages) }}]"
       become: True
       become_user: "{{ user.name }}"
       when: (_ui_packages|length > 0 or _desktop_packages|length > 0)
@@ -102,3 +123,29 @@
 
   when: graphical_target|bool
   tags: ['packages', 'desktop']
+
+- name: Install pip
+  aur:
+    use: auto
+    name: python-pip
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: Gather list of installed python modules
+  command: pip3 list installed | awk '{print $1}'
+  register: pip_list
+  ignore_errors: yes
+
+- name: determine python modules to install
+  set_fact:
+    _python_modules: "{{ python|difference(pip_list.stdout) }}"
+
+# this task will ignore errors in check mode
+- name: Install python modules
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  with_items:
+    - "{{ _python_modules }}"
+  ignore_errors: "{{ ansible_check_mode }}"

@@ -1,12 +1,11 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
-use_kernel: lts
 
 graphical_target: True
 autologin: True
 
-use_networkmanager: False
-use_systemdnetwork: True
+use_networkmanager: True
+use_systemdnetwork: False
 
 systemd_networkd_network:
   eth0:
@@ -30,6 +29,14 @@ systemd_networkd_network:
       - Address: "192.168.40.2/24"
 
 nfs_host: True
+
+autofs_client:
+  host: bender
+  shares:
+    - storage
+    - media
+    - backups
+sync_to: bender
 
 firewalld:
   zone: docker
@@ -56,7 +63,6 @@ docker_storage: /var/lib/docker
 
 build_baudline: True
 build_bespoke: False
-build_jacktrip: True
 build_jalv_select: True
 build_jsampler: True
 build_linuxsampler: True

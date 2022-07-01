@@ -5,13 +5,15 @@
     name: "{{ user.name }}"
     groups: "docker"
     append: yes
+  check_mode: no
+  ignore_errors: yes
 
-- name: push docker service config
-  template:
-    src: usr/lib/systemd/docker.service.j2
-    dest: /usr/lib/systemd/docker.service
-    owner: root
-    group: root
-    mode: '644'
-    backup: yes
-  notify: docker service
+# - name: push docker service config
+#   template:
+#     src: usr/lib/systemd/docker.service.j2
+#     dest: /usr/lib/systemd/docker.service
+#     owner: root
+#     group: root
+#     mode: '644'
+#     backup: yes
+#   notify: docker service

@@ -15,8 +15,10 @@
     - name: Install sonic pi dependencies
       aur:
         use: auto
-        name: "{{ _sonicpi_dependencies }}"
+        name: "{{ item }}"
         state: present
+      with_items:
+        - "{{ _sonicpi_dependencies }}"
       when: _sonicpi_dependencies|length > 0
 
     - name: clone sonicpi
@@ -45,12 +47,10 @@
 
         echo -e "\n running linux-prebuild"
 
-        if {{ sonicpi['prebuild'] }} ; then
-          echo -e "\n prebuild success! now running linux-config"
-          {{ sonicpi['compile'] }}
-        else
-          echo -e "\n build failed"
-        fi
+        ./linux-prebuild.sh --build-aubio && \
+
+        ./linux-config.sh --config Release
+
       args:
         chdir: "{{ sonicpi['path'] }}"
       register: sonicpi_prebuild

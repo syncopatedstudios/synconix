@@ -59,11 +59,12 @@ gems:
   - pry-doc
   - pycall
   - rdoc
+  - rexml
   - rouge
   - rugged
   - sync
   - sys-proctable
   - tty-command
 python:
-  - i3ipc
   - pillow-simd
+  - wheel
