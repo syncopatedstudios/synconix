@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Non Mixer
+Comment=Monique Synth
+Exec=/usr/local/bin/Monique
+Terminal=false
+Type=Application
+#Icon=non-mixer
+Categories=AudioVideo;Audio;
