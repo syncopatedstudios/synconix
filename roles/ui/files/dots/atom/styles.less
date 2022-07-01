@@ -1,0 +1,209 @@
+// text editor
+atom-text-editor {
+  background-color: #0D0D0D;
+}
+
+.line-number {
+  color: #656462
+}
+
+.tab-bar {
+   background-color: #0D0D0D;
+   height: 2.9rem;
+   border: 0.25mm solid #e09547;
+   font-family: "Hack Nerd Font";
+   font-size: 14px;
+}
+
+.tab-bar:not([data-reactid]) .tab .title[data-path]::before {
+  display: none;
+  height: 0.5rem;
+}
+
+.tree-view {
+ background-color: #0d0b0b;
+ font-family: "Hack Nerd Font";
+ font-size: 14px;
+ font-weight: normal !important;
+}
+
+.status-bar {
+ font-family: Hack Nerd Font;
+ font-size: 12px;
+ line-height: 2em;
+ height: 2em;
+}
+
+.selection {
+  background-color: #000000;
+  // outline: 1px dashed #f6117f;
+  border: 0.25mm dashed #477be0;
+}
+
+.selection .region {
+  background-color: #000000;
+}
+
+
+// syntax in general
+.syntax--comment {
+  color: #6f6464;
+}
+
+.syntax--unquoted {
+  color: #5779c9;
+}
+
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #c4b73e;
+  font-weight: bold;
+}
+
+// Markdown
+.syntax--md {
+   // color: #d93131;
+   color: #6b9d9d;
+
+  .syntax--unordered {
+    color: #177e19;
+  }
+
+  .syntax--ordered {
+    color: #3e40f4;
+  }
+
+  .syntax--underline.syntax--link {
+    color: #446b12;
+  }
+
+  .syntax--hyperlink {
+    color: #cdc228;
+  }
+
+  .syntax--heading-1 {
+    color: #b6361f;
+  }
+
+  .syntax--heading-2 {
+    color: #833a95;
+  }
+
+  .syntax--heading-3 {
+    color: #91953a;
+  }
+
+}
+
+// Ruby
+.syntax--ruby {
+  color: #eb5912;
+
+  .syntax--variable {
+    color: #db9a1a;
+    // opacity: 0.8;
+  }
+
+  .syntax--string.syntax--begin {
+    color: #db1ad9;
+  }
+
+  .syntax--string.syntax--end {
+    color: #db1ad9;
+  }
+
+  .syntax--variable.syntax--other.syntax--readwrite.syntax--global {
+    color: #ffffff;
+    font-weight: lighter;
+  }
+
+  .syntax--parameter.syntax--function {
+    color: #5685ec;
+    // font-family: Nimbus Mono PS;
+    opacity: 0.8;
+  }
+
+  .syntax--constant.syntax--other.syntax--symbol {
+    color: #f5c169;
+  }
+
+  .syntax--name.syntax--function {
+    color: #0bb3d7;
+    font-weight: 500;
+  }
+
+  .syntax--string {
+    color: #8fb5bd;
+  }
+
+  .syntax--name.syntax--class {
+    color: #8d4ccf;
+
+  }
+
+  .syntax--keyword {
+    color: #64db41;
+      &.syntax--control {
+        color: #10de35;
+      }
+   }
+
+}
+
+// Yaml
+.syntax--yaml {
+  .syntax--name {
+    color: #e01653;
+  }
+  .syntax--string.syntax--begin {
+    color: #e01671;
+  }
+  .syntax--string.syntax--end {
+    color: #e01671;
+  }
+  .syntax--string.syntax--unquoted {
+    color: #2ad13b;
+  }
+  .syntax--string {
+    color: #2a9ad1;
+  }
+  .syntax--boolean {
+    color: #f6117f;
+  }
+  .syntax--constant {
+    color: #40e218;
+  }
+  .syntax--keyword {
+    color: #9518e2;
+  }
+}
+syntax--entity syntax--other syntax--attribute-name
+// Yaml
+.syntax--ansible-advanced {
+  .syntax--name {
+    color: #e01653;
+  }
+  .syntax--attribute-name {
+    color: #c5e334;
+  }
+  .syntax--string.syntax--begin {
+    color: #e01671;
+  }
+  .syntax--string.syntax--end {
+    color: #e01671;
+  }
+  .syntax--string.syntax--unquoted {
+    color: #2ad13b;
+  }
+  .syntax--string {
+    color: #2a9ad1;
+  }
+  .syntax--boolean {
+    color: #f6117f;
+  }
+  .syntax--constant {
+    color: #40e218;
+  }
+  .syntax--keyword {
+    color: #9518e2;
+  }
+}

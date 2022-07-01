@@ -36,6 +36,17 @@
       with_items:
         - "{{ apm }}"
 
+    - name: Push atom config and stylesheets
+      synchronize:
+        src: dots/atom/
+        dest: "{{ user.home }}/.atom/"
+        recursive: yes
+        mode: push
+        delete: no
+        checksum: yes
+        perms: no
+        rsync_opts: "--update"
+
   become: True
   become_user: "{{ user.name }}"
   when: atom_check.rc == 0

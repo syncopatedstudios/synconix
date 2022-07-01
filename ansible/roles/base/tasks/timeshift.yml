@@ -1,0 +1,29 @@
+---
+
+- name: set timeshift to install
+  set_fact:
+    _packages: timeshift
+  tags: ['packages']
+
+- name: Install timeshift
+  import_role:
+    name: pkg_manager
+  vars:
+    pkg_state: present
+  tags: ['packages']
+
+#TODO: vars for template
+# - name: install timeshift config from template
+#   template:
+#     src: etc/timeshift/timeshift.j2
+#     dest: /etc/timeshift/timeshift.json
+#     owner: root
+#     group: root
+#     mode: '0644'
+#     backup: yes
+
+# - name: create snapshot
+#   shell: |
+#     timeshift --create --comment 'system snapshot'
+#   tags: ['backup']
+#   when: backup|bool
