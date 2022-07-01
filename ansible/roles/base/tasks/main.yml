@@ -17,6 +17,7 @@
   tags: ['packages']
 
 - include: network.yml
+  when: ansible_lsb['id'] != 'Manjaro-ARM'
   tags: ['network']
 
 - name: check if firewalld is present
@@ -76,4 +77,5 @@
   tags: ['audio']
 
 - include: ui.yml
+  when: graphical_target|bool
   tags: ['ui']

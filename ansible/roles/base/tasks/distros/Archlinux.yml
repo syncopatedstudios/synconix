@@ -44,8 +44,8 @@
   tags: ['pacman']
 
 - name: install makepkg config
-  copy:
-    src: "etc/makepkg.conf"
+  template:
+    src: "etc/makepkg.conf.j2"
     dest: "/etc/makepkg.conf"
     owner: root
     group: root
@@ -54,29 +54,13 @@
     directory_mode: no
   tags: ['makepkg']
 
-# - name: Check if a yay already exists
-#   stat: path="/usr/bin/yay"
-#   register: haziyay
-#   tags: ['yay']
-
-# - block:
-#     - name: Clone yay
-#       git:
-#         repo: "https://aur.archlinux.org/yay-bin.git"
-#         dest: "{{ local_src }}/yay"
-#         accept_hostkey: yes
-#         update: yes
-#         force: no
-#
-#     - name: Make and install yay
-#       shell: "makepkg -si --noconfirm --needed"
-#       args:
-#         chdir: "{{ local_src }}/yay"
-#
-#   become: True
-#   become_user: "{{ user.name }}"
-#   when: not haziyay.stat.exists
-#   tags: ['yay']
+- name: install pamac
+  pacman:
+    name: pamac-gtk
+    state: present
+    force: yes
+    extra_args: --noconfirm
+  tags: ['pamac']
 
 - name: remove packages
   pacman:

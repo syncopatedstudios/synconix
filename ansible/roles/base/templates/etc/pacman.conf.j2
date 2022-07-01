@@ -19,16 +19,31 @@
 HoldPkg      = pacman glibc manjaro-system
 SyncFirst    = manjaro-system archlinux-keyring manjaro-keyring
 {% else %}
-HoldPkg     = pacman glibc
 {% endif %}
+
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'ArchLinux' %}
+HoldPkg     = pacman glibc
+{% else %}
+{% endif %}
+
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'Manjaro-ARM' %}
+HoldPkg      = pacman glibc manjaro-system
+# If upgrades are available for these packages they will be asked for first
+SyncFirst    = manjaro-system manjaro-keyring manjaro-arm-keyring archlinux-keyring archlinuxarm-keyring
+{% else %}
+{% endif %}
+
 #XferCommand = /usr/bin/curl -L -C - -f -o %o %u
 #XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
 #CleanMethod = KeepInstalled
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'Manjaro-ARM' %}
+Architecture = aarch64
+{% else %}
 Architecture = auto
-
+{% endif %}
 # Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
 #IgnorePkg = pipewire pipewire-alsa pipewire-jack pipewire-media-session pipewire-pulse pipewire-docs pipewire-v4l2 pipewire-x11-bell pipewire-zeroconf
-#IgnorePkg = fmt electron9 raptor1
+#IgnorePkg = fmt
 #IgnoreGroup =
 
 #NoUpgrade   =
@@ -41,7 +56,7 @@ Color
 CheckSpace
 VerbosePkgLists
 ILoveCandy
-#ParallelDownloads = 5
+ParallelDownloads = 5
 
 # By default, pacman accepts packages signed by keys that its local keyring
 # trusts (see pacman-key and its man page), as well as unsigned packages.
@@ -78,7 +93,16 @@ LocalFileSigLevel = Optional
 
 #[testing]
 #Include = /etc/pacman.d/mirrorlist
+{% if ansible_lsb['id'] is defined and ansible_lsb['id'] == 'Manjaro-ARM' %}
+[core]
+Include = /etc/pacman.d/mirrorlist
 
+[extra]
+Include = /etc/pacman.d/mirrorlist
+
+[community]
+Include = /etc/pacman.d/mirrorlist
+{% else %}
 [core]
 SigLevel = PackageRequired
 Include = /etc/pacman.d/mirrorlist
@@ -109,3 +133,4 @@ Include = /etc/pacman.d/mirrorlist
 #[custom]
 #SigLevel = Optional TrustAll
 #Server = file:///home/custompkgs
+{% endif %}

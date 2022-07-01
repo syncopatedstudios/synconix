@@ -37,7 +37,7 @@
 
 - name: Determine base packages to installl
   set_fact:
-    _base_packages: "{{ (base.system + docker)|difference(package_list.stdout) }}"
+    _base_packages: "{{ base.system + audio.jack + audio.pulseaudio + audio.utils|difference(package_list.stdout) }}"
 
 - name: Determine network packages to install
   set_fact:
@@ -45,7 +45,7 @@
 
 - name: Determine audio packages to install
   set_fact:
-    _audio_packages: "{{ (audio.jack + audio.pulseaudio + audio.utils + audio.plugins + audio.applications)|difference(package_list.stdout) }}"
+    _audio_packages: "{{ (audio.plugins + audio.applications)|difference(package_list.stdout) }}"
 
 - name: Determine ui packages to install
   set_fact:
@@ -54,6 +54,10 @@
 - name: Determine desktop packages to install
   set_fact:
     _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
+
+- name: Determine docker packages to installl
+  set_fact:
+    _docker_packages: "{{ docker|difference(package_list.stdout) }}"
 
 - include: kernel.yml
   tags: ['grub']
@@ -69,6 +73,17 @@
   become_user: "{{ user.name }}"
   when: _base_packages|length > 0
 
+- name: Install docker packages
+  aur:
+    use: auto
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "[{{ _docker_packages }}]"
+  become: True
+  become_user: "{{ user.name }}"
+  when: _docker_packages|length > 0 and docker_host|bool
+
 - name: Install network packages
   aur:
     use: auto
@@ -78,7 +93,7 @@
     - "[{{ _network_packages }}]"
   become: True
   become_user: "{{ user.name }}"
-  when: _network_packages|length > 0
+  when: _network_packages|length > 0 and ansible_lsb['id'] != 'Manjaro-ARM'
 
 - name: Install audio packages
   aur:
@@ -118,9 +133,11 @@
   set_fact:
     _python_modules: "{{ python|difference(pip_list.stdout) }}"
 
+# this task will ignore errors in check mode
 - name: Install python modules
   pip:
     name: "{{ item }}"
     executable: pip3
   with_items:
     - "{{ _python_modules }}"
+  ignore_errors: "{{ ansible_check_mode }}"

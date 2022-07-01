@@ -1,32 +1,36 @@
 ---
 
-- name: Install mainline kernel packages
-  aur:
-    use: auto
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "[{{ _kernel_packages }}]"
-  become: True
-  become_user: "{{ user.name }}"
-  when: _kernel_packages|length > 0
+- block:
 
-- name: push mkinitcpio configs
-  template:
-    src: "etc/mkinitcpio.conf.j2"
-    dest: "/etc/mkinitcpio.conf"
-    owner: root
-    group: root
-    mode: '644'
-    backup: yes
-  register: mkinit
-  tags: ['initram']
+    - name: Install mainline kernel packages
+      aur:
+        use: auto
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "[{{ _kernel_packages }}]"
+      become: True
+      become_user: "{{ user.name }}"
+      when: _kernel_packages|length > 0
 
-- name: create an initial ramdisk environment.
-  shell: |
-    mkinitcpio -P
-  when: mkinit.changed
-  tags: ['initram']
+    - name: push mkinitcpio configs
+      template:
+        src: "etc/mkinitcpio.conf.j2"
+        dest: "/etc/mkinitcpio.conf"
+        owner: root
+        group: root
+        mode: '644'
+        backup: yes
+      register: mkinit
+      tags: ['initram']
 
-- include: grub.yml
-  tags: ['grub']
+    - name: create an initial ramdisk environment.
+      shell: |
+        mkinitcpio -P
+      when: mkinit.changed
+      tags: ['initram']
+
+    - include: grub.yml
+      tags: ['grub']
+
+  when: ansible_lsb['id'] != 'Manjaro-ARM'
