@@ -44,15 +44,25 @@ base:
     - nm-connection-editor
     - iwd
   system:
+    # - autofs
+    # - brightnessctl
+    # - btrfsmaintenance
     # - lsyncd
+    # - mdadm
+    # - mp3val
+    # - neofetch
+    # - neovim-symlinks
+    # - pandoc
     # - python-i3ipc
+    # - ripgrep-all
     # - samba
     # - ssvnc
+    # - tuna
+    # - tuned
     - abduco
     - aria2
     - atool
     - autoconf
-    # - autofs
     - automake
     - base-devel
     - bash-language-server
@@ -62,8 +72,6 @@ base:
     - binutils
     - bison
     - boost
-    - brightnessctl
-    - btrfsmaintenance
     - cmake
     - dialog
     - dmidecode
@@ -120,16 +128,12 @@ base:
     - make
     - man-db
     - man-pages
-    - mdadm
     - mediainfo
     - mlocate
     - most
-    - mp3val
     - ncdu
     - ncurses
-    - neofetch
     - neovim
-    - neovim-symlinks
     - net-tools
     - nfs-utils
     - npm
@@ -137,7 +141,6 @@ base:
     - openssl
     - opusfile
     - pacman
-    - pandoc
     - patch
     - pcsclite
     - pkgconf
@@ -147,7 +150,6 @@ base:
     - qscintilla-qt5
     - r
     - ranger
-    - ripgrep-all
     - rsync
     - rtirq
     - rtkit
@@ -163,8 +165,6 @@ base:
     - taglib
     - tesseract
     - texinfo
-    - tuna
-    - tuned
     - udisks2
     - usbutils
     - w3m
@@ -258,6 +258,7 @@ ui:
     - numix-circle-icon-theme-git
     - paper-icon-theme-git
   fonts:
+    # - ttf-polybar-icons
     # - ttf-unifont
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-jp-fonts
@@ -282,7 +283,6 @@ ui:
     - ttf-liberation
     - ttf-nerd-fonts-symbols
     - ttf-opensans
-    # - ttf-polybar-icons
     - ttf-ubuntu-font-family
     - xorg-fonts-alias-75dpi
     - xorg-fonts-alias-100dpi
@@ -312,6 +312,7 @@ audio:
     # - jack-audio-tools-dbus
     # - jack-audio-tools-lv2
     # - jack-audio-tools-transport
+    # - jack_snapshot
     - a2jmidid
     - alsa-lib
     - alsa-plugins
@@ -322,7 +323,6 @@ audio:
     - gst-plugins-bad
     - jack-example-tools
     - jack_capture
-    - jack_snapshot
     - jack_utils
     - jacktrip
     - jconvolver
@@ -333,9 +333,7 @@ audio:
     - osc2midi
     - stunnel
     - timidity++
-    - tmux
     - vamp-plugin-sdk
-    - youtube-dl
     - zita-ajbridge
     - zita-alsa-pcmi
     - zita-lrx
@@ -435,6 +433,7 @@ desktop:
     - xdot
     - xterm
     - xzgv
+    - youtube-dl
     - zim
 docker:
   - docker

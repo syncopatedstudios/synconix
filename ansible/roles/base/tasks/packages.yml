@@ -124,6 +124,14 @@
   when: graphical_target|bool
   tags: ['packages', 'desktop']
 
+- name: Install pip
+  aur:
+    use: auto
+    name: python-pip
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+
 - name: Gather list of installed python modules
   command: pip3 list installed | awk '{print $1}'
   register: pip_list
