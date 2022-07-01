@@ -1,6 +1,6 @@
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
-GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT_STYLE=menu
 GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
 GRUB_CMDLINE_LINUX_DEFAULT="udev.log_priority=3"
 {% if inventory_hostname == 'lapbot' %}

@@ -10,8 +10,11 @@
 - include: audio/alsa.yml
   tags: ['alsa']
 
-- include: tuning.yml
+- include: audio/tuning.yml
   tags: ['tuning']
+
+- include: audio/jack.yml
+  tags: ['jack']
 
 #-------------------------------------#
 

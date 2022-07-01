@@ -1,0 +1,26 @@
+[Unit]
+Description=systemd unit for a2j_control
+After=jack_control.service
+
+[Service]
+Type=oneshot
+#User=b08x
+#Group=b08x
+# Load env vars from /etc/default/ and /etc/sysconfig/ if they exist.
+# Prefixing the path with '-' makes it try to load, but if the file doesn't
+# exist, it continues onward.
+EnvironmentFile=-/etc/default/a2j_control
+ExecStart=/usr/bin/a2j_control "--start"
+#ExecStartPre="$HOME/.config/systemd/user/a2j_control-prestart.sh"
+#ExecStartPost="$HOME/.config/systemd/user/a2j_control-poststart.sh"
+ExecStop=/usr/bin/a2j_control "--exit"
+RemainAfterExit=true
+#Restart=always
+#WorkingDirectory=/
+
+# When stopping, how long to wait before giving up and sending SIGKILL?
+# Keep in mind that SIGKILL on a process can cause data loss.
+TimeoutStopSec=infinity
+
+[Install]
+WantedBy=default.target
