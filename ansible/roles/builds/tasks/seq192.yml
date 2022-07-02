@@ -10,17 +10,17 @@
 - block:
     - name: set seq192 deps to install
       set_fact:
-        _packages: "{{ builds.seq192|difference(package_list.stdout) }}"
+        _seq192_dependencies: "{{ builds.seq192|difference(package_list.stdout) }}"
       tags: ['packages']
 
-    - name: Install non-dependencies
+    - name: Install seq192-dependencies
       aur:
         use: auto
-        name: "{{ _non_dependencies }}"
+        name: "{{ _seq192_dependencies }}"
         state: present
       become: True
       become_user: "{{ user.name }}"
-      when: _non_dependencies|length > 0
+      when: _seq192_dependencies|length > 0
 
     - name: Clone seq192
       git:
@@ -44,7 +44,6 @@
         rm -rf seq192/
       args:
         chdir: /usr/local/src
-      when: seq192_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"

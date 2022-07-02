@@ -7,7 +7,7 @@ autologin: True
 use_systemdnetwork: False
 use_networkmanager: True
 
-wireless: True
+wireless: False
 
 autofs_client:
   host: bender
@@ -25,6 +25,7 @@ firewalld:
 
 docker_host: True
 
+build_lsmi: True
 build_jalvselect: True
 build_patchage: True
 build_raysession: True

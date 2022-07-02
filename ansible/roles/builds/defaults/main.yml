@@ -11,7 +11,7 @@ build_jacktrip: False
 build_jalvselect: False
 build_jsampler: False
 build_linuxsampler: False
-build_lmsi: False
+build_lsmi: False
 build_njconnect: False
 build_non: False
 build_obs: False

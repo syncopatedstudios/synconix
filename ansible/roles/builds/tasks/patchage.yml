@@ -51,7 +51,6 @@
         rm -rf patchage/
       args:
         chdir: /usr/local/src
-      when: patchage_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"

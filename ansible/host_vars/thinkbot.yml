@@ -7,7 +7,7 @@ docker_host: True
 
 use_systemdnetwork: False
 use_networkmanager: True
-wireless: True
+wireless: False
 
 autofs_client:
   host: bender
@@ -18,10 +18,8 @@ autofs_client:
 sync_to: bender
 
 build_baudline: True
-build_deadbeef: True
 build_jalvselect: True
 build_lsmi: True
-build_linuxsampler: True
 build_patchage: True
 build_protokol: True
 build_raysession: True

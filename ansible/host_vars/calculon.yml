@@ -67,7 +67,7 @@ build_jalv_select: True
 build_jsampler: True
 build_linuxsampler: True
 build_lsmi: True
-build_non: True
+build_non: False
 build_patchage: True
 build_protokol: True
 build_raysession: True
