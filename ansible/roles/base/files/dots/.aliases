@@ -19,7 +19,7 @@ alias mv="mv -i"
 # human-readable sizes
 alias df='df -h'
 
-alias ls="exa -a --icons"
+alias ls="exa -a -g --icons"
 alias ll="printf '\n' && exa -lH --group-directories-first --icons"
 alias llh="printf '\n' && exa -alH --group-directories-first --icons"
 
