@@ -1,6 +1,6 @@
 ---
 
-- name: copy timesyncd config
+- name: Set NTP servers in timesyncd.conf
   copy:
     src: etc/systemd/timesyncd.conf
     dest: /etc/systemd/timesyncd.conf

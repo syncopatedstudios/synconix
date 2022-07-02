@@ -1,8 +1,8 @@
 ---
 
-- name: starting audio role
+- name: Starting audio tasks
   debug:
-    msg: "starting audio role"
+    msg: "starting audio tasks"
 
 - include: audio/pipewire.yml
   tags: ['pipewire']
@@ -18,18 +18,27 @@
 
 #-------------------------------------#
 
-- name: install some audio utils
+- name: Install makeh2kit and makesfz
   copy:
     src: "usr/local/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
-    owner: root
-    group: root
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
     mode: '0775'
   with_items:
     - makeh2kit
     - makesfz
     - Monique
   tags: ['utils']
+
+- name: Install Monique synth
+  copy:
+    src: usr/local/bin/Monique
+    dest: /usr/local/bin/Monique
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0775'
+  tags: ['synths']
 
 - name: Sync .desktop files to /usr/local
   synchronize:

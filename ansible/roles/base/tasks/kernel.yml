@@ -2,18 +2,16 @@
 
 - block:
 
-    - name: Install mainline kernel packages
+    - name: Install kernel packages.
       aur:
         use: auto
-        name: "{{ item }}"
+        name: "{{ _kernel_packages }}"
         state: present
-      with_items:
-        - "[{{ _kernel_packages }}]"
       become: True
       become_user: "{{ user.name }}"
       when: _kernel_packages|length > 0
 
-    - name: push mkinitcpio configs
+    - name: Add btrfs module in mkinitcpio.conf
       template:
         src: "etc/mkinitcpio.conf.j2"
         dest: "/etc/mkinitcpio.conf"
@@ -24,7 +22,7 @@
       register: mkinit
       tags: ['initram']
 
-    - name: create an initial ramdisk environment.
+    - name: Rebuild ramdisk environment.
       shell: |
         mkinitcpio -P
       when: mkinit.changed

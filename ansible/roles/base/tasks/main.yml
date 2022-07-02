@@ -1,13 +1,14 @@
 ---
 
-- name: starting base role
+- name: Starting Ansible Process
   debug:
     msg: "starting base role"
 
-- name: Include OS-specific variables.
+- name: Load variables specific to the OS family.
   include_vars: "{{ ansible_os_family }}.yml"
+  tags: ['vars']
 
-- name: Include OS-specific tasks
+- name: Run tasks specific to {{ ansible_os_family }}
   include: "distros/{{ ansible_os_family }}.yml"
 
 - include: sudoers.yml
@@ -20,25 +21,17 @@
   when: ansible_lsb['id'] != 'Manjaro-ARM'
   tags: ['network']
 
-- name: check if firewalld is present
-  shell: command -v firewalld
-  register: hazifirewalld
-  changed_when: hazifirewalld.rc != 0
-  check_mode: no
-  ignore_errors: yes
-
 - include: firewalld.yml
   tags: ['firewall']
-  when: not hazifirewalld.rc != 0
+
+- include: ssh.yml
+  tags: ['ssh']
 
 - include: zsh.yml
   tags: ['zsh']
 
 - include: dots.yml
   tags: ['dots']
-
-- include: ssh.yml
-  tags: ['ssh']
 
 - include: ntp.yml
   tags: ['ntp']

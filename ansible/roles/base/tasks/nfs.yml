@@ -1,6 +1,6 @@
 ---
 
-- name: push nfs configs
+- name: Install nfs configs
   copy:
     src: "etc/{{ item }}"
     dest: "/etc/{{ item }}"
@@ -13,7 +13,7 @@
     - idmapd.conf
     - nfs.conf
 
-- name: ensure nfs/rpc services are enabled and started
+- name: Ensure nfs/rpc services are enabled and started
   service:
     name: "{{ item }}"
     state: restarted

@@ -15,6 +15,7 @@
   when: install_pipewire == 'False'
   ignore_errors: True
 
+# leaving this block for future consideration
 - block:
     - name: sync pipewire configs
       synchronize:

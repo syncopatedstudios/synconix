@@ -1,6 +1,6 @@
 ---
 
-- name: install sshd_config
+- name: Set prohibit-password and disable X11 forwarding in sshd_config
   template:
     src: etc/ssh/sshd_config.j2
     dest: /etc/ssh/sshd_config

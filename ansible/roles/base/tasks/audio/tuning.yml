@@ -10,7 +10,7 @@
     append: yes
   tags: ['tuning']
 
-- name: ensure /etc/security/limits.d exists
+- name: Ensure /etc/security/limits.d exists
   file:
     path: /etc/security/limits.d
     state: directory
@@ -19,7 +19,7 @@
     mode: '0755'
   check_mode: no
 
-- name: push jack limits file
+- name: Push jack limits file
   copy:
     src: etc/security/limits.d/41-realtime.conf
     dest: /etc/security/limits.d/41-realtime.conf
@@ -28,7 +28,7 @@
     mode: '0644'
     backup: yes
 
-- name: push timer permissions file
+- name: Install timer permissions file
   copy:
     src: etc/udev/rules.d/40-timer-permissions.rules
     dest: /etc/udev/rules.d/40-timer-permissions.rules
@@ -36,7 +36,7 @@
     group: root
     mode: "0644"
 
-- name: set vm.swappiness to 10
+- name: Set vm.swappiness to 10 to ensure swap isn't overly used
   sysctl: name=vm.swappiness value=10 state=present reload=yes
 
 - name: set vm.dirty_background_bytes to 100000000
@@ -52,7 +52,7 @@
 # parameter or use a kernel with the realtime patch set. To always boot with the “threadirqs”
 # kernel argument, add it to your grub.cfg by editing /etc/default/grub as root, adding “threadirqs”
 # to the line for GRUB_CMDLINE_LINUX, then generate a new grub.cfg file.
-- name: Copy over rtirq template
+- name: Install rtirq defaults
   copy:
     src: etc/sysconfig/rtirq
     dest: "{{ rtirq_dir }}"
@@ -68,7 +68,7 @@
 # otherwise, if it sees this systemd file, it'll report
 # being already installed and error out
 
-- name: Copy rtkit conf to etc
+- name: Install rtkit.conf
   copy:
     src: etc/rtkit.conf
     dest: /etc/rtkit.conf
@@ -80,7 +80,7 @@
   notify:
     - "rtkit service"
 
-- name: Copy rtkit systemd file
+- name: Install rtkit systemd file
   copy:
     src: usr/lib/systemd/system/rtkit-daemon.service
     dest: /usr/lib/systemd/system/rtkit-daemon.service

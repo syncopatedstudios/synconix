@@ -1,8 +1,8 @@
 ---
 
-- name: starting network role
+- name: Starting network tasks
   debug:
-    msg: "starting network role"
+    msg: "Starting network tasks"
 
 - import_tasks: network/cleanup.yml
 
@@ -13,13 +13,13 @@
   when: use_systemdnetwork|bool
 
 - block:
-    - name: Create /etc/iwd directory if it does not exist
+    - name: Create /etc/iwd folder if it does not exist
       file:
         path: /etc/iwd
         state: directory
         mode: '0755'
 
-    - name: install iwd config
+    - name: Install iwd config
       copy:
         src: etc/iwd/main.conf
         dest: /etc/iwd/main.conf
@@ -29,7 +29,7 @@
         backup: no
       register: iwd_config
 
-    - name: enable iwd service
+    - name: Enable and start iwd service
       systemd:
         name: iwd
         state: restarted

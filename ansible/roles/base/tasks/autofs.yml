@@ -6,7 +6,7 @@
     state: directory
     mode: '0755'
 
-- name: Push autofs configs
+- name: Install autofs configs
   template:
     src: etc/autofs/{{ item }}.j2
     dest: "{{ autofs_configs }}/{{ item }}"

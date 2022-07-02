@@ -1,6 +1,6 @@
 ---
 
-- name: set no-user-install in gemrc
+- name: Set no-user-install in gemrc
   lineinfile:
     dest: /etc/gemrc
     regexp: "^gem: --user-install"
@@ -11,7 +11,7 @@
 
 #TODO: account for using RVM
 
-- name: Get list of installed gems
+- name: Gather list of installed gems
   shell: |
     sudo gem list | awk '{ print $1 }'
   register: gemlist
@@ -19,8 +19,7 @@
   become: True
   become_user: "{{ user.name }}"
 
-- name: Determine gems that need to be installed
-  set_fact:
+- set_fact:
     _gems: "{{ gems|difference(gemlist.stdout) }}"
 
 - name: Install ruby gems

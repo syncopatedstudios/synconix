@@ -1,14 +1,15 @@
 ---
 
-- name: enable iwd backend
+- name: Enable iwd backend
   copy:
     src: etc/NetworkManager/conf.d/wifi_backend.conf
     dest: /etc/NetworkManager/conf.d/wifi_backend.conf
     owner: root
     group: root
     mode: '0644'
+  when: wireless|bool
 
-- name: Push resolv.conf
+- name: Set local DNS from variable set in group_vars/all
   template:
       src: etc/resolv.conf.j2
       dest: /etc/resolv.conf
@@ -19,7 +20,7 @@
     enabled: yes
     state: started
 
-- name: disable systemd-networkd service
+- name: Disable systemd-networkd service
   systemd:
     name: "{{ item }}"
     enabled: no
