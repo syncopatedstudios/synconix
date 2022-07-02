@@ -17,6 +17,8 @@ autofs_client:
     - backups
 sync_to: bender
 
+install_atom: True
+
 build_baudline: True
 build_jalvselect: True
 build_lsmi: True

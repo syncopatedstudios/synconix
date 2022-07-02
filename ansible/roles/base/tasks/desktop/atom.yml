@@ -1,33 +1,39 @@
 ---
 
-# https://github.com/atom/atom/releases
-
-- name: Install atom
-  aur:
-    use: auto
-    name: atom
-    state: present
-  become: True
-  become_user: "{{ user.name }}"
-
 - name: check if atom is already installed
   shell: |
-    command -v atom && command -v apm
+    command -v /opt/atom/atom
   args:
     warn: no
+  become: True
+  become_user: "{{ user.name }}"
   register: atom_check
   changed_when: atom_check.rc != 0
   ignore_errors: True
 
+- name: Extract Atom 1.60 to /opt
+  unarchive:
+    src: atom.amd64.tar.gz
+    dest: /opt
+  when: atom_check.rc != 0
+
+- name: Install apm
+  aur:
+    use: auto
+    name: apm
+    state: present
+  become: True
+  become_user: "{{ user.name }}"
+
 - block:
-    - name: gather list of installed apm packages
+    - name: Gather list of installed apm packages
       shell: |
         apm list --installed --bare 2>&1 | xargs -0 | awk '{ print $1}'
       register: apmlist
       check_mode: no
       ignore_errors: yes
 
-    - name: install atom plugins
+    - name: Install atom plugins
       shell: |
         apm install {{ item }}
       args:
@@ -35,17 +41,6 @@
       when: item not in apmlist.stdout
       with_items:
         - "{{ apm }}"
-
-    - name: Push atom config and stylesheets
-      synchronize:
-        src: dots/atom/
-        dest: "{{ user.home }}/.atom/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        rsync_opts: "--update"
 
   become: True
   become_user: "{{ user.name }}"
