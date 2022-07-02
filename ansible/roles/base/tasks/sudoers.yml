@@ -1,22 +1,23 @@
 ---
 
-- name: Update user groups using variables in group_vars/all
+- name: Set user groups using variables in group_vars/all
   user:
     name: "{{ user.name }}"
     groups: "{{ admin_user }},{{ user.secondary_groups }}"
     append: yes
 
-- name: disable requiretty
+# https://docs.ansible.com/ansible/2.4/intro_configuration.html#pipelining
+- name: Disable requiretty for the user so automation can run without interuption.
   lineinfile:
     dest: /etc/sudoers
     regexp: "^Defaults    requiretty"
-    line: "#Defaults    requiretty"
+    line: "Defaults:{{ user.name }}    !requiretty"
     backrefs: yes
     backup: yes
     validate: 'visudo -cf %s'
   tags: ['sudoers']
 
-- name: Add unix_admin.name to sudoers if it doesn't already exist
+- name: Make it so the user can run sudo without a password.
   lineinfile:
     path: /etc/sudoers.d/10-installer
     regexp: '^%wheel'
@@ -26,7 +27,7 @@
     backup: yes
   tags: ['sudoers']
 
-- name: Like sudoers for polkit
+- name: Execute any action without password authentication, similar to "sudo NOPASSWD:"
   template:
     src: etc/polkit-1/rules.d/49-nopasswd_global.rules.j2
     dest: /etc/polkit-1/rules.d/49-nopasswd_global.rules
@@ -37,7 +38,7 @@
   tags: ['polkit','sudoers']
   when: ansible_os_family == 'Archlinux' or ansible_os_family == 'RedHat'
 
-- name: Like sudoers for polkit
+- name: Execute any action without password authentication, similar to "sudo NOPASSWD:"
   template:
     src: etc/polkit-1/localauthority/50-local.d/disable-passwords.pkla
     dest: /etc/polkit-1/localauthority/50-local.d/disable-passwords.pkla
