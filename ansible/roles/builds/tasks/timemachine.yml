@@ -30,7 +30,6 @@
       rm -rf timemachine/
     args:
       chdir: /usr/local/src
-    when: timemachine_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"

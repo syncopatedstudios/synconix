@@ -1,27 +1,24 @@
 ---
 
 - name: check if sonic-pi is already installed
-  shell: command -v sonic-pi
+  shell: command -v /opt/sonic-pi/bin/sonic-pi
   register: if_sonicpi_installed
   changed_when: if_sonicpi_installed.rc != 0
   check_mode: no
   ignore_errors: yes
 
 - block:
-    - name: set sonic-pi dependencies to install
-      set_fact:
+    - set_fact:
         _sonicpi_dependencies: "{{ builds.sonicpi|difference(package_list.stdout) }}"
 
     - name: Install sonic pi dependencies
       aur:
         use: auto
-        name: "{{ item }}"
+        name: "{{ _sonicpi_dependencies }}"
         state: present
-      with_items:
-        - "{{ _sonicpi_dependencies }}"
       when: _sonicpi_dependencies|length > 0
 
-    - name: clone sonicpi
+    - name: Clone sonic-pi
       git:
         repo: "{{ sonicpi['git'] }}"
         dest: "{{ sonicpi['path'] }}"
@@ -29,18 +26,18 @@
         update: no
         force: no
 
-    - name: checkout releasev3.3 branch
+    - name: Checkout releasev3.3 branch
       shell: "git checkout {{ sonicpi['branch'] }}"
       args:
         chdir: "{{ sonicpi['path'] }}"
 
-    - name: checkout releasev3.3 branch for fedora
+    - name: Checkout releasev3.3 branch for fedora
       shell: "git checkout v3.3-release_fedora"
       args:
         chdir: "{{ sonicpi['path'] }}"
       when: "ansible_facts['os_family'] == 'RedHat'"
 
-    - name: run pre-build
+    - name: Run pre-build
       shell: |
         echo -e "\n change into the app directory"
         cd app/
@@ -56,7 +53,7 @@
       register: sonicpi_prebuild
       failed_when: sonicpi_prebuild.failed
 
-    - name: build sonicpi
+    - name: Build sonic-pi
       shell: |
         echo -e "\n change into the build directory"
 
@@ -67,9 +64,6 @@
         chdir: "{{ sonicpi['path'] }}"
       register: sonicpi_build
       failed_when: sonicpi_build.failed
-
-    # - debug: msg="{{ sonicpi_prebuild.stdout_lines }}"
-    # - debug: msg="{{ sonicpi_build.stdout_lines }}"
 
   become: True
   become_user: "{{ user.name }}"

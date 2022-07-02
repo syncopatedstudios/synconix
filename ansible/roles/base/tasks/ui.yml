@@ -1,10 +1,10 @@
 ---
 
-- name: starting ui role
+- name: Starting ui tasks
   debug:
-    msg: "starting ui role"
+    msg: "Starting ui tasks"
 
-- name: set /usr/local and /opt to be writable by group
+- name: Set /usr/local and /opt to be writable by group
   shell: |
     mkdir -pv /usr/local/{bin,lib,soundbot,share,src} && \
     mkdir -pv /opt && \
@@ -31,20 +31,19 @@
 
 # - include: ui/autologin.yml
 #   tags: ['autologin']
+- block:
+    - include: desktop/nvim.yml
+      tags: ['nvim']
 
-- include: desktop/termpdf.yml
+    - include: desktop/atom.yml
+      when: install_atom|bool
+      tags: ['atom']
+
+    - include: desktop/termpdf.yml
+      tags: ['utils']
+
   when: inventory_hostname in groups['daw']
-  tags: ['utils']
-
-- include: desktop/atom.yml
-  when:
-    - inventory_hostname in groups['daw']
-    - install_atom|bool
-  tags: ['atom']
-
-- include: desktop/nvim.yml
-  when: inventory_hostname in groups['daw']
-  tags: ['atom']
+  tags: ['desktop']
 
 - name: set thunar as default for opening directories
   shell: |

@@ -32,7 +32,6 @@
       rm -rf qmidinet/
     args:
       chdir: /usr/local/src
-    when: qmidinet_build|succeeded
 
   become: True
   become_user: "{{ user.name }}"

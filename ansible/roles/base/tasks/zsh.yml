@@ -28,7 +28,7 @@
       args:
         chdir: "{{ local_src }}/ohmyzsh/tools/"
 
-    - name: create zsh custom themes dir
+    - name: Create zsh custom themes dir
       file:
         path: /usr/share/oh-my-zsh/custom/themes
         state: directory
@@ -54,7 +54,7 @@
     mode: push
     delete: no
     checksum: yes
-    perms: no
+    perms: yes
     rsync_opts: "--update"
   tags: ['dots']
 

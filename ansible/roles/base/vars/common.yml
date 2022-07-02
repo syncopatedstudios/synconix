@@ -1,6 +1,8 @@
 ---
 # vars here will override those found in host_vars/<host>.yml
 
+# Place language specific packages here
+
 apm:
   - ansible-snippets
   - atom-beautify

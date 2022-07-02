@@ -41,8 +41,7 @@
         rm -rf njconnect/
       args:
         chdir: /usr/local/src
-      when: njconnect_build|succeeded
-
+        
   become: True
   become_user: "{{ user.name }}"
   when: if_njconnect_installed.changed
