@@ -1,24 +1,24 @@
 # Synconix
-syn con ix
-sync onix
-synco nix
+(syn con ix)
 
-For detailed information, see documenation
+(sync onix)
 
-# distribution enhancement
+(synco nix)
 
+# Distribution Enhancement
 
-# networked audio
+Based on Manjaro Linux, Synconix is a Linux Audio environment designed for ~~crime~~ live and studio production.
 
-Another reason for using ansible is the ability to configure multiple hosts that will connect with JackTrip | OSC | qmidinet
+# Networked Audio
 
-# backups and file syncing
-
-osync
+Using Ansible, JackTrip, Ray Session Manager, qmidinet and OSC, multiple hosts can be configured for use during a live or recording session.
 
 # Ansible and the learning curve
 
-One advantage of taking the time to store the configurations in the ansible scheme is that one can certainly learn a lot about linux, which I feel is important in terms of maintainence and stability.
+Ansible is used to store configurations and propagate changes to all nodes within an environment.
+
+See the documenation....
+#####- [ ] TODO: write documentation
 
 # software
 
@@ -34,6 +34,7 @@ helm
 
 ray-session
 
+and more!
 
 # sample | sound manangement
 
@@ -42,5 +43,11 @@ sononym...
 
 # workspace flow
 
-With a keybaord driven interface, *(which can still utilize the mouse as you would be familar with),
-one can find it easier to navigate|manage all of the running applications involved...
+This was project was partially motivated by a desire for workflow expierence that could be replicated. A stable environment to use the computer as an instrument of sound in both a studio and live setting.
+
+i3 is primary used although any DE will work. Using a tiling window manager has a couple of advantages including a low memory/cpu footprint which saves on CPU usage. As part of a workflow, keyboard shortcuts enable for easy switching between what could be several open applications.
+
+Download the Live ISO to get a feel for using i3 in an audio production workflow.
+
+# Disclaimer
+ **Security is not really considered in this design, so be aware of that.** 

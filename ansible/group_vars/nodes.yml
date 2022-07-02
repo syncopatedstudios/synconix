@@ -1,6 +1,6 @@
 ---
 
-graphical_target: False
-install_x11: False
-install_i3: False
-autologin: False
+# graphical_target: False
+# install_x11: False
+# install_i3: False
+# autologin: False
