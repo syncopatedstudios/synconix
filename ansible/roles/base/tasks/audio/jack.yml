@@ -1,6 +1,6 @@
 ---
 
-- name: install a2j_control && jack_control defaults
+- name: Install a2j_control && jack_control defaults
   copy:
     src: "etc/default/{{ item }}"
     dest: "/etc/default/{{ item }}"
@@ -12,13 +12,13 @@
     - jack_control
 
 - block:
-    - name: Create systemc user directory if it does not exist
+    - name: Create systemd user directory if it does not exist
       file:
         path: "{{ user.home }}/.config/systemd/user/"
         state: directory
         mode: '0755'
 
-    - name: install a2j_control & jack_control service files
+    - name: Install a2j_control & jack_control service files
       synchronize:
         src: usr/lib/systemd/user/
         dest: "{{ user.home }}/.config/systemd/user/"
@@ -32,7 +32,7 @@
           - "--omit-dir-times"
       register: jack_control_systemd
 
-    - name: enable a2j and jack services
+    - name: Enable a2j and jack services
       systemd:
         name: "{{ item }}"
         state: restarted
@@ -44,5 +44,14 @@
         - jack_control
       when: jack_control_systemd.changed
       ignore_errors: True
+  become: True
+  become_user: "{{ user.name }}"
+
+- name: set jack params
+  shell: |
+   jack_control eps driver alsa && \
+   jack_control dps midi-driver seq && \
+   jack_control dps monitor true && \
+   jack_control dps period 512
   become: True
   become_user: "{{ user.name }}"
