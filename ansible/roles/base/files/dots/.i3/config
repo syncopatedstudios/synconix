@@ -37,7 +37,8 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
-set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
+# set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
+set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 set $search "$HOME/.local/bin/search.sh"
 
@@ -92,7 +93,7 @@ include $HOME/.i3/autostart/`hostname`.conf
 font pango:Hack Nerd Font 10
 
 workspace_auto_back_and_forth yes
-workspace_layout tabbed
+#workspace_layout tabbed
 
 default_border pixel 1
 default_floating_border normal
@@ -107,8 +108,6 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [urgent=latest] focus
-
-
 #############################
 ### settings for i3-gaps: ###
 #############################
@@ -245,7 +244,7 @@ for_window [class="(?i)jack-keyboard"] floating enable, move position center, mo
 for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad
 for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480
 #for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
-for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
+#for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
 ######################################
 #       ---{ utils }---
 ######################################
@@ -261,9 +260,9 @@ for_window [class="^Timemachine"] floating enable, move position center, focus
 #for_window [title="^Mixer"] floating disable, border pixel 1
 for_window [class="REAPER" title="^Mixer"] floating disable
 for_window [title="JS:\ ATK FOA Decode Stereo"] floating disable
-for_window [class="REAPER" title="^JS:"] floating disable, splith, move to workspace 9, focus
-for_window [class="REAPER" title="^VST:"] floating disable, splitv, move to workspace 9, focus
-for_window [class="REAPER" title="^LV2:"] floating disable, splitv, move to workspace 9, focus
+for_window [class="REAPER" title="^JS:"] floating disable, move to workspace 9, layout toggle split h, focus
+for_window [class="REAPER" title="^VST:"] floating disable, move to workspace 9, layout toggle split h, focus
+for_window [class="REAPER" title="^LV2:"] floating disable, move to workspace 9, layout toggle split h, focus
 for_window [title="^Docker"] floating disable
 for_window [title="^Toolbar"] floating disable
 for_window [title="^MIDI take:"] floating disable
@@ -280,8 +279,8 @@ for_window [class='^Sonic\sPi$'] floating disable
 for_window [class="^Non-Mixer$"] floating disable
 
 assign [class="^kitty_init$"] $ws1
-assign [class="^Atom$"] $ws2
-assign [class='^Sonic\sPi$'] $ws2
+assign [class="^Atom$"] $ws5
+assign [class='^Sonic\sPi$'] $ws5
 assign [class="^RaySession$"] $ws1
 assign [class="^jalv.select$"] $ws1
 assign [class="^FMIT$"] $ws1
@@ -294,16 +293,16 @@ assign [class="^meterbridge$"] $ws1
 assign [title="jkmeter"] $ws1
 assign [title="VU\ Meter\ \(Stereo\)"] $ws1
 
-assign [title="jalv.gtkmm"] $ws3
+assign [title="jalv.gtkmm"] $ws4
 
 assign [title="Mixxx"] $ws7
 
 assign [class="^Qsampler$"] $ws8
 assign [class="^qmidiarp$"] $ws8
 
-assign [class="^Patchage$"] $ws2
+assign [class="^Patchage$"] $ws8
 
-assign [class="^REAPER$"] $ws10
+assign [class="^REAPER$"] $ws8
 assign [title="JS:\ ATK FOA Decode Stereo"] $ws10
 assign [class="^Non-Mixer$"] $ws10
 

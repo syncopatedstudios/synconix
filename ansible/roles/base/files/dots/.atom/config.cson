@@ -59,6 +59,7 @@
     "*.yml": "source.yaml"
     "*config": "source.shell"
     ".zsh*": "source.shell"
+    "*.rasi": "source.css.less"
   "highlight-colors":
     highlightCssNamedColors: false
   "markdown-toolbar":

@@ -1,7 +1,7 @@
 {% if ansible_facts['hostname'] == 'lapbot' %}
 MODULES=(crc32c-intel btrfs)
 {% else %}
-MODULES=(btrfs)
+MODULES=(crc32c-intel btrfs)
 {% endif %}
 BINARIES=(/usr/bin/btrfs)
 FILES=()

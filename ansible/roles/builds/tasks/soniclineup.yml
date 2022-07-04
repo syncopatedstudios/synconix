@@ -8,20 +8,17 @@
   ignore_errors: yes
 
 - block:
-    - block:
-        - name: Fetch SonicLineup
-          get_url:
-            url: "{{ soniclineup.url }}{{ soniclineup.file }}"
-            dest: "{{ local_src }}"
-            validate_certs: no
 
-      become: True
-      become_user: "{{ user.name }}"
+    - name: Fetch SonicLineup
+      get_url:
+        url: "{{ soniclineup.url }}{{ soniclineup.file }}"
+        dest: "{{ local_src }}"
+        validate_certs: no
 
     - name: Link soniclineup to bin
       shell: |
         chmod +x {{ soniclineup.file }}
-        ln -s {{ local_src }}/{{ soniclineup.file }} /usr/local/bin/sonic-lineup
+        mv -v {{ soniclineup.file }} /usr/local/bin/sonic-lineup
       args:
         chdir: "{{ local_src }}"
 
@@ -30,7 +27,7 @@
         src: usr/local/share/applications/sonic-lineup.desktop
         dest: /usr/local/share/applications/sonic-lineup.desktop
         directory_mode: no
-        mode: '644'
+        mode: '0644'
       notify: "update desktop database"
 
   when: if_soniclineup_installed.changed

@@ -62,12 +62,8 @@ docker_host: True
 docker_storage: /var/lib/docker
 
 build_baudline: True
-build_bespoke: False
-build_jalv_select: True
-build_jsampler: True
-build_linuxsampler: True
+build_jalvselect: True
 build_lsmi: True
-build_non: False
 build_patchage: True
 build_protokol: True
 build_raysession: True

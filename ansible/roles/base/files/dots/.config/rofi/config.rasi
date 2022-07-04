@@ -1,6 +1,6 @@
 configuration {
 	modi: "window,run,drun,ssh";
-	font: "Hack Nerd Font 12";
+	font: "Hack Nerd Font 14";
 	show-icons: true;
 	terminal: "kitty";
 	ssh-client: "ssh";
@@ -172,7 +172,6 @@ configuration {
     background-color: @background;
     border: 0;
     padding: 2.5ch;
-    width:            50%;
 
 }
 
@@ -218,7 +217,7 @@ configuration {
 
 #element-icon {
    background-color: rgba ( 0, 0, 0, 0 % );
-   size:             2.0000em ;
+	 size:             2.0000em ;
    text-color:       inherit;
 }
 

@@ -1,5 +1,20 @@
 ---
 
+#TODO: fixup autologin group
+
+# - name: use shell to do stuff
+#   shell: |
+#     groupdel autologin && \
+#     groupadd -r autologin && \
+#     usermod -g docker b08x && \
+#     groupdel b08x && \
+#     groupadd -g 1000 b08x && \
+#     usermod -g b08x b08x && \
+#     usermod -a -G autologin b08x
+#   args:
+#     chdir:
+#   tags: []
+
 - block:
     - name: Ensure group "autologin" exists
       group:

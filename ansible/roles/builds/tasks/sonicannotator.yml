@@ -4,7 +4,6 @@
   shell: stat {{ user.home }}/.vamp/
   register: if_vamp_installed
   changed_when: if_vamp_installed.rc != 0
-  check_mode: no
   ignore_errors: yes
 
 - name: Extract vamp plugins
@@ -15,11 +14,10 @@
   tags: ['vamp']
 
 - name: check if sonicannotator is already installed
-  shell: command -v sonic-annotator
+  shell: command -v /usr/local/bin/sonic-annotator
   register: if_sonicannotator_installed
   changed_when: if_sonicannotator_installed.rc != 0
-  check_mode: no
-  ignore_errors: yes
+  ignore_errors: True
 
 - block:
     - name: fetch sonic-annotator
@@ -27,7 +25,6 @@
         url: "{{ sonicannotator.url }}{{ sonicannotator.file }}"
         dest: "{{ local_src }}"
         validate_certs: no
-      tags: ['sonicannotator']
 
     - name: extract sonic-annotator
       shell: |
@@ -40,8 +37,5 @@
         chmod +x /usr/local/bin/sonic-annotator
       args:
         chdir: "{{ local_src }}"
-      tags: ['sonicannotator']
 
-  become: True
-  become_user: "{{ user.name }}"
   when: if_sonicannotator_installed.changed

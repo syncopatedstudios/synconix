@@ -37,24 +37,23 @@ base:
     - libnma
     - networkmanager
     - network-manager-applet
-    - networkmanager-openconnect
     - networkmanager-openvpn
     - networkmanager-pptp
     - networkmanager-vpnc
     - nm-connection-editor
-    - iwd
+    # - iwd
   system:
-    # - autofs
+    - autofs
     # - brightnessctl
-    # - btrfsmaintenance
+    - btrfsmaintenance
     # - lsyncd
     # - mdadm
     # - mp3val
     # - neofetch
-    # - neovim-symlinks
-    # - pandoc
-    # - python-i3ipc
-    # - ripgrep-all
+    - neovim-symlinks
+    - pandoc
+    - python-i3ipc
+    - ripgrep-all
     # - samba
     # - ssvnc
     # - tuna
@@ -258,8 +257,7 @@ ui:
     - numix-circle-icon-theme-git
     - paper-icon-theme-git
   fonts:
-    # - ttf-polybar-icons
-    # - ttf-unifont
+    - ttf-polybar-icons
     - adobe-source-han-sans-cn-fonts
     - adobe-source-han-sans-jp-fonts
     - adobe-source-han-sans-kr-fonts
@@ -312,7 +310,7 @@ audio:
     # - jack-audio-tools-dbus
     # - jack-audio-tools-lv2
     # - jack-audio-tools-transport
-    # - jack_snapshot
+    - jack_snapshot
     - a2jmidid
     - alsa-lib
     - alsa-plugins
@@ -326,11 +324,13 @@ audio:
     - jack_utils
     - jacktrip
     - jconvolver
+    - linuxsampler
     - ladspa
     - lv2
     - njconnect
     - opus
     - osc2midi
+    - rtmidi
     - stunnel
     - timidity++
     - vamp-plugin-sdk
@@ -367,6 +367,7 @@ audio:
     - jack_mixer
     - japa
     - jkmeter
+    - qsampler
     - meterbridge
     - mixxx
     - non-sequencer
@@ -390,7 +391,7 @@ desktop:
     - actdiag
     - antimicrox
     - aspell-en
-    - atom
+    # - atom
     - barrier
     - blockdiag
     - celluloid

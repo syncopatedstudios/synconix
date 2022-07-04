@@ -39,6 +39,7 @@ window {
     background-color: @background;
     border:           1;
     padding:          5;
+    width: 30em;
 }
 mainbox {
     border:  0;
@@ -67,6 +68,11 @@ element {
 element-text {
     background-color: inherit;
     text-color:       inherit;
+}
+element-icon {
+   background-color: rgba ( 0, 0, 0, 0 % );
+	 size:             2.2500em ;
+   text-color:       inherit;
 }
 element.normal.normal {
     background-color: @normal-background;
