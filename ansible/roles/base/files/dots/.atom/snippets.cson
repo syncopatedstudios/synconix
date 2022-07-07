@@ -15,3 +15,29 @@
 
       hopefully
   """
+'.source.ruby.sonic-pi':
+  # Incomplete
+  'in_thread do … end':
+    'prefix': 'in_thread'
+    'body': 'in_thread do\n\t$1\nend'
+  'live_loop do … end':
+    'prefix': 'live_loop'
+    'body': 'live_loop :${1:name} do\n\t$2\nend'
+  'live_loop sync:… do … end':
+    'prefix': 'live_loop sync'
+    'body': 'live_loop :${1:name} sync: ${2:cue_name} do\n\t$3\nend'
+  'with_synth do ... end':
+    'prefix': 'with_synth'
+    'body': 'with_synth :${1:synth} do\n\t$2\nend'
+  'with_fx do ... end':
+    'prefix': 'with_fx'
+    'body': 'with_fx :${1:fx} ${2:opts} do\n\t$3\nend'
+  'with_synth_defaults do ... end':
+    'prefix': 'with_synth_defaults'
+    'body': 'with_synth_defaults ${1:opts} do\n\t$3\nend'
+  'adsr':
+    'prefix': 'adsr'
+    'body': 'amp: ${1:1.0}, pre_amp: ${2:1.0}, pan: ${3:0}, attack: ${4:1}, decay: ${5:0}, sustain: ${6:1}, release: ${7:0}'
+  'sample':
+    'prefix': 'sample'
+    'body': 'sample SOUNDS, start: ${1:0}, finish: ${2:1}, pitch: ${3:0}, window_size: ${5:0}, rate: ${6:1}, beat_strech: ${7:1}, num_slices: ${8:1}, onset: ${9:1}, on: ${10:1}, slice: ${11:1}, amp: ${12:1}, pan: ${13:0}'

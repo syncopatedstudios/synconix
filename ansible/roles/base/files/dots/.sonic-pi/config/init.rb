@@ -3,15 +3,22 @@
 
 SONIC = File.join(ENV['HOME'], ".sonic-pi")
 
-LIBRARY = File.join(ENV['HOME'], "Library")
 
-SOUNDS = File.join(LIBRARY, "Sounds/**")
+STUDIO = File.join(ENV['HOME'], "Studio")
+LIBRARY = File.join(STUDIO, "library")
+SOUNDS = File.join(LIBRARY, "sounds/**")
 
-SAMPLES = File.join(LIBRARY, "Sounds", "samples/**")
-COLLECTIONS = File.join(LIBRARY, "Sounds", "collections/**")
-DRUMKITS = File.join(LIBRARY, "Sounds", "drumkits/**")
-LOOPS = File.join(LIBRARY, "Sounds", "loops/**")
-FX = File.join(LIBRARY, "Sounds", "fx/**")
+
+SAMPLES = File.join(LIBRARY, "sounds", "samples/**")
+COLLECTIONS = File.join(LIBRARY, "sounds", "collections/**")
+DRUMKITS = File.join(LIBRARY, "sounds", "drumkits/**")
+LOOPS = File.join(LIBRARY, "sounds", "loops/**")
+FX = File.join(LIBRARY, "sounds", "fx/**")
+SYNTHS = File.join(LIBRARY, "sounds", "synths/**")
+SOUNDSCAPES = File.join(LIBRARY, "sounds", "soundscapes/**")
+PERCUSSIVE = File.join(LIBRARY, "sounds", "percussive/**")
+INSTRUMENTS = File.join(LIBRARY, "sounds", "instruments/**")
+PACKS = File.join(ENV['HOME'], "sounds", "fx/**")
 
 load_snippets SONIC + "/snippets", true
 
