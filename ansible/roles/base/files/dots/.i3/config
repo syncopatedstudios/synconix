@@ -241,14 +241,14 @@ include $HOME/.i3/workspaces/`hostname`.conf
 #       ---{ scratchpad }---
 ######################################
 for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad
-for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad
+# for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad
 for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480
 #for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
 #for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
 ######################################
 #       ---{ utils }---
 ######################################
-for_window [class="^jgmenu"] move position center, focus
+# for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 1, move position center, focus
 for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
@@ -260,9 +260,9 @@ for_window [class="^Timemachine"] floating enable, move position center, focus
 #for_window [title="^Mixer"] floating disable, border pixel 1
 for_window [class="REAPER" title="^Mixer"] floating disable
 for_window [title="JS:\ ATK FOA Decode Stereo"] floating disable
-for_window [class="REAPER" title="^JS:"] floating disable, move to workspace 9, layout toggle split h, focus
-for_window [class="REAPER" title="^VST:"] floating disable, move to workspace 9, layout toggle split h, focus
-for_window [class="REAPER" title="^LV2:"] floating disable, move to workspace 9, layout toggle split h, focus
+for_window [class="REAPER" title="^JS:"] floating disable, move to workspace 9, layout toggle split v, focus
+for_window [class="REAPER" title="^VST:"] floating disable, move to workspace 9, layout toggle split v, focus
+for_window [class="REAPER" title="^LV2:"] floating disable, move to workspace 9, layout toggle split v, focus
 for_window [title="^Docker"] floating disable
 for_window [title="^Toolbar"] floating disable
 for_window [title="^MIDI take:"] floating disable
@@ -286,6 +286,11 @@ assign [class="^jalv.select$"] $ws1
 assign [class="^FMIT$"] $ws1
 assign [class="^Timemachine$"] $ws1
 
+assign [class="^Jamin"] $ws4
+assign [class="^Jack_mixer"] $ws4
+
+assign [class="^Dragonfly-Dragonfly"] $ws4
+
 assign [title="^EBU R128 Meter$"] $ws1
 assign [title="zita-mu1-0.3.3"] $ws1
 assign [class="^Jnoisemeter$"] $ws1
@@ -297,12 +302,15 @@ assign [title="jalv.gtkmm"] $ws4
 
 assign [title="Mixxx"] $ws7
 
-assign [class="^Qsampler$"] $ws8
-assign [class="^qmidiarp$"] $ws8
+assign [class="^Qsampler$"] $ws2
+assign [class="^qmidiarp"] $ws2
 
-assign [class="^Patchage$"] $ws8
+assign [class="^Seq192"] $ws3
 
-assign [class="^REAPER$"] $ws8
+assign [class="^Patchage$"] $ws6
+
+assign [class="^REAPER$"] $ws9
+assign [class="REAPER" title="^Mixer"] $ws8
 assign [title="JS:\ ATK FOA Decode Stereo"] $ws10
 assign [class="^Non-Mixer$"] $ws10
 
@@ -400,8 +408,8 @@ bindsym $mod+Shift+Right move right
 bindsym $alt+grave layout toggle splith splitv
 bindsym $alt+1 layout stacking
 bindsym $alt+2 layout tabbed
-bindsym $mod+v split vertical
-bindsym $mod+h split horizontal
+bindsym $mod+v split horizontal
+bindsym $mod+h split vertical
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
