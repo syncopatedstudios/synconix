@@ -22,6 +22,7 @@ install_atom: True
 build_baudline: True
 build_jalvselect: True
 build_lsmi: True
+build_non: True
 build_patchage: True
 build_protokol: True
 build_raysession: True

@@ -102,6 +102,8 @@ let g:sonic_pi_eval = 'eval-stdin'
 let g:sonic_pi_stop = 'stop'
 let g:sonic_pi_logs = 'logs'
 let g:sonic_pi_record = 'record'
+let g:sonic_pi_autolog_enabled = 0
+let g:sonic_pi_log_width = 30
 let g:sonic_pi_enabled = 1
 let g:vim_redraw = 1
 
