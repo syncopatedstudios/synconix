@@ -64,6 +64,7 @@ gems:
   - rexml
   - rouge
   - rugged
+  - solargraph
   - sync
   - sys-proctable
   - tty-command

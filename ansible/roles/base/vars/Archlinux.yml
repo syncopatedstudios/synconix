@@ -384,6 +384,7 @@ audio:
     - vital-synth
     - vmpk
     - zita-mu1
+    - zita-rev1
 desktop:
     # - qpdfview
     # - qutebrowser
@@ -400,6 +401,7 @@ desktop:
     - epson-inkjet-printer-escpr2
     - feh
     - ffmpegthumbnailer
+    - gimp
     - gitflow-avh
     - gitflow-zshcompletion-avh
     - gnuplot
@@ -422,6 +424,7 @@ desktop:
     - python-adblock
     - radiotray-ng
     - s
+    - seahorse
     - seqdiag
     - stunnel
     - terminator
