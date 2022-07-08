@@ -352,9 +352,9 @@ bindcode $mod+Mod2+$KP_Enter $exec $ranger
 
 bindcode $mod+Shift+Mod2+$KP_Enter $exec thunar
 
-bindsym XF86Favorites $exec $search
-bindsym XF86Search $exec $search
-bindsym $mod+g $exec $search
+bindsym XF86Favorites $exec rofi-zeal
+bindsym XF86Search $exec rofi-zeal
+bindsym $mod+g $exec rofi-zeal
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
