@@ -5,4 +5,4 @@ Exec=/usr/local/bin/bipscript-ide
 Terminal=false
 Type=Application
 Icon=soundbot
-Categories=AudioVideo;Audio;
+Categories=AudioVideo;Audio;Development;

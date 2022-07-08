@@ -1,5 +1,97 @@
 ---
 
+- name: Update icon path for DragonflyReverb
+  lineinfile:
+    path: "/usr/share/applications/{{ item }}"
+    regexp: "^Icon="
+    line: Icon=dragonfly
+  with_items:
+    - "io.github.michaelwillis.DragonflyEarlyReflections.desktop"
+    - "io.github.michaelwillis.DragonflyHallReverb.desktop"
+    - "io.github.michaelwillis.DragonflyPlateReverb.desktop"
+    - "io.github.michaelwillis.DragonflyRoomReverb.desktop"
+  tags: ['icons']
+
+- name: Update icon path for ZamPlugins
+  lineinfile:
+    path: "/usr/share/applications/{{ item }}"
+    regexp: "^Icon="
+    line: Icon=zam
+  with_items:
+    - "com.zamaudio.zamautosat.desktop"
+    - "com.zamaudio.zamaximx2.desktop"
+    - "com.zamaudio.zamcomp.desktop"
+    - "com.zamaudio.zamcompx2.desktop"
+    - "com.zamaudio.zamdelay.desktop"
+    - "com.zamaudio.zamdynamiceq.desktop"
+    - "com.zamaudio.zameq2.desktop"
+    - "com.zamaudio.zamgate.desktop"
+    - "com.zamaudio.zamgatex2.desktop"
+    - "com.zamaudio.zamgeq31.desktop"
+    - "com.zamaudio.zamgrains.desktop"
+    - "com.zamaudio.zamheadx2.desktop"
+    - "com.zamaudio.zammulticompx2.desktop"
+    - "com.zamaudio.zamphono.desktop"
+    - "com.zamaudio.zamtube.desktop"
+    - "com.zamaudio.zamulticomp.desktop"
+    - "com.zamaudio.zamverb.desktop"
+  tags: ['icons']
+
+- name: Update icon path for Zita
+  lineinfile:
+    path: "/usr/share/applications/{{ item }}"
+    regexp: "^Icon="
+    line: Icon=redzita
+  with_items:
+    - "zita-mu1.desktop"
+    - "zita-rev1.desktop"
+  tags: ['icons']
+
+- name: Set japa to use Jack
+  lineinfile:
+    path: "/usr/share/applications/japa.desktop"
+    regexp: "^Exec="
+    line: Exec=japa -J
+  tags: ['icons']
+
+- name: Set icon for ams
+  lineinfile:
+    path: "/usr/share/applications/ams.desktop"
+    regexp: "^Icon="
+    line: Icon=ams_32
+  tags: ['icons']
+
+- name: Set icon for jack-rack
+  lineinfile:
+    path: "/usr/share/applications/jack-rack.desktop"
+    regexp: "^Icon="
+    line: Icon=jack-rack-icon
+  tags: ['icons']
+
+- name: Set icon for jamin
+  lineinfile:
+    path: "/usr/share/applications/jamin.desktop"
+    regexp: "^Icon="
+    line: Icon=jamin
+  tags: ['icons']
+
+- name: Set icon for jamin
+  lineinfile:
+    path: "/usr/share/applications/jamin.desktop"
+    regexp: "^Icon="
+    line: Icon=jamin
+  tags: ['icons']
+
+- name: Install desktop entries
+  synchronize:
+    src: "usr/local/share/applications/"
+    dest: "/usr/local/share/applications/"
+    recursive: yes
+    mode: push
+    delete: no
+    rsync_opts: "--update"
+  tags: ['icons']
+
 - name: Copy backgrounds to /usr/share/backgrounds
   synchronize:
     src: "usr/share/backgrounds/"
@@ -24,6 +116,7 @@
   command: bash -lc "gtk-update-icon-cache"
   register: icon_cache
   changed_when: icon_cache.rc !=0
+  tags: ['icons']
 
 - block:
     - name: Ensure these directories exist

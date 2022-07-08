@@ -5,4 +5,4 @@ Exec=env LADSPA_PATH=/usr/lib/ladspa LADSPA_RDF_PATH=/usr/share/ladspa/rdf /opt/
 Terminal=false
 Type=Application
 Icon=sonic-pi
-Categories=AudioVideo;Audio;
+Categories=AudioVideo;Audio;Development;
