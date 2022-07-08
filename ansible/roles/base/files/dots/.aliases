@@ -1,8 +1,8 @@
 ################# jack stuff ###################################
 # alias startjack="jack_control start && a2j_control --start"
 #
-# alias zalsa_out_preamp="jack_load zalsa_out -i '-d hw:1' &!"
-# alias zalsa_in_preamp="jack_load zalsa_in -i '-d hw:1,0' &!"
+# alias zalsa_out_preamp="jack_load preamp_in zalsa_out -i "-d hw:1" &!"
+# alias zalsa_in_preamp="jack_load preview zalsa_in -i "-d hw:1,0" &!"
 #
 # alias preamp_out="zita-j2a -j preamp_out -d hw:1 &!"
 # alias preamp_in="zita-a2j -j preamp_in -d hw:1,0 &!"
