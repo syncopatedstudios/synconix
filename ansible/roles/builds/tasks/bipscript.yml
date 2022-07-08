@@ -1,0 +1,52 @@
+---
+
+- block:
+    - name: copy bipscript-v0.16.tar.gz to local source
+      copy:
+        src: usr/local/src/bipscript-v0.16.tar.gz
+        dest: /usr/local/src/bipscript-v0.16.tar.gz
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        mode: '0644'
+
+    - name: extract and make bipscript
+      shell: |
+        if ! [ -x "$(command -v bipscript)" ]; then
+          tar -xvf bipscript-v0.16.tar.gz
+          cd bipscript-v0.16/ && \
+          cmake -DCMAKE_INSTALL_PREFIX=/usr -DBIPSCRIPT_VERSION=v0.16 . && \
+          make
+          mv bipscript /usr/local/bin/bipscript
+        fi
+      args:
+        chdir: "{{ local_src }}"
+      register: bipscript_install
+      changed_when: bipscript_install.rc != 0
+
+  tags: ['bipscript']
+
+- block:
+    - name: copy bipscript-ide-v0.16.tar.gz to local source
+      copy:
+        src: usr/local/src/bipscript-ide-v0.16.tar.gz
+        dest: /usr/local/src/bipscript-ide-v0.16.tar.gz
+        owner: "{{ user.name }}"
+        group: "{{ user.name }}"
+        mode: '0644'
+
+    - name: extract and make bipscript-ide
+      shell: |
+        if ! [ -x "$(command -v bipscript-ide)" ]; then
+          tar -xvf bipscript-ide-v0.16.tar.gz
+          cd ide-v0.16/ && \
+          ruby version.rb && \
+          qmake bipscript-ide.pro && \
+          make
+          mv bipscript-ide /usr/local/bin/bipscript
+        fi
+      args:
+        chdir: "{{ local_src }}"
+      register: bipscriptide_install
+      changed_when: bipscriptide_install.rc != 0
+
+  tags: ['bipscript']

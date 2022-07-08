@@ -40,6 +40,10 @@
   when: build_bespoke|bool
   tags: ['bespoke']
 
+- include: bipscript.yml
+  when: build_bipscript|bool
+  tags: ['bipscript']
+
 - include: deadbeef.yml
   when: build_deadbeef|bool
   tags: ['deadbeef']

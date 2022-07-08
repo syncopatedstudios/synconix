@@ -4,6 +4,7 @@ build_audiowaveform: False
 build_ardour: False
 build_baudline: False
 build_bespoke: False
+build_bipscript: False
 build_deadbeef: False
 build_ecasound: False
 build_ingen: False
