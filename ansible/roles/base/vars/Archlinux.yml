@@ -396,6 +396,7 @@ desktop:
     - blockdiag
     - celluloid
     - darktable
+    - devdocs-desktop
     - epson-inkjet-printer-escpr2
     - feh
     - ffmpegthumbnailer

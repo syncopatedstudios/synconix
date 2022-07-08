@@ -57,18 +57,19 @@ med)
   mantoread=$(echo "$input" | cut -c 4- | xargs)
   exec $BROWSER "https://medium.com/search?q=$mantoread" &> /dev/null &
   ;;
-dd)
-	# Search on DevDocs
-	append_new_term
-  mantoread=$(echo "$input" | cut -c 3- | xargs)
-  exec $BROWSER "https://devdocs.io/search?q=$mantoread" &> /dev/null &
-  ;;
-*)
+z)
   # Open zeal only if there's text input
   if [ ! -z "$input" ]
   then
 		append_new_term
     exec zeal $input "$(echo $input | sed 's/^....//g')" & # Open zeal
   fi
+  ;;
+*)
+  # Open zeal only if there's text input
+	# Search on DevDocs
+	append_new_term
+  mantoread=$(echo "$input" | cut -c 3- | xargs)
+  exec devdocs-desktop "$mantoread" &> /dev/null &
   ;;
 esac
