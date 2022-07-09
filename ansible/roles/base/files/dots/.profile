@@ -16,7 +16,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-if [ -x "$(command -v gnome-keyring-daemon)" ]; then
+if ! pgrep -a keyring > /dev/null; then
   eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 fi
 

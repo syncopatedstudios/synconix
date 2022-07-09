@@ -39,7 +39,15 @@ d)
   mantoread=$(echo "$input" | cut -c 2- | xargs)
   exec $BROWSER "https://duckduckgo.com/?q=$mantoread" &> /dev/null &
   ;;
-g)
+gh)
+	# Search on Github
+	append_new_term
+  mantoread=$(echo "$input" | cut -c 2- | xargs)
+  exec $BROWSER "https://github.com/search?utf8=✓&q=$mantoread" &> /dev/null &
+	exec $BROWSER "https://gist.github.com/search?q=$mantoread" &> /dev/null &
+	exec $BROWSER "https://stackoverflow.com/search?q=$mantoread" &> /dev/null &
+  ;;
+google)
 	# Search on Google
 	append_new_term
   mantoread=$(echo "$input" | cut -c 2- | xargs)

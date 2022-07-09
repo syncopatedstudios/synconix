@@ -24,7 +24,7 @@ alias ll="printf '\n' && exa -lH --group-directories-first --icons"
 alias llh="printf '\n' && exa -alH --group-directories-first --icons"
 
 # remove comments from a file
-alias nocomment='grep -v "^\($\|#\)"'
+alias nocomment='grep -v "^\($\|#\|;;\|;\|\n\)"'
 
 alias checklog='sudo journalctl -o short-iso | lnav'
 alias taillog='sudo journalctl -f | lnav'
