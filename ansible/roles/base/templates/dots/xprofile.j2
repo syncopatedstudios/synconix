@@ -28,7 +28,5 @@ xset +fp /usr/share/fonts/100dpi
 numlockx on
 
 guake &
-{% if ansible_facts['hostname'] == 'lapbot' %}
+
 nm-applet &
-{% else %}
-{% endif %}

@@ -72,7 +72,11 @@ systemd_networkd_cleanup_patterns: ['eth*']
 systemd_networkd_cleanup_patterns_use_regex: True
 
 ##################################################################
-##########################  Audio  ###############################
+##########################  jack  ################################
+##################################################################
+
+##################################################################
+##########################  Pipewire  ############################
 ##################################################################
 install_pipewire: False
 
@@ -119,8 +123,6 @@ install_atom: False
 graphical_target: False
 autologin: False
 
-tri_monitors: False
-
 swallow:
   git: "https://github.com/The-Repo-Club/i3-swallow"
 
@@ -134,67 +136,64 @@ font:
 
 # theme options
 theme:
-  name: oomox-syncopated-linux
-  icon: oomox-syncopated-linux
+  name: oomox-steve_the_robot
+  icon: oomox-steve_the_robot
   cursor: Adwaita
-  kvantum: KvGnomeDark
+  kvantum: KvFlat
 
 qt5ct_style: Fusion
 
+# terminator color pallete:
+# "#000000"
+# "#b50047"
+# "#97e023"
+# "#fa8419"
+# "#838d6e"
+# "#ff4f04"
+# "#06989a"
+# "#ffffff"
+# "#ffa896"
+# "#b7c0e8"
+# "#97e023"
+# "#c3b624"
+# "#e74343"
+# "#be004a"
+# "#1e9696"
+# "#000000"
+
 colors:
-  primary: "#ffb52a"
-  secondary: "#e60053"
-  active_border_color: "#b0ae06"
-  inactive_border_color: "#cccccc"
   foreground: "#8F350A"
-  foreground_gruv: "#EBDBB2"
-  background: "#0F1110"
-  background_alt: "#101010"
-  background_gruv: "#282828"
-  selection_foreground: "#000000"
-  selection_background: "#fffacd"
+  foreground_alt: "#859900"
+  background: "#292828"
+  background_alt: "#0F1110"
+  selection_foreground: "#292828"
+  selection_background: "#b1701e"
+  active_border: "#8F350A"
+  inactive_border: "#292828"
+  cursor: "#e0aa7c"
   separator: "#505050"
-  #: black
+  text: "#B3B3B3"
+  #: black dark/light
   color0: "#2f3d42"
   color8: "#585858"
-  #: red
+  #: red dark/light
   color1: "#ab4642"
   color9: "#ab4642"
-  #: green
-  color2:  "#7E807E"
-  color10: "#8D8F8D"
-  #: yellow
+  #: green dark/light
+  color2:  "#79B31C"
+  color10: "#79B31C"
+  #: yellow dark/light
   color3:  "#f7ca88"
   color11: "#f7ca88"
-  #: blue
-  color4:  "#7cafc2"
-  color12: "#7cafc2"
-  #: magenta
+  #: blue dark/light
+  color4:  "#B7C0E8"
+  color12: "#b50047"
+  #: magenta dark/light
   color5:  "#ba8baf"
   color13: "#ba8baf"
-  #: cyan
+  #: cyan dark/light
   color6:  "#1ABB9B"
   color14: "#1ABB9B"
-  #: white
-  color7:  "#d8d8d8"
-  color15: "#f8f8f8"
-  white: "#FFFFFF"
-  black: "#000000"
-  red: "#EC7875"
-  redish: "#e22ca9"
-  pink: "#EC6798"
-  purple: "#BE78D1"
-  blue: "#75A4CD"
-  cyan: "#00C7DF"
-  teal: "#00B19F"
-  green: "#61C766"
-  lime: "#B9C244"
-  highst_green: "#689d6a"
-  yellow: "#EBD369"
-  amber: "#EDB83F"
-  orange: "#E57C46"
-  brown: "#AC8476"
-  gray: "#9E9E9E"
-  gray2: "#3f3f3f"
-  indigo: "#6C77BB"
-  blue_gray: "#6D8895"
+  #: white dark/light
+  color7:  "#B3B3B3"
+  color15: "#B3B3B3"

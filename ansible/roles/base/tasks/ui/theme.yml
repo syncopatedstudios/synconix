@@ -137,187 +137,90 @@
         - "{{ user.home }}/.themes"
         - "{{ user.home }}/.icons"
 
-    - name: remove these files
-      file:
-        path: "{{ user.home }}/{{ item }}"
-        state: absent
+    - name: Update gtk2
+      template:
+        src: "dots/gtkrc-2.0.j2"
+        dest: "{{ user.home }}/.gtkrc-2.0"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: no
+
+    - name: Update gtk3
+      template:
+        src: "dots/config/gtk-3.0/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/gtk-3.0/{{ item }}"
+        owner: "{{ user.name }}"
+        group: "{{ user.group }}"
+        mode: '0644'
+        backup: no
       with_items:
-        - .gtkrc-2.0
-        - .config/gtk-3.0/settings.ini
-        - .config/gtk-3.0/gtk.css
-        - .config/gtk-4.0/settings.ini
-        - .config/qt5ct/qt5ct.conf
-        - .config/Kvantum/kvantum.kvconfig
+        - settings.ini
+        - gtk.css
 
-    - name:  Update gtk2
-      blockinfile:
-        path: "{{ user.home }}/.gtkrc-2.0"
+    - name: Update gtk4
+      template:
+        src: "dots/config/gtk-4.0/settings.ini.j2"
+        dest: "{{ user.home }}/.config/gtk-4.0/settings.ini"
         owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-        create: yes
-        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
-        block: |
-          gtk-theme-name="{{ theme.name }}"
-          gtk-icon-theme-name="{{ theme.icon }}"
-          gtk-font-name="{{ font.name }} {{ font.size }}"
-          gtk-cursor-theme-name="{{ theme.cursor }}"
-          gtk-cursor-theme-size=0
-          gtk-toolbar-style=GTK_TOOLBAR_BOTH
-          gtk-toolbar-icon-size=GTK_ICON_SIZE_MENU
-          gtk-button-images=1
-          gtk-menu-images=1
-          gtk-enable-event-sounds=1
-          gtk-enable-input-feedback-sounds=1
-          gtk-xft-antialias=1
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle="{{ font.hintstyle }}"
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
 
-    - name:  Update gtk3 settings
-      blockinfile:
-        path: "{{ user.home }}/.config/gtk-3.0/settings.ini"
+    - name: Update qt5
+      template:
+        src: "dots/config/qt5ct/qt5ct.conf.j2"
+        dest: "{{ user.home }}/.config/qt5ct/qt5ct.conf"
         owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-        create: yes
-        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
-        block: |
-          [Settings]
-          gtk-theme-name={{ theme.name }}
-          gtk-icon-theme-name={{ theme.icon }}
-          gtk-font-name={{ font.name }} {{ font.size }}
-          gtk-cursor-theme-name={{ theme.cursor }}
-          gtk-toolbar-style=GTK_TOOLBAR_BOTH
-          gtk-icon-sizes=panel-menu=16,16:gtk-large-toolbar=16,16
-          gtk-button-images=1
-          gtk-menu-images=1
-          gtk-enable-event-sounds=1
-          gtk-enable-input-feedback-sounds=1
-          gtk-xft-antialias=1
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle="{{ font.hintstyle }}"
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
 
-    - name:  Update gtk3 css
-      blockinfile:
-        path: "{{ user.home }}/.config/gtk-3.0/gtk.css"
+    - name: Update kvantum
+      template:
+        src: "dots/config/Kvantum/kvantum.kvconfig.j2"
+        dest: "{{ user.home }}/.config/Kvantum/kvantum.kvconfig"
         owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-        create: yes
-        marker: /* {mark} ANSIBLE MANAGED BLOCK */"
-        block: |
-          #zim-pageview text {
-              background-color: #0D0D0D;  /* changes the background color of the Zim's page editor */
-              color: #35b61f; /* foreground text color */
-            }
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
 
-          #zim-toc-widget {
-            color: #2b2b2b;  /* sets the color of the border line of the Table of Content plugin */
-            opacity: 0.9;    /* give the ToC some nice transparency */
-            font-size: 12px; /* ToC font size */
-            }
-
-          #zim-toc-widget scrolledwindow treeview {
-            color: #BABABA;  /* sets the color of the text within the Table of Content plugin */
-            opacity: 1;
-            }
-
-    - name:  Update gtk4 settings
-      blockinfile:
-        path: "{{ user.home }}/.config/gtk-4.0/settings.ini"
+    - name: Push zim style config
+      template:
+        src: "dots/config/zim/{{ item }}.j2"
+        dest: "{{ user.home }}/.config/zim/{{ item }}"
         owner: "{{ user.name }}"
-        group: "{{ user.name }}"
+        group: "{{ user.group }}"
         mode: '0644'
-        create: yes
-        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
-        block: |
-          [Settings]
-          gtk-theme-name={{ theme.name }}
-          gtk-icon-theme-name={{ theme.icon }}
-          gtk-font-name={{ font.name }} {{ font.size }}
-          gtk-cursor-theme-name={{ theme.cursor }}
-          gtk-enable-event-sounds=1
-          gtk-enable-input-feedback-sounds=1
-          gtk-xft-antialias=1
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle="{{ font.hintstyle }}"
+        backup: no
+      with_items:
+        - "style.conf"
+      tags: ['zim']
 
-
-    - name:  Update qt5ct
-      blockinfile:
-        path: "{{ user.home }}/.config/qt5ct/qt5ct.conf"
+    - name: Update Xresources
+      template:
+        src: "dots/Xresources.j2"
+        dest: "{{ user.home }}/.Xresources"
         owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-        create: yes
-        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
-        block: |
-          [Appearance]
-          color_scheme_path=/usr/share/qt5ct/colors/darker.conf
-          custom_palette=True
-          icon_theme={{ theme.icon }}
-          standard_dialogs=gtk3
-          style={{ qt5ct_style }}
+        group: "{{ user.group }}"
+        mode: '644'
+        backup: no
 
-          [Fonts]
-          fixed=@Variant(\0\0\0@\0\0\0\x1c\0H\0\x61\0\x63\0k\0 \0N\0\x65\0r\0\x64\0 \0\x46\0o\0n\0t@(\0\0\0\0\0\0\xff\xff\xff\xff\x5\x1\0\x32\x10)
-          general=@Variant(\0\0\0@\0\0\0\x1c\0H\0\x61\0\x63\0k\0 \0N\0\x65\0r\0\x64\0 \0\x46\0o\0n\0t@(\0\0\0\0\0\0\xff\xff\xff\xff\x5\x1\0\x32\x10)
-
-          [Interface]
-          activate_item_on_single_click=1
-          buttonbox_layout=0
-          cursor_flash_time=1000
-          dialog_buttons_have_icons=1
-          double_click_interval=400
-          gui_effects=@Invalid()
-          keyboard_scheme=2
-          menus_have_icons=True
-          show_shortcuts_in_context_menus=True
-          stylesheets=/usr/share/qt5ct/qss/fusion-fixes.qss
-          toolbutton_style=4
-          underline_shortcut=1
-          wheel_scroll_lines=3
-
-          [SettingsWindow]
-          geometry=@ByteArray(\x1\xd9\xd0\xcb\0\x3\0\0\0\0\n\xc8\0\0\0\0\0\0\xe\xf\0\0\x3\xff\0\0\n\xc9\0\0\0\x1\0\0\xe\xe\0\0\x3\xfe\0\0\0\x1\0\0\0\0\x6\x90\0\0\n\xc9\0\0\0\x1\0\0\xe\xe\0\0\x3\xfe)
-
-    - name:  Update kvantum
-      blockinfile:
-        path: "{{ user.home }}/.config/Kvantum/kvantum.kvconfig"
-        owner: "{{ user.name }}"
-        group: "{{ user.name }}"
-        mode: '0644'
-        create: yes
-        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
-        block: |
-          [General]
-          theme={{ theme.kvantum }}
-
-    # - name: Push zim style config
-    #   template:
-    #     src: "dots/config/zim/{{ item }}.j2"
-    #     dest: "{{ user.home }}/.config/zim/{{ item }}"
-    #     owner: "{{ user.name }}"
-    #     group: "{{ user.group }}"
-    #     mode: '0644'
-    #     backup: no
-    #   with_items:
-    #     - "style.conf"
-    #   tags: ['zim']
 
   become: True
   become_user: "{{ user.name }}"
-  tags: ['dots', 'theme']
-#
+  tags: ['dots']
+
+
 - block:
     - name: Extract soundbot theme into /home/user/.themes
       unarchive:
-        src: synconix-theme.tar.gz
+        src: oomox-steve_the_robot.tar.gz
         dest: "{{ user.home }}/.themes"
 
     - name: Extract soundbot theme icons into /home/user/.icons
       unarchive:
-        src: synconix-icons.tar.gz
+        src: oomox-steve_the_robot_icons.tar.gz
         dest: "{{ user.home }}/.icons"
 
   become: true

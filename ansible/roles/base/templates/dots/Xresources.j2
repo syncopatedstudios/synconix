@@ -12,7 +12,7 @@ xterm.termName:       xterm-256color
 
 *pointerColor:      #1ABB9B
 *faceName:          {{ font.name }}
-*faceSize:          {{ font.size }}
+*faceSize:          14
 
 ! Only select text
 *highlightSelection: true
@@ -50,48 +50,41 @@ xterm*VT100.Translations: #override \
 ! select entire urls
 *charClass: 33:48,37-38:48,45-47:48,64:48,58:48,126:48,61:48,63:48,43:48,35:48
 
-XTerm*foreground:   #0F1110
-UXTerm*foreground:  #0F1110
-XTerm*background:   #8F350A
-UXTerm*background:  #8F350A
-XTerm*cursorColor:  #e0aa7c
-UXTerm*cursorColor: #e0aa7c
-*background:                      #9230ff
-*foreground:                      #0d0c0c
-*fading:                          8
-*fadeColor:                       black
-*cursorColor:                     #1ABB9B
-*pointerColorBackground:          #2B2C2B
-*pointerColorForeground:          #16A085
+XTerm*foreground:   {{ colors.background_alt}}
+UXTerm*foreground:  {{ colors.background_alt}}
+XTerm*background:   {{ colors.foreground }}
+UXTerm*background:  {{ colors.foreground }}
+XTerm*cursorColor:  {{ colors.cursor }}
+UXTerm*cursorColor: {{ colors.cursor }}
 
 !! black dark/light
-*color0:                          #2f3d42
-*color8:                          #585858
+*color0:                          {{ colors.color0 }}
+*color8:                          {{ colors.color8 }}
 
 !! red dark/light
-*color1:                          #ab4642
-*color9:                          #ab4642
+*color1:                          {{ colors.color1 }}
+*color9:                          {{ colors.color9 }}
 
 !! green dark/light
-*color2:                          #7E807E
-*color10:                         #8D8F8D
+*color2:                          {{ colors.color2 }}
+*color10:                         {{ colors.color10 }}
 
 !! yellow dark/light
-*color3:                          #f7ca88
-*color11:                         #f7ca88
+*color3:                          {{ colors.color3 }}
+*color11:                         {{ colors.color11 }}
 
 !! blue dark/light
-*color4:                          #7cafc2
-*color12:                         #7cafc2
+*color4:                          {{ colors.color4 }}
+*color12:                         {{ colors.color12 }}
 
 !! magenta dark/light
-*color5:                          #ba8baf
-*color13:                         #ba8baf
+*color5:                          {{ colors.color5 }}
+*color13:                         {{ colors.color13 }}
 
 !! cyan dark/light
-*color6:                          #1ABB9B
-*color14:                         #1ABB9B
+*color6:                          {{ colors.color6 }}
+*color14:                         {{ colors.color14 }}
 
 !! white dark/light
-*color7:                          #d8d8d8
-*color15:                         #f8f8f8
+*color7:                          {{ colors.color7 }}
+*color15:                         {{ colors.color15 }}
