@@ -37,7 +37,6 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
-# set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
 set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 set $search "$HOME/.local/bin/search.sh"
@@ -52,15 +51,12 @@ set $atom "env ATOM_DISABLE_SHELLING_OUT_FOR_ENVIRONMENT=false /usr/bin/atom; sl
 
 set $raysession "raysession; sleep 1"
 
-set $monitor "$HOME/.config/polybar/scripts/monitor-switch.sh"
-
 set $timemachine "$HOME/.local/bin/timemachine.sh"
 
 set $fmit "$HOME/.local/bin/fmit.sh"
 
 set $midi_off "/usr/local/bin/sonic-pi-tool eval 'midi_all_notes_off'"
 
-set $start_jack "$HOME/.local/bin/start_jack.sh"
 ######################################
 # ---{ autostart }---
 ######################################
@@ -76,15 +72,9 @@ $exec_always $picom
 
 $exec_always $HOME/.i3/scripts/polybar.sh
 
-#$exec_always fix_xcursor
-
 include $HOME/.i3/autostart/`hostname`.conf
 
 #$exec /usr/lib/notification-daemon-1.0/notification-daemon &
-
-#$exec systemctl start jack_control.service
-
-# $exec pactl set-sink-volume @DEFAULT_SINK@ 0
 
 ######################################
 # ---{ window settings }---
@@ -173,37 +163,6 @@ mode "$mode_gaps_outer" {
 # ---{ theme }---
 ######################################
 
-# Color palette used for the terminal ( ~/.Xresources file )
-# Colors are gathered based on the documentation:
-# https://i3wm.org/docs/userguide.html#xresources
-# Change the variable name at the place you want to match the color
-# of your terminal like this:
-# [example]
-# If you want your bar to have the same background color as your
-# terminal background change the line 362 from:
-# background #14191D
-# to:
-# background $term_background
-# Same logic applied to everything else.
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
-
 set $background #0F1110
 set $foreground #e0aa7c
 
@@ -245,10 +204,8 @@ include $HOME/.i3/workspaces/`hostname`.conf
 #       ---{ scratchpad }---
 ######################################
 for_window [class="(?i)jack-keyboard"] floating enable, move position center, move to scratchpad
-# for_window [class="(?i)vmpk"] floating enable, move position center, move to scratchpad
 for_window [title="(?i)Mamba"] floating enable, move position center, resize set 640 480
-#for_window [class="(?i)scratchpad"] floating enable, resize set 750 550, move position center, move to scratchpad, scratchpad show
-#for_window [class="(?i)zim"] floating disable, move to scratchpad, scratchpad show
+
 ######################################
 #       ---{ utils }---
 ######################################
@@ -283,19 +240,9 @@ for_window [class='^Sonic\sPi$'] floating disable
 for_window [class="^Non-Mixer$"] floating disable
 for_window [class="^Pavucontrol"] floating enable, resize set 1171 764, move position center, focus
 
-assign [class="^kitty_init$"] $ws1
-assign [class="^Atom$"] $ws5
-assign [class='^Sonic\sPi$'] $ws5
 assign [class="^RaySession$"] $ws1
 assign [class="^jalv.select$"] $ws1
-assign [class="^FMIT$"] $ws1
 assign [class="^Timemachine$"] $ws1
-
-assign [class="^Jamin"] $ws4
-assign [class="^Jack_mixer"] $ws4
-
-assign [class="^Dragonfly-Dragonfly"] $ws4
-
 assign [title="^EBU R128 Meter$"] $ws1
 assign [title="zita-mu1-0.3.3"] $ws1
 assign [class="^Jnoisemeter$"] $ws1
@@ -303,21 +250,31 @@ assign [class="^meterbridge$"] $ws1
 assign [title="jkmeter"] $ws1
 assign [title="VU\ Meter\ \(Stereo\)"] $ws1
 
-assign [title="jalv.gtkmm"] $ws4
 
-assign [title="Mixxx"] $ws7
-
+assign [class="^FMIT$"] $ws2
 assign [class="^Qsampler$"] $ws2
 assign [class="^qmidiarp"] $ws2
 
 assign [class="^Seq192"] $ws3
+assign [title="jalv.gtkmm"] $ws3
+
+assign [class="^Jamin"] $ws4
+assign [class="^Jack_mixer"] $ws4
+assign [class="^Dragonfly-Dragonfly"] $ws4
+
+assign [class="^Atom$"] $ws5
+assign [class='^Sonic\sPi$'] $ws5
+
+assign [title="Mixxx"] $ws7
 
 assign [class="^Patchage$"] $ws6
 
-assign [class="^REAPER$"] $ws9
+# assign [class="^REAPER$"] $ws8
 assign [class="REAPER" title="^Mixer"] $ws8
+assign [class="^Non-Mixer$"] $ws8
+
 assign [title="JS:\ ATK FOA Decode Stereo"] $ws10
-assign [class="^Non-Mixer$"] $ws10
+
 
 ######################################
 # ---{ app bindings }---
@@ -364,11 +321,7 @@ bindsym F12 $exec rofi-zeal
 
 bindsym $mod+Insert $exec zim --plugin quicknote
 
-#bindsym $mod+Shift+Mod2+Insert $exec $scratchpad
-
 # set $help "uxterm -hold -T 'glow' -e glow $HOME/key_bindings.md"
-# set $help "kitty --class 'kitty_dialog' $HOME/.local/bin/autostart_dialog.sh"
-
 bindsym $mod+slash $exec i3help
 
 bindsym $mod+grave scratchpad show

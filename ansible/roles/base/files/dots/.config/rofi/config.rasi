@@ -9,9 +9,9 @@ configuration {
 	run-list-command: "";
 	run-shell-command: "{terminal} -e {cmd}";
 	window-command: "wmctrl -i -R {window}";
-	icon-theme: "oomox-steve_the_robot" ;
+	icon-theme: "oomox-steve_the_robot";
 	drun-match-fields: "name,generic,exec,categories,keywords";
-/*	drun-categories: "AudioVideo,Audio,Development,iempluginsuite";/
+	drun-categories: "";
 	drun-show-actions: true;
 	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
 	drun-url-launcher: "xdg-open";
