@@ -108,6 +108,10 @@ floating_modifier $mod
 for_window [class="^.*"] border pixel 1
 
 for_window [urgent=latest] focus
+
+focus_follows_mouse no
+
+mouse_warping none
 #############################
 ### settings for i3-gaps: ###
 #############################
