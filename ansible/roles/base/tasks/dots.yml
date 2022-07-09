@@ -13,7 +13,8 @@
         rsync_opts:
           - "--update"
           - "--omit-dir-times"
-          
+      notify: reload i3
+
   become: true
   become_user: "{{ user.name }}"
   tags: ['dots']

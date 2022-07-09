@@ -9,9 +9,9 @@ configuration {
 	run-list-command: "";
 	run-shell-command: "{terminal} -e {cmd}";
 	window-command: "wmctrl -i -R {window}";
-	icon-theme: "oomox-syncopated-linux" ;
+	icon-theme: "oomox-steve_the_robot" ;
 	drun-match-fields: "name,generic,exec,categories,keywords";
-/*	drun-categories: ;*/
+/*	drun-categories: "AudioVideo,Audio,Development,iempluginsuite";/
 	drun-show-actions: true;
 	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
 	drun-url-launcher: "xdg-open";
@@ -53,7 +53,7 @@ configuration {
   display-drun: 					"";
   display-combi: 					"";
 /*	display-keys: ;*/
-	display-filebrowser: "**";
+	display-filebrowser: "";
 	kb-primary-paste: "Control+V,Shift+Insert";
 	kb-secondary-paste: "Control+v,Insert";
 	kb-clear-line: "Control+w";
@@ -134,6 +134,7 @@ configuration {
       delay:  0;
   }
   filebrowser {
+			directory: "/home/b08x";
       directories-first: true;
       sorting-method:    "name";
   }
