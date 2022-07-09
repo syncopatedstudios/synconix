@@ -37,6 +37,8 @@ set $exec_always exec_always --no-startup-id
 
 set $rofi "rofi -no-lazy-grab -show drun -modi run,drun,window"
 
+set $alttab "rofi -no-lazy-grab -show window -modi run,drun,window"
+
 set $picom "pkill picom; sleep 1; DISPLAY=':0' picom -b"
 
 set $search "$HOME/.local/bin/search.sh"
@@ -68,11 +70,13 @@ $exec_always $HOME/.screenlayout/`hostname`.sh
 
 $exec_always nitrogen --restore
 
-$exec_always $picom
+#$exec_always $picom
+
+include $HOME/.i3/autostart/`hostname`.conf
 
 $exec_always $HOME/.i3/scripts/polybar.sh
 
-include $HOME/.i3/autostart/`hostname`.conf
+$exec "pkill picom; sleep 1; DISPLAY=':0' picom -b --experimental-backends"
 
 #$exec /usr/lib/notification-daemon-1.0/notification-daemon &
 
@@ -99,7 +103,7 @@ for_window [class="^.*"] border pixel 1
 
 for_window [urgent=latest] focus
 
-focus_follows_mouse no
+focus_follows_mouse yes
 
 mouse_warping none
 #############################
@@ -212,9 +216,16 @@ for_window [title="(?i)Mamba"] floating enable, move position center, resize set
 # for_window [class="^jgmenu"] move position center, focus
 for_window [title="^Sox Stats"] floating enable, resize set 640 480
 for_window [title="^glow"] floating enable, resize set 849 1543, move to workspace 1, move position center, focus
-for_window [class="^kitty_dialog"] floating enable, resize set 750 550, move to workspace 1, move position center, focus
+for_window [class="^kitty"] resize set 1267 854, move position center, focus
+for_window [class="^Thunar"] resize set 1202 930, move position center, focus
+for_window [class="^Zim"] resize set 1430 931, move position center, focus
+for_window [class="^mpv"] resize set 1462 731, move position center, focus
+for_window [class="^Google-chrome"] resize set 1439 929, move position center, focus
+for_window [class="^Gpick"] resize set 958 687, move position center, focus
+for_window [class="^VMPK"] resize set 1855 374, move position center, focus
 for_window [class="^FMIT$"] floating enable, resize set 660 537, move position center, focus
 for_window [class="^Timemachine"] floating enable, move position center, focus
+
 ######################################
 #       ---{ reaper stuff }---
 ######################################
@@ -304,6 +315,8 @@ bindsym XF86Tools $exec $rofi
 # bindsym XF86Display $exec $monitor
 # bindsym Shift+F8 $exec $fmit
 # bindsym Shift+F9 $exec $timemachine
+
+bindsym $alt+Tab $exec $alttab
 
 bindsym $mod+Home $exec google-chrome-stable %U
 bindsym $mod+Shift+Home $exec qutebrowser
