@@ -27,6 +27,7 @@
         sh -c './install.sh --unattended'
       args:
         chdir: "{{ local_src }}/ohmyzsh/tools/"
+      when: not haziohymyzsh.stat.exists
 
     - name: Create zsh custom themes dir
       file:
@@ -43,7 +44,7 @@
         group: root
         mode: '0644'
 
-  when: not haziohymyzsh.stat.exists
+  #when: not haziohymyzsh.stat.exists
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Push root zshell config

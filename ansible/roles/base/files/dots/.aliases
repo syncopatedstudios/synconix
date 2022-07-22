@@ -36,10 +36,11 @@ alias dirperms="find . -type d -exec chmod 0755 {} +"
 alias man="PAGER='most' man "
 alias awman="PAGER='most' awman"
 
-alias search="/usr/local/bin/pkgsearch"
+alias search="pamac search --files"
 alias install="pamac install"
 alias uninstall="pamac remove --no-orphans"
 alias list="pamac list --installed"
+
 alias p="sudo ping -c 4 google.com"
 
 alias co="git commit -a"
@@ -69,18 +70,15 @@ alias pulse_list_sources="pacmd list-sources | grep -e 'index:' -e device.string
 
 alias vnc_serv="x11vnc -ncache_cr -display :0"
 
-
-alias manp="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
-
-alias lsmi="/usr/local/src/lsmi/lsmi-keyhack -v -k ~/.keydb -d /dev/input/event5"
+alias mann="man -k . | fzf --preview "echo {} | awk '{print $1}' | xargs -r man" | awk '{print $1}' | xargs -r man"
 
 # Re-enable caps lock
 alias clearcaps='/usr/bin/xmodmap -e "clear Lock"'
 alias capsf13='/usr/bin/xmodmap -e "keysym Caps_Lock = F13"'
 
-alias ytdla="youtube-dl -o "%(artist)s.%(title)s.%(ext)s" -x --audio-format wav --external-downloader aria2c"
+alias ytdla="youtube-dl -o '(artist)s.%(title)s.%(ext)s' -x --audio-format wav --external-downloader aria2c"
 
-alias ytdlv="youtube-dl -o "%(artist)s.%(title)s.%(ext)s" -f mp4 --external-downloader aria2c"
+alias ytdlv="youtube-dl -o '(artist)s.%(title)s.%(ext)s' -f mp4 --external-downloader aria2c"
 
 alias icat="kitty +kitten icat --align left"
 
@@ -91,7 +89,7 @@ alias jnoisemeter="jnoisemeter"
 alias wo="cd $WORKSPACE"
 alias an="cd $ANSIBLE_HOME"
 alias so="cd $WORKSPACE/soundbot"
-alias do="cd $HOME/Library/Downloads"
+alias do="cd $HOME/Downloads"
 
 alias gem="sudo gem"
 
