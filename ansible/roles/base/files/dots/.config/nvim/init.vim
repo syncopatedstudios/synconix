@@ -1,7 +1,5 @@
-" Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
-" Declare the list of plugins.
 Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -19,45 +17,38 @@ Plug 'tomasr/molokai'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'https://github.com/vim-scripts/AutoComplPop.git'
-" List ends here. Plugins become visible to Vim after this call.
+
 call plug#end()
 
 let mapleader = ","
 let localleader = "\\"
 
-" autocmd VimEnter * if !argc() | NERDTree | endif
 autocmd VimEnter * wincmd p
 
 command! FR set filetype=ruby
-" Configure autoindent
+
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 autoindent
 
-" remember last cursor place
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-" Configure Airline
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
       let g:airline_symbols = {}
 endif
+
 let g:airline_symbols.space = "\ua0"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline_theme = 'powerlineish'
 
-" Configure hexokinase colorizer
 :set termguicolors
 let g:Hexokinase_highlighters = [ 'virtual' ]
 
-" Set colorscheme
-" let g:SnazzyTransparent = 1
 
 colorscheme molokai
 
 set omnifunc=syntaxcomplete#Complete
 
-" set completeopt-=preview
-" set completeopt+=longest,menuone,noselect
 
 function! OpenCompletion()
     if !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
@@ -88,11 +79,8 @@ endfunction
 
 inoremap <tab> <C-r>=Smart_TabComplete()<CR>
 
-" autocmd InsertCharPre * call OpenCompletion()
-" Default term cursor
-set guicursor=
 
-" Enable copy to system clipboard
+
 set clipboard+=unnamedplus
 
 let g:sonic_pi_command = 'sonic-pi-tool'
@@ -107,13 +95,11 @@ let g:sonic_pi_log_width = 30
 let g:sonic_pi_enabled = 1
 let g:vim_redraw = 1
 
-" Window navigation
 nnoremap <A-Right> <C-w>l
 nnoremap <A-Left> <C-w>h
 nnoremap <A-Up> <C-w>k
 nnoremap <A-Down> <C-w>j
 
-"" NERDTree configuration
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
@@ -126,7 +112,6 @@ nnoremap <F2> :NERDTreeToggle<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
 
-" tab completion, select on enter
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -138,17 +123,15 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+      \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -163,7 +146,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -173,8 +155,7 @@ let cmdline_app           = {}
 let cmdline_app['ruby']   = 'pry'
 let cmdline_app['sh']     = 'bash'
 let cmdline_in_buffer = 1
-" let cmdline_external_term_cmd = "xterm -e '%s' &"
-" vimcmdline mappings
+
 let cmdline_map_start          = '<LocalLeader>s'
 let cmdline_map_send           = '<Space>'
 let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
@@ -186,14 +167,12 @@ let cmdline_map_quit           = '<LocalLeader>q'
 
 nnoremap <silent> <leader>e :call Fzf_dev()<CR>
 
-" ripgrep
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
   set grepprg=rg\ --vimgrep
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
 
-" Files + devicons
 function! Fzf_dev()
   let l:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
 
