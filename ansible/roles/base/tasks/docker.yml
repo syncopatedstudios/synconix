@@ -10,8 +10,8 @@
 
 # - name: push docker service config
 #   template:
-#     src: usr/lib/systemd/docker.service.j2
-#     dest: /usr/lib/systemd/docker.service
+#     src: usr/lib/systemd/system/docker.service.j2
+#     dest: /usr/lib/systemd/system/docker.service
 #     owner: root
 #     group: root
 #     mode: '644'
