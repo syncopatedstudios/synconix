@@ -1,53 +1,21 @@
-
-# error handling whilst installing a large number of packages
-source: https://stackoverflow.com/a/49758224/10073106
-
-First setup a sub-tasks.yml to contain your install tasks:
-
-```yaml
-Sub-Tasks.yml
-
-  - name: Install package and handle errors
-    block:
-      - name Install package
-        yum: state=latest name="{{ package_name }}"
-    rescue:
-      - debug:
-          msg: "I caught an error with {{ package_name }}"
-
-# Then your playbook will setup a loop of these tasks:
-
-  - name: Install all packages ignoring errors
-    include_tasks: Sub-Tasks.yml
-    vars:
-      package_name: "{{ item }}"
-    with_items:
-      - "{{ pkgs }}"
-```
-
 # instructions for a soundbot v1.0.0-alpha
 
-Hey Baby. Looking good. Wanna install me? I'm a real good time.
+Hey Baby. Looking good. Wanna quick install? I'm a real good time.
 
-
-## > This is what I'll do for Five dollars
-
-Let's say all the things necessary to make this work are in place*, and yer itchin'. Ask yourself: "Where have I been putting my hands lately?"
-
-For convience, this has been intentially designed in a convoluted fashion to exercise configuration concepts for an audio production environment. ;)
+(An exercise configuration concepts for an audio production environment.)
 
 # Wiki stuff
 
 Now...take your pants off then open [group_vars/all.yml](group_vars/all.yml)
 
-group_vars
+`group_vars`
 if you have different classes of hosts (say one a network, headless node another a full DAW), then you can assign those hosts to different groups within the inventory (hosts) file and set variables to apply to those groups here
 
-host_vars
+`host_vars`
 if group_vars made sense, then this just applies to individual hosts
 
 
-Change these values to reflect how you see yourself.
+Change these values to reflect _your_ values
 
 ```yaml
 user:
@@ -91,18 +59,7 @@ After you're finished with that, ask yourself "Did I turn off the oven?" Then th
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
 ```
 
-## Desktop Environment
-
-you set which window manager and other ui related thigns...
-
-```yaml
-install_x11: True
-install_i3: True
-```
-Set whether or not to install i3 window manager by adding a boolean variable in a group or host_vars file. You can find the default settings in the [ui section](roles/base/defaults/main.yml)
-
-i3 is currently the default. If you'd like to add packages for any other desktop enviornment, add the packages you want in the primary vars file, create a task for it, then add a boolean to this list.
-
+## UI Variables
 
 ## theme
 
@@ -127,7 +84,7 @@ To enable these settings, run the shell function `runtag theme`
 
 ## dots
 use git to manage your home directory. set these in [group_vars](group_vars/all.yml)
-
+{--
 ###### group_vars/all:
 ```yaml
 dots:
@@ -137,7 +94,7 @@ dots:
   untracked: False
 ```
 
-If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point. {--See [dots](roles/soundbot/README.md) for more detail.--}
+If you would like to use git to keep track the files in your home directory then fill in the variables here. If you leave this section blank you will be prompted to initialize a git repo at some point.--} {--See [dots](roles/soundbot/README.md) for more detail.--}
 
 
 ## tasks
@@ -171,3 +128,5 @@ ansible-playbook -v --connection=local -i $HOSTNAME, soundbot.yml --list-tasks
 - [command-not-found](https://command-not-found.com/) | find out what packages contains a command
 
 - [whohas](https://github.com/whohas/whohas) | cli tool to query package databases
+
+- [polybar wiki](https://github.com/polybar/polybar/wiki/Configuration)

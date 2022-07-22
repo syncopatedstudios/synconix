@@ -1,23 +1,15 @@
 # Synconix
-(syn con ix)
 
-(sync onix)
-
-(synco nix)
-
-# Distribution Enhancement
-
-Based on Manjaro Linux, Synconix is a Linux Audio environment designed for ~~crime~~ live and studio production.
+Based on Manjaro Linux, Synconix is a Linux environment designed for ~~crime~~ sound production.
 
 # Networked Audio
 
-Using Ansible, JackTrip, Ray Session Manager, qmidinet and OSC, multiple hosts can be configured for use during a live or recording session.
+Using Ray Session Manager, JackTrip, qmidinet and OSC, multiple hosts can be utilized to split up resource usage.
 
-# Ansible and the learning curve
+# Configuration Management with Ansible
 
-Ansible is used to store configurations and propagate changes to all nodes within an environment.
+Ansible is used to store known working configurations
 
-See the documenation....
 #####- [ ] TODO: write documentation
 
 # software
@@ -43,11 +35,6 @@ sononym...
 
 # workspace flow
 
-This was project was partially motivated by a desire for workflow expierence that could be replicated. A stable environment to use the computer as an instrument of sound in both a studio and live setting.
+This was project was partially motivated by a desire for workflow expierence conducive to audio production.
 
-i3 is primary used although any DE will work. Using a tiling window manager has a couple of advantages including a low memory/cpu footprint which saves on CPU usage. As part of a workflow, keyboard shortcuts enable for easy switching between what could be several open applications.
-
-Download the Live ISO to get a feel for using i3 in an audio production workflow.
-
-# Disclaimer
- **Security is not really considered in this design, so be aware of that.** 
+i3 is primary used although any DE will work. Using a tiling window manager has a couple of advantages including a low memory/cpu footprint. 
