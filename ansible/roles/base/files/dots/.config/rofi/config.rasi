@@ -1,6 +1,6 @@
 configuration {
 	modi: "window,run,drun,ssh";
-	font: "Hack Nerd Font 14";
+	font: "mononoki Nerd Font Regular 12";
 	show-icons: true;
 	terminal: "kitty";
 	ssh-client: "ssh";
@@ -46,12 +46,12 @@ configuration {
 /*	steal-focus: false;*/
 /*	application-fallback-icon: ;*/
 /*	pid: "/run/user/1000/rofi.pid";*/
-  display-window: 				"";
-  display-windowcd: 				"";
-  display-run: 					"";
-  display-ssh: 					"";
-  display-drun: 					"";
-  display-combi: 					"";
+  display-window: 				" ";
+  display-windowcd: 				" ";
+  display-run: 					" ";
+  display-ssh: 					" ";
+  display-drun: 					" ";
+  display-combi: 					" ";
 /*	display-keys: ;*/
 	display-filebrowser: "";
 	kb-primary-paste: "Control+V,Shift+Insert";
@@ -301,7 +301,7 @@ configuration {
 
 #entry {
     spacing: 0;
-    text-color: @normal-foreground;
+    text-color: @foreground;
 }
 
 #prompt {

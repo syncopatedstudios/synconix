@@ -230,18 +230,23 @@ for_window [class="^Timemachine"] floating enable, move position center, focus
 #for_window [title="^Mixer"] floating disable, border pixel 1
 for_window [class="REAPER" title="^Mixer"] floating disable
 for_window [title="JS:\ ATK FOA Decode Stereo"] floating disable
-for_window [class="REAPER" title="^JS:"] floating disable, move to workspace 9, layout toggle split v, focus
-for_window [class="REAPER" title="^VST:"] floating disable, move to workspace 9, layout toggle split v, focus
-for_window [class="REAPER" title="^LV2:"] floating disable, move to workspace 9, layout toggle split v, focus
+for_window [class="REAPER" title="^JS:"] floating enable, resize set 1106 733, move position center, focus
+for_window [class="REAPER" title="^VST:"] floating enable, resize set 1106 733, move position center, focus
+for_window [class="REAPER" title="^LV2:"] floating enable, resize set 1106 733, move position center, focus
+for_window [class="REAPER" title="^Add FX to"] floating enable, resize set 1106 733, move position center, focus
 for_window [title="^Docker"] floating disable
 for_window [title="^Toolbar"] floating disable
 for_window [title="^MIDI take:"] floating disable
+######################################
+#       ---{ calf stuff }---
+######################################
+for_window [class="^Calfjackhost"] floating enable, move position center, focus
 
 ######################################
 #       ---{ meters }---
 ######################################
-for_window [class="(?i)meterbridge"] floating enable
-for_window [class="(?i)zita-mu1"] floating enable
+for_window [class="(?i)meterbridge"] floating enable, move position left
+for_window [class="(?i)zita-mu1"] floating enable, move position left
 ######################################
 #       ---{ audio apps }---
 ######################################
@@ -350,6 +355,7 @@ bindcode $alt+Shift+$KP_9 $exec patchage
 
 # kill focused window
 bindsym $mod+q kill
+bindsym Shift+F8 kill
 
 # change focus
 bindsym $mod+j focus left
