@@ -2,7 +2,7 @@ Xft.dpi:       96
 Xft.antialias: 1
 Xft.hinting:   1
 Xft.rgba:      rgb
-Xft.hintstyle: hintslight
+Xft.hintstyle: {{ font.hintstyle }}
 Xft.lcdfilter: lcddefault
 
 Xcursor.theme: {{ theme.cursor }}
@@ -12,7 +12,7 @@ xterm.termName:       xterm-256color
 
 *pointerColor:      #1ABB9B
 *faceName:          {{ font.name }}
-*faceSize:          14
+*faceSize:          {{ font.size }}
 
 ! Only select text
 *highlightSelection: true
@@ -50,8 +50,8 @@ xterm*VT100.Translations: #override \
 ! select entire urls
 *charClass: 33:48,37-38:48,45-47:48,64:48,58:48,126:48,61:48,63:48,43:48,35:48
 
-XTerm*foreground:   {{ colors.background_alt}}
-UXTerm*foreground:  {{ colors.background_alt}}
+XTerm*foreground:   {{ colors.black }}
+UXTerm*foreground:  {{ colors.black }}
 XTerm*background:   {{ colors.foreground }}
 UXTerm*background:  {{ colors.foreground }}
 XTerm*cursorColor:  {{ colors.cursor }}
