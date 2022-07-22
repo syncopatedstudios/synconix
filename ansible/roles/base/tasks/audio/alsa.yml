@@ -1,6 +1,6 @@
 ---
 
-- name: check to see if alsa modprobe mod file exists
+- name: Check to see if alsa modprobe mod file exists
   stat: path="/etc/modprobe.d/10-alsa_usb.conf"
   register: hazialsamod
   tags: ['modprobe']

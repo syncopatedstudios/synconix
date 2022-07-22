@@ -2,13 +2,13 @@
 
 - name: Starting Ansible Process
   debug:
-    msg: "starting base role"
+    msg: "Starting Ansible"
 
 - name: Load variables specific to the OS family.
   include_vars: "{{ ansible_os_family }}.yml"
   tags: ['vars']
 
-- name: Run tasks specific to {{ ansible_os_family }}
+- name: Run tasks specific to ansible_os_family
   include: "distros/{{ ansible_os_family }}.yml"
 
 - include: sudoers.yml
@@ -70,5 +70,4 @@
   tags: ['audio']
 
 - include: ui.yml
-  when: graphical_target|bool
   tags: ['ui']

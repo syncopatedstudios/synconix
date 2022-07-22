@@ -1,6 +1,10 @@
 ---
 
-- name: push os-release
+- name: Starting tasks for Archlinux
+  debug:
+    msg: "Starting tasks for Archlinux"
+
+- name: Add version to os-release
   template:
     src: etc/os-release.j2
     dest: /etc/{{ item }}
@@ -12,7 +16,7 @@
     - "os-release"
     - "system-release"
 
-- name: push pamac conf
+- name: Set pamac to use AUR
   template:
     src: etc/pamac.conf.j2
     dest: /etc/pamac.conf
@@ -23,7 +27,7 @@
   when: ansible_lsb['id'] == 'ManjaroLinux'
   tags: ['pamac']
 
-- name: push pacman conf
+- name: Adjust pacman.conf
   template:
     src: etc/pacman.conf.j2
     dest: /etc/pacman.conf
@@ -33,7 +37,7 @@
     backup: yes
   tags: ['pacman']
 
-- name: push pacman mirrorlist
+- name: Set pacman mirrors
   template:
     src: etc/pacman.d/mirrorlist.j2
     dest: /etc/pacman.d/mirrorlist
@@ -43,7 +47,7 @@
     backup: yes
   tags: ['pacman']
 
-- name: install makepkg config
+- name: Set compile flags in makepkg.conf
   template:
     src: "etc/makepkg.conf.j2"
     dest: "/etc/makepkg.conf"
@@ -54,7 +58,7 @@
     directory_mode: no
   tags: ['makepkg']
 
-- name: install pamac
+- name: Install pamac
   pacman:
     name: pamac-gtk
     state: present
@@ -62,7 +66,7 @@
     extra_args: --noconfirm
   tags: ['pamac']
 
-- name: remove packages
+- name: Remove some packages
   pacman:
     name: "{{ remove }}"
     state: absent

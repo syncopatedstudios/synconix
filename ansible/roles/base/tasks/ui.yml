@@ -17,20 +17,30 @@
   register: local_opt
   changed_when: local_opt.rc != 0
 
-- include: ui/x11.yml
-  tags: ['x11']
+- block:
+    - include: ui/x11.yml
+      tags: ['x11']
 
-- include: ui/i3.yml
-  tags: ['i3']
+    - include: ui/i3.yml
+      tags: ['i3']
 
-- include: ui/theme.yml
-  tags: ['theme']
+    - include: ui/theme.yml
+      tags: ['theme']
+
+  when: graphical_target|bool
 
 # - include: ui/fonts.yml
 #   tags: ['fonts']
 
 # - include: ui/autologin.yml
 #   tags: ['autologin']
+
+- include: desktop/nvim.yml
+  tags: ['nvim']
+
+- include: desktop/termpdf.yml
+  tags: ['utils']
+
 - block:
     - include: desktop/nvim.yml
       tags: ['nvim']

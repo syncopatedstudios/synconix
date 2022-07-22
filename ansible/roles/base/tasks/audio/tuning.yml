@@ -1,9 +1,6 @@
 ---
 
-# - include: filesystem.yml
-#   tags: ['filesystem']
-
-- name: Add user to audio groups
+- name: Add user to audio group
   user:
     name: "{{ user.name }}"
     groups: "audio"

@@ -18,6 +18,9 @@ remove:
   - vi
   - vim
   - python-pillow
+  - nodejs
+  - erlang-nox
+  - pipewire-media-session
 
 admin_user: wheel
 autofs_configs: /etc/autofs
@@ -338,13 +341,13 @@ audio:
     - zita-alsa-pcmi
     - zita-lrx
   plugins:
+    # - iempluginsuite
     - ams-lv2
     - calf
     - caps-lv2-git
     - cmt
     - distrho-ports
     - dragonfly-reverb
-    - iempluginsuite
     - intersect.lv2-git
     - ir.lv2
     - mod-utilities-lv2-git

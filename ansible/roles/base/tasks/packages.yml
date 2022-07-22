@@ -4,33 +4,6 @@
   include_vars: "common.yml"
   tags: ['vars']
 
-# - name: remove some packages
-#   shell: |
-#     if ! [ -x "$(command -v yay)" ]; then
-#       pamac remove --no-orphans --no-confirm {{ item }}
-#     else
-#       yay -Rdd --noconfirm {{ item }}
-#     fi
-#   with_items:
-#     - nodejs
-#     - erlang-nox
-#     - pipewire-media-session
-#   become: True
-#   become_user: "{{ user.name }}"
-#   ignore_errors: True
-
-- name: Ensure these packages are not installed
-  pacman:
-    name: "{{ item }}"
-    state: absent
-    force: yes
-    extra_args: --noconfirm
-  with_items:
-    - nodejs
-    - erlang-nox
-    - pipewire-media-session
-  ignore_errors: True
-
 - name: Gather list of currently installed packages
   shell: |
     if ! [ -x "$(command -v yay)" ]; then
@@ -43,7 +16,6 @@
   register: package_list
   ignore_errors: True
   tags: ['vars']
-
 
 - block:
     - name: Determine packages that will be installed

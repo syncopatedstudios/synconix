@@ -122,6 +122,7 @@ install_atom: False
 
 graphical_target: False
 autologin: False
+tri_monitors: False
 
 swallow:
   git: "https://github.com/The-Repo-Club/i3-swallow"
