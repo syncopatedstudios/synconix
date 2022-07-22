@@ -6,6 +6,7 @@
 apm:
   - ansible-snippets
   - atom-beautify
+  - atom-jinja2
   - blocky
   - color-picker
   - file-icons
