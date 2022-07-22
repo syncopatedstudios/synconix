@@ -39,15 +39,13 @@ d)
   mantoread=$(echo "$input" | cut -c 2- | xargs)
   exec $BROWSER "https://duckduckgo.com/?q=$mantoread" &> /dev/null &
   ;;
-gh)
-	# Search on Github
+dd)
+	# Search dev docs
 	append_new_term
-  mantoread=$(echo "$input" | cut -c 2- | xargs)
-  exec $BROWSER "https://github.com/search?utf8=✓&q=$mantoread" &> /dev/null &
-	exec $BROWSER "https://gist.github.com/search?q=$mantoread" &> /dev/null &
-	exec $BROWSER "https://stackoverflow.com/search?q=$mantoread" &> /dev/null &
+  mantoread=$(echo "$input" | cut -c 3- | xargs)
+  exec devdocs-desktop "$mantoread" &> /dev/null &
   ;;
-google)
+g)
 	# Search on Google
 	append_new_term
   mantoread=$(echo "$input" | cut -c 2- | xargs)
@@ -77,7 +75,10 @@ z)
   # Open zeal only if there's text input
 	# Search on DevDocs
 	append_new_term
-  mantoread=$(echo "$input" | cut -c 3- | xargs)
-  exec devdocs-desktop "$mantoread" &> /dev/null &
+  mantoread=$(echo "$input" | cut -c 2- | xargs)
+	exec $BROWSER "https://www.google.com/search?q=$mantoread" &> /dev/null &
+  exec $BROWSER "https://github.com/search?utf8=✓&q=$mantoread" &> /dev/null &
+	exec $BROWSER "https://gist.github.com/search?q=$mantoread" &> /dev/null &
+	exec $BROWSER "https://stackoverflow.com/search?q=$mantoread" &> /dev/null &
   ;;
 esac
