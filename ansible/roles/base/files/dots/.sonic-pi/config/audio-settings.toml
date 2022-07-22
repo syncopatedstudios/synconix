@@ -89,7 +89,7 @@
 # sound_card_name = ""
 # sound_card_sample_rate = 44100
 # sound_card_buffer_size = 64
-num_inputs = 4
+num_inputs = 8
 num_outputs = 6
 
 
