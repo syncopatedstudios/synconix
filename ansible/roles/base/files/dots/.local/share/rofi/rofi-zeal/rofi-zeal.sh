@@ -27,56 +27,25 @@ if [ -e $files ]; then
 fi
 
 case "$(echo $input | cut -d " " -f 1)" in
+
 man)
 	# Search on man
 	append_new_term
   mantoread=$(echo "$input" | cut -c 4- | xargs)
   export $1 && kitty -e "man $mantoread"
   ;;
-d)
-	# Search on DuckDuckGo
-	append_new_term
-  mantoread=$(echo "$input" | cut -c 2- | xargs)
-  exec $BROWSER "https://duckduckgo.com/?q=$mantoread" &> /dev/null &
-  ;;
 dd)
 	# Search dev docs
 	append_new_term
-  mantoread=$(echo "$input" | cut -c 3- | xargs)
-  exec devdocs-desktop "$mantoread" &> /dev/null &
-  ;;
-g)
-	# Search on Google
-	append_new_term
-  mantoread=$(echo "$input" | cut -c 2- | xargs)
-  exec $BROWSER "https://www.google.com/search?q=$mantoread" &> /dev/null &
-  ;;
-s)
-	# Search on stack overflow
-	append_new_term
-  mantoread=$(echo "$input" | cut -c 2- | xargs)
-  exec $BROWSER "https://stackoverflow.com/search?q=$mantoread" &> /dev/null &
-  ;;
-med)
-	# Search on Medium
-	append_new_term
-  mantoread=$(echo "$input" | cut -c 4- | xargs)
-  exec $BROWSER "https://medium.com/search?q=$mantoread" &> /dev/null &
-  ;;
-z)
-  # Open zeal only if there's text input
-  if [ ! -z "$input" ]
-  then
-		append_new_term
-    exec zeal $input "$(echo $input | sed 's/^....//g')" & # Open zeal
-  fi
+  exec devdocs-desktop "$(echo $input | sed 's/^....//g')" &> /dev/null &
   ;;
 *)
   # Open zeal only if there's text input
 	# Search on DevDocs
 	append_new_term
-  mantoread=$(echo "$input" | cut -c 2- | xargs)
+  mantoread=$(echo "$input" | cut -c 1- | xargs)
 	exec $BROWSER "https://www.google.com/search?q=$mantoread" &> /dev/null &
+	exec $BROWSER "https://duckduckgo.com/?q=$mantoread" &> /dev/null &
   exec $BROWSER "https://github.com/search?utf8=✓&q=$mantoread" &> /dev/null &
 	exec $BROWSER "https://gist.github.com/search?q=$mantoread" &> /dev/null &
 	exec $BROWSER "https://stackoverflow.com/search?q=$mantoread" &> /dev/null &
