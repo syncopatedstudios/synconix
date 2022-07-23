@@ -19,6 +19,7 @@ eval col_red='$FG[124]'
 eval col_yellow='$FG[011]'
 eval col_hotpink='$FG[013]'
 eval col_wine='$FG[001]'
+eval col_random='$FG[088]'
 
 HOSTNAME=$( cat /etc/hostname )
 
@@ -53,6 +54,10 @@ PROMPT='%{$col_yellow%}[%{$col_gray%}%m%{$col_yellow%}]%{$col_hotpink%}[$col_gra
 {% else %}
 {% endif %}
 
+{% if inventory_hostname in groups['nodes'] %}
+PROMPT='%{$col_yellow%}[%{$col_gray%}%m%{$col_yellow%}]%{$col_random%}[$col_gray%~%{$col_random%}]$(git_prompt_info)$col_gray%(?.%{$col_random%}.%{$col_pink%})%{$reset_color%} '
+{% else %}
+{% endif %}
 
 fi
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
