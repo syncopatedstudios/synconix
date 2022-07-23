@@ -133,9 +133,6 @@ audio:
     - pavucontrol
     - pulseaudio-module-jack
 ui:
-  fonts:
-    - fonts-liberation
-  gutilities:
     - darktable
     - gpick
     - guake
@@ -147,18 +144,6 @@ ui:
     - redshift
     - simplescreenrecorder
     - xarchiver
-  i3:
-    - dmenu
-    - feh
-    - grsync
-    - i3
-    - picom
-    - polybar
-    - python3-i3ipc
-    - qt5ct
-    - rofi
-    - thunar
-    - wmctrl
   themes:
     - numix-icon-theme-circle
     - qt5-style-kvantum

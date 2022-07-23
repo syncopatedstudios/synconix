@@ -26,6 +26,8 @@ docker_storage: /var/lib/docker
 ##################################################################
 ##########################  Firewall   ###########################
 ##################################################################
+use_firewall: True
+
 admin_user: root
 
 nfs_ports:
@@ -114,6 +116,7 @@ soundcard:
 ##########################  Desktop  #############################
 ##################################################################
 
+digital_art_workstation: False
 install_atom: False
 
 ##################################################################
@@ -133,7 +136,7 @@ icon_folder: "{{ user.home }}/.icons"
 font:
   name: Hack Nerd Font
   size: 12
-  hintstyle: hintfull
+  hintstyle: hintslight
 
 # theme options
 theme:
