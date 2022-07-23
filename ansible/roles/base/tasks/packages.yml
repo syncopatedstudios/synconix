@@ -4,119 +4,106 @@
   include_vars: "common.yml"
   tags: ['vars']
 
-- name: Gather list of currently installed packages
-  shell: |
-    if ! [ -x "$(command -v yay)" ]; then
-      pamac list --installed | awk '{ print $1 }'
-    else
-      yay -Qe | awk '{ print $1 }'
-    fi
-  become: True
-  become_user: "{{ user.name }}"
-  register: package_list
-  ignore_errors: True
-  tags: ['vars']
-
 - block:
-    - name: Determine packages that will be installed
+    - name: Determinng packages that will be installed...
       debug:
         msg: "comparing lists..."
 
-    - set_fact:
-        _kernel_packages: "{{ base.kernel|difference(package_list.stdout) }}"
+    - name: Determinng kernel packages to be installed...
+      set_fact:
+        _kernel_packages: "{{ kernel|difference(package_list.stdout) }}"
 
-    - set_fact:
-        _base_packages: "{{ base.system + audio.jack + audio.pulseaudio + audio.utils|difference(package_list.stdout) }}"
+    - name: Determinng system packages to be installed...
+      set_fact:
+        _system_packages: "{{ base.system|difference(package_list.stdout) }}"
 
-    - set_fact:
-        _network_packages: "{{ base.network|difference(package_list.stdout) }}"
+    - name: Determinng ui packages to be installed...
+      set_fact:
+        _ui_packages: "{{ base.ui|difference(package_list.stdout) }}"
 
-    - set_fact:
-        _audio_packages: "{{ (audio.plugins + audio.applications)|difference(package_list.stdout) }}"
+    - name: Determinng digital art packages to be installed...
+      set_fact:
+        _daw_packages: "{{ digital_art_workstation|difference(package_list.stdout) }}"
 
-    - set_fact:
-        _ui_packages: "{{ (ui.i3 + ui.x11 + ui.fonts)|difference(package_list.stdout) }}"
-
-    - set_fact:
-        _desktop_packages: "{{ desktop|difference(package_list.stdout) }}"
-
-    - set_fact:
-        _docker_packages: "{{ docker|difference(package_list.stdout) }}"
+    - name: test test
+      debug:
+        msg: "{{ _daw_packages }}"
 
   tags: ['vars']
 
-- include: kernel.yml
-  tags: ['grub']
-
 - block:
-    - name: Install Base packages
-      aur:
-        use: auto
-        name: "{{ _base_packages }}"
-        state: present
-      when: _base_packages|length > 0
+    - block:
+        - name: Install kernel packages.
+          aur:
+            use: auto
+            name: "{{ _kernel_packages }}"
+            state: present
+          become: True
+          become_user: "{{ user.name }}"
+          when: _kernel_packages|length > 0
 
-    - name: Install Network packages
-      aur:
-        use: auto
-        name: "{{ _network_packages }}"
-        state: present
-      when: _network_packages|length > 0 and ansible_lsb['id'] != 'Manjaro-ARM'
+        - name: Install Base System Packages
+          aur:
+            use: auto
+            name: "{{ _system_packages }}"
+            state: present
+          when: _system_packages|length > 0
 
-    - name: Install Docker packages
-      aur:
-        use: auto
-        name: "{{ _docker_packages }}"
-        state: present
-      when: _docker_packages|length > 0 and docker_host|bool
+        - name: Install UI Packages
+          aur:
+            use: auto
+            name: "{{ _ui_packages }}"
+            state: present
+          become: True
+          become_user: "{{ user.name }}"
+          when:
+            - _ui_packages|length > 0
+            - graphical_target|bool
+          register: package_result
 
-    - name: Install Audio packages
-      aur:
-        use: auto
-        name: "{{ _audio_packages }}"
-        state: present
-      when: _audio_packages|length > 0 and inventory_hostname in groups['daw']
-      register: package_result
+        - name: Install Digital Art Worksation Packages
+          aur:
+            use: auto
+            name: "{{ _daw_packages }}"
+            state: present
+          become: True
+          become_user: "{{ user.name }}"
+          when:
+            - _daw_packages|length > 0
+            - graphical_target|bool
+          register: package_result
+          tags: ["test"]
 
-    - name: Install UI and Desktop application packages
+      become: True
+      become_user: "{{ user.name }}"
+
+    - name: Install pip
       aur:
         use: auto
-        name: "{{ (_ui_packages + _desktop_packages) }}"
+        name: python-pip
         state: present
       become: True
       become_user: "{{ user.name }}"
-      when:
-        - (_ui_packages|length > 0 or _desktop_packages|length > 0)
-        - graphical_target|bool
-      register: package_result
 
-  become: True
-  become_user: "{{ user.name }}"
+    - block:
+        - name: Gather list of installed python modules
+          command: pip3 list installed | awk '{print $1}'
+          register: pip_list
+          ignore_errors: yes
 
-- name: Install pip
-  aur:
-    use: auto
-    name: python-pip
-    state: present
-  become: True
-  become_user: "{{ user.name }}"
+        - name: determine python modules to install
+          set_fact:
+            _python_modules: "{{ python|difference(pip_list.stdout) }}"
 
-- block:
-    - name: Gather list of installed python modules
-      command: pip3 list installed | awk '{print $1}'
-      register: pip_list
-      ignore_errors: yes
+        # this task will ignore errors in check mode
+        - name: Install python modules
+          pip:
+            name: "{{ _python_modules }}"
+            executable: pip3
+          ignore_errors: "{{ ansible_check_mode }}"
 
-    - name: determine python modules to install
-      set_fact:
-        _python_modules: "{{ python|difference(pip_list.stdout) }}"
+      when: ansible_lsb['id'] != 'Manjaro-ARM'
+      tags: ['python']
 
-    # this task will ignore errors in check mode
-    - name: Install python modules
-      pip:
-        name: "{{ _python_modules }}"
-        executable: pip3
-      ignore_errors: "{{ ansible_check_mode }}"
-
-  when: ansible_lsb['id'] != 'Manjaro-ARM'
-  tags: ['python']
+  when: ansible_os_family == 'Archlinux'
+  tags: ['Archlinux']
