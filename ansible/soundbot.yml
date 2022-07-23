@@ -1,6 +1,6 @@
 ---
 
-- hosts: node
+- hosts: nodes
   strategy: linear
   gather_facts: yes
   vars:
@@ -31,7 +31,7 @@
       PATH: "{{ ansible_env.PATH }}:{{ path|join(':') }}"
 
   pre_tasks:
-    - name: print hostname
+    - name: print lsb_id
       debug: msg="{{ ansible_lsb['id'] }}"
       tags: ['inventory']
 
@@ -74,7 +74,7 @@
   roles:
      - { role: base, tags: ['base'] }
 
-- hosts: daw
+- hosts: daws
   strategy: linear
   gather_facts: yes
   vars:

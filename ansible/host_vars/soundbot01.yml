@@ -1,6 +1,6 @@
 ---
 # vars here will override those found in vars/distro/distro.yml or vars/<role>.yml
-rpi: True
+use_firewall: False
 
 graphical_target: False
 autologin: False
