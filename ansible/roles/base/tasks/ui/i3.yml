@@ -1,4 +1,11 @@
 ---
 
-- include: i3/i3help.yml
-- include: i3/swallow.yml
+- name: install swallow
+  copy:
+    src: usr/local/bin/swallow
+    dest: /usr/local/bin/swallow
+    owner: "{{ user.name }}"
+    group: "{{ user.name }}"
+    mode: '0775'
+    backup: no
+  tags: ['i3-config']
