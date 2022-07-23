@@ -73,3 +73,16 @@
     force: yes
     extra_args: --noconfirm
   tags: ['remove']
+
+- name: Gather list of currently installed packages
+  shell: |
+    if ! [ -x "$(command -v yay)" ]; then
+      pamac list --installed | awk '{ print $1 }'
+    else
+      yay -Qe | awk '{ print $1 }'
+    fi
+  become: True
+  become_user: "{{ user.name }}"
+  register: package_list
+  ignore_errors: True
+  tags: ['vars']

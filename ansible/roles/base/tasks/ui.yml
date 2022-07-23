@@ -27,44 +27,31 @@
     - include: ui/theme.yml
       tags: ['theme']
 
+    - include: ui/icons.yml
+      tags: ['icons']
+
   when: graphical_target|bool
 
-# - include: ui/fonts.yml
-#   tags: ['fonts']
-
-# - include: ui/autologin.yml
-#   tags: ['autologin']
-
-- include: desktop/nvim.yml
-  tags: ['nvim']
-
-- include: desktop/termpdf.yml
-  tags: ['utils']
-
 - block:
-    - include: desktop/nvim.yml
-      tags: ['nvim']
-
     - include: desktop/atom.yml
-      when: install_atom|bool
       tags: ['atom']
 
     - include: desktop/termpdf.yml
-      tags: ['utils']
+      tags: ['termpdf']
 
-  when: inventory_hostname in groups['daw']
-  tags: ['desktop']
+    - name: set thunar as default for opening directories
+      shell: |
+        xdg-mime default thunar.desktop inode/directory
+      become: True
+      become_user: "{{ user.name }}"
+      tags: ['thunar']
 
-- name: set thunar as default for opening directories
-  shell: |
-    xdg-mime default thunar.desktop inode/directory
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['thunar']
+  when: inventory_hostname in groups['daws']
+  tags: ['daw']
 
 - name: set graphical-target as default
   shell: |
     systemctl set-default graphical.target
   register: graphicaltarget
   changed_when: graphicaltarget.rc != 0
-  when: graphical_target|bool
+  when: (graphical_target|bool or inventory_hostname in groups['daws'])

@@ -1,32 +1,47 @@
 ---
 
-- block:
-    - name: Push zshell templates
-      template:
-        src: "dots/{{ item }}.j2"
-        dest: "{{ user.home }}/.{{ item }}"
-        owner: "{{ user.name }}"
-        group: "{{ user.group }}"
-        mode: "0644"
-        backup: yes
-      with_items:
-        - "aliases"
-        - "gitconfig"
-        - "zlogin"
-        - "zshenv"
-        - "zshrc"
+- name: Update user shell defined in group_vars/all
+  user:
+    name: "{{ item }}"
+    shell: /bin/zsh
+  with_items:
+    - root
+    - "{{ user.name }}"
 
-    - name: Push zshell function folder
-      synchronize:
-        src: dots/zsh/
-        dest: "{{ user.home }}/.zsh/"
-        recursive: yes
-        mode: push
-        delete: no
-        checksum: yes
-        perms: no
-        rsync_opts: "--update"
+# TODO: update zshell templates
+# - block:
+#     - name: Push zshell templates
+#       template:
+#         src: "dots/{{ item }}.j2"
+#         dest: "{{ user.home }}/.{{ item }}"
+#         owner: "{{ user.name }}"
+#         group: "{{ user.group }}"
+#         mode: "0644"
+#         backup: yes
+#       with_items:
+#         - "aliases"
+#         - "gitconfig"
+#         - "zlogin"
+#         - "zshenv"
+#         - "zshrc"
+#
+#     - name: Push zshell function folder
+#       synchronize:
+#         src: dots/zsh/
+#         dest: "{{ user.home }}/.zsh/"
+#         recursive: yes
+#         mode: push
+#         delete: no
+#         checksum: yes
+#         perms: no
+#         rsync_opts: "--update"
+#
+#   become: True
+#   become_user: "{{ user.name }}"
+#   tags: ['zsh']
 
-  become: True
-  become_user: "{{ user.name }}"
-  tags: ['ui']
+- include: zsh.yml
+  tags: ['zsh']
+
+- include: nvim.yml
+  tags: ['nvim']

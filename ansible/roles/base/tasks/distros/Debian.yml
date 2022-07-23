@@ -31,27 +31,16 @@
 
 - name: Install kxstudio repo package
   shell: |
-    wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_10.0.3_all.deb
+    wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
 
-    dpkg -i ./kxstudio-repos_10.0.3_all.deb
+    dpkg -i ./kxstudio-repos_11.1.0_all.deb
   args:
     chdir: "{{ local_src }}"
   register: kx_ppa
   when:
-    - repos.kx_repo|bool
+    - repos.kxstudio|bool
     - "'kxstudio' not in aptrepos.stdout"
   tags: ['kxrepo']
-
-- name: Install the Liquorix repos
-  shell: "curl 'https://liquorix.net/add-liquorix-repo.sh' | sudo bash"
-  args:
-    chdir: "{{ local_src }}"
-
-  register: liquorix_ppa
-  when:
-    - repos.liquorix|bool
-    - "'liquorix' not in aptrepos.stdout"
-  tags: ['kernel', 'liquorix']
 
 - block:
     - name: Grab the nodejs deb repo setup script
@@ -136,5 +125,12 @@
     - "'mongodb' not in aptrepos.stdout"
   tags: ['monogodb']
 
-- name: update apt
+- name: Clean apt cache and upate
   shell: "apt clean all && apt-get update -qq"
+
+- name: Gather list of currently installed packages
+  shell: |
+    apt list --installed | awk -F "\/" '{ print $1 }'
+  register: package_list
+  ignore_errors: True
+  tags: ['vars']

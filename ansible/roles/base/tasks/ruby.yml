@@ -19,10 +19,11 @@
   become: True
   become_user: "{{ user.name }}"
 
-- set_fact:
+- name: Determining gems to install...
+  set_fact:
     _gems: "{{ gems|difference(gemlist.stdout) }}"
 
-- name: Install ruby gems
+- name: Install thse Ruby gems
   shell: |
     sudo gem install {{ item }}
   with_items:

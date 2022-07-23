@@ -17,4 +17,4 @@
 
   become: true
   become_user: "{{ user.name }}"
-  tags: ['dots']
+  tags: ['dots', 'shell']

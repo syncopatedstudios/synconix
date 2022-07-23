@@ -7,15 +7,15 @@
     append: yes
 
 # https://docs.ansible.com/ansible/2.4/intro_configuration.html#pipelining
-- name: Disable requiretty for the user so automation can run without interuption.
-  lineinfile:
-    dest: /etc/sudoers
-    regexp: "^Defaults    requiretty"
-    line: "Defaults:{{ user.name }}    !requiretty"
-    backrefs: yes
-    backup: yes
-    validate: 'visudo -cf %s'
-  tags: ['sudoers']
+# - name: Disable requiretty for the user so automation can run without interuption.
+#   lineinfile:
+#     dest: /etc/sudoers
+#     regexp: "^Defaults    requiretty"
+#     line: "Defaults:{{ user.name }}    !requiretty"
+#     backrefs: yes
+#     backup: yes
+#     validate: 'visudo -cf %s'
+#   tags: ['sudoers']
 
 - name: Make it so the user can run sudo without a password.
   lineinfile:
@@ -25,7 +25,7 @@
     validate: 'visudo -cf %s'
     create: yes
     backup: yes
-  tags: ['sudoers']
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'RedHat'
 
 - name: Execute any action without password authentication, similar to "sudo NOPASSWD:"
   template:
@@ -35,8 +35,8 @@
     group: root
     mode: '644'
     backup: no
-  tags: ['polkit','sudoers']
   when: ansible_os_family == 'Archlinux' or ansible_os_family == 'RedHat'
+  tags: ['polkit']
 
 - name: Execute any action without password authentication, similar to "sudo NOPASSWD:"
   template:
@@ -46,5 +46,5 @@
     group: root
     mode: '644'
     backup: no
-  tags: ['polkit','sudoers']
   when: ansible_os_family == 'Debian' or ansible_os_family == 'Zorin OS'
+  tags: ['polkit']

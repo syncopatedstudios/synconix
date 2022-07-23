@@ -8,11 +8,16 @@
   include_vars: "{{ ansible_os_family }}.yml"
   tags: ['vars']
 
-- name: Run tasks specific to ansible_os_family
+- name: Run package tasks specific to ansible_os_family
   include: "distros/{{ ansible_os_family }}.yml"
+  tags: ['vars']
 
 - include: sudoers.yml
   tags: ['sudoers']
+
+- include: kernel.yml
+  tags: ['grub']
+  when: ansible_lsb['id'] != 'Raspbian'
 
 - include: packages.yml
   tags: ['packages']
@@ -22,13 +27,14 @@
   tags: ['network']
 
 - include: firewalld.yml
+  when: use_firewall|bool
   tags: ['firewall']
 
 - include: ssh.yml
   tags: ['ssh']
 
-- include: zsh.yml
-  tags: ['zsh']
+- include: shell.yml
+  tags: ['shell']
 
 - include: dots.yml
   tags: ['dots']
@@ -66,7 +72,6 @@
   tags: ['updatedb']
 
 - include: audio.yml
-  when: inventory_hostname in groups['daw']
   tags: ['audio']
 
 - include: ui.yml
